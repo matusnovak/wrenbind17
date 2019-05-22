@@ -2,13 +2,15 @@ cmake_minimum_required(VERSION 3.0)
 project(wrenbind17)
 
 set(CMAKE_CXX_STANDARD 17)
-option(BUILD_TESTS "Build with tests" ON)
+option(WRENBIND17_BUILD_TESTS "Build with tests" OFF)
 
 add_library(${PROJECT_NAME} INTERFACE)
 set(WRENBIND17_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_include_directories(${PROJECT_NAME} INTERFACE ${WRENBIND17_INCLUDE_DIR})
 
-if(BUILD_TESTS)
+if(WRENBIND17_BUILD_TESTS)
+  enable_testing()
+  
   # Wren
   set(WREN_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs/wren/src/include)
   file(GLOB_RECURSE WREN_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/libs/wren/src/vm/*.c)
@@ -24,4 +26,5 @@ if(BUILD_TESTS)
   add_executable(${PROJECT_NAME}_tests ${TEST_SOURCES})
   target_include_directories(${PROJECT_NAME}_tests PRIVATE ${WREN_INCLUDE_DIR} ${CATCH2_INCLUDE_DIR} ${WRENBIND17_INCLUDE_DIR})
   target_link_libraries(${PROJECT_NAME}_tests PRIVATE Wren ${PROJECT_NAME})
+  add_test(NAME ${PROJECT_NAME}_tests COMMAND ${PROJECT_NAME}_tests)
 endif()
