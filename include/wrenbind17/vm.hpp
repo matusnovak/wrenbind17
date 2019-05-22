@@ -1,0 +1,234 @@
+#pragma once
+
+#include <vector>
+#include <cstring>
+#include <fstream>
+#include <cstdlib>
+#include "module.hpp"
+#include "variable.hpp"
+
+namespace wrenbind17 {
+    typedef std::function<void(const char*)> PrintFn;
+    typedef std::function<std::string(const std::vector<std::string>& paths, const std::string& name)> LoadFileFn;
+
+    class VM {
+    public:
+        inline explicit VM(std::vector<std::string> paths = {"./"}, 
+                           const size_t initHeap = 1024 * 1024, 
+                           const size_t minHeap = 1024 * 1024 * 10, 
+                           const int heapGrowth = 50): 
+                           vm(nullptr), paths(std::move(paths)) {
+
+            printFn = [](const char* text) -> void {
+                std::cout << text;
+            };
+            loadFileFn = [](const std::vector<std::string>& paths, const std::string& name) -> std::string {
+                for (const auto& path : paths) {
+                    const auto test = path + "/" + std::string(name) + ".wren";
+                    
+                    std::ifstream t(test);
+                    if (!t) continue;
+
+                    std::string source((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
+                    return source;
+                }
+
+                throw NotFound();
+            };
+            
+            wrenInitConfiguration(&config);
+            config.initialHeapSize = initHeap;
+            config.minHeapSize = minHeap;
+            config.heapGrowthPercent = heapGrowth;
+            config.userData = this;
+            config.reallocateFn = std::realloc;
+            config.loadModuleFn = [](WrenVM* vm, const char* name) -> char* {
+                auto& self = *reinterpret_cast<VM*>(wrenGetUserData(vm));
+
+                const auto mod = self.modules.find(name);
+                if (mod != self.modules.end()) {
+                    auto source = mod->second.str();
+                    auto buffer = new char[source.size() + 1];
+                    std::memcpy(buffer, &source[0], source.size() + 1);
+                    return buffer;
+                }
+
+                const auto plain = self.plainModules.find(name);
+                if (plain != self.plainModules.end()) {
+                    auto buffer = new char[plain->second.size() + 1];
+                    std::memcpy(buffer, &plain->second[0], plain->second.size() + 1);
+                    return buffer;
+                }
+
+                try {
+                    auto source = self.loadFileFn(self.paths, std::string(name));
+                    auto buffer = new char[source.size() + 1];
+                    std::memcpy(buffer, &source[0], source.size() + 1);
+                    return buffer;
+                } catch (std::exception& e) {
+                    (void)e;
+                    return nullptr;
+                }
+            };
+            config.bindForeignMethodFn = [](WrenVM* vm, const char* module, const char* className, bool isStatic,
+                                            const char* signature) -> WrenForeignMethodFn {
+                auto& self = *reinterpret_cast<VM*>(wrenGetUserData(vm));
+                try {
+                    auto& found = self.modules.at(module);
+                    auto& klass = found.findKlass(className);
+                    auto& func = klass.findFunc(signature);
+                    return func.getMethod();
+                } catch (...) {
+                    exceptionHandler(vm, std::current_exception());
+                    return nullptr;
+                }
+            };
+            config.bindForeignClassFn = [](WrenVM* vm, const char* module, const char* className) -> WrenForeignClassMethods {
+                auto& self = *reinterpret_cast<VM*>(wrenGetUserData(vm));
+                try {
+                    auto& found = self.modules.at(module);
+                    auto& klass = found.findKlass(className);
+                    return klass.getAllocators();
+                } catch (...) {
+                    exceptionHandler(vm, std::current_exception());
+                    return WrenForeignClassMethods{nullptr, nullptr};
+                }
+            };
+            config.writeFn = [](WrenVM* vm, const char* text) {
+                auto& self = *reinterpret_cast<VM*>(wrenGetUserData(vm));
+                self.printFn(text);
+            };
+            config.errorFn = [](WrenVM* vm, WrenErrorType type, const char* module, int line, const char* message) {
+                auto& self = *reinterpret_cast<VM*>(wrenGetUserData(vm));
+                std::stringstream ss;
+                switch (type) {
+                    case WREN_ERROR_COMPILE:
+                        ss << "Compile error: " << message << " at " << module << ":" << line << "\n";
+                        break;
+                    case WREN_ERROR_RUNTIME:
+                        ss << "Runtime error: " << message << "\n";
+                        break;
+                    case WREN_ERROR_STACK_TRACE:
+                        ss << "  at: " << module << ":" << line << "\n";
+                        break;
+                    default:
+                        break;
+                }
+                self.lastError += ss.str();
+            };
+
+            vm = wrenNewVM(&config);
+        }
+        inline VM(const VM& other) = delete;
+        inline VM(VM&& other) noexcept :vm(nullptr) {
+            swap(other);
+        }
+        inline ~VM() {
+            if (vm) {
+                wrenFreeVM(vm);
+            }
+        }
+        inline VM& operator=(const VM&other) = delete;
+        inline VM& operator=(VM&& other) noexcept {
+            if (this != &other) {
+                swap(other);
+            }
+            return *this;
+        }
+        inline void swap(VM& other) noexcept {
+            std::swap(vm, other.vm);
+            std::swap(config, other.config);
+            std::swap(paths, other.paths);
+            std::swap(modules, other.modules);
+            std::swap(classToModule, other.classToModule);
+            std::swap(classToName, other.classToName);
+        }
+
+        inline void runFromSource(const std::string& name, const std::string& code) {
+            const auto result = wrenInterpret(vm, name.c_str(), code.c_str());
+            if (result != WREN_RESULT_SUCCESS) {
+                getLastError();
+            }
+            return;
+        }
+
+        inline void runFromFile(const std::string& name, const std::string& path) {
+            std::ifstream t(path);
+            if (!t) throw Exception("Compile error: Failed to open source file");
+            std::string str((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
+            runFromSource(name, str);
+        }
+
+        inline void runFromModule(const std::string& name) {
+            const auto source = loadFileFn(paths, name);
+            runFromSource(name, source);
+        }
+
+        inline Variable find(const std::string& module, const std::string& name) {
+            wrenEnsureSlots(vm, 1);
+            wrenGetVariable(vm, module.c_str(), name.c_str(), 0);
+            auto* handle = wrenGetSlotHandle(vm, 0);
+            if (!handle) throw NotFound();
+            return Variable(vm, std::make_shared<Handle>(vm, handle));
+        }
+
+        inline ForeignModule& module(const std::string& name) {
+            auto it = modules.find(name);
+            if (it == modules.end()) {
+                it = modules.insert(std::make_pair(name, ForeignModule(name, vm))).first;
+            }
+            return it->second;
+        }
+
+        inline void rawModule(std::string name, std::string source) {
+            plainModules.insert(std::make_pair(std::move(name), std::move(source)));
+        }
+
+        inline void addClassType(const std::string& module, const std::string& name, const size_t hash){
+            classToModule.insert(std::make_pair(hash, module));
+            classToName.insert(std::make_pair(hash, name));
+        }
+
+        inline void getClassType(std::string& module, std::string& name, const size_t hash){
+            module = classToModule.at(hash);
+            name = classToName.at(hash);
+        }
+
+        inline void getLastError() {
+            auto e = std::runtime_error(lastError);
+            lastError.clear();
+            throw e;
+        }
+
+        inline void setPrintFunc(const PrintFn& fn) {
+            printFn = fn;
+        }
+        inline void setLoadFileFunc(const LoadFileFn& fn) {
+            loadFileFn = fn;
+        }
+    private:
+        WrenVM* vm;
+        WrenConfiguration config;
+        std::vector<std::string> paths;
+        std::unordered_map<std::string, ForeignModule> modules;
+        std::unordered_map<std::string, std::string> plainModules;
+        std::unordered_map<size_t, std::string> classToModule;
+        std::unordered_map<size_t, std::string> classToName;
+        std::string lastError;
+        PrintFn printFn;
+        LoadFileFn loadFileFn;
+    };
+
+    inline void addClassType(WrenVM* vm, const std::string& module, const std::string& name, size_t hash) {
+        auto self = reinterpret_cast<VM*>(wrenGetUserData(vm));
+        self->addClassType(module, name, hash);
+    }
+    inline void getClassType(WrenVM* vm, std::string& module, std::string& name, size_t hash) {
+        auto self = reinterpret_cast<VM*>(wrenGetUserData(vm));
+        self->getClassType(module, name, hash);
+    }
+    inline void getLastError(WrenVM* vm) {
+        auto self = reinterpret_cast<VM*>(wrenGetUserData(vm));
+        self->getLastError();
+    }
+} // namespace wrenbind17
