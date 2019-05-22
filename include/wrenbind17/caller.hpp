@@ -45,7 +45,7 @@ namespace wrenbind17 {
     struct ForeignFunctionCaller {
         template <R (*Fn)(Args...), size_t... Is>
         static void callFrom(WrenVM* vm, detail::index_list<Is...>) {
-            //auto self = pop<T*>(vm, 0);
+            // auto self = pop<T*>(vm, 0);
             auto ret = (*Fn)(PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...);
             push<R>(vm, 0, ret);
         }
@@ -64,7 +64,7 @@ namespace wrenbind17 {
     struct ForeignFunctionCaller<void, Args...> {
         template <void (*Fn)(Args...), size_t... Is>
         static void callFrom(WrenVM* vm, detail::index_list<Is...>) {
-            //auto self = pop<T*>(vm, 0);
+            // auto self = pop<T*>(vm, 0);
             (*Fn)(PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...);
         }
 

@@ -6,9 +6,9 @@
 namespace wrenbind17 {
     class Variable {
     public:
-        Variable(): vm(nullptr) {
+        Variable() : vm(nullptr) {
         }
-        Variable(WrenVM* vm, const std::shared_ptr<Handle>& handle): vm(vm), handle(handle) {
+        Variable(WrenVM* vm, const std::shared_ptr<Handle>& handle) : vm(vm), handle(handle) {
         }
         ~Variable() {
             reset();
@@ -31,6 +31,7 @@ namespace wrenbind17 {
             vm = nullptr;
             handle.reset();
         }
+
     private:
         WrenVM* vm;
         std::shared_ptr<Handle> handle;

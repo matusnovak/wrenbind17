@@ -11,7 +11,7 @@ public:
     Vector3() {
         instances.push_back(this);
     }
-    Vector3(float x, float y, float z):x(x),y(y),z(z){
+    Vector3(float x, float y, float z) : x(x), y(y), z(z) {
         instances.push_back(this);
     }
     Vector3(const Vector3& other) {
@@ -20,14 +20,14 @@ public:
     }
     ~Vector3() = default;
 
-    void set(float x, float y, float z){
+    void set(float x, float y, float z) {
         this->x = x;
         this->y = y;
         this->z = z;
     }
 
     float length() const {
-        return std::sqrt(x*x + y*y + z*z);
+        return std::sqrt(x * x + y * y + z * z);
     }
 
     void setFromCopy(Vector3 other) {
@@ -66,13 +66,13 @@ public:
     float z = 0.0f;
 };
 
-#define TEST_SETUP_VECTOR \
-    wren::VM vm; \
-    auto& m = vm.module("test"); \
-    auto& cls = m.klass<Vector3>("Vector3"); \
+#define TEST_SETUP_VECTOR                                                                                              \
+    wren::VM vm;                                                                                                       \
+    auto& m = vm.module("test");                                                                                       \
+    auto& cls = m.klass<Vector3>("Vector3");                                                                           \
     cls.ctor<float, float, float>();
 
-TEST_CASE("Pass class from Wren to C++"){
+TEST_CASE("Pass class from Wren to C++") {
     const std::string code = R"(
         import "test" for Vector3
         var A = Vector3.new(1.1, 2.2, 3.3)
@@ -83,7 +83,7 @@ TEST_CASE("Pass class from Wren to C++"){
         }
     )";
 
-    SECTION("Copy"){
+    SECTION("Copy") {
         TEST_SETUP_VECTOR
         cls.func<&Vector3::setFromCopy>("set");
         vm.runFromSource("main", code);
@@ -95,8 +95,8 @@ TEST_CASE("Pass class from Wren to C++"){
         REQUIRE(instances[0]->z == Approx(3.3f));
     }
     instances.clear();
-    
-    SECTION("Const copy"){
+
+    SECTION("Const copy") {
         TEST_SETUP_VECTOR
         cls.func<&Vector3::setFromConstCopy>("set");
         vm.runFromSource("main", code);
@@ -109,7 +109,7 @@ TEST_CASE("Pass class from Wren to C++"){
     }
     instances.clear();
 
-    SECTION("Reference"){
+    SECTION("Reference") {
         TEST_SETUP_VECTOR
         cls.func<&Vector3::setFromRef>("set");
         vm.runFromSource("main", code);
@@ -122,7 +122,7 @@ TEST_CASE("Pass class from Wren to C++"){
     }
     instances.clear();
 
-    SECTION("Const reference"){
+    SECTION("Const reference") {
         TEST_SETUP_VECTOR
         cls.func<&Vector3::setFromConstRef>("set");
         vm.runFromSource("main", code);
@@ -135,7 +135,7 @@ TEST_CASE("Pass class from Wren to C++"){
     }
     instances.clear();
 
-    SECTION("Pointer"){
+    SECTION("Pointer") {
         TEST_SETUP_VECTOR
         cls.func<&Vector3::setFromPtr>("set");
         vm.runFromSource("main", code);
@@ -148,7 +148,7 @@ TEST_CASE("Pass class from Wren to C++"){
     }
     instances.clear();
 
-    SECTION("Const pointer"){
+    SECTION("Const pointer") {
         TEST_SETUP_VECTOR
         cls.func<&Vector3::setFromConstPtr>("set");
         vm.runFromSource("main", code);
@@ -162,7 +162,7 @@ TEST_CASE("Pass class from Wren to C++"){
     instances.clear();
 }
 
-TEST_CASE("Pass class from C++ to Wren"){
+TEST_CASE("Pass class from C++ to Wren") {
     const std::string code = R"(
         import "test" for Vector3
         var A = Vector3.new(0.0, 0.0, 0.0)
@@ -173,7 +173,7 @@ TEST_CASE("Pass class from C++ to Wren"){
         }
     )";
 
-    SECTION("Copy"){
+    SECTION("Copy") {
         TEST_SETUP_VECTOR
         cls.func<&Vector3::setFromConstRef>("set");
 
@@ -182,14 +182,14 @@ TEST_CASE("Pass class from C++ to Wren"){
         auto baz = vm.find("main", "Foo").func("baz(_)");
         baz(value);
 
-        //REQUIRE(instances.size() == 4);
+        // REQUIRE(instances.size() == 4);
         REQUIRE(instances[0]->x == Approx(1.1f));
         REQUIRE(instances[0]->y == Approx(2.2f));
         REQUIRE(instances[0]->z == Approx(3.3f));
     }
     instances.clear();
 
-    SECTION("Const copy"){
+    SECTION("Const copy") {
         TEST_SETUP_VECTOR
         cls.func<&Vector3::setFromConstRef>("set");
 
@@ -198,14 +198,14 @@ TEST_CASE("Pass class from C++ to Wren"){
         auto baz = vm.find("main", "Foo").func("baz(_)");
         baz(value);
 
-        //REQUIRE(instances.size() == 4);
+        // REQUIRE(instances.size() == 4);
         REQUIRE(instances[0]->x == Approx(1.1f));
         REQUIRE(instances[0]->y == Approx(2.2f));
         REQUIRE(instances[0]->z == Approx(3.3f));
     }
     instances.clear();
 
-    SECTION("Reference"){
+    SECTION("Reference") {
         TEST_SETUP_VECTOR
         cls.func<&Vector3::setFromConstRef>("set");
 
@@ -215,14 +215,14 @@ TEST_CASE("Pass class from C++ to Wren"){
         auto baz = vm.find("main", "Foo").func("baz(_)");
         baz(ref);
 
-        //REQUIRE(instances.size() == 4);
+        // REQUIRE(instances.size() == 4);
         REQUIRE(instances[0]->x == Approx(1.1f));
         REQUIRE(instances[0]->y == Approx(2.2f));
         REQUIRE(instances[0]->z == Approx(3.3f));
     }
     instances.clear();
 
-    SECTION("Const reference"){
+    SECTION("Const reference") {
         TEST_SETUP_VECTOR
         cls.func<&Vector3::setFromConstRef>("set");
 
@@ -232,14 +232,14 @@ TEST_CASE("Pass class from C++ to Wren"){
         auto baz = vm.find("main", "Foo").func("baz(_)");
         baz(ref);
 
-        //REQUIRE(instances.size() == 4);
+        // REQUIRE(instances.size() == 4);
         REQUIRE(instances[0]->x == Approx(1.1f));
         REQUIRE(instances[0]->y == Approx(2.2f));
         REQUIRE(instances[0]->z == Approx(3.3f));
     }
     instances.clear();
 
-    SECTION("Pointer"){
+    SECTION("Pointer") {
         TEST_SETUP_VECTOR
         cls.func<&Vector3::setFromConstRef>("set");
 
@@ -248,14 +248,14 @@ TEST_CASE("Pass class from C++ to Wren"){
         auto baz = vm.find("main", "Foo").func("baz(_)");
         baz(&value);
 
-        //REQUIRE(instances.size() == 4);
+        // REQUIRE(instances.size() == 4);
         REQUIRE(instances[0]->x == Approx(1.1f));
         REQUIRE(instances[0]->y == Approx(2.2f));
         REQUIRE(instances[0]->z == Approx(3.3f));
     }
     instances.clear();
 
-    SECTION("Const pointer"){
+    SECTION("Const pointer") {
         TEST_SETUP_VECTOR
         cls.func<&Vector3::setFromConstRef>("set");
 
@@ -265,7 +265,7 @@ TEST_CASE("Pass class from C++ to Wren"){
         auto baz = vm.find("main", "Foo").func("baz(_)");
         baz(ptr);
 
-        //REQUIRE(instances.size() == 4);
+        // REQUIRE(instances.size() == 4);
         REQUIRE(instances[0]->x == Approx(1.1f));
         REQUIRE(instances[0]->y == Approx(2.2f));
         REQUIRE(instances[0]->z == Approx(3.3f));
@@ -279,7 +279,7 @@ std::vector<Widget*> widgets;
 class Widget {
 public:
     Widget() = delete;
-    Widget(std::string name):name(std::move(name)){
+    Widget(std::string name) : name(std::move(name)) {
         widgets.push_back(this);
     }
     Widget(Widget&& other) = delete;
@@ -296,7 +296,7 @@ public:
     std::string name;
 };
 
-TEST_CASE("Pass class from C++ to Wren as shared_ptr"){
+TEST_CASE("Pass class from C++ to Wren as shared_ptr") {
     const std::string code = R"(
         import "test" for Widget
         var A = Widget.new("Ahoj")
@@ -307,7 +307,7 @@ TEST_CASE("Pass class from C++ to Wren as shared_ptr"){
         }
     )";
 
-    SECTION("std::shared_ptr"){
+    SECTION("std::shared_ptr") {
         wren::VM vm;
         auto& m = vm.module("test");
         auto& cls = m.klass<Widget>("Widget");
@@ -339,7 +339,7 @@ public:
 
 wren::Method Callbacks::callback;
 
-TEST_CASE("Callbacks"){
+TEST_CASE("Callbacks") {
     const std::string code = R"(
         import "test" for Callbacks
         class Foo {
@@ -367,7 +367,7 @@ TEST_CASE("Callbacks"){
     auto& m = vm.module("test");
     auto& cls = m.klass<Callbacks>("Callbacks");
     cls.funcStatic<&Callbacks::add>("add");
-    
+
     vm.runFromSource("main", code);
     auto main = vm.find("main", "Main").func("main()");
     main();

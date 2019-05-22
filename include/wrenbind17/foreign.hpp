@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <ostream>
 #include <unordered_map>
@@ -9,7 +9,8 @@
 namespace wrenbind17 {
     class ForeignMethod {
     public:
-        ForeignMethod(std::string name, WrenForeignMethodFn method, const bool isStatic) : name(std::move(name)), method(method), isStatic(isStatic) {
+        ForeignMethod(std::string name, WrenForeignMethodFn method, const bool isStatic)
+            : name(std::move(name)), method(method), isStatic(isStatic) {
         }
         virtual ~ForeignMethod() = default;
         virtual void generate(std::ostream& os) const = 0;
@@ -77,7 +78,8 @@ namespace wrenbind17 {
     template <typename... Args>
     class ForeignMethodImpl : public ForeignMethod {
     public:
-        ForeignMethodImpl(std::string name, WrenForeignMethodFn fn, const bool isStatic) : ForeignMethod(std::move(name), fn, isStatic) {
+        ForeignMethodImpl(std::string name, WrenForeignMethodFn fn, const bool isStatic)
+            : ForeignMethod(std::move(name), fn, isStatic) {
         }
         ~ForeignMethodImpl() = default;
 
@@ -192,4 +194,4 @@ namespace wrenbind17 {
             props.insert(std::make_pair(p->getName(), std::move(p)));
         }
     };
-}
+} // namespace wrenbind17

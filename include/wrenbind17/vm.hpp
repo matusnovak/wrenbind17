@@ -4,6 +4,7 @@
 #include <cstring>
 #include <fstream>
 #include <cstdlib>
+#include <functional>
 #include "module.hpp"
 #include "variable.hpp"
 
@@ -13,21 +14,18 @@ namespace wrenbind17 {
 
     class VM {
     public:
-        inline explicit VM(std::vector<std::string> paths = {"./"}, 
-                           const size_t initHeap = 1024 * 1024, 
-                           const size_t minHeap = 1024 * 1024 * 10, 
-                           const int heapGrowth = 50): 
-                           vm(nullptr), paths(std::move(paths)) {
+        inline explicit VM(std::vector<std::string> paths = {"./"}, const size_t initHeap = 1024 * 1024,
+                           const size_t minHeap = 1024 * 1024 * 10, const int heapGrowth = 50)
+            : vm(nullptr), paths(std::move(paths)) {
 
-            printFn = [](const char* text) -> void {
-                std::cout << text;
-            };
+            printFn = [](const char* text) -> void { std::cout << text; };
             loadFileFn = [](const std::vector<std::string>& paths, const std::string& name) -> std::string {
                 for (const auto& path : paths) {
                     const auto test = path + "/" + std::string(name) + ".wren";
-                    
+
                     std::ifstream t(test);
-                    if (!t) continue;
+                    if (!t)
+                        continue;
 
                     std::string source((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
                     return source;
@@ -35,7 +33,7 @@ namespace wrenbind17 {
 
                 throw NotFound();
             };
-            
+
             wrenInitConfiguration(&config);
             config.initialHeapSize = initHeap;
             config.minHeapSize = minHeap;
@@ -83,7 +81,8 @@ namespace wrenbind17 {
                     return nullptr;
                 }
             };
-            config.bindForeignClassFn = [](WrenVM* vm, const char* module, const char* className) -> WrenForeignClassMethods {
+            config.bindForeignClassFn = [](WrenVM* vm, const char* module,
+                                           const char* className) -> WrenForeignClassMethods {
                 auto& self = *reinterpret_cast<VM*>(wrenGetUserData(vm));
                 try {
                     auto& found = self.modules.at(module);
@@ -120,7 +119,7 @@ namespace wrenbind17 {
             vm = wrenNewVM(&config);
         }
         inline VM(const VM& other) = delete;
-        inline VM(VM&& other) noexcept :vm(nullptr) {
+        inline VM(VM&& other) noexcept : vm(nullptr) {
             swap(other);
         }
         inline ~VM() {
@@ -128,7 +127,7 @@ namespace wrenbind17 {
                 wrenFreeVM(vm);
             }
         }
-        inline VM& operator=(const VM&other) = delete;
+        inline VM& operator=(const VM& other) = delete;
         inline VM& operator=(VM&& other) noexcept {
             if (this != &other) {
                 swap(other);
@@ -154,7 +153,8 @@ namespace wrenbind17 {
 
         inline void runFromFile(const std::string& name, const std::string& path) {
             std::ifstream t(path);
-            if (!t) throw Exception("Compile error: Failed to open source file");
+            if (!t)
+                throw Exception("Compile error: Failed to open source file");
             std::string str((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
             runFromSource(name, str);
         }
@@ -168,7 +168,8 @@ namespace wrenbind17 {
             wrenEnsureSlots(vm, 1);
             wrenGetVariable(vm, module.c_str(), name.c_str(), 0);
             auto* handle = wrenGetSlotHandle(vm, 0);
-            if (!handle) throw NotFound();
+            if (!handle)
+                throw NotFound();
             return Variable(vm, std::make_shared<Handle>(vm, handle));
         }
 
@@ -184,12 +185,12 @@ namespace wrenbind17 {
             plainModules.insert(std::make_pair(std::move(name), std::move(source)));
         }
 
-        inline void addClassType(const std::string& module, const std::string& name, const size_t hash){
+        inline void addClassType(const std::string& module, const std::string& name, const size_t hash) {
             classToModule.insert(std::make_pair(hash, module));
             classToName.insert(std::make_pair(hash, name));
         }
 
-        inline void getClassType(std::string& module, std::string& name, const size_t hash){
+        inline void getClassType(std::string& module, std::string& name, const size_t hash) {
             module = classToModule.at(hash);
             name = classToName.at(hash);
         }
@@ -206,6 +207,7 @@ namespace wrenbind17 {
         inline void setLoadFileFunc(const LoadFileFn& fn) {
             loadFileFn = fn;
         }
+
     private:
         WrenVM* vm;
         WrenConfiguration config;

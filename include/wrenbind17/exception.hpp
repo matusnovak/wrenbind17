@@ -7,10 +7,10 @@ namespace wrenbind17 {
     public:
         Exception() = default;
 
-        explicit Exception(std::string msg):msg(std::move(msg)) {
+        explicit Exception(std::string msg) : msg(std::move(msg)) {
         }
 
-        const char *what() const throw() override {
+        const char* what() const throw() override {
             return msg.c_str();
         }
 
@@ -20,7 +20,7 @@ namespace wrenbind17 {
 
     class NotFound : public Exception {
     public:
-        NotFound(): Exception("Not found"){
+        NotFound() : Exception("Not found") {
         }
     };
 

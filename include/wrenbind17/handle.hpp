@@ -6,15 +6,15 @@
 namespace wrenbind17 {
     class Handle {
     public:
-        Handle(): vm(nullptr), handle(nullptr) {
+        Handle() : vm(nullptr), handle(nullptr) {
         }
-        Handle(WrenVM* vm, WrenHandle* handle): vm(vm), handle(handle){
+        Handle(WrenVM* vm, WrenHandle* handle) : vm(vm), handle(handle) {
         }
         ~Handle() {
             reset();
         }
         Handle(const Handle& other) = delete;
-        Handle(Handle&& other) noexcept :vm(nullptr), handle(nullptr) {
+        Handle(Handle&& other) noexcept : vm(nullptr), handle(nullptr) {
             swap(other);
         }
         Handle& operator=(const Handle& other) = delete;
@@ -40,6 +40,7 @@ namespace wrenbind17 {
                 handle = nullptr;
             }
         }
+
     private:
         WrenVM* vm;
         WrenHandle* handle;

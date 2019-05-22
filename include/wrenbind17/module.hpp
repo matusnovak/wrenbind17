@@ -6,10 +6,10 @@
 namespace wrenbind17 {
     class ForeignModule {
     public:
-        ForeignModule(std::string name, WrenVM* vm): name(std::move(name)), vm(vm) {
+        ForeignModule(std::string name, WrenVM* vm) : name(std::move(name)), vm(vm) {
         }
         ForeignModule(const ForeignModule& other) = delete;
-        ForeignModule(ForeignModule&& other) noexcept :vm(nullptr) {
+        ForeignModule(ForeignModule&& other) noexcept : vm(nullptr) {
             swap(other);
         }
         ~ForeignModule() = default;
@@ -53,6 +53,7 @@ namespace wrenbind17 {
         const std::string& getName() const {
             return name;
         }
+
     private:
         std::string name;
         WrenVM* vm;

@@ -4,7 +4,7 @@
 
 namespace wren = wrenbind17;
 
-TEST_CASE("Raw modules"){
+TEST_CASE("Raw modules") {
     const std::string test = R"(
         class Foo {
             msg {_msg}

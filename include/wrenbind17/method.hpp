@@ -5,18 +5,19 @@
 namespace wrenbind17 {
     class Method {
     public:
-        Method(): vm(nullptr){
+        Method() : vm(nullptr) {
         }
-        Method(WrenVM* vm, const std::shared_ptr<Handle>& variable, const std::shared_ptr<Handle>& handle): 
-            vm(vm), variable(variable), handle(handle) {
+        Method(WrenVM* vm, const std::shared_ptr<Handle>& variable, const std::shared_ptr<Handle>& handle)
+            : vm(vm), variable(variable), handle(handle) {
         }
         ~Method() {
             reset();
         }
-        
-        template<typename... Args>
+
+        template <typename... Args>
         ReturnValue operator()(Args&&... args) {
-            return CallAndReturn<Args...>::func(vm, variable->getHandle(), handle->getHandle(), std::forward<Args>(args)...);
+            return CallAndReturn<Args...>::func(vm, variable->getHandle(), handle->getHandle(),
+                                                std::forward<Args>(args)...);
         }
 
         operator bool() const {
@@ -28,6 +29,7 @@ namespace wrenbind17 {
             handle.reset();
             variable.reset();
         }
+
     private:
         WrenVM* vm;
         std::shared_ptr<Handle> variable;

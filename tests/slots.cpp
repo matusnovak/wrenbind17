@@ -5,14 +5,14 @@ namespace wren = wrenbind17;
 
 template <typename T>
 static void sendAndCheck(wren::Method& method, const T& value) {
-    //std::cout << "sendAndCheck with T=" << typeid(T).name() << std::endl;
+    // std::cout << "sendAndCheck with T=" << typeid(T).name() << std::endl;
     auto ret = method.operator()(value);
     REQUIRE(ret.template is<T>());
     auto v = ret.template as<T>();
     REQUIRE(v == value);
 }
 
-TEST_CASE("Set slot and return by calling Wren"){
+TEST_CASE("Set slot and return by calling Wren") {
     wren::VM vm;
 
     const std::string code = R"(
@@ -25,14 +25,14 @@ TEST_CASE("Set slot and return by calling Wren"){
 
     vm.runFromSource("main", code);
     auto baz = vm.find("main", "Foo").func("baz(_)");
-    
+
     sendAndCheck<char>(baz, 42);
     sendAndCheck<short>(baz, 42);
     sendAndCheck<int>(baz, 42);
     sendAndCheck<long>(baz, 42);
     sendAndCheck<long long>(baz, 42);
-    //sendAndCheck<unsigned char>(baz, 42);
-    //sendAndCheck<unsigned short>(baz, 42);
+    // sendAndCheck<unsigned char>(baz, 42);
+    // sendAndCheck<unsigned short>(baz, 42);
     sendAndCheck<unsigned int>(baz, 42);
     sendAndCheck<unsigned long>(baz, 42);
     sendAndCheck<unsigned long long>(baz, 42);
@@ -52,10 +52,10 @@ TEST_CASE("Set slot and return by calling Wren"){
 
 void* instance = nullptr;
 
-template<typename T>
+template <typename T>
 class GetSlotTest {
 public:
-    GetSlotTest(T value):value(value){
+    GetSlotTest(T value) : value(value) {
         instance = this;
     }
     ~GetSlotTest() = default;
@@ -68,7 +68,7 @@ public:
     T value;
 };
 
-template<typename T>
+template <typename T>
 void testCaseGetSlotByCallingCpp(const std::string& initStr, T init, const std::string& nextStr, T next) {
     wren::VM vm;
 
@@ -89,7 +89,7 @@ void testCaseGetSlotByCallingCpp(const std::string& initStr, T init, const std::
     ss << "}\n";
     const auto code = ss.str();
 
-    //std::cout << code << std::endl;
+    // std::cout << code << std::endl;
 
     vm.runFromSource("main", code);
     auto ptr = reinterpret_cast<GetSlotTestType*>(instance);
@@ -103,7 +103,7 @@ void testCaseGetSlotByCallingCpp(const std::string& initStr, T init, const std::
     REQUIRE(ptr->value == next);
 }
 
-TEST_CASE("Get slot by calling C++"){
+TEST_CASE("Get slot by calling C++") {
     testCaseGetSlotByCallingCpp<char>("42", 42, "123", 123);
     testCaseGetSlotByCallingCpp<short>("42", 42, "123", 123);
     testCaseGetSlotByCallingCpp<int>("42", 42, "123", 123);
@@ -127,18 +127,17 @@ TEST_CASE("Get slot by calling C++"){
 class Vector3 {
 public:
     Vector3() = default;
-    Vector3(float x, float y, float z):x(x),y(y),z(z){
-
+    Vector3(float x, float y, float z) : x(x), y(y), z(z) {
     }
 
-    void set(float x, float y, float z){
+    void set(float x, float y, float z) {
         this->x = x;
         this->y = y;
         this->z = z;
     }
 
     float length() const {
-        return std::sqrt(x*x + y*y + z*z);
+        return std::sqrt(x * x + y * y + z * z);
     }
 
     float x = 0.0f;
@@ -146,7 +145,7 @@ public:
     float z = 0.0f;
 };
 
-TEST_CASE("Slots as classes"){
+TEST_CASE("Slots as classes") {
     wren::VM vm;
 
     auto& m = vm.module("test");
@@ -228,7 +227,7 @@ TEST_CASE("String slots") {
     copy(std::string("Hello World"));
     REQUIRE(Foo::str == "Hello World");
     Foo::str.clear();
-    
+
     constCopy(static_cast<const std::string>(std::string("Hello World")));
     REQUIRE(Foo::str == "Hello World");
     Foo::str.clear();
