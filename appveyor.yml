@@ -46,7 +46,7 @@ install:
   - cmd: mkdir build
   - cmd: set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
   - cmd: set PATH=%MINGW_DIR_BIN%;%PATH%
-  - cmd: cd build & cmake .. -G %GENERATOR% -DCMAKE_BUILD_TYPE=MinSizeRel || exit 1 & cd ..
+  - cmd: cd build & cmake .. -G %GENERATOR% -DWRENBIND17_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=MinSizeRel || exit 1 & cd ..
 
 build_script:
   - cmd: cd build & cmake --build . || exit 1 & cd ..
