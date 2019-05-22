@@ -1,11 +1,53 @@
 #pragma once
 
-#include <any>
 #include <typeinfo>
 #include "handle.hpp"
 #include "slots.hpp"
 
 namespace wrenbind17 {
+    namespace detail {
+        class Holder {
+        public:
+            class Dummy {
+            public:
+                virtual const std::type_info& type() const = 0;
+            };
+
+            template <typename T>
+            class Data : public Dummy {
+            public:
+                Data(T value) : value(std::move(value)) {
+                }
+                ~Data() = default;
+                const std::type_info& type() const override {
+                    return typeid(T);
+                };
+
+                T value;
+            };
+
+            template <typename T>
+            Holder(T value) : dummy(std::unique_ptr<Dummy>(new Data<T>(std::move(value)))) {
+            }
+            ~Holder() = default;
+
+            template <typename T>
+            T as() const {
+                if (!is<T>())
+                    throw BadCast();
+                return reinterpret_cast<Data<T>*>(dummy.get())->value;
+            }
+
+            template <typename T>
+            bool is() const {
+                return dummy->type() == typeid(T);
+            }
+
+        private:
+            std::unique_ptr<Dummy> dummy;
+        };
+    } // namespace detail
+
     class ReturnValue {
     public:
         explicit ReturnValue(double value) : type{WrenType::WREN_TYPE_NUM}, value{value} {};
@@ -23,7 +65,7 @@ namespace wrenbind17 {
             if (type != WREN_TYPE_FOREIGN)
                 return false;
             using Type = typename std::remove_const<typename std::remove_reference<T>::type>::type;
-            auto foreign = reinterpret_cast<ForeignObject<Type>*>(std::any_cast<void*>(value));
+            auto foreign = reinterpret_cast<ForeignObject<Type>*>(value.as<void*>());
             return foreign->hash() == typeid(Type).hash_code();
         }
 
@@ -32,7 +74,7 @@ namespace wrenbind17 {
             if (type != WREN_TYPE_FOREIGN)
                 throw BadCast();
             using Type = typename std::remove_const<typename std::remove_reference<T>::type>::type;
-            auto foreign = reinterpret_cast<ForeignObject<Type>*>(std::any_cast<void*>(value));
+            auto foreign = reinterpret_cast<ForeignObject<Type>*>(value.as<void*>());
             if (foreign->hash() != typeid(Type).hash_code()) {
                 throw BadCast();
             }
@@ -44,7 +86,7 @@ namespace wrenbind17 {
             if (type != WREN_TYPE_FOREIGN)
                 throw BadCast();
             using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
-            auto foreign = reinterpret_cast<ForeignObject<Type>*>(std::any_cast<void*>(value));
+            auto foreign = reinterpret_cast<ForeignObject<Type>*>(value.as<void*>());
             if (foreign->hash() != typeid(Type).hash_code()) {
                 throw BadCast();
             }
@@ -53,7 +95,7 @@ namespace wrenbind17 {
 
     private:
         WrenType type;
-        std::any value;
+        detail::Holder value;
     };
 
     template <>
@@ -138,82 +180,82 @@ namespace wrenbind17 {
 
     template <>
     inline int8_t ReturnValue::as<int8_t>() {
-        return static_cast<int8_t>(std::any_cast<double>(value));
+        return static_cast<int8_t>(value.as<double>());
     }
 
     template <>
     inline char ReturnValue::as<char>() {
-        return static_cast<char>(std::any_cast<double>(value));
+        return static_cast<char>(value.as<double>());
     }
 
     template <>
     inline short ReturnValue::as<short>() {
-        return static_cast<short>(std::any_cast<double>(value));
+        return static_cast<short>(value.as<double>());
     }
 
     template <>
     inline int ReturnValue::as<int>() {
-        return static_cast<int>(std::any_cast<double>(value));
+        return static_cast<int>(value.as<double>());
     }
 
     template <>
     inline long ReturnValue::as<long>() {
-        return static_cast<long>(std::any_cast<double>(value));
+        return static_cast<long>(value.as<double>());
     }
 
     template <>
     inline long long ReturnValue::as<long long>() {
-        return static_cast<long long>(std::any_cast<double>(value));
+        return static_cast<long long>(value.as<double>());
     }
 
     template <>
     inline unsigned char ReturnValue::as<unsigned char>() {
-        return static_cast<char>(std::any_cast<double>(value));
+        return static_cast<char>(value.as<double>());
     }
 
     template <>
     inline unsigned short ReturnValue::as<unsigned short>() {
-        return static_cast<short>(std::any_cast<double>(value));
+        return static_cast<short>(value.as<double>());
     }
 
     template <>
     inline unsigned int ReturnValue::as<unsigned int>() {
-        return static_cast<int>(std::any_cast<double>(value));
+        return static_cast<int>(value.as<double>());
     }
 
     template <>
     inline unsigned long ReturnValue::as<unsigned long>() {
-        return static_cast<long>(std::any_cast<double>(value));
+        return static_cast<long>(value.as<double>());
     }
 
     template <>
     inline unsigned long long ReturnValue::as<unsigned long long>() {
-        return static_cast<unsigned long long>(std::any_cast<double>(value));
+        return static_cast<unsigned long long>(value.as<double>());
     }
 
     template <>
     inline float ReturnValue::as<float>() {
-        return static_cast<float>(std::any_cast<double>(value));
+        return static_cast<float>(value.as<double>());
     }
 
     template <>
     inline double ReturnValue::as<double>() {
-        return std::any_cast<double>(value);
+        return value.as<double>();
     }
 
     template <>
     inline bool ReturnValue::as<bool>() {
-        return std::any_cast<bool>(value);
+        return value.as<bool>();
     }
 
     template <>
     inline std::string ReturnValue::as<std::string>() {
-        return std::any_cast<std::string>(value);
+        return value.as<std::string>();
     }
 
     template <>
     inline std::nullptr_t ReturnValue::as<std::nullptr_t>() {
-        return std::any_cast<std::nullptr_t>(value);
+        return value.as<std::nullptr_t>();
     }
 
     inline void pushArgs(WrenVM* vm, int idx) {
