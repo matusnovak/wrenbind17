@@ -36,10 +36,10 @@ script:
   - cmake --build . || travis_terminate 1
   - ctest --verbose || travis_terminate 1
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      lcov --directory . --capture --output-file coverage.info
-      lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' '*tests*' '*catch2*' '*vm*' --output-file coverage.info
-      lcov --list coverage.info
-      bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
+      lcov --directory . --capture --output-file coverage.info;
+      lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' '*tests*' '*catch2*' '*vm*' --output-file coverage.info;
+      lcov --list coverage.info;
+      bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports";
     fi
 
 notifications:
