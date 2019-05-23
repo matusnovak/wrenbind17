@@ -118,22 +118,28 @@ namespace wrenbind17 {
 
             vm = wrenNewVM(&config);
         }
+
         inline VM(const VM& other) = delete;
+
         inline VM(VM&& other) noexcept : vm(nullptr) {
             swap(other);
         }
+
         inline ~VM() {
             if (vm) {
                 wrenFreeVM(vm);
             }
         }
+
         inline VM& operator=(const VM& other) = delete;
+
         inline VM& operator=(VM&& other) noexcept {
             if (this != &other) {
                 swap(other);
             }
             return *this;
         }
+
         inline void swap(VM& other) noexcept {
             std::swap(vm, other.vm);
             std::swap(config, other.config);
@@ -204,8 +210,13 @@ namespace wrenbind17 {
         inline void setPrintFunc(const PrintFn& fn) {
             printFn = fn;
         }
+
         inline void setLoadFileFunc(const LoadFileFn& fn) {
             loadFileFn = fn;
+        }
+
+        inline WrenVM* getVm() const {
+            return vm;
         }
 
     private:

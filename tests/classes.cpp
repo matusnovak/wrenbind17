@@ -89,7 +89,7 @@ TEST_CASE("Pass class from Wren to C++") {
         vm.runFromSource("main", code);
         auto baz = vm.find("main", "Foo").func("baz()");
         baz();
-        REQUIRE(instances.size() == 2);
+        REQUIRE(instances.size() >= 2);
         REQUIRE(instances[0]->x == Approx(1.1f));
         REQUIRE(instances[0]->y == Approx(2.2f));
         REQUIRE(instances[0]->z == Approx(3.3f));
@@ -102,7 +102,7 @@ TEST_CASE("Pass class from Wren to C++") {
         vm.runFromSource("main", code);
         auto baz = vm.find("main", "Foo").func("baz()");
         baz();
-        REQUIRE(instances.size() == 2);
+        REQUIRE(instances.size() >= 2);
         REQUIRE(instances[0]->x == Approx(1.1f));
         REQUIRE(instances[0]->y == Approx(2.2f));
         REQUIRE(instances[0]->z == Approx(3.3f));

@@ -4,6 +4,25 @@ project(WrenBind17)
 option(WRENBIND17_BUILD_TESTS "Build with tests" OFF)
 option(WRENBIND17_BUILD_WREN "Build Wren library too" OFF)
 
+if(WRENBIND17_BUILD_TESTS)
+  # Code Coverage Configuration
+  add_library(coverage_config INTERFACE)
+
+  if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    # Add required flags (GCC & LLVM/Clang)
+    target_compile_options(coverage_config INTERFACE
+      -O0        # no optimization
+      -g         # generate debug info
+      --coverage # sets all required flags
+    )
+    if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
+      target_link_options(coverage_config INTERFACE --coverage)
+    else()
+      target_link_libraries(coverage_config INTERFACE --coverage)
+    endif()
+  endif()
+endif()
+
 add_library(${PROJECT_NAME} INTERFACE)
 set(WRENBIND17_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -20,6 +39,8 @@ if(WRENBIND17_BUILD_TESTS OR WRENBIND17_BUILD_WREN)
 endif()
 
 if(WRENBIND17_BUILD_TESTS)
+  target_link_libraries(${PROJECT_NAME} INTERFACE coverage_config)
+
   enable_testing()
   # Catch2
   set(CATCH2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs/Catch2/single_include)
@@ -29,5 +50,6 @@ if(WRENBIND17_BUILD_TESTS)
   set_target_properties(${PROJECT_NAME}_tests PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF)
   target_include_directories(${PROJECT_NAME}_tests PRIVATE ${CATCH2_INCLUDE_DIR})
   target_link_libraries(${PROJECT_NAME}_tests PUBLIC Wren ${PROJECT_NAME})
+  target_link_libraries(${PROJECT_NAME}_tests PRIVATE coverage_config)
   add_test(NAME ${PROJECT_NAME}_tests COMMAND ${PROJECT_NAME}_tests)
 endif()
