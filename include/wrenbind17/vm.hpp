@@ -87,8 +87,7 @@ namespace wrenbind17 {
                 try {
                     auto& found = self.modules.at(module);
                     auto& klass = found.findKlass(className);
-                    auto& func = klass.findFunc(signature);
-                    return func.getMethod();
+                    return klass.findSignature(signature);
                 } catch (...) {
                     exceptionHandler(vm, std::current_exception());
                     return nullptr;

@@ -9,7 +9,7 @@
  */
 namespace wrenbind17 {
     namespace detail {
-        class Holder {
+        /*class Holder {
         public:
             class Dummy {
             public:
@@ -48,8 +48,96 @@ namespace wrenbind17 {
 
         private:
             std::unique_ptr<Dummy> dummy;
-        };
+        };*/
     } // namespace detail
+
+    /**
+     * @ingroup wrenbind17
+     */
+    class Any {
+    public:
+        class Content {
+        public:
+            virtual ~Content() {
+            }
+            virtual const std::type_info& getTypeid() const = 0;
+        };
+
+        template <typename T>
+        class Data : public Content {
+        public:
+            template <class... Args>
+            Data(Args&&... args) : value(std::forward<Args>(args)...) {
+            }
+            virtual ~Data() = default;
+            const std::type_info& getTypeid() const override {
+                return typeid(T);
+            }
+            T& get() {
+                return value;
+            }
+            const T& get() const {
+                return value;
+            }
+
+        private:
+            T value;
+        };
+
+        inline Any() : content(nullptr) {
+        }
+
+        inline Any(const Any& other) = delete;
+        inline Any(Any&& other) noexcept {
+            swap(other);
+        }
+        inline Any& operator=(const Any& other) = delete;
+        inline Any& operator=(Any&& other) noexcept {
+            if (this != &other) {
+                swap(other);
+            }
+            return *this;
+        }
+        inline void swap(Any& other) {
+            std::swap(content, other.content);
+        }
+
+        template <typename T>
+        inline Any(T value) : content(new Data<T>{value}) {
+        }
+
+        inline virtual ~Any() = default;
+
+        template <typename T>
+        inline T as() const {
+            if (content == nullptr || content->getTypeid() != typeid(T)) {
+                throw BadCast();
+            }
+            return static_cast<const Data<T>&>(*content.get()).get();
+        }
+
+        template <class T>
+        inline bool is() const {
+            if (empty())
+                return false;
+            return (content->getTypeid() == typeid(T));
+        }
+
+        inline bool empty() const {
+            return content == nullptr;
+        }
+
+    private:
+        std::unique_ptr<Content> content;
+    };
+
+    template <>
+    inline std::nullptr_t Any::as() const {
+        if (!empty()) {
+            throw BadCast();
+        }
+        return nullptr;
+    }
 
     /**
      * @ingroup wrenbind17
@@ -60,7 +148,7 @@ namespace wrenbind17 {
 
         explicit ReturnValue(bool value) : type{WrenType::WREN_TYPE_BOOL}, value{value} {};
 
-        explicit ReturnValue(std::nullptr_t value) : type{WrenType::WREN_TYPE_NULL}, value{value} {};
+        explicit ReturnValue(std::nullptr_t value) : type{WrenType::WREN_TYPE_NULL}, value{} {};
 
         explicit ReturnValue(std::string value) : type{WrenType::WREN_TYPE_STRING}, value{std::move(value)} {};
 
@@ -89,6 +177,8 @@ namespace wrenbind17 {
 
         template <typename T>
         inline typename std::enable_if<std::is_pointer<T>::value, T>::type as() {
+            if (type == WREN_TYPE_NULL)
+                return nullptr;
             if (type != WREN_TYPE_FOREIGN)
                 throw BadCast();
             using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
@@ -101,7 +191,7 @@ namespace wrenbind17 {
 
     private:
         WrenType type;
-        detail::Holder value;
+        Any value;
     };
 
     template <>
