@@ -6,7 +6,13 @@
 #include "allocator.hpp"
 #include "caller.hpp"
 
+/**
+ * @ingroup wrenbind17
+ */
 namespace wrenbind17 {
+    /**
+     * @ingroup wrenbind17
+     */
     class ForeignMethod {
     public:
         ForeignMethod(std::string name, WrenForeignMethodFn method, const bool isStatic)
@@ -29,6 +35,9 @@ namespace wrenbind17 {
         bool isStatic;
     };
 
+    /**
+     * @ingroup wrenbind17
+     */
     class ForeignProp {
     public:
         ForeignProp(std::string name) : name(std::move(name)) {
@@ -44,6 +53,9 @@ namespace wrenbind17 {
         std::string name;
     };
 
+    /**
+     * @ingroup wrenbind17
+     */
     class ForeignKlass {
     public:
         ForeignKlass(std::string name) : name(std::move(name)) {
@@ -75,6 +87,9 @@ namespace wrenbind17 {
         WrenForeignClassMethods allocators;
     };
 
+    /**
+     * @ingroup wrenbind17
+     */
     template <typename... Args>
     class ForeignMethodImpl : public ForeignMethod {
     public:
@@ -96,6 +111,9 @@ namespace wrenbind17 {
         }
     };
 
+    /**
+     * @ingroup wrenbind17
+     */
     template <typename T, typename V>
     class ForeignPropImpl : public ForeignProp {
     public:
@@ -112,19 +130,24 @@ namespace wrenbind17 {
         V T::*ptr;
     };
 
-    template <typename Signature, Signature signature>
-    struct ForeignFunctionDetails;
+    namespace detail {
+        template <typename Signature, Signature signature>
+        struct ForeignFunctionDetails;
 
-    template <typename R, typename... Args, R (*Fn)(Args...)>
-    struct ForeignFunctionDetails<R (*)(Args...), Fn> {
-        typedef ForeignMethodImpl<Args...> ForeignMethodImplType;
+        template <typename R, typename... Args, R (*Fn)(Args...)>
+        struct ForeignFunctionDetails<R (*)(Args...), Fn> {
+            typedef ForeignMethodImpl<Args...> ForeignMethodImplType;
 
-        static std::unique_ptr<ForeignMethodImplType> make(std::string name) {
-            auto p = ForeignFunctionCaller<R, Args...>::template call<Fn>;
-            return std::make_unique<ForeignMethodImplType>(std::move(name), p, true);
-        }
-    };
+            static std::unique_ptr<ForeignMethodImplType> make(std::string name) {
+                auto p = detail::ForeignFunctionCaller<R, Args...>::template call<Fn>;
+                return std::make_unique<ForeignMethodImplType>(std::move(name), p, true);
+            }
+        };
+    } // namespace detail
 
+    /**
+     * @ingroup wrenbind17
+     */
     template <typename T>
     class ForeignKlassImpl : public ForeignKlass {
     public:
@@ -148,8 +171,8 @@ namespace wrenbind17 {
 
         template <typename... Args>
         void ctor() {
-            allocators.allocate = &ForeignKlassAllocator<T, Args...>::allocate;
-            allocators.finalize = &ForeignKlassAllocator<T, Args...>::finalize;
+            allocators.allocate = &detail::ForeignKlassAllocator<T, Args...>::allocate;
+            allocators.finalize = &detail::ForeignKlassAllocator<T, Args...>::finalize;
             std::stringstream ss;
             ss << "(";
             constexpr auto n = sizeof...(Args);
@@ -171,7 +194,7 @@ namespace wrenbind17 {
             typedef ForeignMethodImpl<Args...> ForeignMethodImplType;
 
             static std::unique_ptr<ForeignMethodImplType> make(std::string name) {
-                auto p = ForeignMethodCaller<R, T, Args...>::template call<Fn>;
+                auto p = detail::ForeignMethodCaller<R, T, Args...>::template call<Fn>;
                 return std::make_unique<ForeignMethodImplType>(std::move(name), p, false);
             }
         };
@@ -184,7 +207,7 @@ namespace wrenbind17 {
 
         template <auto Fn>
         void funcStatic(std::string name) {
-            auto ptr = ForeignFunctionDetails<decltype(Fn), Fn>::make(std::move(name));
+            auto ptr = detail::ForeignFunctionDetails<decltype(Fn), Fn>::make(std::move(name));
             methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 

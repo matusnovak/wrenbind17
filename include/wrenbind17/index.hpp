@@ -1,5 +1,8 @@
 #pragma once
 
+/**
+ * @ingroup wrenbind17
+ */
 namespace wrenbind17 {
     namespace detail {
         template <size_t... Is>

@@ -4,6 +4,9 @@
 #include "handle.hpp"
 #include "slots.hpp"
 
+/**
+ * @ingroup wrenbind17
+ */
 namespace wrenbind17 {
     namespace detail {
         class Holder {
@@ -48,6 +51,9 @@ namespace wrenbind17 {
         };
     } // namespace detail
 
+    /**
+     * @ingroup wrenbind17
+     */
     class ReturnValue {
     public:
         explicit ReturnValue(double value) : type{WrenType::WREN_TYPE_NUM}, value{value} {};
@@ -65,7 +71,7 @@ namespace wrenbind17 {
             if (type != WREN_TYPE_FOREIGN)
                 return false;
             using Type = typename std::remove_const<typename std::remove_reference<T>::type>::type;
-            auto foreign = reinterpret_cast<ForeignObject<Type>*>(value.as<void*>());
+            auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
             return foreign->hash() == typeid(Type).hash_code();
         }
 
@@ -74,7 +80,7 @@ namespace wrenbind17 {
             if (type != WREN_TYPE_FOREIGN)
                 throw BadCast();
             using Type = typename std::remove_const<typename std::remove_reference<T>::type>::type;
-            auto foreign = reinterpret_cast<ForeignObject<Type>*>(value.as<void*>());
+            auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
             if (foreign->hash() != typeid(Type).hash_code()) {
                 throw BadCast();
             }
@@ -86,7 +92,7 @@ namespace wrenbind17 {
             if (type != WREN_TYPE_FOREIGN)
                 throw BadCast();
             using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
-            auto foreign = reinterpret_cast<ForeignObject<Type>*>(value.as<void*>());
+            auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
             if (foreign->hash() != typeid(Type).hash_code()) {
                 throw BadCast();
             }
@@ -258,41 +264,43 @@ namespace wrenbind17 {
         return value.as<std::nullptr_t>();
     }
 
-    inline void pushArgs(WrenVM* vm, int idx) {
-    }
-    template <typename First, typename... Other>
-    inline void pushArgs(WrenVM* vm, int idx, First&& first, Other&&... other) {
-        push(vm, idx, first);
-        pushArgs(vm, ++idx, std::forward<Other>(other)...);
-    }
-
-    template <typename... Args>
-    struct CallAndReturn {
-        static ReturnValue func(WrenVM* vm, WrenHandle* handle, WrenHandle* func, Args&&... args) {
-            constexpr auto n = sizeof...(Args);
-            wrenEnsureSlots(vm, n + 1);
-            wrenSetSlotHandle(vm, 0, handle);
-
-            pushArgs(vm, 1, std::forward<Args>(args)...);
-
-            auto r = wrenCall(vm, func);
-            if (r != WREN_RESULT_SUCCESS) {
-                getLastError(vm);
-            }
-
-            const auto type = wrenGetSlotType(vm, 0);
-            switch (type) {
-                case WrenType::WREN_TYPE_BOOL:
-                    return ReturnValue(wrenGetSlotBool(vm, 0));
-                case WrenType::WREN_TYPE_NUM:
-                    return ReturnValue(wrenGetSlotDouble(vm, 0));
-                case WrenType::WREN_TYPE_STRING:
-                    return ReturnValue(std::string(wrenGetSlotString(vm, 0)));
-                case WrenType::WREN_TYPE_FOREIGN:
-                    return ReturnValue(wrenGetSlotForeign(vm, 0));
-                default:
-                    return ReturnValue(nullptr);
-            }
+    namespace detail {
+        inline void pushArgs(WrenVM* vm, int idx) {
         }
-    };
+        template <typename First, typename... Other>
+        inline void pushArgs(WrenVM* vm, int idx, First&& first, Other&&... other) {
+            push(vm, idx, first);
+            pushArgs(vm, ++idx, std::forward<Other>(other)...);
+        }
+
+        template <typename... Args>
+        struct CallAndReturn {
+            static ReturnValue func(WrenVM* vm, WrenHandle* handle, WrenHandle* func, Args&&... args) {
+                constexpr auto n = sizeof...(Args);
+                wrenEnsureSlots(vm, n + 1);
+                wrenSetSlotHandle(vm, 0, handle);
+
+                pushArgs(vm, 1, std::forward<Args>(args)...);
+
+                auto r = wrenCall(vm, func);
+                if (r != WREN_RESULT_SUCCESS) {
+                    getLastError(vm);
+                }
+
+                const auto type = wrenGetSlotType(vm, 0);
+                switch (type) {
+                    case WrenType::WREN_TYPE_BOOL:
+                        return ReturnValue(wrenGetSlotBool(vm, 0));
+                    case WrenType::WREN_TYPE_NUM:
+                        return ReturnValue(wrenGetSlotDouble(vm, 0));
+                    case WrenType::WREN_TYPE_STRING:
+                        return ReturnValue(std::string(wrenGetSlotString(vm, 0)));
+                    case WrenType::WREN_TYPE_FOREIGN:
+                        return ReturnValue(wrenGetSlotForeign(vm, 0));
+                    default:
+                        return ReturnValue(nullptr);
+                }
+            }
+        };
+    } // namespace detail
 } // namespace wrenbind17

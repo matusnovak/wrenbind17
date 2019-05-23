@@ -3,7 +3,13 @@
 #include <sstream>
 #include "foreign.hpp"
 
+/**
+ * @ingroup wrenbind17
+ */
 namespace wrenbind17 {
+    /**
+     * @ingroup wrenbind17
+     */
     class ForeignModule {
     public:
         ForeignModule(std::string name, WrenVM* vm) : name(std::move(name)), vm(vm) {

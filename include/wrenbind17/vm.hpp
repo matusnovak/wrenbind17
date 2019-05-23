@@ -8,10 +8,23 @@
 #include "module.hpp"
 #include "variable.hpp"
 
+/**
+ * @ingroup wrenbind17
+ */
 namespace wrenbind17 {
+    /**
+     * @ingroup wrenbind17
+     */
     typedef std::function<void(const char*)> PrintFn;
+
+    /**
+     * @ingroup wrenbind17
+     */
     typedef std::function<std::string(const std::vector<std::string>& paths, const std::string& name)> LoadFileFn;
 
+    /**
+     * @ingroup wrenbind17
+     */
     class VM {
     public:
         inline explicit VM(std::vector<std::string> paths = {"./"}, const size_t initHeap = 1024 * 1024,

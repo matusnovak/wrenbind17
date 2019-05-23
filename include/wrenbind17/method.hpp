@@ -2,7 +2,13 @@
 
 #include "call.hpp"
 
+/**
+ * @ingroup wrenbind17
+ */
 namespace wrenbind17 {
+    /**
+     * @ingroup wrenbind17
+     */
     class Method {
     public:
         Method() : vm(nullptr) {
@@ -16,8 +22,8 @@ namespace wrenbind17 {
 
         template <typename... Args>
         ReturnValue operator()(Args&&... args) {
-            return CallAndReturn<Args...>::func(vm, variable->getHandle(), handle->getHandle(),
-                                                std::forward<Args>(args)...);
+            return detail::CallAndReturn<Args...>::func(vm, variable->getHandle(), handle->getHandle(),
+                                                        std::forward<Args>(args)...);
         }
 
         operator bool() const {

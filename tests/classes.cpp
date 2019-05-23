@@ -1,5 +1,5 @@
 #include <catch2/catch.hpp>
-#include <wrenbind17.hpp>
+#include <wrenbind17/wrenbind17.hpp>
 
 namespace wren = wrenbind17;
 

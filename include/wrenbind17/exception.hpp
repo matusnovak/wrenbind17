@@ -2,7 +2,13 @@
 
 #include <stdexcept>
 
+/**
+ * @ingroup wrenbind17
+ */
 namespace wrenbind17 {
+    /**
+     * @ingroup wrenbind17
+     */
     class Exception : public std::exception {
     public:
         Exception() = default;
@@ -18,12 +24,18 @@ namespace wrenbind17 {
         std::string msg;
     };
 
+    /**
+     * @ingroup wrenbind17
+     */
     class NotFound : public Exception {
     public:
         NotFound() : Exception("Not found") {
         }
     };
 
+    /**
+     * @ingroup wrenbind17
+     */
     class BadCast : public std::bad_cast {
     public:
         BadCast() = default;

@@ -3,7 +3,13 @@
 #include <wren.hpp>
 #include <memory>
 
+/**
+ * @ingroup wrenbind17
+ */
 namespace wrenbind17 {
+    /**
+     * @ingroup wrenbind17
+     */
     class Handle {
     public:
         Handle() : vm(nullptr), handle(nullptr) {

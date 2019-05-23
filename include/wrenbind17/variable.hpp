@@ -3,7 +3,13 @@
 #include "method.hpp"
 #include "slots.hpp"
 
+/**
+ * @ingroup wrenbind17
+ */
 namespace wrenbind17 {
+    /**
+     * @ingroup wrenbind17
+     */
     class Variable {
     public:
         Variable() : vm(nullptr) {
@@ -38,7 +44,7 @@ namespace wrenbind17 {
     };
 
     template <>
-    inline Variable getSlot(WrenVM* vm, int idx) {
+    inline Variable detail::getSlot(WrenVM* vm, int idx) {
         validate<WrenType::WREN_TYPE_UNKNOWN>(vm, idx);
         return Variable(vm, std::make_shared<Handle>(vm, wrenGetSlotHandle(vm, idx)));
     }
