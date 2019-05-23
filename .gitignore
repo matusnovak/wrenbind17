@@ -1,0 +1,12 @@
+build*/
+temp/
+install/
+.vscode/
+.vs/
+*.kdev4
+*~
+
+# doxygen
+docs/doxygen/*.md
+docs/doxygen/xml
+!docs/doxygen/index.md
