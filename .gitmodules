@@ -4,6 +4,3 @@
 [submodule "libs/Catch2"]
 	path = libs/Catch2
 	url = https://github.com/catchorg/Catch2.git
-[submodule "libs/cmake-modules"]
-	path = libs/cmake-modules
-	url = https://github.com/bilke/cmake-modules.git
