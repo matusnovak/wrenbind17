@@ -11,7 +11,7 @@ public:
     Vector3() {
         instances.push_back(this);
     }
-    Vector3(float x, float y, float z) : x(x), y(y), z(z) {
+    Vector3(double x, double y, double z) : x(x), y(y), z(z) {
         instances.push_back(this);
     }
     Vector3(const Vector3& other) {
@@ -20,13 +20,13 @@ public:
     }
     ~Vector3() = default;
 
-    void set(float x, float y, float z) {
+    void set(double x, double y, double z) {
         this->x = x;
         this->y = y;
         this->z = z;
     }
 
-    float length() const {
+    double length() const {
         return std::sqrt(x * x + y * y + z * z);
     }
 
@@ -61,16 +61,16 @@ public:
         return *this;
     }
 
-    float x = 0.0f;
-    float y = 0.0f;
-    float z = 0.0f;
+    double x = 0.0f;
+    double y = 0.0f;
+    double z = 0.0f;
 };
 
 #define TEST_SETUP_VECTOR                                                                                              \
     wren::VM vm;                                                                                                       \
     auto& m = vm.module("test");                                                                                       \
     auto& cls = m.klass<Vector3>("Vector3");                                                                           \
-    cls.ctor<float, float, float>();
+    cls.ctor<double, double, double>();
 
 TEST_CASE("Pass class from Wren to C++") {
     const std::string code = R"(
@@ -90,9 +90,9 @@ TEST_CASE("Pass class from Wren to C++") {
         auto baz = vm.find("main", "Foo").func("baz()");
         baz();
         REQUIRE(instances.size() >= 2);
-        REQUIRE(instances[0]->x == Approx(1.1f));
-        REQUIRE(instances[0]->y == Approx(2.2f));
-        REQUIRE(instances[0]->z == Approx(3.3f));
+        REQUIRE(instances[0]->x == Approx(1.1));
+        REQUIRE(instances[0]->y == Approx(2.2));
+        REQUIRE(instances[0]->z == Approx(3.3));
     }
     instances.clear();
 
@@ -103,9 +103,9 @@ TEST_CASE("Pass class from Wren to C++") {
         auto baz = vm.find("main", "Foo").func("baz()");
         baz();
         REQUIRE(instances.size() >= 2);
-        REQUIRE(instances[0]->x == Approx(1.1f));
-        REQUIRE(instances[0]->y == Approx(2.2f));
-        REQUIRE(instances[0]->z == Approx(3.3f));
+        REQUIRE(instances[0]->x == Approx(1.1));
+        REQUIRE(instances[0]->y == Approx(2.2));
+        REQUIRE(instances[0]->z == Approx(3.3));
     }
     instances.clear();
 
@@ -116,9 +116,9 @@ TEST_CASE("Pass class from Wren to C++") {
         auto baz = vm.find("main", "Foo").func("baz()");
         baz();
         REQUIRE(instances.size() == 1);
-        REQUIRE(instances[0]->x == Approx(1.1f));
-        REQUIRE(instances[0]->y == Approx(2.2f));
-        REQUIRE(instances[0]->z == Approx(3.3f));
+        REQUIRE(instances[0]->x == Approx(1.1));
+        REQUIRE(instances[0]->y == Approx(2.2));
+        REQUIRE(instances[0]->z == Approx(3.3));
     }
     instances.clear();
 
@@ -129,9 +129,9 @@ TEST_CASE("Pass class from Wren to C++") {
         auto baz = vm.find("main", "Foo").func("baz()");
         baz();
         REQUIRE(instances.size() == 1);
-        REQUIRE(instances[0]->x == Approx(1.1f));
-        REQUIRE(instances[0]->y == Approx(2.2f));
-        REQUIRE(instances[0]->z == Approx(3.3f));
+        REQUIRE(instances[0]->x == Approx(1.1));
+        REQUIRE(instances[0]->y == Approx(2.2));
+        REQUIRE(instances[0]->z == Approx(3.3));
     }
     instances.clear();
 
@@ -142,9 +142,9 @@ TEST_CASE("Pass class from Wren to C++") {
         auto baz = vm.find("main", "Foo").func("baz()");
         baz();
         REQUIRE(instances.size() == 1);
-        REQUIRE(instances[0]->x == Approx(1.1f));
-        REQUIRE(instances[0]->y == Approx(2.2f));
-        REQUIRE(instances[0]->z == Approx(3.3f));
+        REQUIRE(instances[0]->x == Approx(1.1));
+        REQUIRE(instances[0]->y == Approx(2.2));
+        REQUIRE(instances[0]->z == Approx(3.3));
     }
     instances.clear();
 
@@ -155,9 +155,9 @@ TEST_CASE("Pass class from Wren to C++") {
         auto baz = vm.find("main", "Foo").func("baz()");
         baz();
         REQUIRE(instances.size() == 1);
-        REQUIRE(instances[0]->x == Approx(1.1f));
-        REQUIRE(instances[0]->y == Approx(2.2f));
-        REQUIRE(instances[0]->z == Approx(3.3f));
+        REQUIRE(instances[0]->x == Approx(1.1));
+        REQUIRE(instances[0]->y == Approx(2.2));
+        REQUIRE(instances[0]->z == Approx(3.3));
     }
     instances.clear();
 }
@@ -178,14 +178,14 @@ TEST_CASE("Pass class from C++ to Wren") {
         cls.func<&Vector3::setFromConstRef>("set");
 
         vm.runFromSource("main", code);
-        Vector3 value(1.1f, 2.2f, 3.3f);
+        Vector3 value(1.1, 2.2, 3.3);
         auto baz = vm.find("main", "Foo").func("baz(_)");
         baz(value);
 
         // REQUIRE(instances.size() == 4);
-        REQUIRE(instances[0]->x == Approx(1.1f));
-        REQUIRE(instances[0]->y == Approx(2.2f));
-        REQUIRE(instances[0]->z == Approx(3.3f));
+        REQUIRE(instances[0]->x == Approx(1.1));
+        REQUIRE(instances[0]->y == Approx(2.2));
+        REQUIRE(instances[0]->z == Approx(3.3));
     }
     instances.clear();
 
@@ -194,14 +194,14 @@ TEST_CASE("Pass class from C++ to Wren") {
         cls.func<&Vector3::setFromConstRef>("set");
 
         vm.runFromSource("main", code);
-        const Vector3 value(1.1f, 2.2f, 3.3f);
+        const Vector3 value(1.1, 2.2, 3.3);
         auto baz = vm.find("main", "Foo").func("baz(_)");
         baz(value);
 
         // REQUIRE(instances.size() == 4);
-        REQUIRE(instances[0]->x == Approx(1.1f));
-        REQUIRE(instances[0]->y == Approx(2.2f));
-        REQUIRE(instances[0]->z == Approx(3.3f));
+        REQUIRE(instances[0]->x == Approx(1.1));
+        REQUIRE(instances[0]->y == Approx(2.2));
+        REQUIRE(instances[0]->z == Approx(3.3));
     }
     instances.clear();
 
@@ -210,15 +210,15 @@ TEST_CASE("Pass class from C++ to Wren") {
         cls.func<&Vector3::setFromConstRef>("set");
 
         vm.runFromSource("main", code);
-        Vector3 value(1.1f, 2.2f, 3.3f);
+        Vector3 value(1.1, 2.2, 3.3);
         auto& ref = value;
         auto baz = vm.find("main", "Foo").func("baz(_)");
         baz(ref);
 
         // REQUIRE(instances.size() == 4);
-        REQUIRE(instances[0]->x == Approx(1.1f));
-        REQUIRE(instances[0]->y == Approx(2.2f));
-        REQUIRE(instances[0]->z == Approx(3.3f));
+        REQUIRE(instances[0]->x == Approx(1.1));
+        REQUIRE(instances[0]->y == Approx(2.2));
+        REQUIRE(instances[0]->z == Approx(3.3));
     }
     instances.clear();
 
@@ -227,15 +227,15 @@ TEST_CASE("Pass class from C++ to Wren") {
         cls.func<&Vector3::setFromConstRef>("set");
 
         vm.runFromSource("main", code);
-        Vector3 value(1.1f, 2.2f, 3.3f);
+        Vector3 value(1.1, 2.2, 3.3);
         const auto& ref = value;
         auto baz = vm.find("main", "Foo").func("baz(_)");
         baz(ref);
 
         // REQUIRE(instances.size() == 4);
-        REQUIRE(instances[0]->x == Approx(1.1f));
-        REQUIRE(instances[0]->y == Approx(2.2f));
-        REQUIRE(instances[0]->z == Approx(3.3f));
+        REQUIRE(instances[0]->x == Approx(1.1));
+        REQUIRE(instances[0]->y == Approx(2.2));
+        REQUIRE(instances[0]->z == Approx(3.3));
     }
     instances.clear();
 
@@ -244,14 +244,14 @@ TEST_CASE("Pass class from C++ to Wren") {
         cls.func<&Vector3::setFromConstRef>("set");
 
         vm.runFromSource("main", code);
-        Vector3 value(1.1f, 2.2f, 3.3f);
+        Vector3 value(1.1, 2.2, 3.3);
         auto baz = vm.find("main", "Foo").func("baz(_)");
         baz(&value);
 
         // REQUIRE(instances.size() == 4);
-        REQUIRE(instances[0]->x == Approx(1.1f));
-        REQUIRE(instances[0]->y == Approx(2.2f));
-        REQUIRE(instances[0]->z == Approx(3.3f));
+        REQUIRE(instances[0]->x == Approx(1.1));
+        REQUIRE(instances[0]->y == Approx(2.2));
+        REQUIRE(instances[0]->z == Approx(3.3));
     }
     instances.clear();
 
@@ -260,15 +260,15 @@ TEST_CASE("Pass class from C++ to Wren") {
         cls.func<&Vector3::setFromConstRef>("set");
 
         vm.runFromSource("main", code);
-        Vector3 value(1.1f, 2.2f, 3.3f);
+        Vector3 value(1.1, 2.2, 3.3);
         const auto* ptr = &value;
         auto baz = vm.find("main", "Foo").func("baz(_)");
         baz(ptr);
 
         // REQUIRE(instances.size() == 4);
-        REQUIRE(instances[0]->x == Approx(1.1f));
-        REQUIRE(instances[0]->y == Approx(2.2f));
-        REQUIRE(instances[0]->z == Approx(3.3f));
+        REQUIRE(instances[0]->x == Approx(1.1));
+        REQUIRE(instances[0]->y == Approx(2.2));
+        REQUIRE(instances[0]->z == Approx(3.3));
     }
     instances.clear();
 }
