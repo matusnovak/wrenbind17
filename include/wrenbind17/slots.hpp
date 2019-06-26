@@ -4,6 +4,7 @@
 #include <string>
 #include <memory>
 #include <typeinfo>
+#include <cstdlib>
 #include "exception.hpp"
 
 /**
@@ -29,6 +30,9 @@ namespace wrenbind17 {
             wrenAbortFiber(vm, 0);
         }
     }
+
+    template <class T> struct is_shared_ptr : std::false_type {};
+    template <class T> struct is_shared_ptr<std::shared_ptr<T> > : std::true_type {};
 
     namespace detail {
         class Foreign {
@@ -57,6 +61,9 @@ namespace wrenbind17 {
                 return typeid(T).hash_code();
             }
 
+            const std::shared_ptr<T>& shared() const {
+                return ptr;
+            }
         private:
             std::shared_ptr<T> ptr;
         };
@@ -67,7 +74,9 @@ namespace wrenbind17 {
         struct is_shared_ptr<std::shared_ptr<T>> : std::true_type {};
 
         template <typename T>
-        inline void setSlot(WrenVM* vm, int idx, T& value) {
+        inline void setSlot(WrenVM* vm, int idx, T value) {
+            static_assert(!std::is_same<std::string,T>(), "type can't be std::string");
+            static_assert(!is_shared_ptr<T>::value, "type can't be shared_ptr<T>");
             try {
                 std::string module;
                 std::string klass;
@@ -77,14 +86,137 @@ namespace wrenbind17 {
                 wrenGetVariable(vm, module.c_str(), klass.c_str(), idx);
 
                 auto memory = wrenSetSlotNewForeign(vm, idx, idx, sizeof(ForeignObject<T>));
-                auto* foreign = new (memory) ForeignObject<T>(std::make_shared<T>(value));
+                auto* foreign = new (memory) ForeignObject<T>(std::make_shared<T>(std::move(value)));
             } catch (std::out_of_range& e) {
                 (void)e;
-                throw Exception("Runtime error: Class type not registered in Wren VM");
+                std::abort();
+                throw Exception("Runtime error: Class type not registered in Wren VM (T)");
             }
         }
 
         template <typename T>
+        struct PushHelper {
+            inline static void f(WrenVM* vm, int idx, T value) {
+                static_assert(!std::is_pointer<T>::value, "type can't be a pointer");
+                setSlot<T>(vm, idx, std::move(value));
+            }
+        };
+
+        template <typename T>
+        struct PushHelper<const T> {
+            inline static void f(WrenVM* vm, int idx, T value) {
+                static_assert(!std::is_pointer<T>::value, "type can't be a pointer");
+                setSlot<T>(vm, idx, value);
+            }
+        };
+
+        template <typename T>
+        struct PushHelper<const T&> {
+            inline static void f(WrenVM* vm, int idx, const T& value) {
+                setSlot<typename std::remove_const<typename std::remove_reference<T>::type>::type>(vm, idx, value);
+            }
+        };
+
+        template <typename T>
+        struct PushHelper<T*> {
+            inline static void f(WrenVM* vm, int idx, T* value) {
+                using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
+                try {
+                    std::string module;
+                    std::string klass;
+                    getClassType(vm, module, klass, typeid(Type).hash_code());
+
+                    wrenEnsureSlots(vm, idx + 1);
+                    wrenGetVariable(vm, module.c_str(), klass.c_str(), idx);
+
+                    auto memory = wrenSetSlotNewForeign(vm, idx, idx, sizeof(ForeignObject<Type>));
+                    auto* foreign =
+                        new (memory) ForeignObject<Type>(std::shared_ptr<Type>(const_cast<Type*>(value), [](Type* t) {}));
+                } catch (std::out_of_range& e) {
+                    (void)e;
+                    throw Exception("Runtime error: Class type not registered in Wren VM (T*)");
+                }
+            }
+        };
+
+        template <typename T>
+        struct PushHelper<T&> {
+            inline static void f(WrenVM* vm, int idx, T& value) {
+                //setSlot<typename std::remove_const<typename std::remove_reference<T>::type>::type>(vm, idx, value);
+                PushHelper<T*>::f(vm, idx, &value);
+            }
+        };
+
+        template <typename T>
+        struct PushHelper<const T*> {
+            inline static void f(WrenVM* vm, int idx, const T* value) {
+                PushHelper<T*>::f(vm, idx, value);
+            }
+        };
+
+        template <typename T>
+        struct PushHelper<const T*&> {
+            inline static void f(WrenVM* vm, int idx, const T*& value) {
+                PushHelper<T*>::f(vm, idx, const_cast<T*>(value));
+            }
+        };
+
+        template <typename T>
+        struct PushHelper<std::shared_ptr<T>> {
+            inline static void f(WrenVM* vm, int idx, const std::shared_ptr<T>& value) {
+                try {
+                    std::string module;
+                    std::string klass;
+                    getClassType(vm, module, klass, typeid(T).hash_code());
+
+                    wrenEnsureSlots(vm, idx + 1);
+                    wrenGetVariable(vm, module.c_str(), klass.c_str(), idx);
+
+                    auto memory = wrenSetSlotNewForeign(vm, idx, idx, sizeof(ForeignObject<T>));
+                    auto* foreign = new (memory) ForeignObject<T>(value);
+                } catch (std::out_of_range& e) {
+                    (void)e;
+                    throw Exception("Runtime error: Class type not registered in Wren VM (shared_ptr<T>)");
+                }
+            }
+        };
+
+        template <typename T>
+        struct PushHelper<std::shared_ptr<T>&> {
+            inline static void f(WrenVM* vm, int idx, std::shared_ptr<T>& value) {
+                PushHelper<std::shared_ptr<T>>::f(vm, idx, value);
+            }
+        };
+
+        template <typename T>
+        struct PushHelper<const std::shared_ptr<T>&> {
+            inline static void f(WrenVM* vm, int idx, const std::shared_ptr<T>& value) {
+                PushHelper<std::shared_ptr<T>>::f(vm, idx, value);
+            }
+        };
+
+        template <>
+        struct PushHelper<const std::string&> {
+            inline static void f(WrenVM* vm, int idx, const std::string& value) {
+                wrenSetSlotString(vm, idx, value.c_str());
+            }
+        };
+
+        /*template <>
+        struct PushHelper<const std::string&> {
+            inline static void f(WrenVM* vm, int idx, const std::string& value) {
+                wrenSetSlotString(vm, idx, value.c_str());
+            }
+        };*/
+
+        /*template <typename T>
+        struct PushHelper<T&> {
+            inline static void f(WrenVM* vm, int idx, T& value) {
+                setSlot<typename std::remove_reference<T>::type>(vm, idx, value);
+            }
+        };*/
+
+        /*template <typename T>
         struct SetSlotHelper {
             inline static void f(WrenVM* vm, int idx, T& value) {
                 setSlot<T>(vm, idx, value);
@@ -135,80 +267,81 @@ namespace wrenbind17 {
                 (void)e;
                 throw Exception("Runtime error: Class type not registered in Wren VM");
             }
-        }
+        }*/
 
-        template <typename T>
+        /*template <typename T>
         inline void setSlot(WrenVM* vm, int idx, const T& value) {
             setSlot(vm, idx, const_cast<T&>(value));
-        }
+        }*/
 
         template <>
-        inline void setSlot(WrenVM* vm, int idx, std::nullptr_t& value) {
+        inline void setSlot(WrenVM* vm, int idx, std::nullptr_t value) {
+            (void)value;
             wrenSetSlotNull(vm, idx);
         }
 
         template <>
-        inline void setSlot(WrenVM* vm, int idx, std::string& value) {
+        inline void setSlot(WrenVM* vm, int idx, std::string value) {
             wrenSetSlotString(vm, idx, value.c_str());
         }
 
         template <>
-        inline void setSlot(WrenVM* vm, int idx, bool& value) {
+        inline void setSlot(WrenVM* vm, int idx, bool value) {
             wrenSetSlotBool(vm, idx, value);
         }
 
         template <>
-        inline void setSlot(WrenVM* vm, int idx, int8_t& value) {
+        inline void setSlot(WrenVM* vm, int idx, int8_t value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
         template <>
-        inline void setSlot(WrenVM* vm, int idx, char& value) {
+        inline void setSlot(WrenVM* vm, int idx, char value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
         template <>
-        inline void setSlot(WrenVM* vm, int idx, int& value) {
+        inline void setSlot(WrenVM* vm, int idx, int value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
         template <>
-        inline void setSlot(WrenVM* vm, int idx, short& value) {
+        inline void setSlot(WrenVM* vm, int idx, short value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
         template <>
-        inline void setSlot(WrenVM* vm, int idx, long& value) {
+        inline void setSlot(WrenVM* vm, int idx, long value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
         template <>
-        inline void setSlot(WrenVM* vm, int idx, unsigned long& value) {
+        inline void setSlot(WrenVM* vm, int idx, unsigned long value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
         template <>
-        inline void setSlot(WrenVM* vm, int idx, unsigned& value) {
+        inline void setSlot(WrenVM* vm, int idx, unsigned value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
         template <>
-        inline void setSlot(WrenVM* vm, int idx, long long& value) {
+        inline void setSlot(WrenVM* vm, int idx, long long value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
         template <>
-        inline void setSlot(WrenVM* vm, int idx, unsigned long long& value) {
+        inline void setSlot(WrenVM* vm, int idx, unsigned long long value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
         template <>
-        inline void setSlot(WrenVM* vm, int idx, float& value) {
+        inline void setSlot(WrenVM* vm, int idx, float value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
         template <>
-        inline void setSlot(WrenVM* vm, int idx, double& value) {
+        inline void setSlot(WrenVM* vm, int idx, double value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
@@ -220,6 +353,9 @@ namespace wrenbind17 {
 
         template <typename T>
         T getSlot(WrenVM* vm, int idx) {
+            static_assert(!std::is_same<std::string,T>(),"type can't be std::string");
+            static_assert(!is_shared_ptr<T>::value, "type can't be shared_ptr<T>");
+
             validate<WrenType::WREN_TYPE_FOREIGN>(vm, idx);
             using Type = typename std::remove_const<typename std::remove_reference<T>::type>::type;
             auto foreign = reinterpret_cast<ForeignObject<Type>*>(wrenGetSlotForeign(vm, idx));
@@ -250,8 +386,31 @@ namespace wrenbind17 {
         };
 
         template <typename T>
+        struct PopHelper<std::shared_ptr<T>> {
+            static inline std::shared_ptr<T> f(WrenVM* vm, int idx) {
+                validate<WrenType::WREN_TYPE_FOREIGN>(vm, idx);
+                using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
+                auto foreign = reinterpret_cast<ForeignObject<Type>*>(wrenGetSlotForeign(vm, idx));
+                if (foreign->hash() != typeid(Type).hash_code()) {
+                    throw Exception("Invalid foreign object pointer");
+                }
+                return foreign->shared();
+            }
+        };
+
+        template <typename T>
+        struct PopHelper<const std::shared_ptr<T>&> {
+            static inline std::shared_ptr<T> f(WrenVM* vm, int idx) {
+                return PopHelper<std::shared_ptr<T>>::f(vm, idx);
+            }
+        };
+
+        template <typename T>
         struct PopHelper<const T&> {
             static inline const T& f(WrenVM* vm, int idx) {
+                static_assert(!std::is_same<std::string,T>(),"type can't be std::string");
+                static_assert(!is_shared_ptr<T>::value, "type can't be shared_ptr<T>");
+
                 validate<WrenType::WREN_TYPE_FOREIGN>(vm, idx);
                 using Type = typename std::remove_const<typename std::remove_reference<T>::type>::type;
                 auto foreign = reinterpret_cast<ForeignObject<Type>*>(wrenGetSlotForeign(vm, idx));

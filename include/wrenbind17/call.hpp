@@ -148,17 +148,28 @@ namespace wrenbind17 {
 
         explicit ReturnValue(bool value) : type{WrenType::WREN_TYPE_BOOL}, value{value} {};
 
-        explicit ReturnValue(std::nullptr_t value) : type{WrenType::WREN_TYPE_NULL}, value{} {};
+        explicit ReturnValue(std::nullptr_t value) : type{WrenType::WREN_TYPE_NULL}, value{} {
+            (void)value;
+        };
 
         explicit ReturnValue(std::string value) : type{WrenType::WREN_TYPE_STRING}, value{std::move(value)} {};
 
         explicit ReturnValue(void* value) : type{WrenType::WREN_TYPE_FOREIGN}, value{std::move(value)} {};
 
-        template <typename T>
+        template <typename T, typename std::enable_if<!std::is_pointer<T>::value, T>::type* = nullptr>
         bool is() const {
             if (type != WREN_TYPE_FOREIGN)
                 return false;
             using Type = typename std::remove_const<typename std::remove_reference<T>::type>::type;
+            auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
+            return foreign->hash() == typeid(Type).hash_code();
+        }
+
+        template <typename T, typename std::enable_if<std::is_pointer<T>::value, T>::type* = nullptr>
+        bool is() const {
+            if (type != WREN_TYPE_FOREIGN)
+                return false;
+            using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
             auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
             return foreign->hash() == typeid(Type).hash_code();
         }
@@ -172,7 +183,7 @@ namespace wrenbind17 {
             if (foreign->hash() != typeid(Type).hash_code()) {
                 throw BadCast();
             }
-            return *reinterpret_cast<Type*>(foreign->get());
+            return *foreign->shared().get();
         }
 
         template <typename T>
@@ -186,7 +197,21 @@ namespace wrenbind17 {
             if (foreign->hash() != typeid(Type).hash_code()) {
                 throw BadCast();
             }
-            return reinterpret_cast<Type*>(foreign->get());
+            return foreign->shared().get();
+        }
+
+        template <typename T>
+        inline typename std::shared_ptr<T> shared() {
+            if (type == WREN_TYPE_NULL)
+                return nullptr;
+            if (type != WREN_TYPE_FOREIGN)
+                throw BadCast();
+            using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
+            auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
+            if (foreign->hash() != typeid(Type).hash_code()) {
+                throw BadCast();
+            }
+            return foreign->shared();
         }
 
     private:
@@ -356,10 +381,12 @@ namespace wrenbind17 {
 
     namespace detail {
         inline void pushArgs(WrenVM* vm, int idx) {
+            (void)vm;
+            (void)idx;
         }
         template <typename First, typename... Other>
         inline void pushArgs(WrenVM* vm, int idx, First&& first, Other&&... other) {
-            push(vm, idx, first);
+            PushHelper<First>::f(vm, idx, first);
             pushArgs(vm, ++idx, std::forward<Other>(other)...);
         }
 

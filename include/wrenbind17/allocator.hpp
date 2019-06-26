@@ -15,7 +15,7 @@ namespace wrenbind17 {
             }
             template <size_t... Is>
             static T* ctorFrom(WrenVM* vm, detail::index_list<Is...>) {
-                return ctor(getSlot<Args>(vm, Is + 1)...);
+                return ctor(PopHelper<Args>::f(vm, Is + 1)...);
             }
             static void allocate(WrenVM* vm) {
                 auto* memory = wrenSetSlotNewForeign(vm, 0, 0, sizeof(ForeignObject<T>));

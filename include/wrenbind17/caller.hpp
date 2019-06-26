@@ -14,7 +14,7 @@ namespace wrenbind17 {
             static void callFrom(WrenVM* vm, detail::index_list<Is...>) {
                 auto self = PopHelper<T*>::f(vm, 0);
                 auto ret = (self->*Fn)(PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...);
-                push<R>(vm, 0, ret);
+                PushHelper<R>::f(vm, 0, ret);
             }
 
             template <R (T::*Fn)(Args...)>
@@ -30,7 +30,7 @@ namespace wrenbind17 {
             static void callFrom(WrenVM* vm, detail::index_list<Is...>) {
                 auto self = PopHelper<T*>::f(vm, 0);
                 auto ret = (self->*Fn)(PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...);
-                push<R>(vm, 0, ret);
+                PushHelper<R>::f(vm, 0, ret);
             }
 
             template <R (T::*Fn)(Args...) const>
@@ -81,7 +81,7 @@ namespace wrenbind17 {
             template <R (*Fn)(Args...), size_t... Is>
             static void callFrom(WrenVM* vm, detail::index_list<Is...>) {
                 auto ret = (*Fn)(PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...);
-                push<R>(vm, 0, ret);
+                PushHelper<R>::f(vm, 0, ret);
             }
 
             template <R (*Fn)(Args...)>
@@ -119,7 +119,7 @@ namespace wrenbind17 {
             }
             static void getter(WrenVM* vm) {
                 auto self = PopHelper<T*>::f(vm, 0);
-                push<V>(vm, 0, self->*Ptr);
+                PushHelper<V>::f(vm, 0, self->*Ptr);
             }
         };
     } // namespace detail

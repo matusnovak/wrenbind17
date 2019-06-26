@@ -64,13 +64,6 @@ namespace wrenbind17 {
                     return buffer;
                 }
 
-                const auto plain = self.plainModules.find(name);
-                if (plain != self.plainModules.end()) {
-                    auto buffer = new char[plain->second.size() + 1];
-                    std::memcpy(buffer, &plain->second[0], plain->second.size() + 1);
-                    return buffer;
-                }
-
                 try {
                     auto source = self.loadFileFn(self.paths, std::string(name));
                     auto buffer = new char[source.size() + 1];
@@ -199,10 +192,6 @@ namespace wrenbind17 {
             return it->second;
         }
 
-        inline void rawModule(std::string name, std::string source) {
-            plainModules.insert(std::make_pair(std::move(name), std::move(source)));
-        }
-
         inline void addClassType(const std::string& module, const std::string& name, const size_t hash) {
             classToModule.insert(std::make_pair(hash, module));
             classToName.insert(std::make_pair(hash, name));
@@ -231,12 +220,14 @@ namespace wrenbind17 {
             return vm;
         }
 
+        inline void gc() {
+            wrenCollectGarbage(vm);
+        }
     private:
         WrenVM* vm;
         WrenConfiguration config;
         std::vector<std::string> paths;
         std::unordered_map<std::string, ForeignModule> modules;
-        std::unordered_map<std::string, std::string> plainModules;
         std::unordered_map<size_t, std::string> classToModule;
         std::unordered_map<size_t, std::string> classToName;
         std::string lastError;

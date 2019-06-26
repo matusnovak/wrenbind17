@@ -46,7 +46,14 @@ namespace wrenbind17 {
             for (const auto& pair : klasses) {
                 pair.second->generate(ss);
             }
+            for (const auto& r : raw) {
+                ss << r << "\n";
+            }
             return ss.str();
+        }
+
+        void append(std::string text) {
+            raw.push_back(std::move(text));
         }
 
         ForeignKlass& findKlass(const std::string& name) {
@@ -64,5 +71,6 @@ namespace wrenbind17 {
         std::string name;
         WrenVM* vm;
         std::unordered_map<std::string, std::unique_ptr<ForeignKlass>> klasses;
+        std::vector<std::string> raw;
     };
 } // namespace wrenbind17

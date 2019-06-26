@@ -224,17 +224,30 @@ TEST_CASE("String slots") {
     auto constCopy = foo.func("constCopy(_)");
     auto constRef = foo.func("constRef(_)");
 
-    copy(std::string("Hello World"));
-    REQUIRE(Foo::str == "Hello World");
-    Foo::str.clear();
+    SECTION("String by copy") {
+        auto s = std::string("Hello World");
+        copy(s);
+        REQUIRE(Foo::str == "Hello World");
+        Foo::str.clear();
+    }
 
-    constCopy(static_cast<const std::string>(std::string("Hello World")));
-    REQUIRE(Foo::str == "Hello World");
-    Foo::str.clear();
+    SECTION("String by move") {
+        copy(std::string("Hello World"));
+        REQUIRE(Foo::str == "Hello World");
+        Foo::str.clear();
+    }
 
-    auto s = std::string("Hello World");
-    const auto& ref = s;
-    constRef(s);
-    REQUIRE(Foo::str == "Hello World");
-    Foo::str.clear();
+    SECTION("String by const copy") {
+        constCopy(static_cast<const std::string>(std::string("Hello World")));
+        REQUIRE(Foo::str == "Hello World");
+        Foo::str.clear();
+    }
+
+    SECTION("String by const ref") {
+        auto s = std::string("Hello World");
+        const auto& ref = s;
+        constRef(s);
+        REQUIRE(Foo::str == "Hello World");
+        Foo::str.clear();
+    }
 }

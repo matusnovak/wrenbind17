@@ -28,7 +28,8 @@ TEST_CASE("Raw modules") {
     )";
 
     wren::VM vm;
-    vm.rawModule("test", test);
+    auto& m = vm.module("test");
+    m.append(test);
     vm.runFromSource("main", code);
 
     auto main = vm.find("main", "Main").func("main()");
