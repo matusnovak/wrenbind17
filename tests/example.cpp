@@ -47,15 +47,22 @@ TEST_CASE("Example from README.md") {
         }
     )";
 
-    wren::VM vm;                               // Create new VM
+    // Create new VM
+    wren::VM vm;
 
-    auto& m = vm.module("mymodule");           // Create new module
+    // Create new module
+    auto& m = vm.module("mymodule");
 
-    auto& cls = m.klass<MyFoo>("MyFoo");       // Add foreign class to the module
-    cls.ctor<int, const std::string&>("new");  // Optional constructor with optional name
-    cls.var<&MyFoo::message>("message");       // Define variable by direct access
-    cls.prop<&MyFoo::getYear, &MyFoo::setYear>("year"); // Define variable as getter & getter
-    cls.propReadonly<&MyFoo::getType>("type"); // Read only variable
+    // Declare new class
+    auto& cls = m.klass<MyFoo>("MyFoo");
+
+    // Optional constructor with optional name
+    cls.ctor<int, const std::string&>("new");
+
+    // Define variables
+    cls.var<&MyFoo::message>("message");                // Direct access
+    cls.prop<&MyFoo::getYear, &MyFoo::setYear>("year"); // As getter & getter
+    cls.propReadonly<&MyFoo::getType>("type");          // Read only variable
 
     // Append some extra stuff to the "mymodule"
     m.append(R"(
@@ -68,12 +75,20 @@ TEST_CASE("Example from README.md") {
         }
     )");
 
-    vm.runFromSource("main", code); // Runs the code from the std::string as a "main" module
-    auto main = vm.find("main", "Main").func("main()"); // Find the main() function
+    // Runs the code from the std::string as a "main" module
+    vm.runFromSource("main", code);
+
+    // Find the main() function
+    // You can look for classes and their functions!
+    auto mainClass = vm.find("main", "Main");
+    auto main = mainClass.func("main()");
 
     auto res = main(); // Execute the function
-    MyFoo* ptr = res.as<MyFoo*>(); // Access the return value
-    std::shared_ptr<MyFoo> sptr = res.shared<MyFoo>(); // Access the return value as shared ptr
-    assert(ptr);
-    assert(ptr == sptr.get());
+
+    // Access the return value
+    MyFoo* ptr = res.as<MyFoo*>();                     // As a raw pointer
+    std::shared_ptr<MyFoo> sptr = res.shared<MyFoo>(); // As a shared ptr
+
+    REQUIRE(ptr);
+    REQUIRE(ptr == sptr.get());
 }
