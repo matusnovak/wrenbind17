@@ -286,14 +286,14 @@ TEST_CASE("Callback") {
     auto res = main();
     REQUIRE(res.is<wren::Callback>());
 
-    auto ptr = res.shared<wren::Callback>();
+    auto callback = res.shared<wren::Callback>();
 
-    auto r = ptr->operator()();
+    auto r = callback->operator()();
     REQUIRE(r.is<std::string>());
     REQUIRE(r.as<std::string>() == "Hello World");
 }
 
-/*TEST_CASE("Bad Callback") {
+TEST_CASE("Bad Callback") {
     const std::string code = R"(
         import "wrenbind" for Callback
 
@@ -324,10 +324,5 @@ TEST_CASE("Callback") {
     vm.runFromSource("main", code);
     auto main = vm.find("main", "Main").func("main()");
 
-    auto res = main();
-    REQUIRE(res.is<wren::Callback>());
-
-    auto ptr = res.shared<wren::Callback>();
-
-    REQUIRE_THROWS(ptr->operator()());
-}*/
+    REQUIRE_THROWS(main());
+}
