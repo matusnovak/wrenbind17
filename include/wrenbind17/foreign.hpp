@@ -196,7 +196,7 @@ namespace wrenbind17 {
         void generate(std::ostream& os) const override {
             os << "foreign class " << name << " {\n";
             if (!ctorDef.empty()) {
-                os << "    construct new" << ctorDef << " {}\n\n";
+                os << "    " << ctorDef << " {}\n\n";
             }
             for (const auto& pair : methods) {
                 pair.second->generate(os);
@@ -208,11 +208,11 @@ namespace wrenbind17 {
         }
 
         template <typename... Args>
-        void ctor() {
+        void ctor(const std::string& name = "new") {
             allocators.allocate = &detail::ForeignKlassAllocator<T, Args...>::allocate;
             allocators.finalize = &detail::ForeignKlassAllocator<T, Args...>::finalize;
             std::stringstream ss;
-            ss << "(";
+            ss << "construct " << name << " (";
             constexpr auto n = sizeof...(Args);
             for (size_t i = 0; i < n; i++) {
                 if (i == 0)
