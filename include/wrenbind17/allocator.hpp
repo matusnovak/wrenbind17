@@ -19,8 +19,9 @@ namespace wrenbind17 {
             }
             static void allocate(WrenVM* vm) {
                 auto* memory = wrenSetSlotNewForeign(vm, 0, 0, sizeof(ForeignObject<T>));
-                auto* ptr = ctorFrom(vm, detail::index_range<0, sizeof...(Args)>());
-                new (memory) ForeignObject<T>(std::shared_ptr<T>(ptr));
+                new (memory) ForeignObject<T>();
+                auto* wrapper = reinterpret_cast<ForeignObject<T>*>(memory);
+                wrapper->ptr.reset(ctorFrom(vm, detail::index_range<0, sizeof...(Args)>()));
             }
             static void finalize(void* memory) {
                 auto* wrapper = reinterpret_cast<ForeignObject<T>*>(memory);

@@ -7,6 +7,7 @@
  * @ingroup wrenbind17
  */
 namespace wrenbind17 {
+    class Callback;
     /**
      * @ingroup wrenbind17
      */
@@ -47,6 +48,11 @@ namespace wrenbind17 {
             }
         }
 
+        operator bool() const {
+            return vm && handle;
+        }
+
+        friend Callback;
     private:
         WrenVM* vm;
         WrenHandle* handle;

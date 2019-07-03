@@ -122,6 +122,9 @@ namespace wrenbind17 {
             };
 
             vm = wrenNewVM(&config);
+
+            auto& cls = this->module("wrenbind").klass<Callback>("Callback");
+            cls.ctor<Handle, Handle>();
         }
 
         inline VM(const VM& other) = delete;

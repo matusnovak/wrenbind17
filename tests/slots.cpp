@@ -3,8 +3,7 @@
 
 namespace wren = wrenbind17;
 
-template <typename T>
-static void sendAndCheck(wren::Method& method, const T& value) {
+template <typename T> static void sendAndCheck(wren::Method& method, const T& value) {
     // std::cout << "sendAndCheck with T=" << typeid(T).name() << std::endl;
     auto ret = method.operator()(value);
     REQUIRE(ret.template is<T>());
@@ -52,8 +51,7 @@ TEST_CASE("Set slot and return by calling Wren") {
 
 void* instance = nullptr;
 
-template <typename T>
-class GetSlotTest {
+template <typename T> class GetSlotTest {
 public:
     GetSlotTest(T value) : value(value) {
         instance = this;
@@ -114,7 +112,7 @@ TEST_CASE("Get slot by calling C++") {
     testCaseGetSlotByCallingCpp<unsigned long long>("42", 42, "123", 123);
     testCaseGetSlotByCallingCpp<bool>("false", false, "true", true);
     testCaseGetSlotByCallingCpp<std::string>("\"Hello\"", "Hello", "\"World\"", "World");
-    testCaseGetSlotByCallingCpp<float>("42.1", 42.1, "123.3", 123.3);
+    testCaseGetSlotByCallingCpp<float>("42.1", 42.1f, "123.3", 123.3f);
     testCaseGetSlotByCallingCpp<double>("42.1", 42.1, "123.3", 123.3);
     testCaseGetSlotByCallingCpp<int8_t>("42", 42, "123", 123);
     testCaseGetSlotByCallingCpp<int16_t>("42", 42, "123", 123);
@@ -251,3 +249,85 @@ TEST_CASE("String slots") {
         Foo::str.clear();
     }
 }
+
+TEST_CASE("Callback") {
+    const std::string code = R"(
+        import "wrenbind" for Callback
+
+        class Foo {
+            msg {_msg}
+
+            construct new(msg) {
+                _msg = msg
+            }
+            
+            getCallback () {
+                return Callback.new(this, Fn.new {
+                    return this.msg
+                })
+            }
+        }
+
+        var Instance = Foo.new("Hello World")
+
+        class Main {
+            static main() {
+                return Instance.getCallback()
+            }
+        }
+    )";
+
+    wren::VM vm;
+    auto& m = vm.module("test");
+
+    vm.runFromSource("main", code);
+    auto main = vm.find("main", "Main").func("main()");
+
+    auto res = main();
+    REQUIRE(res.is<wren::Callback>());
+
+    auto ptr = res.shared<wren::Callback>();
+
+    auto r = ptr->operator()();
+    REQUIRE(r.is<std::string>());
+    REQUIRE(r.as<std::string>() == "Hello World");
+}
+
+/*TEST_CASE("Bad Callback") {
+    const std::string code = R"(
+        import "wrenbind" for Callback
+
+        class Foo {
+            msg {_msg}
+
+            construct new(msg) {
+                _msg = msg
+            }
+            
+            getCallback () {
+                return Callback.new(null, Fn.new {})
+            }
+        }
+
+        var Instance = Foo.new("Hello World")
+
+        class Main {
+            static main() {
+                return Instance.getCallback()
+            }
+        }
+    )";
+
+    wren::VM vm;
+    auto& m = vm.module("test");
+
+    vm.runFromSource("main", code);
+    auto main = vm.find("main", "Main").func("main()");
+
+    auto res = main();
+    REQUIRE(res.is<wren::Callback>());
+
+    auto ptr = res.shared<wren::Callback>();
+
+    REQUIRE_THROWS(ptr->operator()());
+}*/

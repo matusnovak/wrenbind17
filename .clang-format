@@ -7,5 +7,4 @@ UseTab: Never
 NamespaceIndentation: All
 AllowShortFunctionsOnASingleLine: None
 IndentCaseLabels: true
-AlwaysBreakTemplateDeclarations: Yes
 AccessModifierOffset: -4
