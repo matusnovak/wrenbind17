@@ -1,7 +1,7 @@
 #pragma once
 
 #include "exception.hpp"
-#include "method.hpp"
+#include "handle.hpp"
 #include <cstdlib>
 #include <memory>
 #include <string>
@@ -31,70 +31,6 @@ namespace wrenbind17 {
             wrenAbortFiber(vm, 0);
         }
     }
-
-    /**
-     * @ingroup wrenbind17
-     */
-    class Callback {
-    public:
-        Callback()
-            : vm(nullptr) {
-        }
-
-        Callback(Handle variable, Handle handle)
-            : variable(std::move(variable)),
-              handle(std::move(handle)) {
-            vm = this->variable.vm;
-        }
-
-        Callback(const Callback& other) = delete;
-
-        Callback(Callback&& other) noexcept : vm(nullptr) {
-            swap(other);
-        }
-
-        Callback& operator=(const Callback& other) = delete;
-
-        Callback& operator=(Callback&& other) noexcept {
-            if (this != &other) {
-                swap(other);
-            }
-            return *this;
-        }
-
-        void swap(Callback& other) noexcept {
-            std::swap(vm, other.vm);
-            variable.swap(other.variable);
-            handle.swap(other.handle);
-        }
-
-        template <typename... Args> ReturnValue operator()(Args&&... args) {
-            if (!vm)
-                throw Exception("Bad callback instance");
-            if (!handle)
-                throw Exception("Callback's instance is null");
-            if (!variable)
-                throw Exception("Callback's function is null");
-
-            return detail::CallAndReturn<Args...>::func(vm, variable.getHandle(), handle.getHandle(),
-                                                        std::forward<Args>(args)...);
-        }
-
-        operator bool() const {
-            return vm && handle && variable;
-        }
-
-        void reset() {
-            vm = nullptr;
-            handle.reset();
-            variable.reset();
-        }
-
-    private:
-        WrenVM* vm;
-        Handle variable;
-        Handle handle;
-    };
 
     template <class T> struct is_shared_ptr : std::false_type {};
     template <class T> struct is_shared_ptr<std::shared_ptr<T>> : std::true_type {};
@@ -469,10 +405,6 @@ namespace wrenbind17 {
             }
             return reinterpret_cast<Type*>(foreign->get());
         }*/
-
-        template <> inline Method getSlot(WrenVM* vm, int idx) {
-            throw Exception("You can't pass individual methods!");
-        }
 
         template <> inline Handle getSlot(WrenVM* vm, int idx) {
             validate<WrenType::WREN_TYPE_UNKNOWN>(vm, idx);

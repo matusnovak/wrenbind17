@@ -7,6 +7,7 @@
 #include <functional>
 #include "module.hpp"
 #include "variable.hpp"
+#include "callback.hpp"
 
 /**
  * @ingroup wrenbind17
