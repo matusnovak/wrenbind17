@@ -1,6 +1,6 @@
 # WrenBind17
 
-[![Build Status](https://travis-ci.com/matusnovak/wrenbind17.svg?branch=master)](https://travis-ci.com/matusnovak/wrenbind17) [![Build status](https://ci.appveyor.com/api/projects/status/fy974aj37cdyxc0i/branch/master?svg=true)](https://ci.appveyor.com/project/matusnovak/wrenbind17/branch/master) [![codecov](https://codecov.io/gh/matusnovak/wrenbind17/branch/master/graph/badge.svg)](https://codecov.io/gh/matusnovak/wrenbind17)
+[![Build Status](https://travis-ci.com/matusnovak/wrenbind17.svg?branch=master)](https://travis-ci.com/matusnovak/wrenbind17) [![Build status](https://ci.appveyor.com/api/projects/status/fy974aj37cdyxc0i/branch/master?svg=true)](https://ci.appveyor.com/project/matusnovak/wrenbind17/branch/master) [![CircleCI](https://circleci.com/gh/matusnovak/wrenbind17.svg?style=svg)](https://circleci.com/gh/matusnovak/wrenbind17) [![codecov](https://codecov.io/gh/matusnovak/wrenbind17/branch/master/graph/badge.svg)](https://codecov.io/gh/matusnovak/wrenbind17)
 
 WrenBind17 is a C++17 wrapper for [Wren programming language](http://wren.io/). This project was heavily inspired by [pybind11](https://github.com/pybind/pybind11) and by [Wren++](https://github.com/Nelarius/wrenpp). This library is header only and does not need any compilation steps. Simply include the `<wrenbind17/wrenbind17.hpp>` header in your application and you are good to go!
 

@@ -41,6 +41,7 @@ jobs:
       - run:
           name: Build static pages
           command: |
+            cp -v /tmp/doxygen/*.md ./docs/doxygen
             sudo vuepress build
 
       - run:
