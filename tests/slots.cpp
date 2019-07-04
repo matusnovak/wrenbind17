@@ -250,79 +250,105 @@ TEST_CASE("String slots") {
     }
 }
 
-TEST_CASE("Callback") {
+class BadMethodClass {
+public:
+    BadMethodClass() {
+
+    }
+
+    void throwSomething() {
+        throw std::runtime_error("Something went wrong");
+    }
+};
+
+TEST_CASE("Fibre exception") {
     const std::string code = R"(
-        import "wrenbind" for Callback
-
-        class Foo {
-            msg {_msg}
-
-            construct new(msg) {
-                _msg = msg
-            }
-            
-            getCallback () {
-                return Callback.new(this, Fn.new {
-                    return this.msg
-                })
-            }
-        }
-
-        var Instance = Foo.new("Hello World")
+        import "test" for BadMethodClass
 
         class Main {
             static main() {
-                return Instance.getCallback()
+                var fiber = Fiber.new { 
+                    var i = BadMethodClass.new()
+                    i.throwSomething() 
+                }
+
+                var error = fiber.try()
+                System.print("Caught error: " + error)
+                return error
             }
         }
     )";
 
     wren::VM vm;
     auto& m = vm.module("test");
+    auto& cls = m.klass<BadMethodClass>("BadMethodClass");
+    cls.ctor<>();
+    cls.func<&BadMethodClass::throwSomething>("throwSomething");
 
     vm.runFromSource("main", code);
     auto main = vm.find("main", "Main").func("main()");
 
     auto res = main();
-    REQUIRE(res.is<wren::Callback>());
-
-    auto callback = res.shared<wren::Callback>();
-
-    auto r = callback->operator()();
-    REQUIRE(r.is<std::string>());
-    REQUIRE(r.as<std::string>() == "Hello World");
+    REQUIRE(res.is<std::string>());
+    REQUIRE(res.as<std::string>() == "Something went wrong");
 }
 
-TEST_CASE("Bad Callback") {
+class GuiButton {
+public:
+    GuiButton(std::function<bool(int)> func) : func(std::move(func)) {
+    }
+
+    virtual ~GuiButton() {
+    }
+
+    bool event(int type) {
+        return func(type);
+    }
+private:
+    std::function<bool(int)> func;
+};
+
+class WrenGuiButton: public GuiButton {
+public:
+    WrenGuiButton(wren::Variable fn): GuiButton(std::bind(&WrenGuiButton::wrenEvent, this, std::placeholders::_1)) {
+        callback = fn.func("call(_)");
+    }
+
+    virtual ~WrenGuiButton() {
+    }
+
+private:
+    bool wrenEvent(int type) {
+        return callback(type).as<bool>();
+    }
+
+    wren::Method callback;
+};
+
+TEST_CASE("Pass Fn to C++ class") {
     const std::string code = R"(
-        import "wrenbind" for Callback
-
-        class Foo {
-            msg {_msg}
-
-            construct new(msg) {
-                _msg = msg
-            }
-            
-            getCallback () {
-                return Callback.new(null, Fn.new {})
-            }
-        }
-
-        var Instance = Foo.new("Hello World")
+        import "test" for GuiButton
 
         class Main {
             static main() {
-                return Instance.getCallback()
+                var btn = GuiButton.new(Fn.new { |arg|
+                    System.print("This: %(this) ")
+                    return arg == 42
+                })
+                return btn
             }
         }
     )";
 
     wren::VM vm;
     auto& m = vm.module("test");
+    auto& cls = m.klass<WrenGuiButton>("GuiButton");
+    cls.ctor<wren::Variable>();
 
     vm.runFromSource("main", code);
     auto main = vm.find("main", "Main").func("main()");
 
-    REQUIRE_THROWS(main());
+    auto res = main();
+    REQUIRE(res.is<WrenGuiButton>());
+    REQUIRE(res.shared<WrenGuiButton>()->event(42) == true);
 }

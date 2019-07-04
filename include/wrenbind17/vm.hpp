@@ -7,7 +7,6 @@
 #include <functional>
 #include "module.hpp"
 #include "variable.hpp"
-#include "callback.hpp"
 
 /**
  * @ingroup wrenbind17
@@ -123,9 +122,6 @@ namespace wrenbind17 {
             };
 
             vm = wrenNewVM(&config);
-
-            auto& cls = this->module("wrenbind").klass<Callback>("Callback");
-            cls.ctor<Handle, Handle>();
         }
 
         inline VM(const VM& other) = delete;

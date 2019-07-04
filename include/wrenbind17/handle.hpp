@@ -40,6 +40,10 @@ namespace wrenbind17 {
             return handle;
         }
 
+        WrenVM* getVm() const {
+            return vm;
+        }
+
         void reset() {
             if (vm && handle) {
                 wrenReleaseHandle(vm, handle);

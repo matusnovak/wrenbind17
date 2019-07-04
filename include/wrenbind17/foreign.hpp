@@ -196,7 +196,7 @@ namespace wrenbind17 {
         void generate(std::ostream& os) const override {
             os << "foreign class " << name << " {\n";
             if (!ctorDef.empty()) {
-                os << "    " << ctorDef << " {}\n\n";
+                os << "    " << ctorDef;
             }
             for (const auto& pair : methods) {
                 pair.second->generate(os);
@@ -220,7 +220,7 @@ namespace wrenbind17 {
                 else
                     ss << ", arg" << i;
             }
-            ss << ")";
+            ss << ") {}\n\n";
             ctorDef = ss.str();
         }
 
@@ -301,8 +301,6 @@ namespace wrenbind17 {
 
         template <auto Getter, auto Setter>
         void prop(std::string name) {
-            // using G = typename std::remove_const<Getter>::type;
-            // using SetterVal = typename std::remove_const<Getter>::type;
             auto g = ForeignGetterDetails<decltype(Getter), Getter>::method();
             auto s = ForeignSetterDetails<decltype(Setter), Setter>::method();
             auto ptr = std::make_unique<ForeignProp>(std::move(name), g, s);

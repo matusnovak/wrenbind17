@@ -8,49 +8,6 @@
  * @ingroup wrenbind17
  */
 namespace wrenbind17 {
-    namespace detail {
-        /*class Holder {
-        public:
-            class Dummy {
-            public:
-                virtual const std::type_info& type() const = 0;
-            };
-
-            template <typename T>
-            class Data : public Dummy {
-            public:
-                Data(T value) : value(std::move(value)) {
-                }
-                ~Data() = default;
-                const std::type_info& type() const override {
-                    return typeid(T);
-                };
-
-                T value;
-            };
-
-            template <typename T>
-            Holder(T value) : dummy(std::unique_ptr<Dummy>(new Data<T>(std::move(value)))) {
-            }
-            ~Holder() = default;
-
-            template <typename T>
-            T as() const {
-                if (!is<T>())
-                    throw BadCast();
-                return reinterpret_cast<Data<T>*>(dummy.get())->value;
-            }
-
-            template <typename T>
-            bool is() const {
-                return dummy->type() == typeid(T);
-            }
-
-        private:
-            std::unique_ptr<Dummy> dummy;
-        };*/
-    } // namespace detail
-
     /**
      * @ingroup wrenbind17
      */
@@ -111,7 +68,7 @@ namespace wrenbind17 {
         template <typename T>
         inline T as() const {
             if (content == nullptr || content->getTypeid() != typeid(T)) {
-                throw BadCast();
+                throw BadCast("Invalid cast on return value");
             }
             return static_cast<const Data<T>&>(*content.get()).get();
         }
@@ -134,7 +91,7 @@ namespace wrenbind17 {
     template <>
     inline std::nullptr_t Any::as() const {
         if (!empty()) {
-            throw BadCast();
+            throw BadCast("Return value is not null");
         }
         return nullptr;
     }
@@ -177,11 +134,11 @@ namespace wrenbind17 {
         template <typename T>
         inline typename std::enable_if<!std::is_pointer<T>::value, T>::type as() {
             if (type != WREN_TYPE_FOREIGN)
-                throw BadCast();
+                throw BadCast("Return value is not foreign");
             using Type = typename std::remove_const<typename std::remove_reference<T>::type>::type;
             auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
             if (foreign->hash() != typeid(Type).hash_code()) {
-                throw BadCast();
+                throw BadCast("Return value does not match the expected type");
             }
             return *foreign->shared().get();
         }
@@ -191,11 +148,11 @@ namespace wrenbind17 {
             if (type == WREN_TYPE_NULL)
                 return nullptr;
             if (type != WREN_TYPE_FOREIGN)
-                throw BadCast();
+                throw BadCast("Return value is not foreign");
             using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
             auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
             if (foreign->hash() != typeid(Type).hash_code()) {
-                throw BadCast();
+                throw BadCast("Return value does not match the expected type");
             }
             return foreign->shared().get();
         }
@@ -205,11 +162,11 @@ namespace wrenbind17 {
             if (type == WREN_TYPE_NULL)
                 return nullptr;
             if (type != WREN_TYPE_FOREIGN)
-                throw BadCast();
+                throw BadCast("Return value is not foreign");
             using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
             auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
             if (foreign->hash() != typeid(Type).hash_code()) {
-                throw BadCast();
+                throw BadCast("Return value does not match the expected type");
             }
             return foreign->shared();
         }

@@ -645,3 +645,17 @@ TEST_CASE("Exception in constructor") {
     REQUIRE_THROWS(main());
 }
 
+class MultipleConstructors {
+public:
+    MultipleConstructors(const std::string& msg): msg(msg) {
+    }
+
+    MultipleConstructors(int value): msg(std::to_string(value)) {
+    }
+
+    const std::string& getMsg() const {
+        return msg;
+    }
+private:
+    std::string msg;
+};

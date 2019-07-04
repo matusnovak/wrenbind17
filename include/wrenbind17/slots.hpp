@@ -321,7 +321,7 @@ namespace wrenbind17 {
 
         template <WrenType Type> inline void validate(WrenVM* vm, int idx) {
             if (wrenGetSlotType(vm, idx) != Type)
-                throw BadCast();
+                throw BadCast("Bad cast when getting value from Wren");
         }
 
         template <typename T> T getSlot(WrenVM* vm, int idx) {

@@ -10,3 +10,6 @@ install/
 docs/doxygen/*.md
 docs/doxygen/xml
 !docs/doxygen/index.md
+
+# Vuepress
+dist/

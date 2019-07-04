@@ -1,0 +1,68 @@
+version: 2
+jobs:
+  doxygen:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - checkout
+      - run:
+          name: Dependencies
+          command: |
+            sudo apt install doxygen
+            sudo python -m pip install doxybook
+
+      - run:
+          name: Generate documentation
+          command: |
+            chmod +x ./docs/doxygen/make.sh
+            ./docs/doxygen/make.sh
+            mkdir /tmp/doxygen
+            cp -v ./docs/doxygen/*.md /tmp/doxygen
+
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - doxygen
+
+  deploy:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "72:4f:5d:f5:3f:24:82:ec:28:72:1f:26:91:03:47:68"
+      - run:
+          name: Dependencies
+          command: |
+            sudo npm install -g vuepress
+            sudo npm install -g gh-pages@2.0.1
+
+      - run:
+          name: Build static pages
+          command: |
+            vuepress build
+
+      - run:
+          name: Deploy
+          command: |
+            git config --global user.email "$GITHUB_USER_EMAIL"
+            git config --global user.name "$GITHUB_USER_NAME"
+            gh-pages --dist ./.vuepress/dist
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - doxygen:
+          filters:
+            branches:
+              only:
+                - master
+      - deploy:
+          requires:
+            - doxygen
+          filters:
+            branches:
+              only:
+                - master

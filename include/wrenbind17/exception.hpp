@@ -36,8 +36,12 @@ namespace wrenbind17 {
     /**
      * @ingroup wrenbind17
      */
-    class BadCast : public std::bad_cast {
+    class BadCast : public Exception {
     public:
-        BadCast() = default;
+        BadCast() : Exception("Bad cast") {
+        }
+
+        explicit BadCast(std::string msg) : Exception(std::move(msg)) {
+        }
     };
 } // namespace wrenbind17
