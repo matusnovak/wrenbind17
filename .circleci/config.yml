@@ -41,7 +41,7 @@ jobs:
       - run:
           name: Build static pages
           command: |
-            vuepress build
+            sudo vuepress build
 
       - run:
           name: Deploy
