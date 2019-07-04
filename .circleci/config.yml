@@ -5,6 +5,7 @@ jobs:
       - image: circleci/python:3.7
     steps:
       - checkout
+      
       - run:
           name: Dependencies
           command: |
@@ -29,9 +30,14 @@ jobs:
       - image: circleci/node:latest
     steps:
       - checkout
+
       - add_ssh_keys:
           fingerprints:
             - "72:4f:5d:f5:3f:24:82:ec:28:72:1f:26:91:03:47:68"
+
+      - attach_workspace:
+          at: /tmp
+
       - run:
           name: Dependencies
           command: |
