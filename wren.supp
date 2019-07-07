@@ -1,0 +1,19 @@
+{
+   <wren-conditional-jump>
+   Memcheck:Cond
+   fun:bindForeignClass
+   fun:createClass
+   fun:runInterpreter
+   fun:wrenInterpret
+}
+
+{
+   <wren-realloc>
+   Memcheck:Free
+   fun:free
+   fun:realloc
+   fun:wrenReallocate
+   fun:importModule
+   fun:runInterpreter
+   fun:wrenInterpret
+}

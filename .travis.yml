@@ -9,6 +9,7 @@ matrix:
             - cmake
             - lcov
             - curl
+            - valgrind
 
     - os: osx
       language: cpp
@@ -36,6 +37,7 @@ script:
   - cmake --build . || travis_terminate 1
   - ctest --verbose || travis_terminate 1
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      valgrind --suppressions=../wren.supp ./WrenBind17_tests || travis_terminate 1
       lcov --directory . --capture --output-file coverage.info;
       lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' '*tests*' '*catch2*' '*vm*' --output-file coverage.info;
       lcov --list coverage.info;
