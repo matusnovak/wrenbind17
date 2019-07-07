@@ -29,6 +29,9 @@ namespace wrenbind17 {
             return method;
         }
 
+        bool getStatic() const {
+            return isStatic;
+        }
     protected:
         std::string name;
         WrenForeignMethodFn method;
@@ -40,8 +43,8 @@ namespace wrenbind17 {
      */
     class ForeignProp {
     public:
-        ForeignProp(std::string name, WrenForeignMethodFn getter, WrenForeignMethodFn setter)
-            : name(std::move(name)), getter(getter), setter(setter) {
+        ForeignProp(std::string name, WrenForeignMethodFn getter, WrenForeignMethodFn setter, const bool isStatic)
+            : name(std::move(name)), getter(getter), setter(setter), isStatic(isStatic) {
         }
         virtual ~ForeignProp() = default;
 
@@ -64,10 +67,14 @@ namespace wrenbind17 {
             return getter;
         }
 
+        bool getStatic() const {
+            return isStatic;
+        }
     protected:
         std::string name;
         WrenForeignMethodFn getter;
         WrenForeignMethodFn setter;
+        bool isStatic;
     };
 
     /**
@@ -80,31 +87,35 @@ namespace wrenbind17 {
         virtual ~ForeignKlass() = default;
         virtual void generate(std::ostream& os) const = 0;
 
-        ForeignMethod& findFunc(const std::string& name) {
-            auto it = methods.find(name);
+        ForeignMethod& findFunc(const std::string& name, const bool isStatic) {
+            const auto it = methods.find(name);
             if (it == methods.end())
                 throw NotFound();
-            return *it->second;
-        }
-
-        ForeignProp& findProp(const std::string& name) {
-            auto it = props.find(name);
-            if (it == props.end())
+            if (it->second->getStatic() != isStatic)
                 throw NotFound();
             return *it->second;
         }
 
-        WrenForeignMethodFn findSignature(const std::string& signature) {
+        ForeignProp& findProp(const std::string& name, const bool isStatic) {
+            const auto it = props.find(name);
+            if (it == props.end())
+                throw NotFound();
+            if (it->second->getStatic() != isStatic)
+                throw NotFound();
+            return *it->second;
+        }
+
+        WrenForeignMethodFn findSignature(const std::string& signature, const bool isStatic) {
             if (signature.find('(') != std::string::npos) {
                 // Check if setter
                 if (signature.find("=(_)") != std::string::npos) {
-                    return findProp(signature.substr(0, signature.find_first_of('='))).getSetter();
+                    return findProp(signature.substr(0, signature.find_first_of('=')), isStatic).getSetter();
                 } else {
                     // Must be a method
-                    return findFunc(signature.substr(0, signature.find_first_of('('))).getMethod();
+                    return findFunc(signature.substr(0, signature.find_first_of('(')), isStatic).getMethod();
                 }
             } else {
-                return findProp(signature).getGetter();
+                return findProp(signature, isStatic).getGetter();
             }
         }
 
@@ -154,8 +165,8 @@ namespace wrenbind17 {
     template <typename T, typename V>
     class ForeignPropImpl : public ForeignProp {
     public:
-        ForeignPropImpl(std::string name, WrenForeignMethodFn getter, WrenForeignMethodFn setter)
-            : ForeignProp(std::move(name), getter, setter) {
+        ForeignPropImpl(std::string name, WrenForeignMethodFn getter, WrenForeignMethodFn setter, const bool isStatic)
+            : ForeignProp(std::move(name), getter, setter, isStatic) {
         }
         ~ForeignPropImpl() = default;
     };
@@ -242,7 +253,7 @@ namespace wrenbind17 {
             static std::unique_ptr<ForeignProp> make(std::string name, const bool readonly) {
                 auto s = readonly ? nullptr : detail::ForeignPropCaller<T, V, Ptr>::setter;
                 auto g = detail::ForeignPropCaller<T, V, Ptr>::getter;
-                return std::make_unique<ForeignProp>(std::move(name), g, s);
+                return std::make_unique<ForeignProp>(std::move(name), g, s, false);
             }
         };
 
@@ -303,14 +314,14 @@ namespace wrenbind17 {
         void prop(std::string name) {
             auto g = ForeignGetterDetails<decltype(Getter), Getter>::method();
             auto s = ForeignSetterDetails<decltype(Setter), Setter>::method();
-            auto ptr = std::make_unique<ForeignProp>(std::move(name), g, s);
+            auto ptr = std::make_unique<ForeignProp>(std::move(name), g, s, false);
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
         template <auto Getter>
         void propReadonly(std::string name) {
             auto g = ForeignGetterDetails<decltype(Getter), Getter>::method();
-            auto ptr = std::make_unique<ForeignProp>(std::move(name), g, nullptr);
+            auto ptr = std::make_unique<ForeignProp>(std::move(name), g, nullptr, false);
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
     };

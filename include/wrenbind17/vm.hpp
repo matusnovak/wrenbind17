@@ -1,12 +1,22 @@
 #pragma once
 
-#include <vector>
+#include <cstdlib>
 #include <cstring>
 #include <fstream>
-#include <cstdlib>
 #include <functional>
+#include <unordered_map>
+#include <vector>
 #include "module.hpp"
 #include "variable.hpp"
+
+namespace std {
+    template <> struct hash<std::pair<size_t, size_t>> {
+        inline size_t operator()(const std::pair<size_t, size_t>& v) const {
+            const std::hash<size_t> hasher;
+            return hasher(v.first) ^ hasher(v.second);
+        }
+    };
+} // namespace std
 
 /**
  * @ingroup wrenbind17
@@ -74,13 +84,13 @@ namespace wrenbind17 {
                     return nullptr;
                 }
             };
-            config.bindForeignMethodFn = [](WrenVM* vm, const char* module, const char* className, bool isStatic,
+            config.bindForeignMethodFn = [](WrenVM* vm, const char* module, const char* className, const bool isStatic,
                                             const char* signature) -> WrenForeignMethodFn {
                 auto& self = *reinterpret_cast<VM*>(wrenGetUserData(vm));
                 try {
                     auto& found = self.modules.at(module);
                     auto& klass = found.findKlass(className);
-                    return klass.findSignature(signature);
+                    return klass.findSignature(signature, isStatic);
                 } catch (...) {
                     exceptionHandler(vm, std::current_exception());
                     return nullptr;
@@ -102,7 +112,8 @@ namespace wrenbind17 {
                 auto& self = *reinterpret_cast<VM*>(wrenGetUserData(vm));
                 self.printFn(text);
             };
-            config.errorFn = [](WrenVM* vm, WrenErrorType type, const char* module, int line, const char* message) {
+            config.errorFn = [](WrenVM* vm, WrenErrorType type, const char* module, const int line,
+                                const char* message) {
                 auto& self = *reinterpret_cast<VM*>(wrenGetUserData(vm));
                 std::stringstream ss;
                 switch (type) {
@@ -202,6 +213,15 @@ namespace wrenbind17 {
             name = classToName.at(hash);
         }
 
+        inline void addClassCast(std::shared_ptr<detail::ForeignPtrConvertor> convertor, const size_t hash,
+                                 const size_t other) {
+            classCasting.insert(std::make_pair(std::make_pair(hash, other), std::move(convertor)));
+        }
+
+        inline detail::ForeignPtrConvertor* getClassCast(const size_t hash, const size_t other) {
+            return classCasting.at(std::pair(hash, other)).get();
+        }
+
         inline void getLastError() {
             auto e = std::runtime_error(lastError);
             lastError.clear();
@@ -223,6 +243,7 @@ namespace wrenbind17 {
         inline void gc() {
             wrenCollectGarbage(vm);
         }
+
     private:
         WrenVM* vm;
         WrenConfiguration config;
@@ -230,18 +251,28 @@ namespace wrenbind17 {
         std::unordered_map<std::string, ForeignModule> modules;
         std::unordered_map<size_t, std::string> classToModule;
         std::unordered_map<size_t, std::string> classToName;
+        std::unordered_map<std::pair<size_t, size_t>, std::shared_ptr<detail::ForeignPtrConvertor>> classCasting;
         std::string lastError;
         PrintFn printFn;
         LoadFileFn loadFileFn;
     };
 
-    inline void addClassType(WrenVM* vm, const std::string& module, const std::string& name, size_t hash) {
+    inline void addClassType(WrenVM* vm, const std::string& module, const std::string& name, const size_t hash) {
         auto self = reinterpret_cast<VM*>(wrenGetUserData(vm));
         self->addClassType(module, name, hash);
     }
-    inline void getClassType(WrenVM* vm, std::string& module, std::string& name, size_t hash) {
+    inline void getClassType(WrenVM* vm, std::string& module, std::string& name, const size_t hash) {
         auto self = reinterpret_cast<VM*>(wrenGetUserData(vm));
         self->getClassType(module, name, hash);
+    }
+    inline void addClassCast(WrenVM* vm, std::shared_ptr<detail::ForeignPtrConvertor> convertor, const size_t hash,
+                             const size_t other) {
+        auto self = reinterpret_cast<VM*>(wrenGetUserData(vm));
+        self->addClassCast(std::move(convertor), hash, other);
+    }
+    inline detail::ForeignPtrConvertor* getClassCast(WrenVM* vm, const size_t hash, const size_t other) {
+        auto self = reinterpret_cast<VM*>(wrenGetUserData(vm));
+        return self->getClassCast(hash, other);
     }
     inline void getLastError(WrenVM* vm) {
         auto self = reinterpret_cast<VM*>(wrenGetUserData(vm));

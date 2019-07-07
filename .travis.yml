@@ -36,7 +36,7 @@ script:
   - cmake -G "Unix Makefiles" -DWRENBIND17_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Debug .. || travis_terminate 1
   - cmake --build . || travis_terminate 1
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      valgrind --suppressions=../wren.supp ./WrenBind17_tests || travis_terminate 1
+      valgrind --suppressions=../wren.supp ./WrenBind17_tests || travis_terminate 1;
     fi
   - ctest --verbose || travis_terminate 1
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then

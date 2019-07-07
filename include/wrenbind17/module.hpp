@@ -7,6 +7,9 @@
  * @ingroup wrenbind17
  */
 namespace wrenbind17 {
+    void addClassType(WrenVM* vm, const std::string& module, const std::string& name, size_t hash);
+    void addClassCast(WrenVM* vm, std::shared_ptr<detail::ForeignPtrConvertor> convertor, size_t hash, size_t other);
+
     /**
      * @ingroup wrenbind17
      */
@@ -32,8 +35,9 @@ namespace wrenbind17 {
             std::swap(name, other.name);
         }
 
-        template <typename T>
+        template <typename T, typename... Others>
         ForeignKlassImpl<T>& klass(std::string name) {
+            insertKlassCast<T, Others...>();
             auto ptr = std::make_unique<ForeignKlassImpl<T>>(std::move(name));
             auto ret = ptr.get();
             addClassType(vm, this->name, ptr->getName(), typeid(T).hash_code());
@@ -68,6 +72,21 @@ namespace wrenbind17 {
         }
 
     private:
+        template <typename T>
+        void insertKlassCast() {
+            // void
+        }
+
+        template <typename T, typename Other, typename... Others> 
+        void insertKlassCast() {
+            addClassCast(vm,
+                         std::make_shared<detail::ForeignObjectSharedPtrConvertor<T, Other>>(),
+                         typeid(T).hash_code(),
+                         typeid(Other).hash_code()
+                        );
+            insertKlassCast<T, Others...>();
+        }
+
         std::string name;
         WrenVM* vm;
         std::unordered_map<std::string, std::unique_ptr<ForeignKlass>> klasses;

@@ -101,24 +101,42 @@ namespace wrenbind17 {
      */
     class ReturnValue {
     public:
-        explicit ReturnValue(double value) : type{WrenType::WREN_TYPE_NUM}, value{value} {};
+        explicit ReturnValue(WrenVM* vm, const double value)
+            : vm{vm},
+              type{WrenType::WREN_TYPE_NUM},
+              value{value} {
+        };
 
-        explicit ReturnValue(bool value) : type{WrenType::WREN_TYPE_BOOL}, value{value} {};
+        explicit ReturnValue(WrenVM* vm, const bool value)
+            : vm{vm},
+              type{WrenType::WREN_TYPE_BOOL},
+              value{value} {
+        };
 
-        explicit ReturnValue(std::nullptr_t value) : type{WrenType::WREN_TYPE_NULL}, value{} {
+        explicit ReturnValue(WrenVM* vm, std::nullptr_t value)
+            : vm{vm},
+              type{WrenType::WREN_TYPE_NULL} {
             (void)value;
         };
 
-        explicit ReturnValue(std::string value) : type{WrenType::WREN_TYPE_STRING}, value{std::move(value)} {};
+        explicit ReturnValue(WrenVM* vm, std::string value)
+            : vm{vm},
+              type{WrenType::WREN_TYPE_STRING},
+              value{std::move(value)} {
+        };
 
-        explicit ReturnValue(void* value) : type{WrenType::WREN_TYPE_FOREIGN}, value{std::move(value)} {};
+        explicit ReturnValue(WrenVM* vm, void* value)
+            : vm{vm},
+              type{WrenType::WREN_TYPE_FOREIGN},
+              value{value} {
+        };
 
         template <typename T, typename std::enable_if<!std::is_pointer<T>::value, T>::type* = nullptr>
         bool is() const {
             if (type != WREN_TYPE_FOREIGN)
                 return false;
             using Type = typename std::remove_const<typename std::remove_reference<T>::type>::type;
-            auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
+            const auto foreign = reinterpret_cast<detail::Foreign*>(value.as<void*>());
             return foreign->hash() == typeid(Type).hash_code();
         }
 
@@ -127,51 +145,49 @@ namespace wrenbind17 {
             if (type != WREN_TYPE_FOREIGN)
                 return false;
             using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
-            auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
+            const auto foreign = reinterpret_cast<detail::Foreign*>(value.as<void*>());
             return foreign->hash() == typeid(Type).hash_code();
         }
 
         template <typename T>
         inline typename std::enable_if<!std::is_pointer<T>::value, T>::type as() {
-            if (type != WREN_TYPE_FOREIGN)
-                throw BadCast("Return value is not foreign");
             using Type = typename std::remove_const<typename std::remove_reference<T>::type>::type;
-            auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
+            return *detail::getSlotForeign<Type>(vm, value.as<void*>()).get();
+            /*auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
             if (foreign->hash() != typeid(Type).hash_code()) {
                 throw BadCast("Return value does not match the expected type");
             }
-            return *foreign->shared().get();
+            return *foreign->shared().get();*/
         }
 
         template <typename T>
         inline typename std::enable_if<std::is_pointer<T>::value, T>::type as() {
             if (type == WREN_TYPE_NULL)
                 return nullptr;
-            if (type != WREN_TYPE_FOREIGN)
-                throw BadCast("Return value is not foreign");
             using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
-            auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
+            return detail::getSlotForeign<Type>(vm, value.as<void*>()).get();
+            /*auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
             if (foreign->hash() != typeid(Type).hash_code()) {
                 throw BadCast("Return value does not match the expected type");
             }
-            return foreign->shared().get();
+            return foreign->shared().get();*/
         }
 
         template <typename T>
         inline typename std::shared_ptr<T> shared() {
             if (type == WREN_TYPE_NULL)
                 return nullptr;
-            if (type != WREN_TYPE_FOREIGN)
-                throw BadCast("Return value is not foreign");
             using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
-            auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
+            return detail::getSlotForeign<Type>(vm, value.as<void*>());
+            /*auto foreign = reinterpret_cast<detail::ForeignObject<Type>*>(value.as<void*>());
             if (foreign->hash() != typeid(Type).hash_code()) {
                 throw BadCast("Return value does not match the expected type");
             }
-            return foreign->shared();
+            return foreign->shared();*/
         }
 
     private:
+        WrenVM* vm;
         WrenType type;
         Any value;
     };
@@ -356,23 +372,22 @@ namespace wrenbind17 {
 
                 pushArgs(vm, 1, std::forward<Args>(args)...);
 
-                auto r = wrenCall(vm, func);
-                if (r != WREN_RESULT_SUCCESS) {
+                if (wrenCall(vm, func) != WREN_RESULT_SUCCESS) {
                     getLastError(vm);
                 }
 
                 const auto type = wrenGetSlotType(vm, 0);
                 switch (type) {
                     case WrenType::WREN_TYPE_BOOL:
-                        return ReturnValue(wrenGetSlotBool(vm, 0));
+                        return ReturnValue(vm, wrenGetSlotBool(vm, 0));
                     case WrenType::WREN_TYPE_NUM:
-                        return ReturnValue(wrenGetSlotDouble(vm, 0));
+                        return ReturnValue(vm, wrenGetSlotDouble(vm, 0));
                     case WrenType::WREN_TYPE_STRING:
-                        return ReturnValue(std::string(wrenGetSlotString(vm, 0)));
+                        return ReturnValue(vm, std::string(wrenGetSlotString(vm, 0)));
                     case WrenType::WREN_TYPE_FOREIGN:
-                        return ReturnValue(wrenGetSlotForeign(vm, 0));
+                        return ReturnValue(vm, wrenGetSlotForeign(vm, 0));
                     default:
-                        return ReturnValue(nullptr);
+                        return ReturnValue(vm, nullptr);
                 }
             }
         };

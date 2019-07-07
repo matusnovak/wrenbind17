@@ -391,7 +391,7 @@ public:
         id = size_t(this);
     }
     NonCopyable(const NonCopyable& other) = delete;
-    NonCopyable(NonCopyable&& other) noexcept :parent(nullptr) {
+    NonCopyable(NonCopyable&& other) noexcept : parent(nullptr) {
         swap(other);
     }
     NonCopyable& operator=(const NonCopyable& other) = delete;
@@ -427,12 +427,14 @@ public:
     }
 
     const NonCopyable& getParent() const {
-        if (!parent) throw std::runtime_error("No parrent assigned");
+        if (!parent)
+            throw std::runtime_error("No parrent assigned");
         return *parent;
     }
 
     NonCopyable* getParentPtr() const {
-        if (!parent) throw std::runtime_error("No parrent assigned");
+        if (!parent)
+            throw std::runtime_error("No parrent assigned");
         return parent;
     }
 
@@ -531,7 +533,6 @@ TEST_CASE("Pass class from Wren to C++ as non copyable via prop") {
 class AbstractEntity {
 public:
     virtual ~AbstractEntity() {
-        
     }
     virtual void tick() = 0;
     virtual void onInteractEvent() = 0;
@@ -545,7 +546,6 @@ public:
     }
 
     virtual ~WrenAbstractEntity() {
-
     }
 
     void tick() override {
@@ -645,17 +645,146 @@ TEST_CASE("Exception in constructor") {
     REQUIRE_THROWS(main());
 }
 
-class MultipleConstructors {
+class PassToMe {
 public:
-    MultipleConstructors(const std::string& msg): msg(msg) {
+    PassToMe() {
+    }
+    virtual ~PassToMe() {
     }
 
-    MultipleConstructors(int value): msg(std::to_string(value)) {
+    void set(const Vector3& vector) {
+    }
+};
+
+TEST_CASE("Passing wrong class must throw exception") {
+    const std::string code = R"(
+        import "test" for PassToMe, Vector3
+
+        var A = Vector3.new("whoops")
+
+        class Main {
+            static main() {
+                var i = PassToMe.new()
+                i.set(A)
+                return i
+            }
+        }
+    )";
+
+    wren::VM vm;
+    auto& m = vm.module("test");
+    auto& cls = m.klass<NonCopyable>("Vector3");
+    cls.ctor<std::string>();
+
+    auto& cls2 = m.klass<PassToMe>("PassToMe");
+    cls2.ctor<>();
+    cls2.func<&PassToMe::set>("set");
+
+    vm.runFromSource("main", code);
+    auto main = vm.find("main", "Main").func("main()");
+
+    REQUIRE_THROWS(main());
+}
+
+class MultipleConstructors {
+public:
+    MultipleConstructors(const std::string& msg) : msg(msg) {
+    }
+
+    MultipleConstructors(int value) : msg(std::to_string(value)) {
     }
 
     const std::string& getMsg() const {
         return msg;
     }
+
 private:
     std::string msg;
 };
+
+
+class BaseClass {
+public:
+    virtual ~BaseClass() {
+    }
+
+    virtual std::string getStuff() = 0;
+};
+
+class DerivedClass: public BaseClass {
+public:
+    virtual ~DerivedClass() {
+    }
+
+    std::string getStuff() override {
+        return "Hello World!";
+    }
+};
+
+class BaseClassReceiver {
+public:
+    std::string receive(BaseClass* ptr) {
+        return ptr->getStuff();
+    }
+};
+
+TEST_CASE("Inheritance") {
+    const std::string code = R"(
+        import "test" for BaseClassReceiver, DerivedClass
+
+        var Receiver = BaseClassReceiver.new()
+        var Derived = DerivedClass.new()
+
+        class Main {
+            static main() {
+                return Receiver.receive(Derived)
+            }
+        }
+    )";
+
+    wren::VM vm;
+    auto& m = vm.module("test");
+    auto& cls = m.klass<BaseClass>("BaseClass");
+
+    auto& cls2 = m.klass<DerivedClass, BaseClass>("DerivedClass");
+    cls2.ctor<>();
+
+    auto& cls3 = m.klass<BaseClassReceiver>("BaseClassReceiver");
+    cls3.ctor<>();
+    cls3.func<&BaseClassReceiver::receive>("receive");
+
+    vm.runFromSource("main", code);
+    auto main = vm.find("main", "Main").func("main()");
+    auto res = main();
+
+    REQUIRE(res.is<std::string>());
+    REQUIRE(res.as<std::string>() == "Hello World!");
+}
+
+TEST_CASE("Inheritance with shared_ptr") {
+    const std::string code = R"(
+        import "test" for DerivedClass
+
+        class Main {
+            static main() {
+                return DerivedClass.new()
+            }
+        }
+    )";
+
+    wren::VM vm;
+    auto& m = vm.module("test");
+    auto& cls = m.klass<BaseClass>("BaseClass");
+
+    auto& cls2 = m.klass<DerivedClass, BaseClass>("DerivedClass");
+    cls2.ctor<>();
+
+    vm.runFromSource("main", code);
+    auto main = vm.find("main", "Main").func("main()");
+    auto res = main();
+
+    REQUIRE(res.is<DerivedClass>());
+
+    auto ptr = res.shared<BaseClass>();
+    REQUIRE(ptr->getStuff() == "Hello World!");
+}
