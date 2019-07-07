@@ -293,7 +293,7 @@ namespace wrenbind17 {
                 throw BadCast("Bad cast when getting value from Wren");
         }
 
-        template <typename T> const std::shared_ptr<T>& getSlotForeign(WrenVM* vm, void* slot) {
+        template <typename T> std::shared_ptr<T> getSlotForeign(WrenVM* vm, void* slot) {
             using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
             using ForeignTypeConvertor = ForeignSharedPtrConvertor<Type>;
 
