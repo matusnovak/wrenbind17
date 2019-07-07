@@ -78,8 +78,7 @@ namespace wrenbind17 {
             virtual std::pair<size_t, size_t> pair() const = 0;
         };
 
-        template <typename T>
-        class ForeignSharedPtrConvertor: public ForeignPtrConvertor {
+        template <typename T> class ForeignSharedPtrConvertor : public ForeignPtrConvertor {
         public:
             ForeignSharedPtrConvertor() = default;
             virtual ~ForeignSharedPtrConvertor() = default;
@@ -87,7 +86,7 @@ namespace wrenbind17 {
             virtual std::shared_ptr<T> cast(Foreign* foreign) const = 0;
         };
 
-        template <typename From, typename To> 
+        template <typename From, typename To>
         class ForeignObjectSharedPtrConvertor : public ForeignSharedPtrConvertor<To> {
         public:
             ForeignObjectSharedPtrConvertor() = default;
@@ -316,7 +315,7 @@ namespace wrenbind17 {
             return ptr->shared();
         }
 
-        template <typename T> const std::shared_ptr<T>& getSlotForeign(WrenVM* vm, const int idx) {
+        template <typename T> const std::shared_ptr<T> getSlotForeign(WrenVM* vm, const int idx) {
             validate<WrenType::WREN_TYPE_FOREIGN>(vm, idx);
             return getSlotForeign<T>(vm, wrenGetSlotForeign(vm, idx));
         }
@@ -368,12 +367,6 @@ namespace wrenbind17 {
             validate<WrenType::WREN_TYPE_STRING>(vm, idx);
             return std::string(wrenGetSlotString(vm, idx));
         }
-
-        template <> struct PopHelper<const std::string&> {
-            static inline std::string f(WrenVM* vm, int idx) {
-                return getSlot<std::string>(vm, idx);
-            }
-        };
 
         template <> inline bool getSlot(WrenVM* vm, int idx) {
             validate<WrenType::WREN_TYPE_BOOL>(vm, idx);
@@ -434,5 +427,26 @@ namespace wrenbind17 {
             validate<WrenType::WREN_TYPE_NUM>(vm, idx);
             return static_cast<double>(wrenGetSlotDouble(vm, idx));
         }
+
+#define WRENBIND17_POP_HELPER(Type)                                                                                    \
+    template <> struct PopHelper<const Type&> {                                                                        \
+        static inline Type f(WrenVM* vm, int idx) {                                                                    \
+            return getSlot<Type>(vm, idx);                                                                             \
+        }                                                                                                              \
+    };
+
+        WRENBIND17_POP_HELPER(std::string)
+        WRENBIND17_POP_HELPER(bool)
+        WRENBIND17_POP_HELPER(int8_t)
+        WRENBIND17_POP_HELPER(char)
+        WRENBIND17_POP_HELPER(int)
+        WRENBIND17_POP_HELPER(short)
+        WRENBIND17_POP_HELPER(long)
+        WRENBIND17_POP_HELPER(unsigned long)
+        WRENBIND17_POP_HELPER(unsigned)
+        WRENBIND17_POP_HELPER(long long)
+        WRENBIND17_POP_HELPER(unsigned long long)
+        WRENBIND17_POP_HELPER(float)
+        WRENBIND17_POP_HELPER(double)
     } // namespace detail
 } // namespace wrenbind17

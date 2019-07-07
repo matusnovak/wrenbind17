@@ -11,8 +11,9 @@ namespace wrenbind17 {
             (void)vm;
             (void)idx;
         }
-        template <typename First, typename... Other>
-        inline void pushArgs(WrenVM* vm, int idx, First&& first, Other&&... other) {
+
+        template <typename First, typename... Other> inline void pushArgs(
+            WrenVM* vm, int idx, First&& first, Other&&... other) {
             PushHelper<First>::f(vm, idx, first);
             pushArgs(vm, ++idx, std::forward<Other>(other)...);
         }

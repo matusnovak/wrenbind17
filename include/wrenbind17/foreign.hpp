@@ -13,6 +13,13 @@ namespace wrenbind17 {
     /**
      * @ingroup wrenbind17
      */
+    enum ForeignMethodOperator {
+        OPERATOR_GET_INDEX,
+        OPERATOR_SET_INDEX
+    };
+    /**
+     * @ingroup wrenbind17
+     */
     class ForeignMethod {
     public:
         ForeignMethod(std::string name, WrenForeignMethodFn method, const bool isStatic)
@@ -106,7 +113,7 @@ namespace wrenbind17 {
         }
 
         WrenForeignMethodFn findSignature(const std::string& signature, const bool isStatic) {
-            if (signature.find('(') != std::string::npos) {
+            if (signature.find('(') != std::string::npos || signature[0] == '[') {
                 // Check if setter
                 if (signature.find("=(_)") != std::string::npos) {
                     return findProp(signature.substr(0, signature.find_first_of('=')), isStatic).getSetter();
@@ -141,22 +148,53 @@ namespace wrenbind17 {
     template <typename... Args>
     class ForeignMethodImpl : public ForeignMethod {
     public:
-        ForeignMethodImpl(std::string name, WrenForeignMethodFn fn, const bool isStatic)
-            : ForeignMethod(std::move(name), fn, isStatic) {
+        ForeignMethodImpl(std::string name, std::string signature, WrenForeignMethodFn fn, const bool isStatic)
+            : ForeignMethod(std::move(name), fn, isStatic), signature(std::move(signature)) {
         }
         ~ForeignMethodImpl() = default;
 
         void generate(std::ostream& os) const override {
             constexpr auto n = sizeof...(Args);
-            os << "    foreign " << (isStatic ? "static " : "") << name << "(";
+            os << "    foreign " << (isStatic ? "static " : "") << signature << "\n";
+        }
+
+        static std::string generateSignature(const std::string& name) {
+            std::stringstream os;
+            constexpr auto n = sizeof...(Args);
+            os << name << "(";
             for (size_t i = 0; i < n; i++) {
                 if (i == 0)
                     os << "arg0";
                 else
                     os << ", arg" << i;
             }
-            os << ")\n";
+            os << ")";
+            return os.str();
         }
+
+        static std::string generateSignature(const ForeignMethodOperator name) {
+            switch (name) {
+                case OPERATOR_GET_INDEX:
+                    return "[arg]";
+                case OPERATOR_SET_INDEX:
+                    return "[arg]=(rhs)";
+                default:
+                    throw Exception("Operator not supported");
+            }
+        }
+
+        static std::string generateName(const ForeignMethodOperator name) {
+            switch (name) {
+                case OPERATOR_GET_INDEX:
+                    return "[_]";
+                case OPERATOR_SET_INDEX:
+                    return "[_]=(_)";
+                default:
+                    throw Exception("Operator not supported");
+            }
+        }
+    private:
+        std::string signature;
     };
 
     /**
@@ -180,8 +218,9 @@ namespace wrenbind17 {
             typedef ForeignMethodImpl<Args...> ForeignMethodImplType;
 
             static std::unique_ptr<ForeignMethodImplType> make(std::string name) {
+                auto signature = ForeignMethodImplType::generateSignature(name);
                 auto p = detail::ForeignFunctionCaller<R, Args...>::template call<Fn>;
-                return std::make_unique<ForeignMethodImplType>(std::move(name), p, true);
+                return std::make_unique<ForeignMethodImplType>(std::move(name), std::move(signature), p, true);
             }
         };
 
@@ -243,8 +282,16 @@ namespace wrenbind17 {
             typedef ForeignMethodImpl<Args...> ForeignMethodImplType;
 
             static std::unique_ptr<ForeignMethodImplType> make(std::string name) {
+                auto signature = ForeignMethodImplType::generateSignature(name);
                 auto p = detail::ForeignMethodCaller<R, T, Args...>::template call<Fn>;
-                return std::make_unique<ForeignMethodImplType>(std::move(name), p, false);
+                return std::make_unique<ForeignMethodImplType>(std::move(name), std::move(signature), p, false);
+            }
+
+            static std::unique_ptr<ForeignMethodImplType> make(const ForeignMethodOperator op) {
+                auto signature = ForeignMethodImplType::generateSignature(op);
+                auto name = ForeignMethodImplType::generateName(op);
+                auto p = detail::ForeignMethodCaller<R, T, Args...>::template call<Fn>;
+                return std::make_unique<ForeignMethodImplType>(std::move(name), std::move(signature), p, false);
             }
         };
 
@@ -287,6 +334,12 @@ namespace wrenbind17 {
         template <auto Fn>
         void func(std::string name) {
             auto ptr = ForeignMethodDetails<decltype(Fn), Fn>::make(std::move(name));
+            methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
+        }
+
+        template <auto Fn>
+        void func(const ForeignMethodOperator name) {
+            auto ptr = ForeignMethodDetails<decltype(Fn), Fn>::make(name);
             methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
