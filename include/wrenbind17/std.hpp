@@ -235,7 +235,7 @@ namespace wrenbind17 {
         }
 
         static size_t size(List& self) {
-            self.size();
+            return self.size();
         }
 
         static void bind(ForeignModule& m, const std::string& name) {
