@@ -8,6 +8,7 @@
 #include <vector>
 #include "module.hpp"
 #include "variable.hpp"
+#include "std.hpp"
 
 namespace std {
     template <> struct hash<std::pair<size_t, size_t>> {

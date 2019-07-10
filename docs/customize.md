@@ -1,3 +1,0 @@
-# Customize VM
-
-TODO

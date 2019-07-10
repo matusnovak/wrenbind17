@@ -1,7 +1,8 @@
 #pragma once
 
 #include "method.hpp"
-#include "slots.hpp"
+#include "push.hpp"
+#include "pop.hpp"
 
 /**
  * @ingroup wrenbind17

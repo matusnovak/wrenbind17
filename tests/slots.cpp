@@ -30,8 +30,8 @@ TEST_CASE("Set slot and return by calling Wren") {
     sendAndCheck<int>(baz, 42);
     sendAndCheck<long>(baz, 42);
     sendAndCheck<long long>(baz, 42);
-    // sendAndCheck<unsigned char>(baz, 42);
-    // sendAndCheck<unsigned short>(baz, 42);
+    sendAndCheck<unsigned char>(baz, 42);
+    sendAndCheck<unsigned short>(baz, 42);
     sendAndCheck<unsigned int>(baz, 42);
     sendAndCheck<unsigned long>(baz, 42);
     sendAndCheck<unsigned long long>(baz, 42);
