@@ -104,7 +104,7 @@ namespace wrenbind17 {
         }
 
         static size_t size(Vector& self) {
-            self.size();
+            return self.size();
         }
 
         static void bind(ForeignModule& m, const std::string& name) {
