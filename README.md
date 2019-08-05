@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.com/matusnovak/wrenbind17.svg?branch=master)](https://travis-ci.com/matusnovak/wrenbind17) [![Build status](https://ci.appveyor.com/api/projects/status/fy974aj37cdyxc0i/branch/master?svg=true)](https://ci.appveyor.com/project/matusnovak/wrenbind17/branch/master) [![CircleCI](https://circleci.com/gh/matusnovak/wrenbind17.svg?style=svg)](https://circleci.com/gh/matusnovak/wrenbind17) [![codecov](https://codecov.io/gh/matusnovak/wrenbind17/branch/master/graph/badge.svg)](https://codecov.io/gh/matusnovak/wrenbind17)
 
+**This library is still work in progress, not everything is yet implemented, such as wren::VM customisation, and not every API is commented. However, the API will not change.**
+
 WrenBind17 is a C++17 wrapper for [Wren programming language](http://wren.io/). This project was heavily inspired by [pybind11](https://github.com/pybind/pybind11) and by [Wren++](https://github.com/Nelarius/wrenpp). This library is header only and does not need any compilation steps. Simply include the `<wrenbind17/wrenbind17.hpp>` header in your application and you are good to go!
 
 How is this library unique from other Wren binding libraries? 
@@ -16,12 +18,20 @@ How is this library unique from other Wren binding libraries?
 * Upcasting to base types when passing C++ instances.
 * Memory leak tested.
 * Supports `std::variant`.
-* Supports `std::vector` and `std::list` (optional).
+* Supports `std::vector` and `std::list` via helper classes (optional).
 * Easy binding of operators such as `+`, `-`, `[]`, etc.
 * [Long but easy to follow tutorial](https://matusnovak.github.io/wrenbind17/docs/tutorial.html).
 * Supports `Fn.new{}`.
 * Supports inheritance (kinda).
 * Supports modularity via look-up paths.
+
+Stuff not yet implemented:
+
+* Lambdas (very tricky due to passing function pointers, most likely not ever be implemented).
+* VM customisation (set output destination for `System.print` and so on).
+* `..`, `...`, and `is` operator binding.
+* Helper classes for binding `std::queue`, `std::deque`, `std::stack`, `std::set`, `std::unordered_set`, `std::map`, and `std::unordered_map`.
+
 
 ## Example
 
