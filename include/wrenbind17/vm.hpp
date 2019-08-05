@@ -93,7 +93,8 @@ namespace wrenbind17 {
                     auto& klass = found.findKlass(className);
                     return klass.findSignature(signature, isStatic);
                 } catch (...) {
-                    exceptionHandler(vm, std::current_exception());
+                    std::cerr << "Wren foreign method " << signature << " not found in C++" << std::endl;
+                    std::abort();
                     return nullptr;
                 }
             };

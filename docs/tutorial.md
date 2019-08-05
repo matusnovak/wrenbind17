@@ -86,7 +86,7 @@ To bind a C++ class, you will first need to create a new module. Creating a new 
 wren::VM vm;
 
 // Create module called "mymodule"
-auto m = vm.module("mymodule");
+auto& m = vm.module("mymodule");
 ```
 
 You can create as many modules as you want. Additionally, calling the method `module(...)` multiple times with the same name won't create duplicates. For example:
@@ -94,8 +94,8 @@ You can create as many modules as you want. Additionally, calling the method `mo
 ```cpp
 wren::VM vm;
 
-auto m0 = vm.module("mymodule");
-auto m1 = vm.module("mymodule");
+auto& m0 = vm.module("mymodule");
+auto& m1 = vm.module("mymodule");
 
 // m0 and m1 now point to the exact same module
 ```
@@ -119,7 +119,7 @@ public:
 };
 
 wren::VM vm;
-auto m = vm.module("mymodule");
+auto& m = vm.module("mymodule");
 
 // Add class "Foo"
 auto& cls = m.klass<Foo>("Foo");
@@ -176,7 +176,7 @@ class Log {
 };
 
 wren::VM vm;
-auto m = vm.module("mymodule");
+auto& m = vm.module("mymodule");
 auto& cls = m.klass<Log>("Log");
 cls.funcStatic<&Log::debug>("debug");
 cls.funcStatic<&Log::error>("error");
@@ -200,7 +200,7 @@ struct Vec3 {
 };
 
 wren::VM vm;
-auto m = vm.module("mymodule");
+auto& m = vm.module("mymodule");
 
 // Add class "Vec3"
 auto& cls = m.klass<Vec3>("Vec3");
@@ -230,7 +230,7 @@ private:
 };
 
 wren::VM vm;
-auto m = vm.module("mymodule");
+auto& m = vm.module("mymodule");
 
 // Add class "Vec3"
 auto& cls = m.klass<Vec3>("Vec3");
@@ -286,7 +286,7 @@ public:
 };
 
 wren::VM vm;
-auto m = vm.module("mymodule");
+auto& m = vm.module("mymodule");
 
 // Add class "Vec3"
 auto& cls = m.klass<Vec3>("Vec3");
@@ -340,7 +340,7 @@ The only thing you have to do is to NOT do add `ctor`
 
 ```cpp
 wren::VM vm;
-auto m = vm.module("mymodule");
+auto& m = vm.module("mymodule");
 
 // Add class "Vec3"
 auto& cls = m.klass<Entity>("Entity");
@@ -441,7 +441,7 @@ class Main {
 Then if you access the instance via C++:
 
 ```cpp
-auto main = vm.find("main", "Main").func("main()");
+auto& main = vm.find("main", "Main").func("main()");
 wren::Any result = main();
 Foo cpy = result.as<Foo>();
 // cpy is now a copy of Wren's Foo instance.
@@ -451,7 +451,7 @@ Foo cpy = result.as<Foo>();
 Then nothing much happens because you are creating a copy of Foo. But what if you access it by a pointer?
 
 ```cpp
-auto main = vm.find("main", "Main").func("main()");
+auto& main = vm.find("main", "Main").func("main()");
 wren::Any result = main();
 Foo* ptr = result.as<Foo*>();
 // ptr points to the same instance as Wren's "Instance" var.
@@ -482,7 +482,7 @@ class Main {
 Then if you access the instance via C++:
 
 ```cpp
-auto main = vm.find("main", "Main").func("main()");
+auto& main = vm.find("main", "Main").func("main()");
 Foo* ptr = null;
 
 { // Inside of some scope
@@ -504,7 +504,7 @@ The Wren language is garbage collected. Therefore once the variable is out of th
 One way to avoid these bad scenarios is to use modern C++11 features! If you use this:
 
 ```cpp
-auto main = vm.find("main", "Main").func("main()");
+auto& main = vm.find("main", "Main").func("main()");
 
 
 wren::Any result = main();
@@ -626,7 +626,7 @@ Modules can be created in the following way:
 
 ```cpp
 wren::VM vm;
-auto m = vm.module("mymodule");
+auto& m = vm.module("mymodule");
 
 auto& cls = m.klass<Entity>("Entity");
 cls.func<&Entity::foo>("foo");
@@ -637,7 +637,7 @@ But, you are also able to create your own "raw" modules.
 
 ```cpp
 wren::VM vm;
-auto m = vm.module("mymodule");
+auto& m = vm.module("mymodule");
 
 m.append(R"(
     class Vec3 {
@@ -786,7 +786,7 @@ private:
 };
 
 wren::VM vm;
-auto m = vm.module("game");
+auto& m = vm.module("game");
 auto& cls = m.klass<WrenEntity>("Entity");
 cls.ctor<wren::Variable>();
 
@@ -1106,7 +1106,179 @@ class VectorInt {
 
 ## 18. Overload operators
 
-TODO
+### 18.1. Arithmetic and comparison operators
+
+Overloading operators is done same as binding any other methods. The only difference is that you have to use the [operator enumeration](https://matusnovak.github.io/wrenbind17/docs/doxygen/namespacewrenbind17.html#enum-foreignmethodoperator) instead of the name. But first, your C++ class must support the operators you want to bind, for example:
+
+```cpp
+class Vec3 {
+public:
+    Vec3(float x, float y, float z) : x(x), y(y), z(z) {
+    }
+
+    Vec3 operator - () const { // Unary negation operator
+        ...
+    }
+
+    Vec3 operator + (const Vec3& other) const {
+        ...
+    }
+
+    Vec3 operator - (const Vec3& other) const {
+        ...
+    }
+
+    Vec3 operator * (const Vec3& other) const {
+        ...
+    }
+
+    Vec3 operator / (const Vec3& other) const {
+        ...
+    }
+
+    bool operator == (const Vec3& other) const {
+        ...
+    }
+
+    bool operator != (const Vec3& other) const {
+        ...
+    }
+
+    float x;
+    float y;
+    float z;
+};
+```
+
+And then bind it in the following way:
+
+```cpp
+// If you don't do this, the compiler will have no idea
+// which operator to use when binding OPERATOR_SUB and OPERATOR_NEG.
+// With this and static_cast you will explicitly tell the compiler
+// which exact function to use.
+typedef Vec3 (Vec3::*Vec3Sub)(const Vec3&) const;
+typedef Vec3 (Vec3::*Vec3Neg)() const;
+
+// Bind the class and some basic functions/vars
+auto& cls = m.klass<Vec3>("Vec3");
+cls.ctor<float, float, float>(); // Constructor
+cls.var<&Vec3::x>("x");
+cls.var<&Vec3::y>("y");
+cls.var<&Vec3::z>("z");
+
+// Bind the operators
+cls.func<&Vec3::operator+ >(wren::OPERATOR_ADD);
+cls.func<static_cast<Vec3Sub>(&Vec3::operator-)>(wren::OPERATOR_SUB);
+cls.func<static_cast<Vec3Neg>(&Vec3::operator-)>(wren::OPERATOR_NEG);
+cls.func<&Vec3::operator* >(wren::OPERATOR_MUL);
+cls.func<&Vec3::operator/ >(wren::OPERATOR_DIV);
+cls.func<&Vec3::operator== >(wren::OPERATOR_EQUAL);
+cls.func<&Vec3::operator!= >(wren::OPERATOR_NOT_EQUAL);
+```
+
+And then inside of Wren:
+
+```js
+import "test" for Vec3
+var a = Vec3.new(1.0, 2.0, 3.0)
+var b = Vec3.new(4.0, 5.0, 6.0)
+var c = a + b
+```
+
+Here is a list of all supported operators:
+
+| Operator | Enum Value |
+| -------- | ---------- |
+| Add (+)  | OPERATOR_ADD |
+| Subtract (-) | OPERATOR_SUB |
+| Multiply (*) | OPERATOR_MUL |
+| Divide (/) | OPERATOR_DIV |
+| Unary negative (-) | OPERATOR_NEG |
+| Modulo (%) | OPERATOR_MOD |
+| Equal to (==) | OPERATOR_EQUAL |
+| Not equal to (!=) | OPERATOR_NOT_EQUAL |
+| Greater than (>) | OPERATOR_GT |
+| Less than (<) | OPERATOR_LT |
+| Greather than or equal (>=) | OPERATOR_GT_EQUAL |
+| Less than or equal (<=) | OPERATOR_LT_EQUAL |
+| Shift left (<<) | OPERATOR_SHIFT_LEFT |
+| Shift right (>>) | OPERATOR_SHIFT_RIGHT |
+| Binary and (&) | OPERATOR_AND |
+| Binary xor (^) | OPERATOR_XOR |
+| Binary or (\|) | OPERATOR_OR |
+| Get by index [] | OPERATOR_GET_INDEX |
+| Set by index [] | OPERATOR_SET_INDEX |
+
+::: tip
+Note!
+
+If you are using Visual Studio and trying to bind operator `<` then you might get an error: `error C2833: 'operator >' is not a recognized operator or type`. This happens because the compiler is unable to understand `cls.func<&Vec3::operator> >(wren::OPERATOR_GT)`. Simply, put `(...)` around the operator like this: `cls.func<(&Vec3::operator>)>(wren::OPERATOR_GT)`. That will fix the problem.
+:::
+
+::: warning
+Warning!
+
+Using `*=`, `-=`, `+=`, or `/=` is not allowed. Wren does not support these assignment operators, and results in Wren compilation error.
+:::
+
+### 18.2. Operator with multiple types
+
+Consider the following C++ class:
+
+```cpp
+class Vec3 {
+public:
+    Vec3 operator * (const Vec3& other) const {
+        ...
+    }
+
+    Vec3 operator * (const float value) const {
+        ...
+    }
+};
+```
+
+You have two operators but the second one only accepts a single value. This can be useful when you want to, for example, multiply a 3D vector with a constant value. But this can be a problem when binding these two operators to Wren. You can't bind them both, but you can use `std::variant<>` instead.
+
+Create a new function in the following way:
+
+```cpp
+Vec3 operator * (const std::variant<Vec3, float>& var) const {
+    if (var.index() == 0) {
+        Vec3 other = std::get<Vec3>(var);
+        // Multiply by other vector
+    } else {
+        float other = std::get<float>(var);
+        // Multiply by constant value
+    }
+}
+
+auto& cls = m.klass<Vec3>("Vec3");
+cls.ctor<float, float, float>();
+cls.var<&Vec3::x>("x");
+cls.var<&Vec3::y>("y");
+cls.var<&Vec3::z>("z");
+
+// Optional typedef to explicitly select the correct operator with std::variant
+typedef Vec3 (Vec3::*Vec3Mul)(const std::variant<Vec3, float>&) const;
+// Bind the function
+cls.func<static_cast<Vec3Mul>(&Vec3::operator*)>(wren::OPERATOR_MUL);
+```
+
+Then, insie of Wren, you can do the following:
+
+```js
+import "test" for Vec3
+var a = Vec3.new(1.0, 2.0, 3.0)
+var b = Vec3.new(4.0, 5.0, 6.0)
+
+// Multiply by other vector
+var c = a + b
+
+// Or multiply by a constant value
+var c = a * 1.5
+```
 
 ## 19. Using std::variant
 
