@@ -4,12 +4,8 @@ version: '{build}'
 #      general configuration      #
 #---------------------------------#
 branches:
-  only:
-    - master
-    - devel
   except:
     - gh-pages
-skip_tags: true
 
 #---------------------------------#
 #    environment configuration    #
