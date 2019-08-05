@@ -15,7 +15,24 @@ namespace wrenbind17 {
      */
     enum ForeignMethodOperator {
         OPERATOR_GET_INDEX,
-        OPERATOR_SET_INDEX
+        OPERATOR_SET_INDEX,
+        OPERATOR_SUB,
+        OPERATOR_ADD,
+        OPERATOR_MUL,
+        OPERATOR_DIV,
+        OPERATOR_NEG,
+        OPERATOR_MOD,
+        OPERATOR_EQUAL,
+        OPERATOR_NOT_EQUAL,
+        OPERATOR_GT,
+        OPERATOR_LT,
+        OPERATOR_GT_EQUAL,
+        OPERATOR_LT_EQUAL,
+        OPERATOR_SHIFT_LEFT,
+        OPERATOR_SHIFT_RIGHT,
+        OPERATOR_AND,
+        OPERATOR_XOR,
+        OPERATOR_OR
     };
     /**
      * @ingroup wrenbind17
@@ -113,21 +130,37 @@ namespace wrenbind17 {
         }
 
         WrenForeignMethodFn findSignature(const std::string& signature, const bool isStatic) {
-            if (signature[0] == '[') {
-                // Special operators
-                return findFunc(signature, isStatic).getMethod();
-
-            } else if (signature.find('(') != std::string::npos) {
-                // Check if setter
-                if (signature.find("=(_)") != std::string::npos) {
-                    return findProp(signature.substr(0, signature.find_first_of('=')), isStatic).getSetter();
-                } else {
-                    // Must be a method
-                    return findFunc(signature.substr(0, signature.find_first_of('(')), isStatic).getMethod();
+            switch (signature[0]) {
+                case '[':
+                case '-':
+                case '+':
+                case '/':
+                case '*':
+                case '=':
+                case '!':
+                case '%':
+                case '<':
+                case '>':
+                case '&':
+                case '^':
+                case '|': {
+                    // Operators
+                    return findFunc(signature, isStatic).getMethod();
                 }
+                default: {
+                    if (signature.find('(') != std::string::npos) {
+                        // Check if setter
+                        if (signature.find("=(_)") != std::string::npos) {
+                            return findProp(signature.substr(0, signature.find_first_of('=')), isStatic).getSetter();
+                        } else {
+                            // Must be a method
+                            return findFunc(signature, isStatic).getMethod();
+                        }
 
-            } else {
-                return findProp(signature, isStatic).getGetter();
+                    } else {
+                        return findProp(signature, isStatic).getGetter();
+                    }
+                }
             }
         }
 
@@ -183,6 +216,40 @@ namespace wrenbind17 {
                     return "[arg]";
                 case OPERATOR_SET_INDEX:
                     return "[arg]=(rhs)";
+                case OPERATOR_ADD:
+                    return "+(rhs)";
+                case OPERATOR_SUB:
+                    return "-(rhs)";
+                case OPERATOR_DIV:
+                    return "/(rhs)";
+                case OPERATOR_MUL:
+                    return "*(rhs)";
+                case OPERATOR_MOD:
+                    return "%(rhs)";
+                case OPERATOR_EQUAL:
+                    return "==(rhs)";
+                case OPERATOR_NOT_EQUAL:
+                    return "!=(rhs)";
+                case OPERATOR_NEG:
+                    return "-";
+                case OPERATOR_GT:
+                    return ">(rhs)";
+                case OPERATOR_LT:
+                    return "<(rhs)";
+                case OPERATOR_GT_EQUAL:
+                    return ">=(rhs)";
+                case OPERATOR_LT_EQUAL:
+                    return "<=(rhs)";
+                case OPERATOR_SHIFT_LEFT:
+                    return "<<(rhs)";
+                case OPERATOR_SHIFT_RIGHT:
+                    return ">>(rhs)";
+                case OPERATOR_AND:
+                    return "&(rhs)";
+                case OPERATOR_XOR:
+                    return "^(rhs)";
+                case OPERATOR_OR:
+                    return "|(rhs)";
                 default:
                     throw Exception("Operator not supported");
             }
@@ -194,6 +261,40 @@ namespace wrenbind17 {
                     return "[_]";
                 case OPERATOR_SET_INDEX:
                     return "[_]=(_)";
+                case OPERATOR_ADD:
+                    return "+(_)";
+                case OPERATOR_SUB:
+                    return "-(_)";
+                case OPERATOR_DIV:
+                    return "/(_)";
+                case OPERATOR_MUL:
+                    return "*(_)";
+                case OPERATOR_MOD:
+                    return "%(_)";
+                case OPERATOR_EQUAL:
+                    return "==(_)";
+                case OPERATOR_NOT_EQUAL:
+                    return "!=(_)";
+                case OPERATOR_NEG:
+                    return "-";
+                case OPERATOR_GT:
+                    return ">(_)";
+                case OPERATOR_LT:
+                    return "<(_)";
+                case OPERATOR_GT_EQUAL:
+                    return ">=(_)";
+                case OPERATOR_LT_EQUAL:
+                    return "<=(_)";
+                case OPERATOR_SHIFT_LEFT:
+                    return "<<(_)";
+                case OPERATOR_SHIFT_RIGHT:
+                    return ">>(_)";
+                case OPERATOR_AND:
+                    return "&(_)";
+                case OPERATOR_XOR:
+                    return "^(_)";
+                case OPERATOR_OR:
+                    return "|(_)";
                 default:
                     throw Exception("Operator not supported");
             }
@@ -215,6 +316,21 @@ namespace wrenbind17 {
     };
 
     namespace detail {
+        template <typename... Args>
+        inline std::string generateNameArgs() {
+            constexpr auto n = sizeof...(Args);
+            std::stringstream ss;
+            ss << "(";
+            for (size_t i = 0; i < n; i++) {
+                ss << "_";
+                if (i != n - 1) {
+                    ss << ",";
+                }
+            }
+            ss << ")";
+            return ss.str();
+        }
+
         template <typename Signature, Signature signature>
         struct ForeignFunctionDetails;
 
@@ -225,6 +341,7 @@ namespace wrenbind17 {
             static std::unique_ptr<ForeignMethodImplType> make(std::string name) {
                 auto signature = ForeignMethodImplType::generateSignature(name);
                 auto p = detail::ForeignFunctionCaller<R, Args...>::template call<Fn>;
+                name = name + detail::generateNameArgs<Args...>();
                 return std::make_unique<ForeignMethodImplType>(std::move(name), std::move(signature), p, true);
             }
         };
@@ -299,6 +416,26 @@ namespace wrenbind17 {
             static std::unique_ptr<ForeignMethodImplType> make(std::string name) {
                 auto signature = ForeignMethodImplType::generateSignature(name);
                 auto p = detail::ForeignMethodCaller<R, T, Args...>::template call<Fn>;
+                name = name + detail::generateNameArgs<Args...>();
+                return std::make_unique<ForeignMethodImplType>(std::move(name), std::move(signature), p, false);
+            }
+
+            static std::unique_ptr<ForeignMethodImplType> make(const ForeignMethodOperator op) {
+                auto signature = ForeignMethodImplType::generateSignature(op);
+                auto name = ForeignMethodImplType::generateName(op);
+                auto p = detail::ForeignMethodCaller<R, T, Args...>::template call<Fn>;
+                return std::make_unique<ForeignMethodImplType>(std::move(name), std::move(signature), p, false);
+            }
+        };
+
+        template <typename R, typename... Args, R (T::*Fn)(Args...) const>
+        struct ForeignMethodDetails<R (T::*)(Args...) const, Fn> {
+            typedef ForeignMethodImpl<Args...> ForeignMethodImplType;
+
+            static std::unique_ptr<ForeignMethodImplType> make(std::string name) {
+                auto signature = ForeignMethodImplType::generateSignature(name);
+                auto p = detail::ForeignMethodCaller<R, T, Args...>::template call<Fn>;
+                name = name + detail::generateNameArgs<Args...>();
                 return std::make_unique<ForeignMethodImplType>(std::move(name), std::move(signature), p, false);
             }
 
@@ -320,6 +457,7 @@ namespace wrenbind17 {
             static std::unique_ptr<ForeignMethodImplType> make(std::string name) {
                 auto signature = ForeignMethodImplType::generateSignature(name);
                 auto p = detail::ForeignMethodExtCaller<R, T, Args...>::template call<Fn>;
+                name = name + detail::generateNameArgs<Args...>();
                 return std::make_unique<ForeignMethodImplType>(std::move(name), std::move(signature), p, false);
             }
 

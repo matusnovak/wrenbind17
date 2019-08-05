@@ -56,7 +56,7 @@ namespace wrenbind17 {
                     index = self.size() + index;
                 }
 
-                if (index > self.size()) {
+                if (size_t(index) > self.size()) {
                     throw std::out_of_range("invalid index");
                 } else if (index == self.size()) {
                     auto ret = std::move(self.back());
@@ -78,7 +78,7 @@ namespace wrenbind17 {
                     index = self.size() + index;
                 }
 
-                if (index > self.size()) {
+                if (size_t(index) > self.size()) {
                     throw std::out_of_range("invalid index");
                 } else if (index == self.size()) {
                     self.push_back(std::move(value));
@@ -184,7 +184,7 @@ namespace wrenbind17 {
                     index = self.size() + index;
                 }
 
-                if (index > self.size()) {
+                if (size_t(index) > self.size()) {
                     throw std::out_of_range("invalid index");
                 } else if (index == self.size()) {
                     auto ret = std::move(self.back());
@@ -208,7 +208,7 @@ namespace wrenbind17 {
                     index = self.size() + index;
                 }
 
-                if (index > self.size()) {
+                if (size_t(index) > self.size()) {
                     throw std::out_of_range("invalid index");
                 } else if (index == self.size()) {
                     self.push_back(std::move(value));

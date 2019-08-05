@@ -86,6 +86,8 @@ namespace wrenbind17 {
             return *this;
         }
         inline void swap(Any& other) noexcept {
+            std::swap(vm, other.vm);
+            std::swap(type, other.type);
             std::swap(content, other.content);
         }
 
