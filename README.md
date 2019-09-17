@@ -2,28 +2,27 @@
 
 [![Build Status](https://travis-ci.com/matusnovak/wrenbind17.svg?branch=master)](https://travis-ci.com/matusnovak/wrenbind17) [![Build status](https://ci.appveyor.com/api/projects/status/fy974aj37cdyxc0i/branch/master?svg=true)](https://ci.appveyor.com/project/matusnovak/wrenbind17/branch/master) [![CircleCI](https://circleci.com/gh/matusnovak/wrenbind17.svg?style=svg)](https://circleci.com/gh/matusnovak/wrenbind17) [![codecov](https://codecov.io/gh/matusnovak/wrenbind17/branch/master/graph/badge.svg)](https://codecov.io/gh/matusnovak/wrenbind17)
 
-**This library is still work in progress, not everything is yet implemented, such as wren::VM customisation, and not every API is commented. However, the API will not change.**
-
 WrenBind17 is a C++17 wrapper for [Wren programming language](http://wren.io/). This project was heavily inspired by [pybind11](https://github.com/pybind/pybind11) and by [Wren++](https://github.com/Nelarius/wrenpp). This library is header only and does not need any compilation steps. Simply include the `<wrenbind17/wrenbind17.hpp>` header in your application and you are good to go!
 
-How is this library unique from other Wren binding libraries? 
+## Features
 
 * Header only.
+* Works with Visual Studio 2017, MinGW-w64, Linux GCC, and Apple Clang on Mac OSX.
 * C++17 so you don't need to use `decltype()` on class methods to bind them to Wren.
-* Foreign modules are automatically generated for you. You don't need to write the extra foreign classes in separate file.
+* [Foreign modules are automatically generated for you](https://matusnovak.github.io/wrenbind17/docs/tutorial_hello_world.html). You don't need to write the extra foreign classes in separate file.
 * **Supports strict type safety.** You won't be able to pass just any variable from Wren back to the C++, preventing you getting segmentation faults.
 * Objects are wrapped in `std::shared_ptr` so you have easier access when passing objects around.
 * Easy binding system inspired by [pybind11](https://github.com/pybind/pybind11).
-* Works with exceptions.
-* Upcasting to base types when passing C++ instances.
+* [Works with exceptions](https://matusnovak.github.io/wrenbind17/docs/tutorial_exceptions.html).
+* [Upcasting to base types when passing C++ instances](https://matusnovak.github.io/wrenbind17/docs/tutorial_upcasting.html).
 * Memory leak tested.
 * Supports `std::variant`.
 * Supports `std::vector` and `std::list` via helper classes (optional).
-* Easy binding of operators such as `+`, `-`, `[]`, etc.
+* [Easy binding of operators](https://matusnovak.github.io/wrenbind17/docs/tutorial_operators.html) such as `+`, `-`, `[]`, etc.
 * [Long but easy to follow tutorial](https://matusnovak.github.io/wrenbind17/docs/tutorial.html).
-* Supports `Fn.new{}`.
-* Supports inheritance (kinda).
-* Supports modularity via look-up paths.
+* [Supports Fn.new{}](https://matusnovak.github.io/wrenbind17/docs/tutorial_callbacks_fn.html).
+* [Supports inheritance (a workaround)](https://matusnovak.github.io/wrenbind17/docs/tutorial_inheritance.html).
+* [Supports modularity via look-up paths](https://matusnovak.github.io/wrenbind17/docs/tutorial_modules.html).
 
 Stuff not yet implemented:
 

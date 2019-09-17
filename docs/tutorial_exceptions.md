@@ -34,7 +34,7 @@ var fiber = Fiber.new {
 }
 
 var error = fiber.try()
-System.print("Caught error: " + error)
+System.print("Caught error: " + error) // Prints "Caught error: hello"
 ```
 
 ## Catch Wren exception in C++
@@ -69,34 +69,4 @@ int main(...) {
         std::cerr << e.what() << std::endl;
     }
 }
-```
-
-## Limitations
-
-Due to the design of Wren, it is impossible to pass through the original C++ exception, therefore only the exception message is kept (by throwing a new exception). If you have a custom exception with some additional fields (let's say a http exception with status code and body) then you are out of luck. You will only get `wrenbind17::RuntimeError`.
-
-Getting the exact cause of an exception thrown in a C++ class constructor is not possible when using `Fiber.new`. This does not affect exceptions thrown in a C++ class methods! For example, a C++ class constructor throws `std::runtime_error("hello")` and you are trying to capture the error with the following code:
-
-```js
-var fiber = Fiber.new { 
-    var i = Foo.new()
-}
-
-var error = fiber.try()
-System.print("Caught error: " + error)
-return error
-```
-
-You will only get:
-
-```
-Runtime error: Null does not implement 'init new()'.
-```
-
-Why? It's a bug of Wren. The workaround in the implementation of wrenbind17 is to push "Null" as the class instance, so that Wren won't be able to continue.
-
-If you call `Foo.new()` outside of the fibre, then you will get the exact message:
-
-```
-Runtime error: hello
 ```
