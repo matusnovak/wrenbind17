@@ -1,14 +1,14 @@
 #pragma once
 
+#include "module.hpp"
+#include "std.hpp"
+#include "variable.hpp"
 #include <cstdlib>
 #include <cstring>
 #include <fstream>
 #include <functional>
 #include <unordered_map>
 #include <vector>
-#include "module.hpp"
-#include "variable.hpp"
-#include "std.hpp"
 
 namespace std {
     template <> struct hash<std::pair<size_t, size_t>> {
@@ -123,7 +123,12 @@ namespace wrenbind17 {
                         ss << "Compile error: " << message << " at " << module << ":" << line << "\n";
                         break;
                     case WREN_ERROR_RUNTIME:
-                        ss << "Runtime error: " << message << "\n";
+                        if (!self.nextError.empty()) {
+                            ss << "Runtime error: " << self.nextError << "\n";
+                            self.nextError.clear();
+                        } else {
+                            ss << "Runtime error: " << message << "\n";
+                        }
                         break;
                     case WREN_ERROR_STACK_TRACE:
                         ss << "  at: " << module << ":" << line << "\n";
@@ -165,12 +170,17 @@ namespace wrenbind17 {
             std::swap(modules, other.modules);
             std::swap(classToModule, other.classToModule);
             std::swap(classToName, other.classToName);
+            std::swap(classCasting, other.classCasting);
+            std::swap(lastError, other.lastError);
+            std::swap(nextError, other.nextError);
+            std::swap(printFn, other.printFn);
+            std::swap(loadFileFn, other.loadFileFn);
         }
 
         inline void runFromSource(const std::string& name, const std::string& code) {
             const auto result = wrenInterpret(vm, name.c_str(), code.c_str());
             if (result != WREN_RESULT_SUCCESS) {
-                getLastError();
+                throw CompileError(getLastError());
             }
             return;
         }
@@ -224,10 +234,14 @@ namespace wrenbind17 {
             return classCasting.at(std::pair(hash, other)).get();
         }
 
-        inline void getLastError() {
-            auto e = std::runtime_error(lastError);
-            lastError.clear();
-            throw e;
+        inline std::string getLastError() {
+            std::string str;
+            std::swap(str, lastError);
+            return str;
+        }
+
+        inline void setNextError(std::string str) {
+            nextError = std::move(str);
         }
 
         inline void setPrintFunc(const PrintFn& fn) {
@@ -255,6 +269,7 @@ namespace wrenbind17 {
         std::unordered_map<size_t, std::string> classToName;
         std::unordered_map<std::pair<size_t, size_t>, std::shared_ptr<detail::ForeignPtrConvertor>> classCasting;
         std::string lastError;
+        std::string nextError;
         PrintFn printFn;
         LoadFileFn loadFileFn;
     };
@@ -276,8 +291,12 @@ namespace wrenbind17 {
         auto self = reinterpret_cast<VM*>(wrenGetUserData(vm));
         return self->getClassCast(hash, other);
     }
-    inline void getLastError(WrenVM* vm) {
+    inline std::string getLastError(WrenVM* vm) {
         auto self = reinterpret_cast<VM*>(wrenGetUserData(vm));
-        self->getLastError();
+        return self->getLastError();
+    }
+    inline void setNextError(WrenVM* vm, std::string str) {
+        auto self = reinterpret_cast<VM*>(wrenGetUserData(vm));
+        self->setNextError(std::move(str));
     }
 } // namespace wrenbind17

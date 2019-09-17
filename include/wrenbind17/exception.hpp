@@ -44,4 +44,22 @@ namespace wrenbind17 {
         explicit BadCast(std::string msg) : Exception(std::move(msg)) {
         }
     };
+
+    /**
+     * @ingroup wrenbind17
+     */
+    class RuntimeError : public Exception {
+    public:
+        explicit RuntimeError(std::string msg) : Exception(std::move(msg)) {
+        }
+    };
+
+    /**
+     * @ingroup wrenbind17
+     */
+    class CompileError : public Exception {
+    public:
+        explicit CompileError(std::string msg) : Exception(std::move(msg)) {
+        }
+    };
 } // namespace wrenbind17

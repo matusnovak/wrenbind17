@@ -27,7 +27,7 @@ namespace wrenbind17 {
                 pushArgs(vm, 1, std::forward<Args>(args)...);
 
                 if (wrenCall(vm, func) != WREN_RESULT_SUCCESS) {
-                    getLastError(vm);
+                    throw RuntimeError(getLastError(vm));
                 }
 
                 return getSlot<Any>(vm, 0);

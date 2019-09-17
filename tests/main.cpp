@@ -4,36 +4,41 @@
 
 namespace wren = wrenbind17;
 
-TEST_CASE("Raw modules") {
-    const std::string test = R"(
-        class Foo {
-            msg {_msg}
-            msg=(rhs) {_msg = rhs}
+class RandomClass {
+public:
+	RandomClass(std::string msg):msg(msg){
 
-            construct new(msg) {
-                this.msg = msg
-            }
-        }
-    )";
+	}
 
-    const std::string code = R"(
-        import "test" for Foo
+	~RandomClass() = default;
 
-        var Instance = Foo.new("Hello World")
+	std::string msg;
+};
+
+TEST_CASE("Move VM") {
+	const std::string code = R"(
+        import "test" for RandomClass
+
         class Main {
             static main() {
-                return Instance.msg
+                var v = RandomClass.new("Hello World")
+				return v.msg
             }
         }
     )";
 
     wren::VM vm;
     auto& m = vm.module("test");
-    m.append(test);
-    vm.runFromSource("main", code);
+    auto& cls = m.klass<RandomClass>("RandomClass");
+    cls.ctor<std::string>();
+    cls.var<&RandomClass::msg>("msg");
 
-    auto main = vm.find("main", "Main").func("main()");
-    auto r = main();
-    REQUIRE(r.is<std::string>());
-    REQUIRE(r.as<std::string>() == "Hello World");
+	vm.runFromSource("main", code);
+
+	auto vm2 = std::move(vm);
+
+	auto main = vm2.find("main", "Main").func("main()");
+	auto res = main();
+	REQUIRE(res.is<std::string>());
+	REQUIRE(res.as<std::string>() == "Hello World");
 }

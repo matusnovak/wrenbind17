@@ -13,7 +13,7 @@
  * @ingroup wrenbind17
  */
 namespace wrenbind17 {
-    void getLastError(WrenVM* vm);
+    std::string getLastError(WrenVM* vm);
 
     inline void exceptionHandler(WrenVM* vm, const std::exception_ptr& eptr) {
         try {
