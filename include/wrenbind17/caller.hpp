@@ -157,7 +157,7 @@ namespace wrenbind17 {
             }
             static void getter(WrenVM* vm) {
                 auto self = PopHelper<T*>::f(vm, 0);
-                PushHelper<V>::f(vm, 0, self->*Ptr);
+                PushHelper<V>::f(vm, 0, std::forward<decltype(self->*Ptr)>(self->*Ptr));
             }
         };
     } // namespace detail

@@ -10,6 +10,26 @@ namespace wrenbind17 {
         // ============================================================================================================
         //                                       CHECK SLOTS FOR TYPE
         // ============================================================================================================
+        inline const char* wrenSlotTypeToStr(const WrenType type) {
+            switch (type) {
+                case WREN_TYPE_BOOL:
+                    return "bool";
+                case WREN_TYPE_FOREIGN:
+                    return "instance";
+                case WREN_TYPE_LIST:
+                    return "list";
+                case WREN_TYPE_NULL:
+                    return "null";
+                case WREN_TYPE_NUM:
+                    return "number";
+                case WREN_TYPE_STRING:
+                    return "string";
+                case WREN_TYPE_UNKNOWN:
+                default:
+                    return "unknown";
+            }
+        }
+        
         template <typename T> inline bool is(WrenVM* vm, const int idx) {
             const auto type = wrenGetSlotType(vm, idx);
             if (type != WrenType::WREN_TYPE_FOREIGN)
@@ -130,8 +150,11 @@ namespace wrenbind17 {
         //                                       BASIC TYPES
         // ============================================================================================================
         template <WrenType Type> inline void validate(WrenVM* vm, int idx) {
-            if (auto t = wrenGetSlotType(vm, idx) != Type)
-                throw BadCast("Bad cast when getting value from Wren (was: " + std::to_string(int(t)));
+            const auto t = wrenGetSlotType(vm, idx);
+            if (t != Type)
+                throw BadCast("Bad cast when getting value from Wren got "
+                    + std::string(wrenSlotTypeToStr(t))
+                    + " expected " + std::string(wrenSlotTypeToStr(Type)));
         }
 
         template <typename T> std::shared_ptr<T> getSlotForeign(WrenVM* vm, void* slot) {
@@ -158,6 +181,7 @@ namespace wrenbind17 {
         }
 
         template <typename T> const std::shared_ptr<T> getSlotForeign(WrenVM* vm, const int idx) {
+            validate<WrenType::WREN_TYPE_FOREIGN>(vm, idx);
             return getSlotForeign<T>(vm, wrenGetSlotForeign(vm, idx));
         }
 

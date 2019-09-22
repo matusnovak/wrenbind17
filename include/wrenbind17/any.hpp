@@ -95,28 +95,28 @@ namespace wrenbind17 {
 
         template <typename T> inline typename std::enable_if<!std::is_pointer<T>::value, T>::type as() const {
             if (empty() || type != WREN_TYPE_FOREIGN)
-                throw BadCast("Bad cast when getting value from Wren");
+                throw BadCast("Bad cast when getting value from Wren expected instance");
             using Type = typename std::remove_const<typename std::remove_reference<T>::type>::type;
             return *detail::getSlotForeign<Type>(vm, contentCast<void*>().get()).get();
         }
 
         template <typename T> inline typename std::enable_if<std::is_pointer<T>::value, T>::type as() const {
             if (empty()|| type != WREN_TYPE_FOREIGN)
-                throw BadCast("Bad cast when getting value from Wren");
+                throw BadCast("Bad cast when getting value from Wren expected instance");
             using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
             return detail::getSlotForeign<Type>(vm, contentCast<void*>().get()).get();
         }
 
         template <typename T> inline typename std::enable_if<detail::is_shared_ptr<T>::value, T>::type as() const {
             if (empty() || type != WREN_TYPE_FOREIGN)
-                throw BadCast("Bad cast when getting value from Wren");
+                throw BadCast("Bad cast when getting value from Wren expected instance");
             using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
             return detail::getSlotForeign<Type>(vm, contentCast<void*>().get());
         }
 
         template <typename T> inline std::shared_ptr<T> shared() const {
             if (empty() || type != WREN_TYPE_FOREIGN)
-                throw BadCast("Bad cast when getting value from Wren");
+                throw BadCast("Bad cast when getting value from Wren expected instance");
             using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
             return detail::getSlotForeign<Type>(vm, contentCast<void*>().get());
         }

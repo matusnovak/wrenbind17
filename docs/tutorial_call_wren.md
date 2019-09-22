@@ -69,3 +69,27 @@ wren::Variable wrenClass = vm.find("somemodule", "Instance");
 // Find the function with two arguments
 wren::Method wrenMethod = wrenClass.func("main(_, _)");
 ```
+
+## Pass class instance to Wren by copy
+
+[Make sure you have seen tutorial for binding C++ classes here](tutorial_binding.md). 
+
+This is the default behavior of passing class instances to Wren. As shown below, the class will be moved as a copy. Your class must be trivially copyable or a copy constructor defined!
+
+```cpp
+Foo foo = Foo("Hello World")
+wren::Method main = vm.find("main", "Main").func("main(_)")
+main(foo)
+```
+
+## Pass class instance to Wren by move
+
+[Make sure you have seen tutorial for binding C++ classes here](tutorial_binding.md). 
+
+It is possible to pass it to Wren by move as shown below. The instance will be moved into a new `std::shared_ptr<Foo>` handled by Wren. This is possible only if your class has a move constructor!
+
+```cpp
+Foo foo = Foo("Hello World")
+wren::Method main = vm.find("main", "Main").func("main(_)")
+main(std::move(foo))
+```

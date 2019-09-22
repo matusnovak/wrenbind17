@@ -165,6 +165,13 @@ public:
         this->w = w;
     }
 
+    void from(const Vector4& other) {
+        x = other.x;
+        y = other.y;
+        z = other.z;
+        w = other.w;
+    }
+
     float length() const {
         return std::sqrt(x * x + y * y + z * z + w * w);
     }
@@ -259,3 +266,35 @@ TEST_CASE("Compile error") {
 
     REQUIRE_THROWS_AS(vm.runFromSource("main", code), wren::CompileError);
 }
+
+TEST_CASE("Bad cast when expecing a class instance") {
+    const std::string code = R"(
+        import "test" for Vector4
+
+        var V = Vector4.new()
+
+        class Main {
+            static main(other) {
+                V.from(other)
+            }
+        }
+    )";
+
+    wren::VM vm;
+    auto& m = vm.module("test");
+    auto& cls = m.klass<Vector4>("Vector4");
+    cls.ctor<>();
+    cls.func<&Vector4::from>("from");
+    vm.runFromSource("main", code);
+
+    auto main = vm.find("main", "Main").func("main(_)");
+
+    SECTION("Capture correct exception type") {
+        REQUIRE_THROWS_AS(main(nullptr), wren::RuntimeError);
+    }
+
+    SECTION("Capture correct exception message") {
+        REQUIRE_THROWS_WITH(main(nullptr), Catch::Contains("Bad cast when getting value from Wren got null"));
+    }
+}
+

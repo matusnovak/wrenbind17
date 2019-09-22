@@ -555,6 +555,14 @@ namespace wrenbind17 {
             methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
+        template <auto Fn>
+        void funcStaticExt(std::string name) {
+            // This is exactly the same as funcStatic because there is 
+            // no difference for "static void Foo::foo(){}" and "void foo(){}"!
+            auto ptr = detail::ForeignFunctionDetails<decltype(Fn), Fn>::make(std::move(name));
+            methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
+        }
+
         template <auto Var>
         void var(std::string name) {
             using R = typename detail::GetPointerType<decltype(Var)>::type;

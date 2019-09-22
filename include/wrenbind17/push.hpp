@@ -30,11 +30,20 @@ namespace wrenbind17 {
         }
 
         template <typename T> struct PushHelper {
-            inline static void f(WrenVM* vm, int idx, T value) {
+            inline static void f(WrenVM* vm, int idx, const T& value) {
+                static_assert(!std::is_pointer<T>::value, "type can't be a pointer");
+                setSlot<T>(vm, idx, std::move(value));
+            }
+            inline static void f(WrenVM* vm, int idx, T&& value) {
                 static_assert(!std::is_pointer<T>::value, "type can't be a pointer");
                 setSlot<T>(vm, idx, std::move(value));
             }
         };
+
+        template <>
+        inline void PushHelper<std::string>::f(WrenVM* vm, int idx, std::string&& value) {
+            wrenSetSlotString(vm, idx, value.c_str());
+        }
 
         template <typename T> struct PushHelper<const T> {
             inline static void f(WrenVM* vm, int idx, T value) {

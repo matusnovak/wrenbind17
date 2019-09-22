@@ -10,7 +10,7 @@ bool vectorContains(std::vector<T>& self, const T& value) {
 
 auto& cls = m.klass<std::vector<int>>("VectorInt");
 cls.ctor<>();
-cls.funcExt<&contains<int>>("contains");
+cls.funcExt<&vectorContains<int>>("contains");
 ```
 
 ```js

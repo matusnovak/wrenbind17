@@ -322,5 +322,68 @@ TEST_CASE("Pass class from C++ to Wren as shared_ptr") {
         REQUIRE(widgets.size() == 2);
         REQUIRE(widgets[0]->name == "Hello World");
     }
-    instancesV3f.clear();
+    widgets.clear();
 }
+
+class WidgetMoveable;
+std::vector<WidgetMoveable*> widgetsMoveable;
+
+class WidgetMoveable {
+public:
+    WidgetMoveable() = delete;
+    WidgetMoveable(std::string name) : name(std::move(name)) {
+        widgetsMoveable.push_back(this);
+    }
+    WidgetMoveable(WidgetMoveable&& other) {
+        std::swap(name, other.name);
+    }
+    WidgetMoveable(const WidgetMoveable& other) = delete;
+    ~WidgetMoveable() = default;
+
+    void set(const WidgetMoveable& other) {
+        name = other.name;
+    }
+
+    WidgetMoveable& operator=(const WidgetMoveable& other) = delete;
+    WidgetMoveable& operator=(WidgetMoveable&& other) {
+        if (this != &other) {
+            std::swap(name, other.name);
+        }
+        return *this;
+    }
+
+    std::string name;
+};
+
+TEST_CASE("Pass class from C++ to Wren by move") {
+    const std::string code = R"(
+        import "test" for Widget
+        var A = Widget.new("Ahoj")
+        class Foo {
+            static baz(other) {
+                A.set(other)
+                return other
+            }
+        }
+    )";
+
+    SECTION("const ref") {
+        wren::VM vm;
+        auto& m = vm.module("test");
+        auto& cls = m.klass<WidgetMoveable>("Widget");
+        cls.ctor<std::string>();
+        cls.func<&WidgetMoveable::set>("set");
+
+        vm.runFromSource("main", code);
+        auto baz = vm.find("main", "Foo").func("baz(_)");
+        auto res = baz(WidgetMoveable("Hello World"));
+
+        REQUIRE(widgetsMoveable.size() == 2);
+        REQUIRE(widgetsMoveable[0]->name == "Hello World");
+
+        REQUIRE(res.is<WidgetMoveable>());
+        REQUIRE(res.shared<WidgetMoveable>()->name == "Hello World");
+    }
+    widgetsMoveable.clear();
+}
+
