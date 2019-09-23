@@ -23,11 +23,15 @@ WrenBind17 is a C++17 wrapper for [Wren programming language](http://wren.io/). 
 * [Supports Fn.new{}](https://matusnovak.github.io/wrenbind17/docs/tutorial_callbacks_fn.html).
 * [Supports inheritance (a workaround)](https://matusnovak.github.io/wrenbind17/docs/tutorial_inheritance.html).
 * [Supports modularity via look-up paths](https://matusnovak.github.io/wrenbind17/docs/tutorial_modules.html).
+* [Supports passing variables by move](https://matusnovak.github.io/wrenbind17/docs/tutorial_pass_return_policy.html)
 
-Stuff not yet implemented:
+## Limitations
+
+* [Passing by a reference to a Wren function will create a copy.](https://matusnovak.github.io/wrenbind17/docs/tutorial_pass_return_policy.html) Use a pointer if you do not wish to create copies and maintain single instance of a given class. This does not affect C++ member functions that return a reference, in that case it will be treated exactly same as a pointer.
+
+## Not yet implemented
 
 * Lambdas (very tricky due to passing function pointers, most likely not ever be implemented).
-* VM customisation (set output destination for `System.print` and so on).
 * `..`, `...`, and `is` operator binding.
 * Helper classes for binding `std::queue`, `std::deque`, `std::stack`, `std::set`, `std::unordered_set`, `std::map`, and `std::unordered_map`.
 

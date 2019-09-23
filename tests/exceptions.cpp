@@ -249,11 +249,11 @@ TEST_CASE("Wrong property") {
 
 TEST_CASE("Compile error") {
     const std::string code = R"(
-        import "test" for SomeClassThatDoesNotExist
+        import "test" for ExceptionClassThatDoesNotExist
 
         class Main {
             static main() {
-                var v = SomeClassThatDoesNotExist.new()
+                var v = ExceptionClassThatDoesNotExist.new()
                 return v
             }
         }
@@ -298,3 +298,321 @@ TEST_CASE("Bad cast when expecing a class instance") {
     }
 }
 
+class ExceptionClass {
+public:
+    ExceptionClass() = default;
+
+    void func0Exception() {
+        throw std::runtime_error("Something went wrong");
+    }
+
+    void func0() {
+        // void
+    }
+
+    std::string func1Exception() {
+        throw std::runtime_error("Something went wrong");
+    }
+
+    std::string func1() {
+        return "Hello World";
+    }
+
+    static void func2Exception() {
+        throw std::runtime_error("Something went wrong");
+    }
+
+    static void func2() {
+        // void
+    }
+
+    static std::string func3Exception() {
+        throw std::runtime_error("Something went wrong");
+    }
+
+    static std::string func3() {
+        return "Hello World";
+    }
+};
+
+struct ExceptionClassHelper {
+    static void func0Exception(ExceptionClass& self) {
+        throw std::runtime_error("Something went wrong");
+    }
+
+    static void func0(ExceptionClass& self) {
+        // void
+    }
+
+    static std::string func1Exception(ExceptionClass& self) {
+        throw std::runtime_error("Something went wrong");
+    }
+
+    static std::string func1(ExceptionClass& self) {
+        return "Hello World";
+    }
+
+    static void func2Exception() {
+        throw std::runtime_error("Something went wrong");
+    }
+
+    static void func2() {
+        // void
+    }
+
+    static std::string func3Exception() {
+        throw std::runtime_error("Something went wrong");
+    }
+
+    static std::string func3() {
+        return "Hello World";
+    }
+};
+
+TEST_CASE("Throw exception in member function") {
+    const std::string code = R"(
+        import "test" for ExceptionClass
+
+        class Main {
+            static main0() {
+                var v = ExceptionClass.new()
+                v.funcException()
+            }
+            static main1() {
+                var v = ExceptionClass.new()
+                v.func()
+            }
+        }
+    )";
+
+    wren::VM vm;
+    auto& m = vm.module("test");
+    auto& cls = m.klass<ExceptionClass>("ExceptionClass");
+    cls.ctor<>();
+    cls.func<&ExceptionClass::func0>("func");
+    cls.func<&ExceptionClass::func0Exception>("funcException");
+    vm.runFromSource("main", code);
+    auto main0 = vm.find("main", "Main").func("main0()");
+    auto main1 = vm.find("main", "Main").func("main1()");
+
+    REQUIRE_THROWS_AS(main0(), wren::RuntimeError);
+    REQUIRE_NOTHROW(main1());
+}
+
+TEST_CASE("Throw exception in member function return type") {
+    const std::string code = R"(
+        import "test" for ExceptionClass
+
+        class Main {
+            static main0() {
+                var v = ExceptionClass.new()
+                return v.funcException()
+            }
+            static main1() {
+                var v = ExceptionClass.new()
+                return v.func()
+            }
+        }
+    )";
+
+    wren::VM vm;
+    auto& m = vm.module("test");
+    auto& cls = m.klass<ExceptionClass>("ExceptionClass");
+    cls.ctor<>();
+    cls.func<&ExceptionClass::func1>("func");
+    cls.func<&ExceptionClass::func1Exception>("funcException");
+    vm.runFromSource("main", code);
+    auto main0 = vm.find("main", "Main").func("main0()");
+    auto main1 = vm.find("main", "Main").func("main1()");
+
+    REQUIRE_THROWS_AS(main0(), wren::RuntimeError);
+    REQUIRE_NOTHROW(main1().as<std::string>());
+}
+
+TEST_CASE("Throw exception in static function") {
+    const std::string code = R"(
+        import "test" for ExceptionClass
+
+        class Main {
+            static main0() {
+                ExceptionClass.funcException()
+            }
+            static main1() {
+                ExceptionClass.func()
+            }
+        }
+    )";
+
+    wren::VM vm;
+    auto& m = vm.module("test");
+    auto& cls = m.klass<ExceptionClass>("ExceptionClass");
+    cls.ctor<>();
+    cls.funcStatic<&ExceptionClass::func2>("func");
+    cls.funcStatic<&ExceptionClass::func2Exception>("funcException");
+    vm.runFromSource("main", code);
+    auto main0 = vm.find("main", "Main").func("main0()");
+    auto main1 = vm.find("main", "Main").func("main1()");
+
+    REQUIRE_THROWS_AS(main0(), wren::RuntimeError);
+    REQUIRE_NOTHROW(main1());
+}
+
+TEST_CASE("Throw exception in static function return type") {
+    const std::string code = R"(
+        import "test" for ExceptionClass
+
+        class Main {
+            static main0() {
+                return ExceptionClass.funcException()
+            }
+            static main1() {
+                return ExceptionClass.func()
+            }
+        }
+    )";
+
+    wren::VM vm;
+    auto& m = vm.module("test");
+    auto& cls = m.klass<ExceptionClass>("ExceptionClass");
+    cls.ctor<>();
+    cls.funcStatic<&ExceptionClass::func3>("func");
+    cls.funcStatic<&ExceptionClass::func3Exception>("funcException");
+    vm.runFromSource("main", code);
+    auto main0 = vm.find("main", "Main").func("main0()");
+    auto main1 = vm.find("main", "Main").func("main1()");
+
+    REQUIRE_THROWS_AS(main0(), wren::RuntimeError);
+    REQUIRE_NOTHROW(main1().as<std::string>());
+}
+
+TEST_CASE("Throw exception in member function external") {
+    const std::string code = R"(
+        import "test" for ExceptionClass
+
+        class Main {
+            static main0() {
+                var v = ExceptionClass.new()
+                v.funcException()
+            }
+            static main1() {
+                var v = ExceptionClass.new()
+                v.func()
+            }
+        }
+    )";
+
+    wren::VM vm;
+    auto& m = vm.module("test");
+    auto& cls = m.klass<ExceptionClass>("ExceptionClass");
+    cls.ctor<>();
+    cls.funcExt<&ExceptionClassHelper::func0>("func");
+    cls.funcExt<&ExceptionClassHelper::func0Exception>("funcException");
+    vm.runFromSource("main", code);
+    auto main0 = vm.find("main", "Main").func("main0()");
+    auto main1 = vm.find("main", "Main").func("main1()");
+
+    REQUIRE_THROWS_AS(main0(), wren::RuntimeError);
+    REQUIRE_NOTHROW(main1());
+}
+
+TEST_CASE("Throw exception in member function return type external") {
+    const std::string code = R"(
+        import "test" for ExceptionClass
+
+        class Main {
+            static main0() {
+                var v = ExceptionClass.new()
+                return v.funcException()
+            }
+            static main1() {
+                var v = ExceptionClass.new()
+                return v.func()
+            }
+        }
+    )";
+
+    wren::VM vm;
+    auto& m = vm.module("test");
+    auto& cls = m.klass<ExceptionClass>("ExceptionClass");
+    cls.ctor<>();
+    cls.funcExt<&ExceptionClassHelper::func1>("func");
+    cls.funcExt<&ExceptionClassHelper::func1Exception>("funcException");
+    vm.runFromSource("main", code);
+    auto main0 = vm.find("main", "Main").func("main0()");
+    auto main1 = vm.find("main", "Main").func("main1()");
+
+    REQUIRE_THROWS_AS(main0(), wren::RuntimeError);
+    REQUIRE_NOTHROW(main1().as<std::string>());
+}
+
+TEST_CASE("Throw exception in static function external") {
+    const std::string code = R"(
+        import "test" for ExceptionClass
+
+        class Main {
+            static main0() {
+                ExceptionClass.funcException()
+            }
+            static main1() {
+                ExceptionClass.func()
+            }
+        }
+    )";
+
+    wren::VM vm;
+    auto& m = vm.module("test");
+    auto& cls = m.klass<ExceptionClass>("ExceptionClass");
+    cls.ctor<>();
+    cls.funcStaticExt<&ExceptionClassHelper::func2>("func");
+    cls.funcStaticExt<&ExceptionClassHelper::func2Exception>("funcException");
+    vm.runFromSource("main", code);
+    auto main0 = vm.find("main", "Main").func("main0()");
+    auto main1 = vm.find("main", "Main").func("main1()");
+
+    REQUIRE_THROWS_AS(main0(), wren::RuntimeError);
+    REQUIRE_NOTHROW(main1());
+}
+
+TEST_CASE("Throw exception in static function return type external") {
+    const std::string code = R"(
+        import "test" for ExceptionClass
+
+        class Main {
+            static main0() {
+                return ExceptionClass.funcException()
+            }
+            static main1() {
+                return ExceptionClass.func()
+            }
+        }
+    )";
+
+    wren::VM vm;
+    auto& m = vm.module("test");
+    auto& cls = m.klass<ExceptionClass>("ExceptionClass");
+    cls.ctor<>();
+    cls.funcStaticExt<&ExceptionClassHelper::func3>("func");
+    cls.funcStaticExt<&ExceptionClassHelper::func3Exception>("funcException");
+    vm.runFromSource("main", code);
+    auto main0 = vm.find("main", "Main").func("main0()");
+    auto main1 = vm.find("main", "Main").func("main1()");
+
+    REQUIRE_THROWS_AS(main0(), wren::RuntimeError);
+    REQUIRE_NOTHROW(main1().as<std::string>());
+}
+
+TEST_CASE("Push unregistered class") {
+    const std::string code = R"(
+        class Main {
+            static main(instance) {
+                return instance.msg
+            }
+        }
+    )";
+
+    wren::VM vm;
+    vm.runFromSource("main", code);
+    auto main = vm.find("main", "Main").func("main(_)");
+
+    REQUIRE_THROWS_AS(main(ExceptionClass()), wren::BadCast);
+}

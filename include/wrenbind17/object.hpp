@@ -75,8 +75,6 @@ namespace wrenbind17 {
         public:
             ForeignPtrConvertor() = default;
             virtual ~ForeignPtrConvertor() = default;
-
-            virtual std::pair<size_t, size_t> pair() const = 0;
         };
 
         template <typename T> class ForeignSharedPtrConvertor : public ForeignPtrConvertor {
@@ -100,10 +98,6 @@ namespace wrenbind17 {
                 if (!ptr)
                     throw BadCast("Bad cast while upcasting to a base type");
                 return std::dynamic_pointer_cast<To>(ptr->shared());
-            }
-
-            inline std::pair<size_t, size_t> pair() const override {
-                return std::make_pair(typeid(From).hash_code(), typeid(To).hash_code());
             }
         };
 

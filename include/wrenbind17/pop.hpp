@@ -371,6 +371,13 @@ namespace wrenbind17 {
             }
         };
 
+        template <typename... Ts> struct PopHelper<std::variant<Ts...>&> {
+            static inline std::variant<Ts...> f(WrenVM* vm, int idx) {
+                using VariantType = typename std::variant<Ts...>;
+                return loopAndFindVariant<VariantType, Ts...>(vm, idx);
+            }
+        };
+
         template <typename... Ts> struct PopHelper<const std::variant<Ts...>&> {
             static inline std::variant<Ts...> f(WrenVM* vm, int idx) {
                 using VariantType = typename std::variant<Ts...>;
