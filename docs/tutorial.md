@@ -8,7 +8,7 @@
 * [**Binding C++ class variables**](tutorial_variables.md) - Binding functions as properties or simple variables, with optional read-only variables.
 * [**Binding C++ abstract classes**](tutorial_abstract.md) - How to bind abstract classes.
 * [**Binding C++ class operators**](tutorial_operators.md) - Binding overloaded C++ operators such as + - * /.
-* [**Pass C++ variables by reference or pointer**](tutorial_pass_return_policy.md) - Different ways of passing C++ variables into Wren and their behavior and limitations.
+* [**Pass and return C++ variables policy**](tutorial_pass_return_policy.md) - Different ways of passing C++ variables into Wren and their behavior and limitations.
 * [**Call Wren from C++**](tutorial_call_wren.md) - Call Wren functions from C++ and pass or return variables.
 * [**Lifetime of objects returned by Wren**](tutorial_lifetime.md) - When does the Wren frees the memory of objects you get from Wren?
 * [**Lifetime of objects passed into Wren**](tutorial_lifetime_cpp.md) - When does the Wren frees the memory of objects passed into the Wren?
