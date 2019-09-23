@@ -42,8 +42,6 @@ namespace wren = wrenbind17; // Alias
 int main(...) {
     auto loadFileFn = [](const std::vector<std::string>& paths, 
                          const std::string& name) -> std::string {
-        // The "paths" are lookup paths you use in the wren::VM constructor!
-        // The "name" is the name of the import module!
                              
         for (const auto& path : paths) {
             const auto test = path + "/" + std::string(name) + ".wren";
@@ -71,14 +69,4 @@ int main(...) {
 
 ## Print function
 
-To override the `System.print` simply call the `vm.setPrintFunc` with an appropriate function, example shown below. Please note that if you are printing, for example `System.print("Hello World")`, the print function may be called twice (first time for `Hello World` and second time for `\n`).
-
-
-```cpp
-int main(...) {
-    wren::VM vm();
-    vm.setPrintFunc([](const char* text) -> void { 
-        std::cout << text;
-    });
-}
-```
+When printing 

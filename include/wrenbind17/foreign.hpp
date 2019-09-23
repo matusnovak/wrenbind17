@@ -361,17 +361,9 @@ namespace wrenbind17 {
     template <typename T>
     class ForeignKlassImpl : public ForeignKlass {
     public:
-        static void defaultAllocate(WrenVM* vm) {
-            (void)vm;
-        }
-
-        static void defaultFinalize(void* memory) {
-            (void)memory;
-        }
-
         ForeignKlassImpl(std::string name) : ForeignKlass(std::move(name)) {
-            allocators.allocate = &ForeignKlassImpl<T>::defaultAllocate;
-            allocators.finalize = &ForeignKlassImpl<T>::defaultFinalize;
+            allocators.allocate = nullptr;
+            allocators.finalize = nullptr;
         }
         ~ForeignKlassImpl() = default;
 

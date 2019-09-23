@@ -11,7 +11,7 @@ TEST_CASE("Pass std vector to Wren") {
         import "test" for VectorInt
 
         class Main {
-            static main(vector) {
+            static main1(vector) {
                 vector[2] = 5
                 return vector[0] + vector[1] + vector[2]
             }
@@ -74,23 +74,43 @@ TEST_CASE("Pass std vector to Wren") {
     auto& m = vm.module("test");
     wren::StdVectorBindings<int>::bind(m, "VectorInt");
 
-    std::cout << m.str() << std::endl;
-
     vm.runFromSource("main", code);
 
     std::vector<int> vector = {5, 10, 3};
 
-    REQUIRE(RUN("main(_)", vector) == 20);
-    REQUIRE(RUN("main2(_)", vector) == 18);
-    REQUIRE(RUN("main3(_)", vector) == 3);
-    REQUIRE(RUN("main4(_)", vector) == 8);
-    REQUIRE(RUN("main5(_)", vector) == 8);
-    REQUIRE(RUN("main6(_)", vector) == 4);
-    REQUIRE(RUN("main7(_)", vector) == 20);
-    REQUIRE(RUN("main8(_)", vector) == 20);
-    REQUIRE(RUN("main9(_)", vector) == 20);
-    REQUIRE(RUN("main10(_)", vector) == 3);
-    REQUIRE(RUN("main11(_)", vector) == 0);
+    SECTION("main1") {
+        REQUIRE(RUN("main1(_)", vector) == 20);
+    }
+    SECTION("main2") {
+        REQUIRE(RUN("main2(_)", vector) == 18);
+    }
+    SECTION("main3") {
+        REQUIRE(RUN("main3(_)", vector) == 3);
+    }
+    SECTION("main4") {
+        REQUIRE(RUN("main4(_)", vector) == 8);
+    }
+    SECTION("main5") {
+        REQUIRE(RUN("main5(_)", vector) == 8);
+    }
+    SECTION("main6") {
+        REQUIRE(RUN("main6(_)", vector) == 4);
+    }
+    SECTION("main7") {
+        REQUIRE(RUN("main7(_)", vector) == 20);
+    }
+    SECTION("main8") {
+        REQUIRE(RUN("main8(_)", vector) == 20);
+    }
+    SECTION("main9") {
+        REQUIRE(RUN("main9(_)", vector) == 20);
+    }
+    SECTION("main10") {
+        REQUIRE(RUN("main10(_)", vector) == 3);
+    }
+    SECTION("main11") {
+        REQUIRE(RUN("main11(_)", vector) == 0);
+    }
 }
 
 TEST_CASE("Pass std list to Wren") {
@@ -98,7 +118,7 @@ TEST_CASE("Pass std list to Wren") {
         import "test" for ListInt
 
         class Main {
-            static main(list) {
+            static main1(list) {
                 list[2] = 5
                 return list[0] + list[1] + list[2]
             }
@@ -106,6 +126,7 @@ TEST_CASE("Pass std list to Wren") {
             static main2(list) {
                 var sum = 0
                 for (value in list) {
+                    System.print("Value: %(value) ")
                     sum = sum + value
                 }
                 return sum
@@ -161,21 +182,40 @@ TEST_CASE("Pass std list to Wren") {
     auto& m = vm.module("test");
     wren::StdListBindings<int>::bind(m, "ListInt");
 
-    std::cout << m.str() << std::endl;
-
     vm.runFromSource("main", code);
 
     std::list<int> list = {5, 10, 3};
-
-    REQUIRE(RUN("main(_)", list) == 20);
-    REQUIRE(RUN("main2(_)", list) == 18);
-    REQUIRE(RUN("main3(_)", list) == 3);
-    REQUIRE(RUN("main4(_)", list) == 8);
-    REQUIRE(RUN("main5(_)", list) == 8);
-    REQUIRE(RUN("main6(_)", list) == 4);
-    REQUIRE(RUN("main7(_)", list) == 20);
-    REQUIRE(RUN("main8(_)", list) == 20);
-    REQUIRE(RUN("main9(_)", list) == 20);
-    REQUIRE(RUN("main10(_)", list) == 3);
-    REQUIRE(RUN("main11(_)", list) == 0);
+    SECTION("main1") {
+        REQUIRE(RUN("main1(_)", list) == 20);
+    }
+    SECTION("main2") {
+        REQUIRE(RUN("main2(_)", list) == 18);
+    }
+    SECTION("main3") {
+        REQUIRE(RUN("main3(_)", list) == 3);
+    }
+    SECTION("main4") {
+        REQUIRE(RUN("main4(_)", list) == 8);
+    }
+    SECTION("main5") {
+        REQUIRE(RUN("main5(_)", list) == 8);
+    }
+    SECTION("main6") {
+        REQUIRE(RUN("main6(_)", list) == 4);
+    }
+    SECTION("main7") {
+        REQUIRE(RUN("main7(_)", list) == 20);
+    }
+    SECTION("main8") {
+        REQUIRE(RUN("main8(_)", list) == 20);
+    }
+    SECTION("main9") {
+        REQUIRE(RUN("main9(_)", list) == 20);
+    }
+    SECTION("main10") {
+        REQUIRE(RUN("main10(_)", list) == 3);
+    }
+    SECTION("main11") {
+        REQUIRE(RUN("main11(_)", list) == 0);
+    }
 }

@@ -14,8 +14,8 @@ namespace wrenbind17 {
 
         template <typename First, typename... Other> inline void pushArgs(
             WrenVM* vm, int idx, First&& first, Other&&... other) {
-            PushHelper<First>::f(vm, idx, std::forward<First&&>(first));
-            pushArgs(vm, ++idx, std::forward<Other&&>(other)...);
+            PushHelper<First>::f(vm, idx, std::forward<First>(first));
+            pushArgs(vm, ++idx, std::forward<Other>(other)...);
         }
 
         template <typename... Args> struct CallAndReturn {
@@ -24,7 +24,7 @@ namespace wrenbind17 {
                 wrenEnsureSlots(vm, n + 1);
                 wrenSetSlotHandle(vm, 0, handle);
 
-                pushArgs(vm, 1, std::forward<Args&&>(args)...);
+                pushArgs(vm, 1, std::forward<Args>(args)...);
 
                 if (wrenCall(vm, func) != WREN_RESULT_SUCCESS) {
                     throw RuntimeError(getLastError(vm));
@@ -56,7 +56,7 @@ namespace wrenbind17 {
 
         template <typename... Args> Any operator()(Args&&... args) {
             return detail::CallAndReturn<Args...>::func(vm, variable->getHandle(), handle->getHandle(),
-                                                        std::forward<Args&&>(args)...);
+                                                        std::forward<Args>(args)...);
         }
 
         operator bool() const {

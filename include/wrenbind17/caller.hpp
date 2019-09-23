@@ -9,13 +9,60 @@
  */
 namespace wrenbind17 {
     namespace detail {
+        template <typename R>
+        struct ForeginMethodReturnHelper {
+            static void push(WrenVM* vm, int index, R ret) {
+                PushHelper<R>::f(vm, 0, ret);
+            }
+        };
+
+        template <typename R> 
+        struct ForeginMethodReturnHelper<R&> {
+            static void push(WrenVM* vm, int index, R& ret) {
+                PushHelper<R*>::f(vm, 0, &ret);
+            }
+        };
+
+        template <typename R> 
+        struct ForeginMethodReturnHelper<const R&> {
+            static void push(WrenVM* vm, int index, const R& ret) {
+                PushHelper<const R&>::f(vm, 0, ret);
+            }
+        };
+
+        template <typename R> 
+        struct ForeginMethodReturnHelper<R*> {
+            static void push(WrenVM* vm, int index, R* ret) {
+                PushHelper<R*>::f(vm, 0, ret);
+            }
+        };
+
+        template <typename R> 
+        struct ForeginMethodReturnHelper<const R*> {
+            static void push(WrenVM* vm, int index, const R* ret) {
+                PushHelper<const R*>::f(vm, 0, ret);
+            }
+        };
+
+        template <typename R> 
+        struct ForeginMethodReturnHelper<R&&> {
+            static void push(WrenVM* vm, int index, R&& ret) {
+                PushHelper<R>::f(vm, 0, std::move(ret));
+            }
+        };
+        
         template <typename R, typename T, typename... Args>
         struct ForeignMethodCaller {
             template <R (T::*Fn)(Args...), size_t... Is>
             static void callFrom(WrenVM* vm, detail::index_list<Is...>) {
                 auto self = PopHelper<T*>::f(vm, 0);
-                auto ret = (self->*Fn)(PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...);
-                PushHelper<R>::f(vm, 0, ret);
+                //R ret = (self->*Fn)(PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...);
+                //PushHelper<R>::f(vm, 0, ret);
+                ForeginMethodReturnHelper<R>::push(
+                    vm, 
+                    0, 
+                    (self->*Fn)(PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...)
+                );
             }
 
             template <R (T::*Fn)(Args...)>
@@ -30,8 +77,13 @@ namespace wrenbind17 {
             template <R (T::*Fn)(Args...) const, size_t... Is>
             static void callFrom(WrenVM* vm, detail::index_list<Is...>) {
                 auto self = PopHelper<T*>::f(vm, 0);
-                auto ret = (self->*Fn)(PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...);
-                PushHelper<R>::f(vm, 0, ret);
+                //R ret = (self->*Fn)(PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...);
+                //PushHelper<R>::f(vm, 0, ret);
+                ForeginMethodReturnHelper<R>::push(
+                    vm, 
+                    0, 
+                    (self->*Fn)(PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...)
+                );
             }
 
             template <R (T::*Fn)(Args...) const>
@@ -82,8 +134,13 @@ namespace wrenbind17 {
             template <R (*Fn)(T&, Args...), size_t... Is>
             static void callFrom(WrenVM* vm, detail::index_list<Is...>) {
                 auto self = PopHelper<T*>::f(vm, 0);
-                auto ret = (*Fn)(*self, PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...);
-                PushHelper<R>::f(vm, 0, ret);
+                //R ret = (*Fn)(*self, PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...);
+                //PushHelper<R>::f(vm, 0, ret);
+                ForeginMethodReturnHelper<R>::push(
+                    vm, 
+                    0, 
+                    (*Fn)(*self, PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...)
+                );
             }
 
             template <R (*Fn)(T&, Args...)>
@@ -118,8 +175,13 @@ namespace wrenbind17 {
         struct ForeignFunctionCaller {
             template <R (*Fn)(Args...), size_t... Is>
             static void callFrom(WrenVM* vm, detail::index_list<Is...>) {
-                auto ret = (*Fn)(PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...);
-                PushHelper<R>::f(vm, 0, ret);
+                //R ret = (*Fn)(PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...);
+                //PushHelper<R>::f(vm, 0, ret);
+                ForeginMethodReturnHelper<R>::push(
+                    vm, 
+                    0, 
+                    (*Fn)(PopHelper<typename std::remove_const<Args>::type>::f(vm, Is + 1)...)
+                );
             }
 
             template <R (*Fn)(Args...)>

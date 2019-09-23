@@ -10,7 +10,7 @@ namespace wrenbind17 {
         // ============================================================================================================
         //                                       BASIC TYPES
         // ============================================================================================================
-        template <typename T> inline void setSlot(WrenVM* vm, int idx, T value) {
+        template <typename T> inline void setSlot(WrenVM* vm, int idx, T&& value) {
             static_assert(!std::is_same<std::string, T>(), "type can't be std::string");
             static_assert(!is_shared_ptr<T>::value, "type can't be shared_ptr<T>");
             try {
@@ -29,10 +29,29 @@ namespace wrenbind17 {
             }
         }
 
+        template <typename T> inline void setSlot(WrenVM* vm, int idx, const T& value) {
+            static_assert(!std::is_same<std::string, T>(), "type can't be std::string");
+            static_assert(!is_shared_ptr<T>::value, "type can't be shared_ptr<T>");
+            try {
+                std::string module;
+                std::string klass;
+                getClassType(vm, module, klass, typeid(T).hash_code());
+
+                wrenEnsureSlots(vm, idx + 1);
+                wrenGetVariable(vm, module.c_str(), klass.c_str(), idx);
+
+                auto memory = wrenSetSlotNewForeign(vm, idx, idx, sizeof(ForeignObject<T>));
+                auto* foreign = new (memory) ForeignObject<T>(std::make_shared<T>(value));
+            } catch (std::out_of_range& e) {
+                (void)e;
+                throw BadCast("Class type not registered in Wren VM");
+            }
+        }
+
         template <typename T> struct PushHelper {
             inline static void f(WrenVM* vm, int idx, const T& value) {
                 static_assert(!std::is_pointer<T>::value, "type can't be a pointer");
-                setSlot<T>(vm, idx, std::move(value));
+                setSlot<T>(vm, idx, value);
             }
             inline static void f(WrenVM* vm, int idx, T&& value) {
                 static_assert(!std::is_pointer<T>::value, "type can't be a pointer");
@@ -43,6 +62,11 @@ namespace wrenbind17 {
         template <>
         inline void PushHelper<std::string>::f(WrenVM* vm, int idx, std::string&& value) {
             wrenSetSlotString(vm, idx, value.c_str());
+        }
+
+        template <>
+        inline void PushHelper<std::nullptr_t>::f(WrenVM* vm, int idx, std::nullptr_t&& value) {
+            wrenSetSlotNull(vm, idx);
         }
 
         template <typename T> struct PushHelper<const T> {
@@ -81,14 +105,21 @@ namespace wrenbind17 {
 
         template <typename T> struct PushHelper<T&> {
             inline static void f(WrenVM* vm, int idx, T& value) {
+                setSlot<T>(vm, idx, value);
+            }
+
+            inline static void f(WrenVM* vm, int idx, const T& value) {
+                setSlot<T>(vm, idx, value);
+            }
+
+            inline static void f(WrenVM* vm, int idx, T&& value) {
                 setSlot<typename std::remove_const<typename std::remove_reference<T>::type>::type>(vm, idx, value);
-                // PushHelper<T*>::f(vm, idx, &value);
             }
         };
 
         template <typename T> struct PushHelper<const T*> {
             inline static void f(WrenVM* vm, int idx, const T* value) {
-                PushHelper<T*>::f(vm, idx, value);
+                PushHelper<T*>::f(vm, idx, const_cast<T*>(value));
             }
         };
 
@@ -135,68 +166,68 @@ namespace wrenbind17 {
             }
         };
 
-        template <> inline void setSlot(WrenVM* vm, int idx, std::nullptr_t value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const std::nullptr_t& value) {
             (void)value;
             wrenSetSlotNull(vm, idx);
         }
 
-        template <> inline void setSlot(WrenVM* vm, int idx, std::string value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const std::string& value) {
             wrenSetSlotString(vm, idx, value.c_str());
         }
 
-        template <> inline void setSlot(WrenVM* vm, int idx, bool value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const bool& value) {
             wrenSetSlotBool(vm, idx, value);
         }
 
-        template <> inline void setSlot(WrenVM* vm, int idx, int8_t value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const int8_t& value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
-        template <> inline void setSlot(WrenVM* vm, int idx, char value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const char& value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
-        template <> inline void setSlot(WrenVM* vm, int idx, int value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const int& value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
-        template <> inline void setSlot(WrenVM* vm, int idx, short value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const short& value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
-        template <> inline void setSlot(WrenVM* vm, int idx, long value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const long& value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
-        template <> inline void setSlot(WrenVM* vm, int idx, unsigned long value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const unsigned long& value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
-        template <> inline void setSlot(WrenVM* vm, int idx, unsigned short value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const unsigned short& value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
-        template <> inline void setSlot(WrenVM* vm, int idx, unsigned char value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const unsigned char& value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
-        template <> inline void setSlot(WrenVM* vm, int idx, unsigned value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const unsigned& value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
-        template <> inline void setSlot(WrenVM* vm, int idx, long long value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const long long& value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
-        template <> inline void setSlot(WrenVM* vm, int idx, unsigned long long value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const unsigned long long& value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
-        template <> inline void setSlot(WrenVM* vm, int idx, float value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const float& value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
-        template <> inline void setSlot(WrenVM* vm, int idx, double value) {
+        template <> inline void setSlot(WrenVM* vm, int idx, const double& value) {
             wrenSetSlotDouble(vm, idx, static_cast<double>(value));
         }
 
