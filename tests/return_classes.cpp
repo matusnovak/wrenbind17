@@ -147,7 +147,7 @@ TEST_CASE("Return class from C++ to Wren by const reference") {
 
         class Main {
             static main() {
-                return Manager.getCopyableFooConst()
+                return Manager.getNonMoveableFooConst()
             }
         }
     )";
@@ -155,21 +155,21 @@ TEST_CASE("Return class from C++ to Wren by const reference") {
     wren::VM vm;
     auto& m = vm.module("test");
     {
-        auto& cls = m.klass<CopyableFoo>("CopyableFoo");
-        cls.propReadonly<&CopyableFoo::getMsg>("msg");
+        auto& cls = m.klass<NonMoveableFoo>("NonMoveableFoo");
+        cls.propReadonly<&NonMoveableFoo::getMsg>("msg");
     }
 
     {
         auto& cls = m.klass<FooManager>("FooManager");
         cls.ctor<>();
-        cls.func<&FooManager::getCopyableFooConst>("getCopyableFooConst");
+        cls.func<&FooManager::getNonMoveableFooConst>("getNonMoveableFooConst");
     }
 
     vm.runFromSource("main", code);
     auto main = vm.find("main", "Main").func("main()");
     auto res = main();
-    REQUIRE(res.is<CopyableFoo>());
-    REQUIRE(res.shared<CopyableFoo>()->getMsg() == "Hello World");
+    REQUIRE(res.is<NonMoveableFoo>());
+    REQUIRE(res.shared<NonMoveableFoo>()->getMsg() == "Hello World");
 }
 
 TEST_CASE("Return class from C++ to Wren by pointer") {

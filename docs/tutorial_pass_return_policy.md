@@ -20,5 +20,5 @@ This applies when calling a C++ function (a member function of a class) that ret
 * Return by a copy - A copy will be created.
 * Return by a move - The instance will be moved into a shared pointer wrapper used by Wren, no copies will be created.
 * Return by a pointer - No copy will be created. The pointer will be moved into a shared_ptr without a delete function.
-* Return by a reference - A copy will be created.
-* Return by a const reference - A copy will be created.
+* Return by a reference - Same as pointer.
+* Return by a const reference - Same as pointer.

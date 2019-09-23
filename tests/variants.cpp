@@ -75,6 +75,155 @@ TEST_CASE_POP_VARIANT(std::string, "Hello World", "Call C++ method that accepts 
 TEST_CASE_POP_VARIANT(std::nullptr_t, nullptr, "Call C++ method that accepts a variant of type std::nullptr_t");
 
 template<typename T>
+class PopVariantTestCaseReference {
+public:
+    using VariantType = typename std::variant<T>;
+    class VariantClass;
+
+    class VariantClass {
+    public:
+        VariantClass() = default;
+
+        void set(VariantType& other) {
+            value = other;
+        }
+
+        VariantType value;
+    };
+
+    static void test(const T& value) {
+        wren::VM vm;
+
+        const std::string code = R"(
+            import "test" for VariantClass
+            
+            class Main {
+                static main(v) {
+                    var i = VariantClass.new()
+                    i.set(v)
+                    return i
+                }
+            }
+        )";
+
+        auto& m = vm.module("test");
+        auto& cls = m.klass<VariantClass>("VariantClass");
+        cls.ctor();
+        cls.template func<&VariantClass::set>("set");
+
+        vm.runFromSource("main", code);
+
+        auto main = vm.find("main", "Main").func("main(_)");
+        auto res = main(value);
+        REQUIRE(res.template is<VariantClass>());
+
+        auto c = res.template as<VariantClass>();
+
+        REQUIRE(std::holds_alternative<T>(c.value));
+        REQUIRE(std::get<T>(c.value) == value);
+    }
+};
+
+#define TEST_CASE_POP_VARIANT_REFERENCE(T, VALUE, NAME)\
+    TEST_CASE(NAME) { \
+        PopVariantTestCaseReference<T>::test(VALUE); \
+    }
+
+TEST_CASE_POP_VARIANT_REFERENCE(int, 42, "Call C++ method that accepts a variant reference of type int");
+TEST_CASE_POP_VARIANT_REFERENCE(short, 42, "Call C++ method that accepts a variant reference of type short");
+TEST_CASE_POP_VARIANT_REFERENCE(long, 42, "Call C++ method that accepts a variant reference of type long");
+TEST_CASE_POP_VARIANT_REFERENCE(char, 42, "Call C++ method that accepts a variant reference of type char");
+TEST_CASE_POP_VARIANT_REFERENCE(long long, 42, "Call C++ method that accepts a variant reference of type long long");
+TEST_CASE_POP_VARIANT_REFERENCE(unsigned int, 42, "Call C++ method that accepts a variant reference of type unsigned int");
+TEST_CASE_POP_VARIANT_REFERENCE(unsigned short, 42, "Call C++ method that accepts a variant reference of type unsigned short");
+TEST_CASE_POP_VARIANT_REFERENCE(unsigned long, 42, "Call C++ method that accepts a variant reference of type unsigned long");
+TEST_CASE_POP_VARIANT_REFERENCE(unsigned char, 42, "Call C++ method that accepts a variant reference of type unsigned char");
+TEST_CASE_POP_VARIANT_REFERENCE(unsigned long long, 42, "Call C++ method that accepts a variant reference of type unsigned long long");
+TEST_CASE_POP_VARIANT_REFERENCE(bool, true, "Call C++ method that accepts a variant reference of type bool");
+TEST_CASE_POP_VARIANT_REFERENCE(float, 42.42f, "Call C++ method that accepts a variant reference of type float");
+TEST_CASE_POP_VARIANT_REFERENCE(double, 42.42, "Call C++ method that accepts a variant reference of type double");
+TEST_CASE_POP_VARIANT_REFERENCE(std::string, "Hello World", "Call C++ method that accepts a variant reference of type std::string");
+TEST_CASE_POP_VARIANT_REFERENCE(std::nullptr_t, nullptr, "Call C++ method that accepts a variant reference of type std::nullptr_t");
+
+template <typename T> class PopVariantTestCaseConstref {
+public:
+    using VariantType = typename std::variant<T>;
+    class VariantClass;
+
+    class VariantClass {
+    public:
+        VariantClass() = default;
+
+        void set(const VariantType& other) {
+            value = other;
+        }
+
+        VariantType value;
+    };
+
+    static void test(const T& value) {
+        wren::VM vm;
+
+        const std::string code = R"(
+            import "test" for VariantClass
+            
+            class Main {
+                static main(v) {
+                    var i = VariantClass.new()
+                    i.set(v)
+                    return i
+                }
+            }
+        )";
+
+        auto& m = vm.module("test");
+        auto& cls = m.klass<VariantClass>("VariantClass");
+        cls.ctor();
+        cls.template func<&VariantClass::set>("set");
+
+        vm.runFromSource("main", code);
+
+        auto main = vm.find("main", "Main").func("main(_)");
+        auto res = main(value);
+        REQUIRE(res.template is<VariantClass>());
+
+        auto c = res.template as<VariantClass>();
+
+        REQUIRE(std::holds_alternative<T>(c.value));
+        REQUIRE(std::get<T>(c.value) == value);
+    }
+};
+
+#define TEST_CASE_POP_VARIANT_CONSTREF(T, VALUE, NAME)                                                                \
+    TEST_CASE(NAME) {                                                                                                  \
+        PopVariantTestCaseConstref<T>::test(VALUE);                                                                   \
+    }
+
+TEST_CASE_POP_VARIANT_CONSTREF(int, 42, "Call C++ method that accepts a variant const reference of type int");
+TEST_CASE_POP_VARIANT_CONSTREF(short, 42, "Call C++ method that accepts a variant const reference of type short");
+TEST_CASE_POP_VARIANT_CONSTREF(long, 42, "Call C++ method that accepts a variant const reference of type long");
+TEST_CASE_POP_VARIANT_CONSTREF(char, 42, "Call C++ method that accepts a variant const reference of type char");
+TEST_CASE_POP_VARIANT_CONSTREF(long long, 42, "Call C++ method that accepts a variant const reference of type long long");
+TEST_CASE_POP_VARIANT_CONSTREF(unsigned int, 42,
+                                "Call C++ method that accepts a variant const reference of type unsigned int");
+TEST_CASE_POP_VARIANT_CONSTREF(unsigned short, 42,
+                                "Call C++ method that accepts a variant const reference of type unsigned short");
+TEST_CASE_POP_VARIANT_CONSTREF(unsigned long, 42,
+                                "Call C++ method that accepts a variant const reference of type unsigned long");
+TEST_CASE_POP_VARIANT_CONSTREF(unsigned char, 42,
+                                "Call C++ method that accepts a variant const reference of type unsigned char");
+TEST_CASE_POP_VARIANT_CONSTREF(unsigned long long, 42,
+                                "Call C++ method that accepts a variant const reference of type unsigned long long");
+TEST_CASE_POP_VARIANT_CONSTREF(bool, true, "Call C++ method that accepts a variant const reference of type bool");
+TEST_CASE_POP_VARIANT_CONSTREF(float, 42.42f, "Call C++ method that accepts a variant const reference of type float");
+TEST_CASE_POP_VARIANT_CONSTREF(double, 42.42, "Call C++ method that accepts a variant const reference of type double");
+TEST_CASE_POP_VARIANT_CONSTREF(std::string, "Hello World",
+                                "Call C++ method that accepts a variant const reference of type std::string");
+TEST_CASE_POP_VARIANT_CONSTREF(std::nullptr_t, nullptr,
+                                "Call C++ method that accepts a variant const reference of type std::nullptr_t");
+
+
+template<typename T>
 class PushVariantTestCase {
 public:
     using VariantType = typename std::variant<T>;

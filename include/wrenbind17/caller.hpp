@@ -11,45 +11,84 @@ namespace wrenbind17 {
     namespace detail {
         template <typename R>
         struct ForeginMethodReturnHelper {
-            static void push(WrenVM* vm, int index, R ret) {
-                PushHelper<R>::f(vm, 0, ret);
+            static inline void push(WrenVM* vm, int index, R ret) {
+                PushHelper<R>::f(vm, index, ret);
             }
         };
 
         template <typename R> 
         struct ForeginMethodReturnHelper<R&> {
-            static void push(WrenVM* vm, int index, R& ret) {
-                PushHelper<R*>::f(vm, 0, &ret);
+            static inline void push(WrenVM* vm, int index, R& ret) {
+                PushHelper<R*>::f(vm, index, &ret);
             }
         };
 
         template <typename R> 
         struct ForeginMethodReturnHelper<const R&> {
-            static void push(WrenVM* vm, int index, const R& ret) {
-                PushHelper<const R&>::f(vm, 0, ret);
+            static inline void push(WrenVM* vm, int index, const R& ret) {
+                PushHelper<R*>::f(vm, index, &const_cast<R&>(ret));
             }
         };
 
         template <typename R> 
         struct ForeginMethodReturnHelper<R*> {
-            static void push(WrenVM* vm, int index, R* ret) {
-                PushHelper<R*>::f(vm, 0, ret);
+            static inline void push(WrenVM* vm, int index, R* ret) {
+                PushHelper<R*>::f(vm, index, ret);
             }
         };
 
         template <typename R> 
         struct ForeginMethodReturnHelper<const R*> {
-            static void push(WrenVM* vm, int index, const R* ret) {
-                PushHelper<const R*>::f(vm, 0, ret);
+            static inline void push(WrenVM* vm, int index, const R* ret) {
+                PushHelper<const R*>::f(vm, index, ret);
             }
         };
 
         template <typename R> 
         struct ForeginMethodReturnHelper<R&&> {
-            static void push(WrenVM* vm, int index, R&& ret) {
-                PushHelper<R>::f(vm, 0, std::move(ret));
+            static inline void push(WrenVM* vm, int index, R&& ret) {
+                PushHelper<R>::f(vm, index, std::move(ret));
             }
         };
+
+        template <typename R> 
+        struct ForeginMethodReturnHelper<const std::shared_ptr<R>&> {
+            static inline void push(WrenVM* vm, int index, const std::shared_ptr<R>& ret) {
+                PushHelper<const std::shared_ptr<R>&>::f(vm, index, ret);
+            }
+        };
+
+        template <typename R> 
+        struct ForeginMethodReturnHelper<std::shared_ptr<R>&> {
+            static inline void push(WrenVM* vm, int index, std::shared_ptr<R>& ret) {
+                PushHelper<std::shared_ptr<R>&>::f(vm, index, ret);
+            }
+        };
+
+        template <typename R> 
+        struct ForeginMethodReturnHelper<const std::variant<R>&> {
+            static inline void push(WrenVM* vm, int index, const std::variant<R>& ret) {
+                PushHelper<const std::variant<R>&>::f(vm, index, ret);
+            }
+        };
+
+        template <typename R> 
+        struct ForeginMethodReturnHelper<std::variant<R>&> {
+            static inline void push(WrenVM* vm, int index, std::variant<R>& ret) {
+                PushHelper<std::variant<R>&>::f(vm, index, ret);
+            }
+        };
+
+        template <>
+        inline void ForeginMethodReturnHelper<const std::string&>::push(WrenVM* vm, int index, const std::string& ret) {
+            PushHelper<const std::string&>::f(vm, index, ret);
+        }
+
+        template <>
+        inline void ForeginMethodReturnHelper<std::string&>::push(WrenVM* vm, int index, std::string& ret) {
+            PushHelper<std::string&>::f(vm, index, ret);
+        }
+        
         
         template <typename R, typename T, typename... Args>
         struct ForeignMethodCaller {
