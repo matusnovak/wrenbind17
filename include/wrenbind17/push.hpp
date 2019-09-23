@@ -280,13 +280,13 @@ namespace wrenbind17 {
         }
 
         template <typename... Ts> struct PushHelper<std::variant<Ts...>> {
-            inline static void f(WrenVM* vm, int idx, const std::variant<Ts...>& value) {
+            inline static void f(WrenVM* vm, int idx, std::variant<Ts...> value) {
                 loopAndPushVariant<std::variant<Ts...>, Ts...>(vm, idx, value, 0);
             }
         };
 
         template <typename... Ts> struct PushHelper<std::variant<Ts...>&> {
-            inline static void f(WrenVM* vm, int idx, const std::variant<Ts...>& value) {
+            inline static void f(WrenVM* vm, int idx, std::variant<Ts...>& value) {
                 PushHelper<std::variant<Ts...>>::f(vm, idx, value);
             }
         };

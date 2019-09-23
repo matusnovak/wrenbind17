@@ -22,3 +22,4 @@ This applies when calling a C++ function (a member function of a class) that ret
 * Return by a pointer - No copy will be created. The pointer will be moved into a shared_ptr without a delete function.
 * Return by a reference - Same as pointer.
 * Return by a const reference - Same as pointer.
+* Return by a shared pointer - C++ and Wren will share the same smart pointer, no copies are created.
