@@ -13,6 +13,7 @@
  * @ingroup wrenbind17
  */
 namespace wrenbind17 {
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
     std::string getLastError(WrenVM* vm);
 
     inline void exceptionHandler(WrenVM* vm, const std::exception_ptr& eptr) {
@@ -104,4 +105,5 @@ namespace wrenbind17 {
         template <class T> struct is_shared_ptr : std::false_type {};
         template <class T> struct is_shared_ptr<std::shared_ptr<T>> : std::true_type {};
     } // namespace detail
+#endif
 } // namespace wrenbind17

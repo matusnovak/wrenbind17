@@ -6,6 +6,7 @@
  * @ingroup wrenbind17
  */
 namespace wrenbind17 {
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
     namespace detail {
         inline void pushArgs(WrenVM* vm, int idx) {
             (void)vm;
@@ -34,6 +35,7 @@ namespace wrenbind17 {
             }
         };
     } // namespace detail
+#endif
 
     /**
      * @ingroup wrenbind17

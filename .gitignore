@@ -11,5 +11,13 @@ docs/doxygen/*.md
 docs/doxygen/xml
 !docs/doxygen/index.md
 
-# Vuepress
-dist/
+# Hugo
+docs/resources/
+docs/public/
+docs/content/Classes
+docs/content/Examples
+docs/content/Files
+docs/content/images
+docs/content/Modules
+docs/content/Namespaces
+docs/content/Pages

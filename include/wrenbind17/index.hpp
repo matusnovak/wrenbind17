@@ -4,6 +4,7 @@
  * @ingroup wrenbind17
  */
 namespace wrenbind17 {
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
     namespace detail {
         template <size_t... Is>
         struct index_list {};
@@ -26,4 +27,5 @@ namespace wrenbind17 {
         template <size_t MIN, size_t MAX>
         using index_range = typename detail::range_builder<MIN, MAX>::type;
     } // namespace detail
+#endif
 } // namespace wrenbind17

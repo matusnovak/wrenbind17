@@ -6,6 +6,7 @@ namespace wrenbind17 {
     void getClassType(WrenVM* vm, std::string& module, std::string& name, size_t hash);
     detail::ForeignPtrConvertor* getClassCast(WrenVM* vm, size_t hash, size_t other);
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
     namespace detail {
         // ============================================================================================================
         //                                       CHECK SLOTS FOR TYPE
@@ -385,4 +386,5 @@ namespace wrenbind17 {
             }
         };
     } // namespace detail
+#endif DOXYGEN_SHOULD_SKIP_THIS
 } // namespace wrenbind17

@@ -3,6 +3,7 @@
 #include "object.hpp"
 
 namespace wrenbind17 {
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
     void getClassType(WrenVM* vm, std::string& module, std::string& name, size_t hash);
     detail::ForeignPtrConvertor* getClassCast(WrenVM* vm, size_t hash, size_t other);
 
@@ -265,4 +266,5 @@ namespace wrenbind17 {
             }
         };
     } // namespace detail
+#endif
 } // namespace wrenbind17

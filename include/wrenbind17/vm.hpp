@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <vector>
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 namespace std {
     template <> struct hash<std::pair<size_t, size_t>> {
         inline size_t operator()(const std::pair<size_t, size_t>& v) const {
@@ -18,6 +19,7 @@ namespace std {
         }
     };
 } // namespace std
+#endif
 
 /**
  * @ingroup wrenbind17

@@ -315,6 +315,7 @@ namespace wrenbind17 {
         ~ForeignPropImpl() = default;
     };
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
     namespace detail {
         template <typename... Args>
         inline std::string generateNameArgs() {
@@ -354,6 +355,7 @@ namespace wrenbind17 {
             typedef decltype(getType(static_cast<M>(nullptr))) type;
         };
     } // namespace detail
+#endif
 
     /**
      * @ingroup wrenbind17
@@ -398,6 +400,7 @@ namespace wrenbind17 {
             ctorDef = ss.str();
         }
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
         template <typename Signature, Signature signature>
         struct ForeignMethodDetails;
 
@@ -516,6 +519,7 @@ namespace wrenbind17 {
                 return detail::ForeignMethodExtCaller<R, T>::template call<Fn>;
             }
         };
+#endif
 
         template <auto Fn>
         void func(std::string name) {
