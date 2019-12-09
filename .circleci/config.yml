@@ -63,6 +63,7 @@ jobs:
           name: Dependencies
           command: |
             sudo npm install -g gh-pages@2.0.1
+            sudo chmod 777 -R /usr/local/lib/node_modules/gh-pages/.cache
 
       - run:
           name: Deploy
@@ -70,7 +71,7 @@ jobs:
             cp -rv /tmp/public ./public
             git config --global user.email "$GITHUB_USER_EMAIL"
             git config --global user.name "$GITHUB_USER_NAME"
-            sudo gh-pages --dist ./public
+            gh-pages --dist ./public
 
 workflows:
   version: 2
