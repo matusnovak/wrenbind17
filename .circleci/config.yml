@@ -72,10 +72,10 @@ workflows:
   build_and_test:
     jobs:
       - pages:
-          filters:
-            branches:
-              only:
-                - master
+#          filters:
+#            branches:
+#              only:
+#                - master
       - deploy:
           requires:
             - pages
