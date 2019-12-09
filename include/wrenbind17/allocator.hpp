@@ -10,6 +10,7 @@
 namespace wrenbind17 {
     void setNextError(WrenVM* vm, std::string str);
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
     namespace detail {
         template <typename T, typename... Args> struct ForeignKlassAllocator {
             static T* ctor(Args&&... args) {
@@ -36,4 +37,5 @@ namespace wrenbind17 {
             }
         };
     } // namespace detail
+#endif
 } // namespace wrenbind17

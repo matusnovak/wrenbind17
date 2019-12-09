@@ -8,6 +8,7 @@
  * @ingroup wrenbind17
  */
 namespace wrenbind17 {
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
     namespace detail {
         template <typename R> struct ForeginMethodReturnHelper {
             static inline void push(WrenVM* vm, int index, R ret) {
@@ -238,4 +239,5 @@ namespace wrenbind17 {
             }
         };
     } // namespace detail
-}     // namespace wrenbind17
+#endif
+} // namespace wrenbind17

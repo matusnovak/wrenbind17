@@ -1,29 +1,45 @@
 version: 2
 jobs:
-  doxygen:
+  pages:
     docker:
-      - image: circleci/python:3.7
+      - image: circleci/node:latest
     steps:
       - checkout
       
       - run:
           name: Dependencies
           command: |
-            sudo apt install doxygen
-            sudo python -m pip install doxybook
+            sudo apt-get install doxygen zip unzip -y
+            wget https://github.com/gohugoio/hugo/releases/download/v0.59.1/hugo_extended_0.59.1_Linux-64bit.deb
+            sudo dpkg -i hugo_extended_0.59.1_Linux-64bit.deb
+            wget https://github.com/matusnovak/doxybook2/releases/download/v1.0.0/doxybook2-linux-amd64-v1.0.0.zip
+            unzip doxybook2-linux-amd64-v1.0.0.zip
+            sudo cp bin/doxybook2 /usr/local/bin/doxybook2
+            chmod +x /usr/local/bin/doxybook2
 
       - run:
           name: Generate documentation
           command: |
-            chmod +x ./docs/doxygen/make.sh
-            ./docs/doxygen/make.sh
-            mkdir /tmp/doxygen
-            cp -v ./docs/doxygen/*.md /tmp/doxygen
-
+            doxygen
+            doxybook2 \
+              --input temp/xml \
+              --output docs/content \
+              --config docs/.doxybook/config.json \
+              --templates docs/.doxybook/templates
+            rm -rf docs/content/Examples
+            rm -rf docs/content/Pages
+      
+      - run:
+          name: Build static pages
+          command: |
+            cd docs
+            hugo
+            cp -rv ./public /tmp/public
+              
       - persist_to_workspace:
           root: /tmp
           paths:
-            - doxygen
+            - public
 
   deploy:
     docker:
@@ -41,35 +57,29 @@ jobs:
       - run:
           name: Dependencies
           command: |
-            sudo npm install -g vuepress
             sudo npm install -g gh-pages@2.0.1
-
-      - run:
-          name: Build static pages
-          command: |
-            cp -v /tmp/doxygen/*.md ./docs/doxygen
-            sudo vuepress build
 
       - run:
           name: Deploy
           command: |
+            cp -rv /tmp/public ./public
             git config --global user.email "$GITHUB_USER_EMAIL"
             git config --global user.name "$GITHUB_USER_NAME"
-            gh-pages --dist ./.vuepress/dist
+            gh-pages --dist ./public
 
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - doxygen:
+      - pages:
           filters:
             branches:
               only:
                 - master
       - deploy:
           requires:
-            - doxygen
-          filters:
-            branches:
-              only:
-                - master
+            - pages
+#          filters:
+#            branches:
+#              only:
+#                - master
