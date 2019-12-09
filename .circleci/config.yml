@@ -15,7 +15,7 @@ jobs:
             wget https://github.com/matusnovak/doxybook2/releases/download/v1.0.0/doxybook2-linux-amd64-v1.0.0.zip
             unzip doxybook2-linux-amd64-v1.0.0.zip
             sudo cp bin/doxybook2 /usr/local/bin/doxybook2
-            chmod +x /usr/local/bin/doxybook2
+            sudo chmod +x /usr/local/bin/doxybook2
 
       - run:
           name: Generate documentation
