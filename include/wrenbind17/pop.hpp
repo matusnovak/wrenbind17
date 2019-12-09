@@ -386,5 +386,5 @@ namespace wrenbind17 {
             }
         };
     } // namespace detail
-#endif DOXYGEN_SHOULD_SKIP_THIS
+#endif
 } // namespace wrenbind17
