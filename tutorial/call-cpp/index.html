@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/wrenbind17/images/favicon.png" type="image/png">
 
-    <title>WrenBind17 :: WrenBind17</title>
+    <title>Call C&#43;&#43; and pass variables :: WrenBind17</title>
 
     
     <link href="/wrenbind17/css/nucleus.css?1575919463" rel="stylesheet">
@@ -33,7 +33,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/wrenbind17/">
+  <body class="" data-url="/wrenbind17/tutorial/call-cpp/">
     <nav id="sidebar" class="">
 
 
@@ -981,7 +981,7 @@
   
     
     <li data-nav-id="/wrenbind17/tutorial/" title="Tutorial" class="dd-item 
-        
+        parent
         
         
         ">
@@ -1176,7 +1176,7 @@
  
   
     
-      <li data-nav-id="/wrenbind17/tutorial/call-cpp/" title="Call C&#43;&#43; and pass variables" class="dd-item ">
+      <li data-nav-id="/wrenbind17/tutorial/call-cpp/" title="Call C&#43;&#43; and pass variables" class="dd-item active">
         <a href="/wrenbind17/tutorial/call-cpp/">
         Call C&#43;&#43; and pass variables
         
@@ -1362,71 +1362,180 @@
         <div id="overlay"></div>
         <div class="padding highlightable">
               
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/wrenbind17/'>WrenBind17</a> > <a href='/wrenbind17/tutorial/'>Tutorial</a> > Call C++ and pass variables
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#return-class-instance-from-c">Return class instance from C++</a>
+<ul>
+<li><a href="#return-by-copy">Return by copy</a></li>
+<li><a href="#return-by-a-pointer-or-a-reference">Return by a pointer or a reference</a></li>
+<li><a href="#return-by-a-shared-pointer">Return by a shared pointer</a></li>
+</ul></li>
+<li><a href="#pass-class-instance-to-c">Pass class instance to C++</a>
+<ul>
+<li><a href="#pass-by-a-copy">Pass by a copy</a></li>
+<li><a href="#pass-by-a-reference-or-a-pointer">Pass by a reference or a pointer</a></li>
+<li><a href="#pass-by-a-shared-pointer">Pass by a shared pointer</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
         <div id="head-tags">
         
         </div>
         
         <div id="body-inner">
           
+            <h1>
+              
+              Call C&#43;&#43; and pass variables
+            </h1>
+          
 
         
 
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
-</span>
-
- 
 
 
-<h1 id="wrenbind17">WrenBind17</h1>
 
-<p>WrenBind17 is a C++17 wrapper for <a href="http://wren.io/">Wren programming language</a>. This project was heavily inspired by <a href="https://github.com/pybind/pybind11">pybind11</a> and by <a href="https://github.com/Nelarius/wrenpp">Wren++</a>. This library is header only and does not need any compilation steps. Simply include the <code>&lt;wrenbind17/wrenbind17.hpp&gt;</code> header in your application and you are good to go!</p>
+<p>Calling C++ class methods from Wren is easy. (See <a href="/wrenbind17/tutorial/bind-cpp-class/">Bind C++ Class</a> tutorial). But, what if you want to return a C++ class instance from a C++ member function, or the other way around?</p>
 
-<h2 id="features">Features</h2>
+<h2 id="return-class-instance-from-c">Return class instance from C++</h2>
 
-<ul>
-<li>Header only.</li>
-<li>Works with Visual Studio 2017, MinGW-w64, Linux GCC, and Apple Clang on Mac OSX.</li>
-<li>C++17 so you don&rsquo;t need to use <code>decltype()</code> on class methods to bind them to Wren.</li>
-<li><a href="/wrenbind17/tutorial/hello-world/">Foreign modules are automatically generated for you</a>. You don&rsquo;t need to write the extra foreign classes in separate file.</li>
-<li><strong>Supports strict type safety.</strong> You won&rsquo;t be able to pass just any variable from Wren back to the C++, preventing you getting segmentation faults.</li>
-<li>Objects are wrapped in <code>std::shared_ptr</code> so you have easier access when passing objects around.</li>
-<li>Easy binding system inspired by <a href="https://github.com/pybind/pybind11">pybind11</a>.</li>
-<li><a href="/wrenbind17/tutorial/exceptions/">Works with exceptions</a>.</li>
-<li><a href="/wrenbind17/tutorial/upcasting/">Upcasting to base types when passing C++ instances</a>.</li>
-<li>Memory leak tested.</li>
-<li>Supports <code>std::variant</code>.</li>
-<li>Supports <code>std::vector</code> and <code>std::list</code> via helper classes (optional).</li>
-<li><a href="/wrenbind17/tutorial/overload-operators/">Easy binding of operators</a> such as <code>+</code>, <code>-</code>, <code>[]</code>, etc.</li>
-<li><a href="/wrenbind17/tutorial/installation/">Long but easy to follow tutorial</a>.</li>
-<li><a href="/wrenbind17/tutorial/callbacks/">Supports Fn.new{}</a>.</li>
-<li><a href="/wrenbind17/tutorial/inheritance/">Supports inheritance (a workaround)</a>.</li>
-<li><a href="/wrenbind17/tutorial/modules/">Supports modularity via look-up paths</a>.</li>
-<li><a href="/wrenbind17/tutorial/call-wren/">Supports passing variables by move</a></li>
-</ul>
+<p>Consider the following example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Foo() <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;
 
-<h2 id="limitations">Limitations</h2>
+    Foo <span style="color:#a6e22e">getAsCopy</span>();
+    Foo<span style="color:#f92672">*</span> <span style="color:#a6e22e">getAsPointer</span>();
+    Foo<span style="color:#f92672">&amp;</span> getAsReference();
+    <span style="color:#66d9ef">const</span> Foo<span style="color:#f92672">&amp;</span> getAsConstReference();
+    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span> getAsShared();
+};
 
-<ul>
-<li>Passing by a reference to a Wren function will create a copy. Use a pointer if you do not wish to create copies and maintain single instance of a given class. This does not affect C++ member functions that return a reference, in that case it will be treated exactly same as a pointer.</li>
-</ul>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    ...
+    wren<span style="color:#f92672">::</span>VM vm(...);
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
 
-<h2 id="not-yet-implemented">Not yet implemented</h2>
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>getAsCopy<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;getAsCopy&#34;</span>);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>getAsPointer<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;getAsPointer&#34;</span>);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>getAsReference<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;getAsReference&#34;</span>);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>getAsConstReference<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;getAsConstReference&#34;</span>);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>getAsShared<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;getAsShared&#34;</span>);
+}
+</code></pre></div>
+<p><strong>All of these methods are valid, and can be used by the Wren. The problem is with the lifetime of the instance.</strong></p>
 
-<ul>
-<li>Lambdas (very tricky due to passing function pointers, most likely not ever be implemented).</li>
-<li><code>..</code>, <code>...</code>, and <code>is</code> operator binding.</li>
-<li>Helper classes for binding <code>std::queue</code>, <code>std::deque</code>, <code>std::stack</code>, <code>std::set</code>, <code>std::unordered_set</code>, <code>std::map</code>, and <code>std::unordered_map</code>.</li>
-</ul>
+<h3 id="return-by-copy">Return by copy</h3>
 
-<h2 id="documentation">Documentation</h2>
+<p>Returning by a copy is allowed as long as the class supports copying. If your class is not copyable, binding <code>getAsCopy</code> will cause compilation error. The new class copy will be put into a <code>std::shared_ptr&lt;Foo&gt;</code> and will be deleted once Wren&rsquo;s garbage collector removes it.</p>
 
-<p>Tutorials can be found <a href="/wrenbind17/tutorial/installation/"><strong>here</strong></a></p>
+<h3 id="return-by-a-pointer-or-a-reference">Return by a pointer or a reference</h3>
 
-<p>And the autogenerated API documentation via Doxygen <a href="/wrenbind17/modules/group__wrenbind17/"><strong>here</strong></a></p>
+<p>This is always allowed, no matter the class. Returning as a pointer or as a reference has exactly the same effect. The class instance will be put into a <code>std::shared_ptr&lt;Foo&gt;</code> with no destructor, meaning the instance will <strong>not</strong> be deleted once the Wren&rsquo;s garbage collector removes it. The lifetime of the instance is determined by the C++.</p>
+
+<h3 id="return-by-a-shared-pointer">Return by a shared pointer</h3>
+
+<p>This is the most safe way how to pass around class instances. The lifetime of the object is determined by the shared pointer itself. You and Wren will both extend and handle the lifetime. The class will get deleted after Wren&rsquo;s garbage collector removes it <strong>and</strong> your shared pointer on C++ side will be cleared/reset/deleted.</p>
+
+<h2 id="pass-class-instance-to-c">Pass class instance to C++</h2>
+
+<p>Consider the following example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Foo() <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;
+
+    setAsCopy(Foo foo);
+    setAsPointer(Foo<span style="color:#f92672">*</span> foo);
+    setAsReference(Foo<span style="color:#f92672">&amp;</span> foo);
+    setAsConstReference(<span style="color:#66d9ef">const</span> Foo<span style="color:#f92672">&amp;</span> foo);
+    setAsShared(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;&amp;</span> foo);
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    ...
+    wren<span style="color:#f92672">::</span>VM vm(...);
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>setAsCopy<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;setAsCopy&#34;</span>);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>setAsPointer<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;setAsPointer&#34;</span>);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>setAsReference<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;setAsReference&#34;</span>);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>setAsConstReference<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;setAsConstReference&#34;</span>);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>setAsShared<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;setAsShared&#34;</span>);
+}
+</code></pre></div>
+<p><strong>All of these methods are valid.</strong></p>
+
+<h3 id="pass-by-a-copy">Pass by a copy</h3>
+
+<p>Passing by copy is self-explanatory. This is only allowed if the class is copyable. Otherwise binding this function will cause compilation error.</p>
+
+<h3 id="pass-by-a-reference-or-a-pointer">Pass by a reference or a pointer</h3>
+
+<p>This is not recommended unless you know exactly what you are doing. The lifetime of the class instance you are passing is determined how the class instance was created in the first place. If the instance was created on Wren, you have no idea when the instance will get deleted, and you have no way of detecting that. <strong>This is OK only if you are only using that pointer/reference locally in the function body</strong>, because the garbage collector will not get executed while Wren is waiting for the function to return. If you are storing the pointer/reference globally or on a class level, you might have problems depending on the instance lifetime.</p>
+
+<h3 id="pass-by-a-shared-pointer">Pass by a shared pointer</h3>
+
+<p>This is the most safe method. You will essentially extend the lifetime of the instance. All rules of the shared pointer apply here.</p>
+
+
+<footer class=" footline" >
 	
-  
+</footer>
+
+
         
         </div> 
         
@@ -2181,6 +2290,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -2193,6 +2303,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -2338,6 +2451,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -2353,6 +2467,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -2473,8 +2590,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/wrenbind17/tutorial/call-wren/" title="Call Wren and pass variables"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/wrenbind17/classes/" title="Classes" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/wrenbind17/tutorial/raw-modules/" title="Raw Modules" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

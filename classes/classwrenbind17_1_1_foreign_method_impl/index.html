@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/wrenbind17/images/favicon.png" type="image/png">
 
-    <title>WrenBind17 :: WrenBind17</title>
+    <title>wrenbind17::ForeignMethodImpl :: WrenBind17</title>
 
     
     <link href="/wrenbind17/css/nucleus.css?1575919463" rel="stylesheet">
@@ -33,7 +33,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/wrenbind17/">
+  <body class="" data-url="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/">
     <nav id="sidebar" class="">
 
 
@@ -74,7 +74,7 @@
   
     
     <li data-nav-id="/wrenbind17/classes/" title="Classes" class="dd-item 
-        
+        parent
         
         
         ">
@@ -269,7 +269,7 @@
  
   
     
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/" title="wrenbind17::ForeignMethodImpl" class="dd-item ">
+      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/" title="wrenbind17::ForeignMethodImpl" class="dd-item active">
         <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/">
         wrenbind17::ForeignMethodImpl
         
@@ -1362,71 +1362,260 @@
         <div id="overlay"></div>
         <div class="padding highlightable">
               
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/wrenbind17/'>WrenBind17</a> > <a href='/wrenbind17/classes/'>Classes</a> > wrenbind17::ForeignMethodImpl
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#public-functions">Public Functions</a></li>
+<li><a href="#additional-inherited-members">Additional inherited members</a></li>
+<li><a href="#detailed-description">Detailed Description</a></li>
+<li><a href="#public-functions-documentation">Public Functions Documentation</a>
+<ul>
+<li><a href="#function-generatename">function generateName</a></li>
+<li><a href="#function-generatesignature">function generateSignature</a></li>
+<li><a href="#function-generatesignature-1">function generateSignature</a></li>
+<li><a href="#function-generate">function generate</a></li>
+<li><a href="#function-foreignmethodimpl">function ~ForeignMethodImpl</a></li>
+<li><a href="#function-foreignmethodimpl-1">function ForeignMethodImpl</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
         <div id="head-tags">
         
         </div>
         
         <div id="body-inner">
           
+            <h1>
+              
+              wrenbind17::ForeignMethodImpl
+            </h1>
+          
 
         
 
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
-</span>
-
- 
 
 
-<h1 id="wrenbind17">WrenBind17</h1>
 
-<p>WrenBind17 is a C++17 wrapper for <a href="http://wren.io/">Wren programming language</a>. This project was heavily inspired by <a href="https://github.com/pybind/pybind11">pybind11</a> and by <a href="https://github.com/Nelarius/wrenpp">Wren++</a>. This library is header only and does not need any compilation steps. Simply include the <code>&lt;wrenbind17/wrenbind17.hpp&gt;</code> header in your application and you are good to go!</p>
+<p><strong>wrenbind17::ForeignMethodImpl Class Reference</strong></p>
 
-<h2 id="features">Features</h2>
+<p><strong>Module:</strong> <strong><a href="/wrenbind17/modules/group__wrenbind17/">Wrenbind17</a></strong></p>
 
-<ul>
-<li>Header only.</li>
-<li>Works with Visual Studio 2017, MinGW-w64, Linux GCC, and Apple Clang on Mac OSX.</li>
-<li>C++17 so you don&rsquo;t need to use <code>decltype()</code> on class methods to bind them to Wren.</li>
-<li><a href="/wrenbind17/tutorial/hello-world/">Foreign modules are automatically generated for you</a>. You don&rsquo;t need to write the extra foreign classes in separate file.</li>
-<li><strong>Supports strict type safety.</strong> You won&rsquo;t be able to pass just any variable from Wren back to the C++, preventing you getting segmentation faults.</li>
-<li>Objects are wrapped in <code>std::shared_ptr</code> so you have easier access when passing objects around.</li>
-<li>Easy binding system inspired by <a href="https://github.com/pybind/pybind11">pybind11</a>.</li>
-<li><a href="/wrenbind17/tutorial/exceptions/">Works with exceptions</a>.</li>
-<li><a href="/wrenbind17/tutorial/upcasting/">Upcasting to base types when passing C++ instances</a>.</li>
-<li>Memory leak tested.</li>
-<li>Supports <code>std::variant</code>.</li>
-<li>Supports <code>std::vector</code> and <code>std::list</code> via helper classes (optional).</li>
-<li><a href="/wrenbind17/tutorial/overload-operators/">Easy binding of operators</a> such as <code>+</code>, <code>-</code>, <code>[]</code>, etc.</li>
-<li><a href="/wrenbind17/tutorial/installation/">Long but easy to follow tutorial</a>.</li>
-<li><a href="/wrenbind17/tutorial/callbacks/">Supports Fn.new{}</a>.</li>
-<li><a href="/wrenbind17/tutorial/inheritance/">Supports inheritance (a workaround)</a>.</li>
-<li><a href="/wrenbind17/tutorial/modules/">Supports modularity via look-up paths</a>.</li>
-<li><a href="/wrenbind17/tutorial/call-wren/">Supports passing variables by move</a></li>
-</ul>
+<p><a href="#detailed-description">More&hellip;</a></p>
 
-<h2 id="limitations">Limitations</h2>
+<p><code>#include &lt;foreign.hpp&gt;</code></p>
 
-<ul>
-<li>Passing by a reference to a Wren function will create a copy. Use a pointer if you do not wish to create copies and maintain single instance of a given class. This does not affect C++ member functions that return a reference, in that case it will be treated exactly same as a pointer.</li>
-</ul>
+<p>Inherits from <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">wrenbind17::ForeignMethod</a></p>
 
-<h2 id="not-yet-implemented">Not yet implemented</h2>
+<h2 id="public-functions">Public Functions</h2>
 
-<ul>
-<li>Lambdas (very tricky due to passing function pointers, most likely not ever be implemented).</li>
-<li><code>..</code>, <code>...</code>, and <code>is</code> operator binding.</li>
-<li>Helper classes for binding <code>std::queue</code>, <code>std::deque</code>, <code>std::stack</code>, <code>std::set</code>, <code>std::unordered_set</code>, <code>std::map</code>, and <code>std::unordered_map</code>.</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
 
-<h2 id="documentation">Documentation</h2>
+<tbody>
+<tr>
+<td>std::string</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/#function-generatename">generateName</a></strong>(const <a href="/wrenbind17/namespaces/namespacewrenbind17/#enum-foreignmethodoperator">ForeignMethodOperator</a> name)</td>
+</tr>
 
-<p>Tutorials can be found <a href="/wrenbind17/tutorial/installation/"><strong>here</strong></a></p>
+<tr>
+<td>std::string</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/#function-generatesignature">generateSignature</a></strong>(const <a href="/wrenbind17/namespaces/namespacewrenbind17/#enum-foreignmethodoperator">ForeignMethodOperator</a> name)</td>
+</tr>
 
-<p>And the autogenerated API documentation via Doxygen <a href="/wrenbind17/modules/group__wrenbind17/"><strong>here</strong></a></p>
+<tr>
+<td>std::string</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/#function-generatesignature">generateSignature</a></strong>(const std::string &amp; name)</td>
+</tr>
+
+<tr>
+<td>virtual void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/#function-generate">generate</a></strong>(std::ostream &amp; os) const override</td>
+</tr>
+
+<tr>
+<td></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/#function-~foreignmethodimpl">~ForeignMethodImpl</a></strong>() =default</td>
+</tr>
+
+<tr>
+<td></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/#function-foreignmethodimpl">ForeignMethodImpl</a></strong>(std::string name, std::string signature, WrenForeignMethodFn fn, const bool isStatic)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="additional-inherited-members">Additional inherited members</h2>
+
+<p><strong>Public Functions inherited from <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">wrenbind17::ForeignMethod</a></strong></p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>bool</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-getstatic">getStatic</a></strong>() const</td>
+</tr>
+
+<tr>
+<td>WrenForeignMethodFn</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-getmethod">getMethod</a></strong>() const</td>
+</tr>
+
+<tr>
+<td>const std::string &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-getname">getName</a></strong>() const</td>
+</tr>
+
+<tr>
+<td>virtual</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-~foreignmethod">~ForeignMethod</a></strong>() =default</td>
+</tr>
+
+<tr>
+<td></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-foreignmethod">ForeignMethod</a></strong>(std::string name, WrenForeignMethodFn method, const bool isStatic)</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Protected Attributes inherited from <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">wrenbind17::ForeignMethod</a></strong></p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>bool</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#variable-isstatic">isStatic</a></strong></td>
+</tr>
+
+<tr>
+<td>WrenForeignMethodFn</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#variable-method">method</a></strong></td>
+</tr>
+
+<tr>
+<td>std::string</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#variable-name">name</a></strong></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="detailed-description">Detailed Description</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span>... Args<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">wrenbind17</span><span style="color:#f92672">::</span>ForeignMethodImpl;
+</code></pre></div>
+<h2 id="public-functions-documentation">Public Functions Documentation</h2>
+
+<h3 id="function-generatename">function generateName</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>string generateName(
+    <span style="color:#66d9ef">const</span> ForeignMethodOperator name
+)
+</code></pre></div>
+<h3 id="function-generatesignature">function generateSignature</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>string generateSignature(
+    <span style="color:#66d9ef">const</span> ForeignMethodOperator name
+)
+</code></pre></div>
+<h3 id="function-generatesignature-1">function generateSignature</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>string generateSignature(
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name
+)
+</code></pre></div>
+<h3 id="function-generate">function generate</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> generate(
+    std<span style="color:#f92672">::</span>ostream <span style="color:#f92672">&amp;</span> os
+) <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">override</span>
+</code></pre></div>
+<p><strong>Reimplements</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-generate">wrenbind17::ForeignMethod::generate</a></p>
+
+<h3 id="function-foreignmethodimpl">function ~ForeignMethodImpl</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#f92672">~</span>ForeignMethodImpl() <span style="color:#f92672">=</span><span style="color:#66d9ef">default</span>
+</code></pre></div>
+<h3 id="function-foreignmethodimpl-1">function ForeignMethodImpl</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> ForeignMethodImpl(
+    std<span style="color:#f92672">::</span>string name,
+    std<span style="color:#f92672">::</span>string signature,
+    WrenForeignMethodFn fn,
+    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> isStatic
+)
+</code></pre></div>
+<hr />
+
+<p>Updated on  9 December 2019 at 19:24:23 UTC</p>
+
+
+<footer class=" footline" >
 	
-  
+</footer>
+
+
         
         </div> 
         
@@ -1458,8 +1647,6 @@
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -1473,6 +1660,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1618,6 +1808,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1633,6 +1824,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -2473,8 +2667,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/" title="wrenbind17::ForeignMethod"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/wrenbind17/classes/" title="Classes" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/wrenbind17/classes/classwrenbind17_1_1_foreign_module/" title="wrenbind17::ForeignModule" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

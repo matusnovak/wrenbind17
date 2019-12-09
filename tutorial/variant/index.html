@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/wrenbind17/images/favicon.png" type="image/png">
 
-    <title>WrenBind17 :: WrenBind17</title>
+    <title>Pass multiple types to C&#43;&#43; :: WrenBind17</title>
 
     
     <link href="/wrenbind17/css/nucleus.css?1575919463" rel="stylesheet">
@@ -33,7 +33,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/wrenbind17/">
+  <body class="" data-url="/wrenbind17/tutorial/variant/">
     <nav id="sidebar" class="">
 
 
@@ -981,7 +981,7 @@
   
     
     <li data-nav-id="/wrenbind17/tutorial/" title="Tutorial" class="dd-item 
-        
+        parent
         
         
         ">
@@ -1290,7 +1290,7 @@
  
   
     
-      <li data-nav-id="/wrenbind17/tutorial/variant/" title="Pass multiple types to C&#43;&#43;" class="dd-item ">
+      <li data-nav-id="/wrenbind17/tutorial/variant/" title="Pass multiple types to C&#43;&#43;" class="dd-item active">
         <a href="/wrenbind17/tutorial/variant/">
         Pass multiple types to C&#43;&#43;
         
@@ -1362,71 +1362,146 @@
         <div id="overlay"></div>
         <div class="padding highlightable">
               
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/wrenbind17/'>WrenBind17</a> > <a href='/wrenbind17/tutorial/'>Tutorial</a> > Pass multiple types to C++
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#basic-example">Basic example</a></li>
+<li><a href="#limitations">Limitations</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
         <div id="head-tags">
         
         </div>
         
         <div id="body-inner">
           
+            <h1>
+              
+              Pass multiple types to C&#43;&#43;
+            </h1>
+          
 
         
 
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
-</span>
-
- 
 
 
-<h1 id="wrenbind17">WrenBind17</h1>
 
-<p>WrenBind17 is a C++17 wrapper for <a href="http://wren.io/">Wren programming language</a>. This project was heavily inspired by <a href="https://github.com/pybind/pybind11">pybind11</a> and by <a href="https://github.com/Nelarius/wrenpp">Wren++</a>. This library is header only and does not need any compilation steps. Simply include the <code>&lt;wrenbind17/wrenbind17.hpp&gt;</code> header in your application and you are good to go!</p>
+<h2 id="basic-example">Basic example</h2>
 
-<h2 id="features">Features</h2>
+<p>Using <code>std::variant</code> is nothing special. When you pass it into Wren, what happens is that this library will check what type is being held by the variant, and then it will pass it into the Wren code. <strong>The Wren will not get the variant instace, but the value it holds!</strong> For example, passing <code>std::variant&lt;bool, int&gt;</code> will push either bool or int into Wren.</p>
 
-<ul>
-<li>Header only.</li>
-<li>Works with Visual Studio 2017, MinGW-w64, Linux GCC, and Apple Clang on Mac OSX.</li>
-<li>C++17 so you don&rsquo;t need to use <code>decltype()</code> on class methods to bind them to Wren.</li>
-<li><a href="/wrenbind17/tutorial/hello-world/">Foreign modules are automatically generated for you</a>. You don&rsquo;t need to write the extra foreign classes in separate file.</li>
-<li><strong>Supports strict type safety.</strong> You won&rsquo;t be able to pass just any variable from Wren back to the C++, preventing you getting segmentation faults.</li>
-<li>Objects are wrapped in <code>std::shared_ptr</code> so you have easier access when passing objects around.</li>
-<li>Easy binding system inspired by <a href="https://github.com/pybind/pybind11">pybind11</a>.</li>
-<li><a href="/wrenbind17/tutorial/exceptions/">Works with exceptions</a>.</li>
-<li><a href="/wrenbind17/tutorial/upcasting/">Upcasting to base types when passing C++ instances</a>.</li>
-<li>Memory leak tested.</li>
-<li>Supports <code>std::variant</code>.</li>
-<li>Supports <code>std::vector</code> and <code>std::list</code> via helper classes (optional).</li>
-<li><a href="/wrenbind17/tutorial/overload-operators/">Easy binding of operators</a> such as <code>+</code>, <code>-</code>, <code>[]</code>, etc.</li>
-<li><a href="/wrenbind17/tutorial/installation/">Long but easy to follow tutorial</a>.</li>
-<li><a href="/wrenbind17/tutorial/callbacks/">Supports Fn.new{}</a>.</li>
-<li><a href="/wrenbind17/tutorial/inheritance/">Supports inheritance (a workaround)</a>.</li>
-<li><a href="/wrenbind17/tutorial/modules/">Supports modularity via look-up paths</a>.</li>
-<li><a href="/wrenbind17/tutorial/call-wren/">Supports passing variables by move</a></li>
-</ul>
+<p>The same goes for getting values from Wren as variant. Suppose you have a C++ member function that accepts the variant of <code>std::variant&lt;bool, int&gt;</code> then when you call this member function in Wren as <code>foo.set(true)</code> or <code>foo.set(42)</code> it will work, but <code>foo.set(&quot;Hello&quot;)</code> won&rsquo;t work because the variant does not accepts the string!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Foo() {
+        ...
+    }
 
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">baz</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span>, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;&amp;</span> value) {
+        <span style="color:#66d9ef">switch</span> (value.index()) {
+            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span> {
+                <span style="color:#75715e">// Is bool!
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span> std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span>(value);
+            }
+            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span> {
+                <span style="color:#75715e">// Is string!
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span> std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;</span>(value);
+            }
+            <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> {
+                <span style="color:#75715e">// This should never happen.
+</span><span style="color:#75715e"></span>            }
+        }
+    }
+}
+
+wren<span style="color:#f92672">::</span>VM vm <span style="color:#f92672">=</span> ...;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(...);
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
+cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>baz<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;baz&#34;</span>); <span style="color:#75715e">// Nothing special, just like any other functions
+</span></code></pre></div>
+<p>And then inside of Wren:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;test&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">Foo</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Foo</span>.<span style="color:#66d9ef">new</span>()
+<span style="color:#a6e22e">foo</span>.<span style="color:#a6e22e">baz</span>(<span style="color:#66d9ef">false</span>) <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">foo</span>.<span style="color:#a6e22e">baz</span>(<span style="color:#e6db74">&#34;Hello World&#34;</span>) <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">foo</span>.<span style="color:#a6e22e">baz</span>(<span style="color:#ae81ff">123.456</span>) <span style="color:#75715e">// error
+</span></code></pre></div>
 <h2 id="limitations">Limitations</h2>
 
-<ul>
-<li>Passing by a reference to a Wren function will create a copy. Use a pointer if you do not wish to create copies and maintain single instance of a given class. This does not affect C++ member functions that return a reference, in that case it will be treated exactly same as a pointer.</li>
-</ul>
+<p>Passing <code>std::variant</code> via <strong>non-const reference</strong> is not allowed. The following will <strong>not</strong> work:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Foo() {
+        ...
+    }
 
-<h2 id="not-yet-implemented">Not yet implemented</h2>
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">baz</span>(std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span>, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;&amp;</span> value) {
+        ...
+    }
+}
 
-<ul>
-<li>Lambdas (very tricky due to passing function pointers, most likely not ever be implemented).</li>
-<li><code>..</code>, <code>...</code>, and <code>is</code> operator binding.</li>
-<li>Helper classes for binding <code>std::queue</code>, <code>std::deque</code>, <code>std::stack</code>, <code>std::set</code>, <code>std::unordered_set</code>, <code>std::map</code>, and <code>std::unordered_map</code>.</li>
-</ul>
+wren<span style="color:#f92672">::</span>VM vm <span style="color:#f92672">=</span> ...;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(...);
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
+cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>baz<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;baz&#34;</span>); <span style="color:#75715e">// Nothing special, just like any other functions
+</span></code></pre></div>
 
-<h2 id="documentation">Documentation</h2>
-
-<p>Tutorials can be found <a href="/wrenbind17/tutorial/installation/"><strong>here</strong></a></p>
-
-<p>And the autogenerated API documentation via Doxygen <a href="/wrenbind17/modules/group__wrenbind17/"><strong>here</strong></a></p>
+<footer class=" footline" >
 	
-  
+</footer>
+
+
         
         </div> 
         
@@ -2181,6 +2256,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -2193,6 +2269,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -2434,6 +2513,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -2449,6 +2529,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -2473,8 +2556,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/wrenbind17/tutorial/lists/" title="Lists"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/wrenbind17/classes/" title="Classes" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/wrenbind17/tutorial/customize/" title="Customize VM behavior" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -2484,19 +2569,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/wrenbind17/js/clipboard.min.js?1575919463"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1575919463"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1575919463"></script>
-    <script src="/wrenbind17/js/jquery.sticky.js?1575919463"></script>
-    <script src="/wrenbind17/js/featherlight.min.js?1575919463"></script>
-    <script src="/wrenbind17/js/highlight.pack.js?1575919463"></script>
+    <script src="/wrenbind17/js/clipboard.min.js?1575919464"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1575919464"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1575919464"></script>
+    <script src="/wrenbind17/js/jquery.sticky.js?1575919464"></script>
+    <script src="/wrenbind17/js/featherlight.min.js?1575919464"></script>
+    <script src="/wrenbind17/js/highlight.pack.js?1575919464"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1575919463"></script>
-    <script src="/wrenbind17/js/learn.js?1575919463"></script>
-    <script src="/wrenbind17/js/hugo-learn.js?1575919463"></script>
+    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1575919464"></script>
+    <script src="/wrenbind17/js/learn.js?1575919464"></script>
+    <script src="/wrenbind17/js/hugo-learn.js?1575919464"></script>
 
-    <link href="/wrenbind17/mermaid/mermaid.css?1575919463" rel="stylesheet" />
-    <script src="/wrenbind17/mermaid/mermaid.js?1575919463"></script>
+    <link href="/wrenbind17/mermaid/mermaid.css?1575919464" rel="stylesheet" />
+    <script src="/wrenbind17/mermaid/mermaid.js?1575919464"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

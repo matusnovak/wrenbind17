@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tutorial on WrenBind17</title>
+    <link>https://matusnovak.github.io/wrenbind17/tutorial/</link>
+    <description>Recent content in Tutorial on WrenBind17</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://matusnovak.github.io/wrenbind17/tutorial/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Installation</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/installation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/installation/</guid>
+      <description>You don&amp;rsquo;t need to compile this library. This library is a header only and all you have to do is to include the #include &amp;lt;wrenbind17/wrenbind17.hpp&amp;gt; header in your C++ project.
+This library will need the Wren main header file: &amp;lt;wren.hpp&amp;gt; so make sure your build system has a search path for that header. You will also need to link the Wren library, otherwise you will get linker errors. To see how to build and use the Wren library, see Getting Started section here from the official Wren documentation.</description>
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/hello-world/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/hello-world/</guid>
+      <description>First, create a wren::VM instance, run the source code, find the method you want to run, and execute the method. In the example below, we are printing out a simple &amp;ldquo;Hello World&amp;rdquo; to the console. It is recommended that you create an alias from wrenbind17 to wren so you don&amp;rsquo;t have to type that many characters every time. I highly encourage you to NOT to use using namespace wrenbind17;!
+#include &amp;lt;wrenbind17/wrenbind17.</description>
+    </item>
+    
+    <item>
+      <title>Executing code</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/executing-code/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/executing-code/</guid>
+      <description>Executing Wren code can be done in the following ways:
+// Execute from raw std::string and specify the module name manually. // Can be any module name you want! vm.runFromSource(&amp;#34;main&amp;#34;, &amp;#34;var i = 42&amp;#34;); // Same as above, specify the module name but instead // of the source code you tell it where the file is located. vm.runFromFile(&amp;#34;main&amp;#34;, &amp;#34;path/to/some/main.wren&amp;#34;); // Run specific module. This module must be an existing file &amp;#34;utils/libB.</description>
+    </item>
+    
+    <item>
+      <title>Modules</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/modules/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/modules/</guid>
+      <description>Wren support modularity (official documentation here), but does not exactly work out of the box. WrenBind17 fills this gap by using a look-up paths. If you are familiar with Python, this is almost the same as the Python home path for loading modules.
+When creating an instance of the VM, the first argument is a list of paths to use for lookup, for example:
+std::vector&amp;lt;std::string&amp;gt; paths = { &amp;#34;some/relative/path&amp;#34;, &amp;#34;C:/absolute/path&amp;#34; }; wren::VM vm(paths);  But, it is highly advised to use absolute paths.</description>
+    </item>
+    
+    <item>
+      <title>Exceptions</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/exceptions/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/exceptions/</guid>
+      <description>WrenBind17 has a single base exception: wrenbind17::Exception (inherits std::exception) with the following derived exceptions:
+ wrenbind17::NotFound - Throw when trying to find a variable or a static class inside of a Wren via wrenbind17::VM::find(module, name). wrenbind17::BadCast - When passing values into Wren, for example when trying to pass in a class that has not been registered. wrenbind17::RuntimeError - When calling a Wren method via wrenbind17::Method::operator().  Example of such runtime error:</description>
+    </item>
+    
+    <item>
+      <title>Bind C&#43;&#43; class</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/bind-cpp-class/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/bind-cpp-class/</guid>
+      <description>To bind a C++ class, you will first need to create a new module. Creating a new module is done per VM instance. If you have multiple VMs in your application, they won&amp;rsquo;t share the same modules. You would have to create the module for each of your VM instances. Copying modules between instances is not possible.
+wren::VM vm; // Create module called &amp;#34;mymodule&amp;#34; auto&amp;amp; m = vm.module(&amp;#34;mymodule&amp;#34;);  You can create as many modules as you want.</description>
+    </item>
+    
+    <item>
+      <title>Abstract classes</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/abstract-classes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/abstract-classes/</guid>
+      <description>What if you want to pass an abstract class to Wren? You can&amp;rsquo;t allocate it, but you can only pass it around as a reference or a pointer? Imagine a specific derived &amp;ldquo;Entity&amp;rdquo; class that has a common abstract/interface class?
+The only thing you have to do is to NOT to add constructor by calling ctor.
+wren::VM vm; auto&amp;amp; m = vm.module(&amp;#34;mymodule&amp;#34;); // Add class &amp;#34;Vec3&amp;#34; auto&amp;amp; cls = m.klass&amp;lt;Entity&amp;gt;(&amp;#34;Entity&amp;#34;); // cls.</description>
+    </item>
+    
+    <item>
+      <title>Overload operators</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/overload-operators/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/overload-operators/</guid>
+      <description>Arithmetic and comparison operators Overloading operators is done same as binding any other methods. The only difference is that you have to use the operator enumeration instead of the name. But first, your C++ class must support the operators you want to bind, for example:
+class Vec3 { public: Vec3(float x, float y, float z) : x(x), y(y), z(z) { } Vec3 operator - () const { // Unary negation operator  .</description>
+    </item>
+    
+    <item>
+      <title>Call Wren and pass variables</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/call-wren/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/call-wren/</guid>
+      <description>Basics In order to call Wren functions, you will need to define those functions in a Wren class. The most common way to do that is to declare the function as a static function:
+class Main { static main(a, b) { return a + b } }  To find the function, you will first need to compile the source and look for the specific class by its name. When you get the class, you can find the any specific member function inside of that class.</description>
+    </item>
+    
+    <item>
+      <title>Call C&#43;&#43; and pass variables</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/call-cpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/call-cpp/</guid>
+      <description>Calling C++ class methods from Wren is easy. (See Bind C++ Class tutorial). But, what if you want to return a C++ class instance from a C++ member function, or the other way around?
+Return class instance from C++ Consider the following example:
+class Foo { public: Foo() = default; Foo getAsCopy(); Foo* getAsPointer(); Foo&amp;amp; getAsReference(); const Foo&amp;amp; getAsConstReference(); std::shared_ptr&amp;lt;Foo&amp;gt; getAsShared(); }; int main() { ... wren::VM vm(...); auto&amp;amp; m = vm.</description>
+    </item>
+    
+    <item>
+      <title>Raw Modules</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/raw-modules/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/raw-modules/</guid>
+      <description>Modules can be created in the following way:
+wren::VM vm; auto&amp;amp; m = vm.module(&amp;#34;mymodule&amp;#34;); auto&amp;amp; cls = m.klass&amp;lt;Entity&amp;gt;(&amp;#34;Entity&amp;#34;); cls.func&amp;lt;&amp;amp;Entity::foo&amp;gt;(&amp;#34;foo&amp;#34;); ...  But, you are also able to create your own &amp;ldquo;raw&amp;rdquo; modules.
+wren::VM vm; auto&amp;amp; m = vm.module(&amp;#34;mymodule&amp;#34;); m.append(R&amp;#34;( class Vec3 { construct new (x, y, z) { ... } } )&amp;#34;);  Anything you add via m.append(...) will be loaded into the Wren when you import that specific module. Anything you put inside of append(.</description>
+    </item>
+    
+    <item>
+      <title>Inheritance via composition</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/inheritance/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/inheritance/</guid>
+      <description>Wren does not support inheritacne of foreign classes, but there is a workaround. Consider the following C++ class:
+class Entity { public: Entity() { ... } virtual ~Entity() { ... } virtual void update() = 0; };  Now we want to have our own class in Wren:
+import &amp;#34;game&amp;#34; for Entity class Enemy is Entity { // Not allowed by Wren :(  construct new (...) { } update() { // Do something specific for Entity class  } }  This does not work.</description>
+    </item>
+    
+    <item>
+      <title>Callbacks via Fn.new</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/callbacks/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/callbacks/</guid>
+      <description>Let&amp;rsquo;s say you have a GUI button widget and you want to have a specific action when a user clicks on it.
+class GuiButton { public: GuiButton(std::function&amp;lt;bool(int)&amp;gt; func) : func(std::move(func)) { } virtual ~GuiButton() { } bool event(int type) { return func(type); } private: std::function&amp;lt;bool(int)&amp;gt; func; };  And now you would like to create this class in Wren and add some custom Wren function as the callback. What you can do is to create a Wren specific wrapper and accept a class instance (in this case, Fn class instance from Wren).</description>
+    </item>
+    
+    <item>
+      <title>Upcasting</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/upcasting/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/upcasting/</guid>
+      <description>Upcasting is when you have a derived class Enemy and you would like to upcast it to Entity. An Enemy class is an Entity, but not the other way around. Remember, upcasting is getting the base class!
+But, this might be a problem when, for example, you have created a derived class inside of the Wren, and you are passing it into some C++ function that accepts the base class. What you have to do is to tell the Wren what base classes it can be upcasted to.</description>
+    </item>
+    
+    <item>
+      <title>Lists</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/lists/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/lists/</guid>
+      <description>Pre-made STL vector and list bindings Lists are not implemented in this library natively. However, they are added as an optional classes that you can use. The std::vector&amp;lt;T&amp;gt; and std::list&amp;lt;T&amp;gt; are implemented via wren::StdVectorBindings&amp;lt;T&amp;gt;::bind(module, name); and as wren::StdListBindings&amp;lt;T&amp;gt;::bind(module, name);. For example:
+Wren::VM vm; auto&amp;amp; m = vm.module(&amp;#34;std&amp;#34;); wren::StdVectorBindings&amp;lt;int&amp;gt;::bind(m, &amp;#34;VectorInt&amp;#34;);  And the Wren code:
+import &amp;#34;std&amp;#34; for VectorInt var v = VectorInt.new() v.add(42) // Push new value v.insert(-1, 20) // Insert at the end v.</description>
+    </item>
+    
+    <item>
+      <title>Pass multiple types to C&#43;&#43;</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/variant/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/variant/</guid>
+      <description>Basic example Using std::variant is nothing special. When you pass it into Wren, what happens is that this library will check what type is being held by the variant, and then it will pass it into the Wren code. The Wren will not get the variant instace, but the value it holds! For example, passing std::variant&amp;lt;bool, int&amp;gt; will push either bool or int into Wren.
+The same goes for getting values from Wren as variant.</description>
+    </item>
+    
+    <item>
+      <title>Customize VM behavior</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/customize/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/customize/</guid>
+      <description>Min heap and growth To control the minimal heap, heap growth, and initial heap, use the constructor to do so. Example:
+#include &amp;lt;wrenbind17/wrenbind17.hpp&amp;gt;namespace wren = wrenbind17; // Alias  int main(...) { // These values are default.  // If you leave the constructor empty, these exact  // values will be used.  // The lookup paths for loading other Wren files  std::vector&amp;lt;std::string&amp;gt; paths = {&amp;#34;./&amp;#34;}; // The initial heap that will be created on init  const size_t initHeap = 1024 * 1024; // 1MB  // The minimal heap to shrink to  const size_t minHeap = 1024 * 1024 * 10; // 10MB  // The growth size  const int heapGrowth = 50; // 50%  // Constructor  wren::VM vm(paths, initHeap, minHeap, heapGrowth); }  Print function The print function is defined as:</description>
+    </item>
+    
+  </channel>
+</rss>

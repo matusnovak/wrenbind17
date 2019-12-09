@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Files on WrenBind17</title>
+    <link>https://matusnovak.github.io/wrenbind17/files/</link>
+    <description>Recent content in Files on WrenBind17</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://matusnovak.github.io/wrenbind17/files/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>include</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/dir_d44c64559bbebec7f509842c48db8b23/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/dir_d44c64559bbebec7f509842c48db8b23/</guid>
+      <description>include Dir Reference
+Directories    Name     include/wrenbind17    Updated on 9 December 2019 at 19:24:23 UTC</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/dir_0603dac12b22d4faefe24b335e5b06be/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/dir_0603dac12b22d4faefe24b335e5b06be/</guid>
+      <description>include/wrenbind17 Dir Reference
+Files    Name     include/wrenbind17/wrenbind17.hpp   include/wrenbind17/vm.hpp   include/wrenbind17/variable.hpp   include/wrenbind17/std.hpp   include/wrenbind17/push.hpp   include/wrenbind17/pop.hpp   include/wrenbind17/object.hpp   include/wrenbind17/module.hpp   include/wrenbind17/method.hpp   include/wrenbind17/index.hpp   include/wrenbind17/handle.hpp   include/wrenbind17/foreign.hpp   include/wrenbind17/exception.hpp   include/wrenbind17/caller.hpp   include/wrenbind17/any.hpp   include/wrenbind17/allocator.hpp    Updated on 9 December 2019 at 19:24:23 UTC</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/allocator.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/allocator_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/allocator_8hpp/</guid>
+      <description>include/wrenbind17/allocator.hpp File Reference
+Namespaces    Name     wrenbind17    Source code #pragma once  #include &amp;#34;index.hpp&amp;#34;#include &amp;#34;pop.hpp&amp;#34;#include &amp;#34;push.hpp&amp;#34; namespace wrenbind17 { void setNextError(WrenVM* vm, std::string str); #ifndef DOXYGEN_SHOULD_SKIP_THIS  namespace detail { template &amp;lt;typename T, typename... Args&amp;gt; struct ForeignKlassAllocator { static T* ctor(Args&amp;amp;&amp;amp;... args) { return new T(std::forward&amp;lt;Args&amp;gt;(args)...); } template &amp;lt;size_t... Is&amp;gt; static T* ctorFrom(WrenVM* vm, detail::index_list&amp;lt;Is...&amp;gt;) { return ctor(PopHelper&amp;lt;Args&amp;gt;::f(vm, Is + 1).</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/any.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/any_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/any_8hpp/</guid>
+      <description>include/wrenbind17/any.hpp File Reference
+Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::Any::Data   class wrenbind17::Any::Content   class wrenbind17::Any    Source code #pragma once  #include &amp;lt;typeinfo&amp;gt;#include &amp;#34;handle.hpp&amp;#34;#include &amp;#34;push.hpp&amp;#34;#include &amp;#34;pop.hpp&amp;#34; namespace wrenbind17 { class Any { public: class Content { public: virtual ~Content() { } virtual const std::type_info&amp;amp; getTypeid() const = 0; }; template &amp;lt;typename T&amp;gt; class Data : public Content { public: template &amp;lt;typename Arg&amp;gt; Data(Arg arg) : value(std::move(arg)) { } virtual ~Data() = default; const std::type_info&amp;amp; getTypeid() const override { return typeid(T); } T&amp;amp; get() { return value; } const T&amp;amp; get() const { return value; } private: T value; }; inline Any() : content(nullptr) { } inline explicit Any(WrenVM* vm, const bool value) : vm(vm), type(WrenType::WREN_TYPE_BOOL), content(new Data&amp;lt;bool&amp;gt;(value)) { } inline explicit Any(WrenVM* vm, const double value) : vm(vm), type(WrenType::WREN_TYPE_NUM), content(new Data&amp;lt;double&amp;gt;(value)) { } inline explicit Any(WrenVM* vm, std::string value) : vm(vm), type(WrenType::WREN_TYPE_STRING), content(new Data&amp;lt;std::string&amp;gt;(std::move(value))) { } inline explicit Any(WrenVM* vm, std::nullptr_t value) : vm(vm), type(WrenType::WREN_TYPE_NULL), content(nullptr) { } inline explicit Any(WrenVM* vm, void* value) : vm(vm), type(WrenType::WREN_TYPE_FOREIGN), content(new Data&amp;lt;void*&amp;gt;(value)) { } inline Any(const Any&amp;amp; other) = delete; inline Any(Any&amp;amp;&amp;amp; other) noexcept { swap(other); } inline Any&amp;amp; operator=(const Any&amp;amp; other) = delete; inline Any&amp;amp; operator=(Any&amp;amp;&amp;amp; other) noexcept { if (this !</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/caller.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/caller_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/caller_8hpp/</guid>
+      <description>include/wrenbind17/caller.hpp File Reference
+Namespaces    Name     wrenbind17    Source code #pragma once  #include &amp;#34;push.hpp&amp;#34;#include &amp;#34;pop.hpp&amp;#34;#include &amp;#34;index.hpp&amp;#34; namespace wrenbind17 { #ifndef DOXYGEN_SHOULD_SKIP_THIS  namespace detail { template &amp;lt;typename R&amp;gt; struct ForeginMethodReturnHelper { static inline void push(WrenVM* vm, int index, R ret) { PushHelper&amp;lt;R&amp;gt;::f(vm, index, ret); } }; template &amp;lt;typename R&amp;gt; struct ForeginMethodReturnHelper&amp;lt;R&amp;amp;&amp;gt; { static inline void push(WrenVM* vm, int index, R&amp;amp; ret) { PushHelper&amp;lt;R*&amp;gt;::f(vm, index, &amp;amp;ret); } }; template &amp;lt;typename R&amp;gt; struct ForeginMethodReturnHelper&amp;lt;const R&amp;amp;&amp;gt; { static inline void push(WrenVM* vm, int index, const R&amp;amp; ret) { PushHelper&amp;lt;R*&amp;gt;::f(vm, index, &amp;amp;const_cast&amp;lt;R&amp;amp;&amp;gt;(ret)); } }; template &amp;lt;typename R&amp;gt; struct ForeginMethodReturnHelper&amp;lt;R*&amp;gt; { static inline void push(WrenVM* vm, int index, R* ret) { PushHelper&amp;lt;R*&amp;gt;::f(vm, index, ret); } }; template &amp;lt;typename R&amp;gt; struct ForeginMethodReturnHelper&amp;lt;const R*&amp;gt; { static inline void push(WrenVM* vm, int index, const R* ret) { PushHelper&amp;lt;const R*&amp;gt;::f(vm, index, ret); } }; template &amp;lt;typename R&amp;gt; struct ForeginMethodReturnHelper&amp;lt;R&amp;amp;&amp;amp;&amp;gt; { static inline void push(WrenVM* vm, int index, R&amp;amp;&amp;amp; ret) { PushHelper&amp;lt;R&amp;gt;::f(vm, index, std::move(ret)); } }; template &amp;lt;typename R&amp;gt; struct ForeginMethodReturnHelper&amp;lt;const std::shared_ptr&amp;lt;R&amp;gt;&amp;amp;&amp;gt; { static inline void push(WrenVM* vm, int index, const std::shared_ptr&amp;lt;R&amp;gt;&amp;amp; ret) { PushHelper&amp;lt;const std::shared_ptr&amp;lt;R&amp;gt;&amp;amp;&amp;gt;::f(vm, index, ret); } }; template &amp;lt;typename R&amp;gt; struct ForeginMethodReturnHelper&amp;lt;std::shared_ptr&amp;lt;R&amp;gt;&amp;amp;&amp;gt; { static inline void push(WrenVM* vm, int index, std::shared_ptr&amp;lt;R&amp;gt;&amp;amp; ret) { PushHelper&amp;lt;std::shared_ptr&amp;lt;R&amp;gt;&amp;amp;&amp;gt;::f(vm, index, ret); } }; template &amp;lt;typename R&amp;gt; struct ForeginMethodReturnHelper&amp;lt;const std::variant&amp;lt;R&amp;gt;&amp;amp;&amp;gt; { static inline void push(WrenVM* vm, int index, const std::variant&amp;lt;R&amp;gt;&amp;amp; ret) { PushHelper&amp;lt;const std::variant&amp;lt;R&amp;gt;&amp;amp;&amp;gt;::f(vm, index, ret); } }; template &amp;lt;typename R&amp;gt; struct ForeginMethodReturnHelper&amp;lt;std::variant&amp;lt;R&amp;gt;&amp;amp;&amp;gt; { static inline void push(WrenVM* vm, int index, std::variant&amp;lt;R&amp;gt;&amp;amp; ret) { PushHelper&amp;lt;std::variant&amp;lt;R&amp;gt;&amp;amp;&amp;gt;::f(vm, index, ret); } }; template &amp;lt;&amp;gt; inline void ForeginMethodReturnHelper&amp;lt;const std::string&amp;amp;&amp;gt;::push( WrenVM* vm, int index, const std::string&amp;amp; ret) { PushHelper&amp;lt;const std::string&amp;amp;&amp;gt;::f(vm, index, ret); } template &amp;lt;&amp;gt; inline void ForeginMethodReturnHelper&amp;lt;std::string&amp;amp;&amp;gt;::push(WrenVM* vm, int index, std::string&amp;amp; ret) { PushHelper&amp;lt;std::string&amp;amp;&amp;gt;::f(vm, index, ret); } template &amp;lt;typename R, typename T, typename.</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/exception.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/exception_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/exception_8hpp/</guid>
+      <description>include/wrenbind17/exception.hpp File Reference
+Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::CompileError   class wrenbind17::RuntimeError   class wrenbind17::BadCast   class wrenbind17::NotFound   class wrenbind17::Exception    Source code #pragma once  #include &amp;lt;stdexcept&amp;gt; namespace wrenbind17 { class Exception : public std::exception { public: Exception() = default; explicit Exception(std::string msg) : msg(std::move(msg)) { } const char* what() const throw() override { return msg.</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/foreign.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/foreign_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/foreign_8hpp/</guid>
+      <description>include/wrenbind17/foreign.hpp File Reference
+Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::ForeignKlassImpl   class wrenbind17::ForeignPropImpl   class wrenbind17::ForeignMethodImpl   class wrenbind17::ForeignKlass   class wrenbind17::ForeignProp   class wrenbind17::ForeignMethod    Source code #pragma once  #include &amp;lt;ostream&amp;gt;#include &amp;lt;unordered_map&amp;gt;#include &amp;lt;iostream&amp;gt;#include &amp;#34;allocator.hpp&amp;#34;#include &amp;#34;caller.hpp&amp;#34; namespace wrenbind17 { enum ForeignMethodOperator { OPERATOR_GET_INDEX, OPERATOR_SET_INDEX, OPERATOR_SUB, OPERATOR_ADD, OPERATOR_MUL, OPERATOR_DIV, OPERATOR_NEG, OPERATOR_MOD, OPERATOR_EQUAL, OPERATOR_NOT_EQUAL, OPERATOR_GT, OPERATOR_LT, OPERATOR_GT_EQUAL, OPERATOR_LT_EQUAL, OPERATOR_SHIFT_LEFT, OPERATOR_SHIFT_RIGHT, OPERATOR_AND, OPERATOR_XOR, OPERATOR_OR }; class ForeignMethod { public: ForeignMethod(std::string name, WrenForeignMethodFn method, const bool isStatic) : name(std::move(name)), method(method), isStatic(isStatic) { } virtual ~ForeignMethod() = default; virtual void generate(std::ostream&amp;amp; os) const = 0; const std::string&amp;amp; getName() const { return name; } WrenForeignMethodFn getMethod() const { return method; } bool getStatic() const { return isStatic; } protected: std::string name; WrenForeignMethodFn method; bool isStatic; }; class ForeignProp { public: ForeignProp(std::string name, WrenForeignMethodFn getter, WrenForeignMethodFn setter, const bool isStatic) : name(std::move(name)), getter(getter), setter(setter), isStatic(isStatic) { } virtual ~ForeignProp() = default; void generate(std::ostream&amp;amp; os) const { if (getter) os &amp;lt;&amp;lt; &amp;#34; foreign &amp;#34; &amp;lt;&amp;lt; name &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; if (setter) os &amp;lt;&amp;lt; &amp;#34; foreign &amp;#34; &amp;lt;&amp;lt; name &amp;lt;&amp;lt; &amp;#34;=(rhs)\n&amp;#34;; } const std::string&amp;amp; getName() const { return name; } WrenForeignMethodFn getSetter() { return setter; } WrenForeignMethodFn getGetter() { return getter; } bool getStatic() const { return isStatic; } protected: std::string name; WrenForeignMethodFn getter; WrenForeignMethodFn setter; bool isStatic; }; class ForeignKlass { public: ForeignKlass(std::string name) : name(std::move(name)) { } virtual ~ForeignKlass() = default; virtual void generate(std::ostream&amp;amp; os) const = 0; ForeignMethod&amp;amp; findFunc(const std::string&amp;amp; name, const bool isStatic) { const auto it = methods.</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/handle.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/handle_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/handle_8hpp/</guid>
+      <description>include/wrenbind17/handle.hpp File Reference
+Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::Handle    Source code #pragma once  #include &amp;lt;wren.hpp&amp;gt;#include &amp;lt;memory&amp;gt; namespace wrenbind17 { class Callback; class Handle { public: Handle() : vm(nullptr), handle(nullptr) { } Handle(WrenVM* vm, WrenHandle* handle) : vm(vm), handle(handle) { } ~Handle() { reset(); } Handle(const Handle&amp;amp; other) = delete; Handle(Handle&amp;amp;&amp;amp; other) noexcept : vm(nullptr), handle(nullptr) { swap(other); } Handle&amp;amp; operator=(const Handle&amp;amp; other) = delete; Handle&amp;amp; operator=(Handle&amp;amp;&amp;amp; other) noexcept { if (this !</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/index.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/index_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/index_8hpp/</guid>
+      <description>include/wrenbind17/index.hpp File Reference
+Namespaces    Name     wrenbind17    Source code #pragma once  namespace wrenbind17 { #ifndef DOXYGEN_SHOULD_SKIP_THIS  namespace detail { template &amp;lt;size_t... Is&amp;gt; struct index_list {}; // Declare primary template for index range builder  template &amp;lt;size_t MIN, size_t N, size_t... Is&amp;gt; struct range_builder; // Base step  template &amp;lt;size_t MIN, size_t... Is&amp;gt; struct range_builder&amp;lt;MIN, MIN, Is...&amp;gt; { typedef index_list&amp;lt;Is.</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/method.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/method_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/method_8hpp/</guid>
+      <description>include/wrenbind17/method.hpp File Reference
+Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::Method    Source code #pragma once  #include &amp;#34;any.hpp&amp;#34; namespace wrenbind17 { #ifndef DOXYGEN_SHOULD_SKIP_THIS  namespace detail { inline void pushArgs(WrenVM* vm, int idx) { (void)vm; (void)idx; } template &amp;lt;typename First, typename... Other&amp;gt; inline void pushArgs( WrenVM* vm, int idx, First&amp;amp;&amp;amp; first, Other&amp;amp;&amp;amp;.</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/module.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/module_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/module_8hpp/</guid>
+      <description>include/wrenbind17/module.hpp File Reference
+Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::ForeignModule    Source code #pragma once  #include &amp;lt;sstream&amp;gt;#include &amp;#34;foreign.hpp&amp;#34; namespace wrenbind17 { void addClassType(WrenVM* vm, const std::string&amp;amp; module, const std::string&amp;amp; name, size_t hash); void addClassCast(WrenVM* vm, std::shared_ptr&amp;lt;detail::ForeignPtrConvertor&amp;gt; convertor, size_t hash, size_t other); class ForeignModule { public: ForeignModule(std::string name, WrenVM* vm) : name(std::move(name)), vm(vm) { } ForeignModule(const ForeignModule&amp;amp; other) = delete; ForeignModule(ForeignModule&amp;amp;&amp;amp; other) noexcept : vm(nullptr) { swap(other); } ~ForeignModule() = default; ForeignModule&amp;amp; operator=(const ForeignModule&amp;amp; other) = delete; ForeignModule&amp;amp; operator=(ForeignModule&amp;amp;&amp;amp; other) noexcept { if (this !</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/object.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/object_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/object_8hpp/</guid>
+      <description>include/wrenbind17/object.hpp File Reference
+Namespaces    Name     wrenbind17    Source code #pragma once  #include &amp;#34;exception.hpp&amp;#34;#include &amp;#34;handle.hpp&amp;#34;#include &amp;lt;cstdlib&amp;gt;#include &amp;lt;memory&amp;gt;#include &amp;lt;string&amp;gt;#include &amp;lt;typeinfo&amp;gt;#include &amp;lt;variant&amp;gt;#include &amp;lt;wren.hpp&amp;gt; namespace wrenbind17 { #ifndef DOXYGEN_SHOULD_SKIP_THIS  std::string getLastError(WrenVM* vm); inline void exceptionHandler(WrenVM* vm, const std::exception_ptr&amp;amp; eptr) { try { if (eptr) { std::rethrow_exception(eptr); } else { wrenEnsureSlots(vm, 1); wrenSetSlotString(vm, 0, &amp;#34;Unknown error&amp;#34;); wrenAbortFiber(vm, 0); } } catch (std::exception&amp;amp; e) { wrenEnsureSlots(vm, 1); wrenSetSlotString(vm, 0, e.</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/pop.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/pop_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/pop_8hpp/</guid>
+      <description>include/wrenbind17/pop.hpp File Reference
+Namespaces    Name     wrenbind17    Source code #pragma once  #include &amp;#34;object.hpp&amp;#34; namespace wrenbind17 { void getClassType(WrenVM* vm, std::string&amp;amp; module, std::string&amp;amp; name, size_t hash); detail::ForeignPtrConvertor* getClassCast(WrenVM* vm, size_t hash, size_t other); #ifndef DOXYGEN_SHOULD_SKIP_THIS  namespace detail { // ============================================================================================================  // CHECK SLOTS FOR TYPE  // ============================================================================================================  inline const char* wrenSlotTypeToStr(const WrenType type) { switch (type) { case WREN_TYPE_BOOL: return &amp;#34;bool&amp;#34;; case WREN_TYPE_FOREIGN: return &amp;#34;instance&amp;#34;; case WREN_TYPE_LIST: return &amp;#34;list&amp;#34;; case WREN_TYPE_NULL: return &amp;#34;null&amp;#34;; case WREN_TYPE_NUM: return &amp;#34;number&amp;#34;; case WREN_TYPE_STRING: return &amp;#34;string&amp;#34;; case WREN_TYPE_UNKNOWN: default: return &amp;#34;unknown&amp;#34;; } } template &amp;lt;typename T&amp;gt; inline bool is(WrenVM* vm, const int idx) { const auto type = wrenGetSlotType(vm, idx); if (type !</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/push.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/push_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/push_8hpp/</guid>
+      <description>include/wrenbind17/push.hpp File Reference
+Namespaces    Name     wrenbind17    Source code #pragma once  #include &amp;#34;object.hpp&amp;#34; namespace wrenbind17 { #ifndef DOXYGEN_SHOULD_SKIP_THIS  void getClassType(WrenVM* vm, std::string&amp;amp; module, std::string&amp;amp; name, size_t hash); detail::ForeignPtrConvertor* getClassCast(WrenVM* vm, size_t hash, size_t other); namespace detail { template &amp;lt;typename T&amp;gt; struct PushHelper; template &amp;lt;typename T&amp;gt; struct PushHelper { static inline void f(WrenVM* vm, int idx, const T&amp;amp; value) { static_assert(!</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/std.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/std_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/std_8hpp/</guid>
+      <description>include/wrenbind17/std.hpp File Reference
+Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::StdListBindings   class wrenbind17::StdVectorBindings    Source code #pragma once  #include &amp;lt;vector&amp;gt;#include &amp;lt;list&amp;gt;#include &amp;#34;module.hpp&amp;#34; namespace wrenbind17 { template&amp;lt;typename T&amp;gt; class StdVectorBindings { public: typedef typename std::vector&amp;lt;T&amp;gt;::iterator Iterator; typedef typename std::vector&amp;lt;T&amp;gt; Vector; static void setIndex(Vector&amp;amp; self, size_t index, T value) { self[index] = std::move(value); } static const T&amp;amp; getIndex(Vector&amp;amp; self, size_t index) { return self[index]; } static void add(Vector&amp;amp; self, T value) { self.</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/variable.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/variable_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/variable_8hpp/</guid>
+      <description>include/wrenbind17/variable.hpp File Reference
+Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::Variable    Source code #pragma once  #include &amp;#34;method.hpp&amp;#34;#include &amp;#34;push.hpp&amp;#34;#include &amp;#34;pop.hpp&amp;#34; namespace wrenbind17 { class Variable { public: Variable() : vm(nullptr) { } Variable(WrenVM* vm, const std::shared_ptr&amp;lt;Handle&amp;gt;&amp;amp; handle) : vm(vm), handle(handle) { } ~Variable() { reset(); } Method func(const std::string&amp;amp; signature) { auto* h = wrenMakeCallHandle(vm, signature.</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/vm.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/vm_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/vm_8hpp/</guid>
+      <description>include/wrenbind17/vm.hpp File Reference
+Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::VM    Source code #pragma once  #include &amp;#34;module.hpp&amp;#34;#include &amp;#34;std.hpp&amp;#34;#include &amp;#34;variable.hpp&amp;#34;#include &amp;lt;cstdlib&amp;gt;#include &amp;lt;cstring&amp;gt;#include &amp;lt;fstream&amp;gt;#include &amp;lt;functional&amp;gt;#include &amp;lt;unordered_map&amp;gt;#include &amp;lt;vector&amp;gt; #ifndef DOXYGEN_SHOULD_SKIP_THIS namespace std { template &amp;lt;&amp;gt; struct hash&amp;lt;std::pair&amp;lt;size_t, size_t&amp;gt;&amp;gt; { inline size_t operator()(const std::pair&amp;lt;size_t, size_t&amp;gt;&amp;amp; v) const { const std::hash&amp;lt;size_t&amp;gt; hasher; return hasher(v.</description>
+    </item>
+    
+    <item>
+      <title>include/wrenbind17/wrenbind17.hpp</title>
+      <link>https://matusnovak.github.io/wrenbind17/files/wrenbind17_8hpp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/files/wrenbind17_8hpp/</guid>
+      <description>include/wrenbind17/wrenbind17.hpp File Reference
+Source code #pragma once  #include &amp;#34;vm.hpp&amp;#34; Updated on 9 December 2019 at 19:24:23 UTC</description>
+    </item>
+    
+  </channel>
+</rss>

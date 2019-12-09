@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Namespaces on WrenBind17</title>
+    <link>https://matusnovak.github.io/wrenbind17/namespaces/</link>
+    <description>Recent content in Namespaces on WrenBind17</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://matusnovak.github.io/wrenbind17/namespaces/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>wrenbind17</title>
+      <link>https://matusnovak.github.io/wrenbind17/namespaces/namespacewrenbind17/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/namespaces/namespacewrenbind17/</guid>
+      <description>wrenbind17 Namespace Reference
+Module: Wrenbind17
+Classes     Name     class wrenbind17::VM   class wrenbind17::Variable   class wrenbind17::StdVectorBindings   class wrenbind17::StdListBindings   class wrenbind17::RuntimeError   class wrenbind17::NotFound   class wrenbind17::Method   class wrenbind17::Handle   class wrenbind17::ForeignPropImpl   class wrenbind17::ForeignProp   class wrenbind17::ForeignModule   class wrenbind17::ForeignMethodImpl   class wrenbind17::ForeignMethod   class wrenbind17::ForeignKlassImpl   class wrenbind17::ForeignKlass   class wrenbind17::Exception   class wrenbind17::CompileError   class wrenbind17::BadCast   class wrenbind17::Any    Types     Name     typedef std::function&amp;lt; std::string(const std::vector&amp;lt; std::string &amp;gt; &amp;amp;paths, const std::string &amp;amp;name)&amp;gt; LoadFileFn   typedef std::function&amp;lt; void(const char *)&amp;gt; PrintFn   enum ForeignMethodOperator { OPERATOR_GET_INDEX, OPERATOR_SET_INDEX, OPERATOR_SUB, OPERATOR_ADD, OPERATOR_MUL, OPERATOR_DIV, OPERATOR_NEG, OPERATOR_MOD, OPERATOR_EQUAL, OPERATOR_NOT_EQUAL, OPERATOR_GT, OPERATOR_LT, OPERATOR_GT_EQUAL, OPERATOR_LT_EQUAL, OPERATOR_SHIFT_LEFT, OPERATOR_SHIFT_RIGHT, OPERATOR_AND, OPERATOR_XOR, OPERATOR_OR }    Functions     Name     std::string getLastError(WrenVM * vm)   detail::ForeignPtrConvertor * getClassCast(WrenVM * vm, size_t hash, size_t other)   void getClassType(WrenVM * vm, std::string &amp;amp; module, std::string &amp;amp; name, size_t hash)   void addClassCast(WrenVM * vm, std::shared_ptr&amp;lt; detail::ForeignPtrConvertor &amp;gt; convertor, size_t hash, size_t other)   void addClassType(WrenVM * vm, const std::string &amp;amp; module, const std::string &amp;amp; name, size_t hash)   std::string Any::as&amp;lt; std::string &amp;gt;() const   std::nullptr_t Any::as&amp;lt; std::nullptr_t &amp;gt;() const   bool Any::is&amp;lt; std::string &amp;gt;() const   bool Any::is&amp;lt; std::nullptr_t &amp;gt;() const   void setNextError(WrenVM * vm, std::string str)    Types Documentation typedef LoadFileFn typedef std::function&amp;lt; std::string(const std::vector&amp;lt; std::string &amp;gt; &amp;amp;paths, const std::string &amp;amp;name)&amp;gt; LoadFileFn;  typedef PrintFn typedef std::function&amp;lt; void(const char *)&amp;gt; PrintFn;  enum ForeignMethodOperator enum ForeignMethodOperator { OPERATOR_GET_INDEX, OPERATOR_SET_INDEX, OPERATOR_SUB, OPERATOR_ADD, OPERATOR_MUL, OPERATOR_DIV, OPERATOR_NEG, OPERATOR_MOD, OPERATOR_EQUAL, OPERATOR_NOT_EQUAL, OPERATOR_GT, OPERATOR_LT, OPERATOR_GT_EQUAL, OPERATOR_LT_EQUAL, OPERATOR_SHIFT_LEFT, OPERATOR_SHIFT_RIGHT, OPERATOR_AND, OPERATOR_XOR, OPERATOR_OR }  Functions Documentation function getLastError inline std::string getLastError( WrenVM * vm )  function getClassCast inline detail::ForeignPtrConvertor * getClassCast( WrenVM * vm, size_t hash, size_t other )  function getClassType inline void getClassType( WrenVM * vm, std::string &amp;amp; module, std::string &amp;amp; name, size_t hash )  function addClassCast inline void addClassCast( WrenVM * vm, std::shared_ptr&amp;lt; detail::ForeignPtrConvertor &amp;gt; convertor, size_t hash, size_t other )  function addClassType inline void addClassType( WrenVM * vm, const std::string &amp;amp; module, const std::string &amp;amp; name, size_t hash )  function Any::as&amp;lt; std::string &amp;gt; inline std::string Any::as&amp;lt; std::string &amp;gt;() const  function Any::as&amp;lt; std::nullptr_t &amp;gt; inline std::nullptr_t Any::as&amp;lt; std::nullptr_t &amp;gt;() const  function Any::is&amp;lt; std::string &amp;gt; inline bool Any::is&amp;lt; std::string &amp;gt;() const  function Any::is&amp;lt; std::nullptr_t &amp;gt; inline bool Any::is&amp;lt; std::nullptr_t &amp;gt;() const  function setNextError inline void setNextError( WrenVM * vm, std::string str )  Updated on 9 December 2019 at 19:24:23 UTC</description>
+    </item>
+    
+  </channel>
+</rss>

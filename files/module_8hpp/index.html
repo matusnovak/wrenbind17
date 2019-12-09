@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/wrenbind17/images/favicon.png" type="image/png">
 
-    <title>WrenBind17 :: WrenBind17</title>
+    <title>include/wrenbind17/module.hpp :: WrenBind17</title>
 
     
     <link href="/wrenbind17/css/nucleus.css?1575919463" rel="stylesheet">
@@ -33,7 +33,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/wrenbind17/">
+  <body class="" data-url="/wrenbind17/files/module_8hpp/">
     <nav id="sidebar" class="">
 
 
@@ -505,7 +505,7 @@
   
     
     <li data-nav-id="/wrenbind17/files/" title="Files" class="dd-item 
-        
+        parent
         
         
         ">
@@ -719,7 +719,7 @@
  
   
     
-      <li data-nav-id="/wrenbind17/files/module_8hpp/" title="include/wrenbind17/module.hpp" class="dd-item ">
+      <li data-nav-id="/wrenbind17/files/module_8hpp/" title="include/wrenbind17/module.hpp" class="dd-item active">
         <a href="/wrenbind17/files/module_8hpp/">
         include/wrenbind17/module.hpp
         
@@ -1362,71 +1362,218 @@
         <div id="overlay"></div>
         <div class="padding highlightable">
               
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/wrenbind17/'>WrenBind17</a> > <a href='/wrenbind17/files/'>Files</a> > include/wrenbind17/module.hpp
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#namespaces">Namespaces</a></li>
+<li><a href="#classes">Classes</a></li>
+<li><a href="#source-code">Source code</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
         <div id="head-tags">
         
         </div>
         
         <div id="body-inner">
           
+            <h1>
+              
+              include/wrenbind17/module.hpp
+            </h1>
+          
 
         
 
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
-</span>
-
- 
 
 
-<h1 id="wrenbind17">WrenBind17</h1>
 
-<p>WrenBind17 is a C++17 wrapper for <a href="http://wren.io/">Wren programming language</a>. This project was heavily inspired by <a href="https://github.com/pybind/pybind11">pybind11</a> and by <a href="https://github.com/Nelarius/wrenpp">Wren++</a>. This library is header only and does not need any compilation steps. Simply include the <code>&lt;wrenbind17/wrenbind17.hpp&gt;</code> header in your application and you are good to go!</p>
+<p><strong>include/wrenbind17/module.hpp File Reference</strong></p>
 
-<h2 id="features">Features</h2>
+<h2 id="namespaces">Namespaces</h2>
 
-<ul>
-<li>Header only.</li>
-<li>Works with Visual Studio 2017, MinGW-w64, Linux GCC, and Apple Clang on Mac OSX.</li>
-<li>C++17 so you don&rsquo;t need to use <code>decltype()</code> on class methods to bind them to Wren.</li>
-<li><a href="/wrenbind17/tutorial/hello-world/">Foreign modules are automatically generated for you</a>. You don&rsquo;t need to write the extra foreign classes in separate file.</li>
-<li><strong>Supports strict type safety.</strong> You won&rsquo;t be able to pass just any variable from Wren back to the C++, preventing you getting segmentation faults.</li>
-<li>Objects are wrapped in <code>std::shared_ptr</code> so you have easier access when passing objects around.</li>
-<li>Easy binding system inspired by <a href="https://github.com/pybind/pybind11">pybind11</a>.</li>
-<li><a href="/wrenbind17/tutorial/exceptions/">Works with exceptions</a>.</li>
-<li><a href="/wrenbind17/tutorial/upcasting/">Upcasting to base types when passing C++ instances</a>.</li>
-<li>Memory leak tested.</li>
-<li>Supports <code>std::variant</code>.</li>
-<li>Supports <code>std::vector</code> and <code>std::list</code> via helper classes (optional).</li>
-<li><a href="/wrenbind17/tutorial/overload-operators/">Easy binding of operators</a> such as <code>+</code>, <code>-</code>, <code>[]</code>, etc.</li>
-<li><a href="/wrenbind17/tutorial/installation/">Long but easy to follow tutorial</a>.</li>
-<li><a href="/wrenbind17/tutorial/callbacks/">Supports Fn.new{}</a>.</li>
-<li><a href="/wrenbind17/tutorial/inheritance/">Supports inheritance (a workaround)</a>.</li>
-<li><a href="/wrenbind17/tutorial/modules/">Supports modularity via look-up paths</a>.</li>
-<li><a href="/wrenbind17/tutorial/call-wren/">Supports passing variables by move</a></li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+</tr>
+</thead>
 
-<h2 id="limitations">Limitations</h2>
+<tbody>
+<tr>
+<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/">wrenbind17</a></strong></td>
+</tr>
+</tbody>
+</table>
 
-<ul>
-<li>Passing by a reference to a Wren function will create a copy. Use a pointer if you do not wish to create copies and maintain single instance of a given class. This does not affect C++ member functions that return a reference, in that case it will be treated exactly same as a pointer.</li>
-</ul>
+<h2 id="classes">Classes</h2>
 
-<h2 id="not-yet-implemented">Not yet implemented</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
 
-<ul>
-<li>Lambdas (very tricky due to passing function pointers, most likely not ever be implemented).</li>
-<li><code>..</code>, <code>...</code>, and <code>is</code> operator binding.</li>
-<li>Helper classes for binding <code>std::queue</code>, <code>std::deque</code>, <code>std::stack</code>, <code>std::set</code>, <code>std::unordered_set</code>, <code>std::map</code>, and <code>std::unordered_map</code>.</li>
-</ul>
+<tbody>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_module/">wrenbind17::ForeignModule</a></strong></td>
+</tr>
+</tbody>
+</table>
 
-<h2 id="documentation">Documentation</h2>
+<h2 id="source-code">Source code</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#pragma once
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sstream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;foreign.hpp&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">namespace</span> wrenbind17 {
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addClassType</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> module, <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> name, size_t hash);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addClassCast</span>(WrenVM<span style="color:#f92672">*</span> vm, std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>detail<span style="color:#f92672">::</span>ForeignPtrConvertor<span style="color:#f92672">&gt;</span> convertor, size_t hash, size_t other);
 
-<p>Tutorials can be found <a href="/wrenbind17/tutorial/installation/"><strong>here</strong></a></p>
+    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ForeignModule</span> {
+    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+        ForeignModule(std<span style="color:#f92672">::</span>string name, WrenVM<span style="color:#f92672">*</span> vm) <span style="color:#f92672">:</span> name(std<span style="color:#f92672">::</span>move(name)), vm(vm) {
+        }
+        ForeignModule(<span style="color:#66d9ef">const</span> ForeignModule<span style="color:#f92672">&amp;</span> other) <span style="color:#f92672">=</span> <span style="color:#66d9ef">delete</span>;
+        ForeignModule(ForeignModule<span style="color:#f92672">&amp;&amp;</span> other) <span style="color:#66d9ef">noexcept</span> <span style="color:#f92672">:</span> vm(<span style="color:#66d9ef">nullptr</span>) {
+            swap(other);
+        }
+        <span style="color:#f92672">~</span>ForeignModule() <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;
+        ForeignModule<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">=</span>(<span style="color:#66d9ef">const</span> ForeignModule<span style="color:#f92672">&amp;</span> other) <span style="color:#f92672">=</span> <span style="color:#66d9ef">delete</span>;
+        ForeignModule<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">=</span>(ForeignModule<span style="color:#f92672">&amp;&amp;</span> other) <span style="color:#66d9ef">noexcept</span> {
+            <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span> <span style="color:#f92672">!=</span> <span style="color:#f92672">&amp;</span>other) {
+                swap(other);
+            }
+            <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>;
+        }
+        <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">swap</span>(ForeignModule<span style="color:#f92672">&amp;</span> other) {
+            std<span style="color:#f92672">::</span>swap(klasses, other.klasses);
+            std<span style="color:#f92672">::</span>swap(vm, other.vm);
+            std<span style="color:#f92672">::</span>swap(name, other.name);
+        }
 
-<p>And the autogenerated API documentation via Doxygen <a href="/wrenbind17/modules/group__wrenbind17/"><strong>here</strong></a></p>
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span>... Others<span style="color:#f92672">&gt;</span>
+        ForeignKlassImpl<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;</span> klass(std<span style="color:#f92672">::</span>string name) {
+            insertKlassCast<span style="color:#f92672">&lt;</span>T, Others...<span style="color:#f92672">&gt;</span>();
+            <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>ForeignKlassImpl<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(std<span style="color:#f92672">::</span>move(name));
+            <span style="color:#66d9ef">auto</span> ret <span style="color:#f92672">=</span> ptr.get();
+            addClassType(vm, <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>name, ptr<span style="color:#f92672">-&gt;</span>getName(), <span style="color:#66d9ef">typeid</span>(T).hash_code());
+            klasses.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
+            <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>ret;
+        }
+
+        std<span style="color:#f92672">::</span>string str() <span style="color:#66d9ef">const</span> {
+            std<span style="color:#f92672">::</span>stringstream ss;
+            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> pair : klasses) {
+                pair.second<span style="color:#f92672">-&gt;</span>generate(ss);
+            }
+            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> r : raw) {
+                ss <span style="color:#f92672">&lt;&lt;</span> r <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+            }
+            <span style="color:#66d9ef">return</span> ss.str();
+        }
+
+        <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">append</span>(std<span style="color:#f92672">::</span>string text) {
+            raw.push_back(std<span style="color:#f92672">::</span>move(text));
+        }
+
+        ForeignKlass<span style="color:#f92672">&amp;</span> findKlass(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> name) {
+            <span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> klasses.find(name);
+            <span style="color:#66d9ef">if</span> (it <span style="color:#f92672">==</span> klasses.end())
+                <span style="color:#66d9ef">throw</span> NotFound();
+            <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>it<span style="color:#f92672">-&gt;</span>second;
+        }
+
+        <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> getName() <span style="color:#66d9ef">const</span> {
+            <span style="color:#66d9ef">return</span> name;
+        }
+
+    <span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+        <span style="color:#66d9ef">void</span> insertKlassCast() {
+            <span style="color:#75715e">// void
+</span><span style="color:#75715e"></span>        }
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> Other, <span style="color:#66d9ef">typename</span>... Others<span style="color:#f92672">&gt;</span> 
+        <span style="color:#66d9ef">void</span> insertKlassCast() {
+            addClassCast(vm,
+                         std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span>detail<span style="color:#f92672">::</span>ForeignObjectSharedPtrConvertor<span style="color:#f92672">&lt;</span>T, Other<span style="color:#f92672">&gt;&gt;</span>(),
+                         <span style="color:#66d9ef">typeid</span>(T).hash_code(),
+                         <span style="color:#66d9ef">typeid</span>(Other).hash_code()
+                        );
+            insertKlassCast<span style="color:#f92672">&lt;</span>T, Others...<span style="color:#f92672">&gt;</span>();
+        }
+
+        std<span style="color:#f92672">::</span>string name;
+        WrenVM<span style="color:#f92672">*</span> vm;
+        std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>ForeignKlass<span style="color:#f92672">&gt;&gt;</span> klasses;
+        std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;</span> raw;
+    };
+} <span style="color:#75715e">// namespace wrenbind17
+</span></code></pre></div>
+<hr />
+
+<p>Updated on  9 December 2019 at 19:24:23 UTC</p>
+
+
+<footer class=" footline" >
 	
-  
+</footer>
+
+
         
         </div> 
         
@@ -1813,6 +1960,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1825,6 +1973,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1986,6 +2137,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -2001,6 +2153,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -2473,8 +2628,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/wrenbind17/files/method_8hpp/" title="include/wrenbind17/method.hpp"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/wrenbind17/classes/" title="Classes" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/wrenbind17/files/object_8hpp/" title="include/wrenbind17/object.hpp" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

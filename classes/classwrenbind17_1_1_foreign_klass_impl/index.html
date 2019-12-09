@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/wrenbind17/images/favicon.png" type="image/png">
 
-    <title>WrenBind17 :: WrenBind17</title>
+    <title>wrenbind17::ForeignKlassImpl :: WrenBind17</title>
 
     
     <link href="/wrenbind17/css/nucleus.css?1575919463" rel="stylesheet">
@@ -33,7 +33,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/wrenbind17/">
+  <body class="" data-url="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/">
     <nav id="sidebar" class="">
 
 
@@ -74,7 +74,7 @@
   
     
     <li data-nav-id="/wrenbind17/classes/" title="Classes" class="dd-item 
-        
+        parent
         
         
         ">
@@ -231,7 +231,7 @@
  
   
     
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/" title="wrenbind17::ForeignKlassImpl" class="dd-item ">
+      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/" title="wrenbind17::ForeignKlassImpl" class="dd-item active">
         <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/">
         wrenbind17::ForeignKlassImpl
         
@@ -1362,71 +1362,387 @@
         <div id="overlay"></div>
         <div class="padding highlightable">
               
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/wrenbind17/'>WrenBind17</a> > <a href='/wrenbind17/classes/'>Classes</a> > wrenbind17::ForeignKlassImpl
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#public-functions">Public Functions</a></li>
+<li><a href="#additional-inherited-members">Additional inherited members</a></li>
+<li><a href="#detailed-description">Detailed Description</a></li>
+<li><a href="#public-functions-documentation">Public Functions Documentation</a>
+<ul>
+<li><a href="#function-propreadonlyext">function propReadonlyExt</a></li>
+<li><a href="#function-propext">function propExt</a></li>
+<li><a href="#function-propreadonly">function propReadonly</a></li>
+<li><a href="#function-prop">function prop</a></li>
+<li><a href="#function-varreadonly">function varReadonly</a></li>
+<li><a href="#function-var">function var</a></li>
+<li><a href="#function-funcstaticext">function funcStaticExt</a></li>
+<li><a href="#function-funcstatic">function funcStatic</a></li>
+<li><a href="#function-funcext">function funcExt</a></li>
+<li><a href="#function-funcext-1">function funcExt</a></li>
+<li><a href="#function-func">function func</a></li>
+<li><a href="#function-func-1">function func</a></li>
+<li><a href="#function-ctor">function ctor</a></li>
+<li><a href="#function-generate">function generate</a></li>
+<li><a href="#function-foreignklassimpl">function ~ForeignKlassImpl</a></li>
+<li><a href="#function-foreignklassimpl-1">function ForeignKlassImpl</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
         <div id="head-tags">
         
         </div>
         
         <div id="body-inner">
           
+            <h1>
+              
+              wrenbind17::ForeignKlassImpl
+            </h1>
+          
 
         
 
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
-</span>
-
- 
 
 
-<h1 id="wrenbind17">WrenBind17</h1>
 
-<p>WrenBind17 is a C++17 wrapper for <a href="http://wren.io/">Wren programming language</a>. This project was heavily inspired by <a href="https://github.com/pybind/pybind11">pybind11</a> and by <a href="https://github.com/Nelarius/wrenpp">Wren++</a>. This library is header only and does not need any compilation steps. Simply include the <code>&lt;wrenbind17/wrenbind17.hpp&gt;</code> header in your application and you are good to go!</p>
+<p><strong>wrenbind17::ForeignKlassImpl Class Reference</strong></p>
 
-<h2 id="features">Features</h2>
+<p><strong>Module:</strong> <strong><a href="/wrenbind17/modules/group__wrenbind17/">Wrenbind17</a></strong></p>
 
-<ul>
-<li>Header only.</li>
-<li>Works with Visual Studio 2017, MinGW-w64, Linux GCC, and Apple Clang on Mac OSX.</li>
-<li>C++17 so you don&rsquo;t need to use <code>decltype()</code> on class methods to bind them to Wren.</li>
-<li><a href="/wrenbind17/tutorial/hello-world/">Foreign modules are automatically generated for you</a>. You don&rsquo;t need to write the extra foreign classes in separate file.</li>
-<li><strong>Supports strict type safety.</strong> You won&rsquo;t be able to pass just any variable from Wren back to the C++, preventing you getting segmentation faults.</li>
-<li>Objects are wrapped in <code>std::shared_ptr</code> so you have easier access when passing objects around.</li>
-<li>Easy binding system inspired by <a href="https://github.com/pybind/pybind11">pybind11</a>.</li>
-<li><a href="/wrenbind17/tutorial/exceptions/">Works with exceptions</a>.</li>
-<li><a href="/wrenbind17/tutorial/upcasting/">Upcasting to base types when passing C++ instances</a>.</li>
-<li>Memory leak tested.</li>
-<li>Supports <code>std::variant</code>.</li>
-<li>Supports <code>std::vector</code> and <code>std::list</code> via helper classes (optional).</li>
-<li><a href="/wrenbind17/tutorial/overload-operators/">Easy binding of operators</a> such as <code>+</code>, <code>-</code>, <code>[]</code>, etc.</li>
-<li><a href="/wrenbind17/tutorial/installation/">Long but easy to follow tutorial</a>.</li>
-<li><a href="/wrenbind17/tutorial/callbacks/">Supports Fn.new{}</a>.</li>
-<li><a href="/wrenbind17/tutorial/inheritance/">Supports inheritance (a workaround)</a>.</li>
-<li><a href="/wrenbind17/tutorial/modules/">Supports modularity via look-up paths</a>.</li>
-<li><a href="/wrenbind17/tutorial/call-wren/">Supports passing variables by move</a></li>
-</ul>
+<p><a href="#detailed-description">More&hellip;</a></p>
 
-<h2 id="limitations">Limitations</h2>
+<p><code>#include &lt;foreign.hpp&gt;</code></p>
 
-<ul>
-<li>Passing by a reference to a Wren function will create a copy. Use a pointer if you do not wish to create copies and maintain single instance of a given class. This does not affect C++ member functions that return a reference, in that case it will be treated exactly same as a pointer.</li>
-</ul>
+<p>Inherits from <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/">wrenbind17::ForeignKlass</a></p>
 
-<h2 id="not-yet-implemented">Not yet implemented</h2>
+<h2 id="public-functions">Public Functions</h2>
 
-<ul>
-<li>Lambdas (very tricky due to passing function pointers, most likely not ever be implemented).</li>
-<li><code>..</code>, <code>...</code>, and <code>is</code> operator binding.</li>
-<li>Helper classes for binding <code>std::queue</code>, <code>std::deque</code>, <code>std::stack</code>, <code>std::set</code>, <code>std::unordered_set</code>, <code>std::map</code>, and <code>std::unordered_map</code>.</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
 
-<h2 id="documentation">Documentation</h2>
+<tbody>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-propreadonlyext">propReadonlyExt</a></strong>(std::string name)</td>
+</tr>
 
-<p>Tutorials can be found <a href="/wrenbind17/tutorial/installation/"><strong>here</strong></a></p>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-propext">propExt</a></strong>(std::string name)</td>
+</tr>
 
-<p>And the autogenerated API documentation via Doxygen <a href="/wrenbind17/modules/group__wrenbind17/"><strong>here</strong></a></p>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-propreadonly">propReadonly</a></strong>(std::string name)</td>
+</tr>
+
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-prop">prop</a></strong>(std::string name)</td>
+</tr>
+
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-varreadonly">varReadonly</a></strong>(std::string name)</td>
+</tr>
+
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-var">var</a></strong>(std::string name)</td>
+</tr>
+
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-funcstaticext">funcStaticExt</a></strong>(std::string name)</td>
+</tr>
+
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-funcstatic">funcStatic</a></strong>(std::string name)</td>
+</tr>
+
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-funcext">funcExt</a></strong>(const <a href="/wrenbind17/namespaces/namespacewrenbind17/#enum-foreignmethodoperator">ForeignMethodOperator</a> name)</td>
+</tr>
+
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-funcext">funcExt</a></strong>(std::string name)</td>
+</tr>
+
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-func">func</a></strong>(const <a href="/wrenbind17/namespaces/namespacewrenbind17/#enum-foreignmethodoperator">ForeignMethodOperator</a> name)</td>
+</tr>
+
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-func">func</a></strong>(std::string name)</td>
+</tr>
+
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-ctor">ctor</a></strong>(const std::string &amp; name =&ldquo;new&rdquo;)</td>
+</tr>
+
+<tr>
+<td>virtual void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-generate">generate</a></strong>(std::ostream &amp; os) const override</td>
+</tr>
+
+<tr>
+<td></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-~foreignklassimpl">~ForeignKlassImpl</a></strong>() =default</td>
+</tr>
+
+<tr>
+<td></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-foreignklassimpl">ForeignKlassImpl</a></strong>(std::string name)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="additional-inherited-members">Additional inherited members</h2>
+
+<p><strong>Public Functions inherited from <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/">wrenbind17::ForeignKlass</a></strong></p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>WrenForeignClassMethods &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-getallocators">getAllocators</a></strong>()</td>
+</tr>
+
+<tr>
+<td>const std::string &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-getname">getName</a></strong>() const</td>
+</tr>
+
+<tr>
+<td>WrenForeignMethodFn</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-findsignature">findSignature</a></strong>(const std::string &amp; signature, const bool isStatic)</td>
+</tr>
+
+<tr>
+<td><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop/">ForeignProp</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-findprop">findProp</a></strong>(const std::string &amp; name, const bool isStatic)</td>
+</tr>
+
+<tr>
+<td><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">ForeignMethod</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-findfunc">findFunc</a></strong>(const std::string &amp; name, const bool isStatic)</td>
+</tr>
+
+<tr>
+<td>virtual</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-~foreignklass">~ForeignKlass</a></strong>() =default</td>
+</tr>
+
+<tr>
+<td></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-foreignklass">ForeignKlass</a></strong>(std::string name)</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Protected Attributes inherited from <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/">wrenbind17::ForeignKlass</a></strong></p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>WrenForeignClassMethods</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#variable-allocators">allocators</a></strong></td>
+</tr>
+
+<tr>
+<td>std::unordered_map&lt; std::string, std::unique_ptr&lt; <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop/">ForeignProp</a> &gt; &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#variable-props">props</a></strong></td>
+</tr>
+
+<tr>
+<td>std::unordered_map&lt; std::string, std::unique_ptr&lt; <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">ForeignMethod</a> &gt; &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#variable-methods">methods</a></strong></td>
+</tr>
+
+<tr>
+<td>std::string</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#variable-ctordef">ctorDef</a></strong></td>
+</tr>
+
+<tr>
+<td>std::string</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#variable-name">name</a></strong></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="detailed-description">Detailed Description</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T <span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">wrenbind17</span><span style="color:#f92672">::</span>ForeignKlassImpl;
+</code></pre></div>
+<h2 id="public-functions-documentation">Public Functions Documentation</h2>
+
+<h3 id="function-propreadonlyext">function propReadonlyExt</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> propReadonlyExt(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div>
+<h3 id="function-propext">function propExt</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> propExt(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div>
+<h3 id="function-propreadonly">function propReadonly</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> propReadonly(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div>
+<h3 id="function-prop">function prop</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> prop(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div>
+<h3 id="function-varreadonly">function varReadonly</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> varReadonly(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div>
+<h3 id="function-var">function var</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> var(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div>
+<h3 id="function-funcstaticext">function funcStaticExt</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> funcStaticExt(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div>
+<h3 id="function-funcstatic">function funcStatic</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> funcStatic(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div>
+<h3 id="function-funcext">function funcExt</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> funcExt(
+    <span style="color:#66d9ef">const</span> ForeignMethodOperator name
+)
+</code></pre></div>
+<h3 id="function-funcext-1">function funcExt</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> funcExt(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div>
+<h3 id="function-func">function func</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> func(
+    <span style="color:#66d9ef">const</span> ForeignMethodOperator name
+)
+</code></pre></div>
+<h3 id="function-func-1">function func</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> func(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div>
+<h3 id="function-ctor">function ctor</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> ctor(
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;new&#34;</span>
+)
+</code></pre></div>
+<h3 id="function-generate">function generate</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> generate(
+    std<span style="color:#f92672">::</span>ostream <span style="color:#f92672">&amp;</span> os
+) <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">override</span>
+</code></pre></div>
+<p><strong>Reimplements</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-generate">wrenbind17::ForeignKlass::generate</a></p>
+
+<h3 id="function-foreignklassimpl">function ~ForeignKlassImpl</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#f92672">~</span>ForeignKlassImpl() <span style="color:#f92672">=</span><span style="color:#66d9ef">default</span>
+</code></pre></div>
+<h3 id="function-foreignklassimpl-1">function ForeignKlassImpl</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> ForeignKlassImpl(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div>
+<hr />
+
+<p>Updated on  9 December 2019 at 19:24:23 UTC</p>
+
+
+<footer class=" footline" >
 	
-  
+</footer>
+
+
         
         </div> 
         
@@ -1458,8 +1774,6 @@
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -1473,6 +1787,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1586,6 +1903,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1601,6 +1919,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -2473,8 +2794,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/" title="wrenbind17::ForeignKlass"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/wrenbind17/classes/" title="Classes" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/" title="wrenbind17::ForeignMethod" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

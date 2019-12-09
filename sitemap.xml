@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/installation/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/hello-world/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/executing-code/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/modules/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/exceptions/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/bind-cpp-class/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/abstract-classes/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/overload-operators/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/call-wren/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/call-cpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/raw-modules/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/inheritance/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/callbacks/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/upcasting/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/lists/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/variant/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/customize/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/dir_d44c64559bbebec7f509842c48db8b23/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/dir_0603dac12b22d4faefe24b335e5b06be/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/allocator_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/any_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/caller_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/exception_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/foreign_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/handle_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/index_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/method_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/module_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/object_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/pop_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/push_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/std_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/variable_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/vm_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/wrenbind17_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/modules/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/namespaces/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/modules/group__wrenbind17/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/namespaces/namespacewrenbind17/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_any/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_any_1_1_content/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_any_1_1_data/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_bad_cast/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_compile_error/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_exception/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_foreign_method/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_foreign_module/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_foreign_prop/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_foreign_prop_impl/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_handle/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_method/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_not_found/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_runtime_error/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_variable/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_v_m/</loc>
+  </url>
+  
+</urlset>
