@@ -5,6 +5,11 @@ jobs:
       - image: circleci/node:latest
     steps:
       - checkout
+
+      - run:
+          name: Submodules
+          command:
+            git submodule update --init
       
       - run:
           name: Dependencies
