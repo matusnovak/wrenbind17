@@ -203,6 +203,22 @@
   </url>
   
   <url>
+    <loc>https://matusnovak.github.io/wrenbind17/namespaces/namespacewrenbind17_1_1detail/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1detail_1_1_foreign_function_details/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1detail_1_1_foreign_function_details_3_01_r_07_5_08_07_args_8_8_8_08_00_01_fn_01_4/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1detail_1_1_get_pointer_type/</loc>
+  </url>
+  
+  <url>
     <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_exception/</loc>
   </url>
   
@@ -212,6 +228,70 @@
   
   <url>
     <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_getter_details/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_getter_details_3_01_r_07_t_1_1_5_08_07_08_01const_00_01_fn_01_4/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_getter_details_3_01_r_07_t_1_1_5_08_07_08_00_01_fn_01_4/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_getter_ext_details/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_getter_ext_details_3_01_r_07_5_08_07_t_01_6_08_00_01_fn_01_4/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_method_details/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_method_details_3_01_r_07_t_1_1_5_08_07_args_8_8_8_08_01const_00_01_fn_01_4/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_method_details_3_01_r_07_t_1_1_5_08_07_args_8_8_8_08_00_01_fn_01_4/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_method_ext_details/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_method_ext_details_3_01_r_07_5_08_07_t_01_6_40a0be79c6f8fbfdf08b6d7f58910c71/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_setter_details/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_setter_details_3_01void_07_t_1_1_5_08_07_v_08_00_01_fn_01_4/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_setter_ext_details/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_setter_ext_details_3_01void_07_5_08_07_t_01_6_00_01_v_08_00_01_fn_01_4/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_var_details/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_var_readonly_details/</loc>
   </url>
   
   <url>

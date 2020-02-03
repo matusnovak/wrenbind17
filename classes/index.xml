@@ -32,7 +32,7 @@ Public Classes     Name     class Data   class Content    Public Functions     N
 #include &amp;lt;any.hpp&amp;gt;
 Inherited by wrenbind17::Any::Data&amp;lt; T &amp;gt;
 Public Functions     Name     virtual const std::type_info &amp;amp; getTypeid() const =0   virtual ~Content()    Public Functions Documentation function getTypeid virtual const std::type_info &amp;amp; getTypeid() const =0  Reimplemented by: wrenbind17::Any::Data::getTypeid
-function ~Content inline virtual ~Content()  Updated on 9 December 2019 at 19:38:02 UTC</description>
+function ~Content inline virtual ~Content()  Updated on 3 February 2020 at 23:01:07 UTC</description>
     </item>
     
     <item>
@@ -60,7 +60,7 @@ Module: Wrenbind17
 #include &amp;lt;exception.hpp&amp;gt;
 Inherits from wrenbind17::Exception, exception
 Public Functions     Name      BadCast(std::string msg)    BadCast()    Additional inherited members Public Functions inherited from wrenbind17::Exception
-    Name     const char * what() const override    Exception(std::string msg)    Exception() =default    Public Functions Documentation function BadCast inline explicit BadCast( std::string msg )  function BadCast inline BadCast()  Updated on 9 December 2019 at 19:38:02 UTC</description>
+    Name     const char * what() const override    Exception(std::string msg)    Exception() =default    Public Functions Documentation function BadCast inline explicit BadCast( std::string msg )  function BadCast inline BadCast()  Updated on 3 February 2020 at 23:01:07 UTC</description>
     </item>
     
     <item>
@@ -74,7 +74,43 @@ Module: Wrenbind17
 #include &amp;lt;exception.hpp&amp;gt;
 Inherits from wrenbind17::Exception, exception
 Public Functions     Name      CompileError(std::string msg)    Additional inherited members Public Functions inherited from wrenbind17::Exception
-    Name     const char * what() const override    Exception(std::string msg)    Exception() =default    Public Functions Documentation function CompileError inline explicit CompileError( std::string msg )  Updated on 9 December 2019 at 19:38:02 UTC</description>
+    Name     const char * what() const override    Exception(std::string msg)    Exception() =default    Public Functions Documentation function CompileError inline explicit CompileError( std::string msg )  Updated on 3 February 2020 at 23:01:07 UTC</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::detail::ForeignFunctionDetails</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1detail_1_1_foreign_function_details/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1detail_1_1_foreign_function_details/</guid>
+      <description>wrenbind17::detail::ForeignFunctionDetails Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Detailed Description template &amp;lt;typename Signature , Signature signature&amp;gt; struct wrenbind17::detail::ForeignFunctionDetails;  Updated on 3 February 2020 at 23:01:07 UTC</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::detail::ForeignFunctionDetails&lt; R(*)(Args...), Fn &gt;</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1detail_1_1_foreign_function_details_3_01_r_07_5_08_07_args_8_8_8_08_00_01_fn_01_4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1detail_1_1_foreign_function_details_3_01_r_07_5_08_07_args_8_8_8_08_00_01_fn_01_4/</guid>
+      <description>wrenbind17::detail::ForeignFunctionDetails&amp;lt; R(*)(Args&amp;hellip;), Fn &amp;gt; Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Public Types     Name     typedef ForeignMethodImpl&amp;lt; Args&amp;hellip; &amp;gt; ForeignMethodImplType    Public Functions     Name     std::unique_ptr&amp;lt; ForeignMethodImplType &amp;gt; make(std::string name)    Detailed Description template &amp;lt;typename R , typename... Args, R(*)(Args...) Fn&amp;gt; struct wrenbind17::detail::ForeignFunctionDetails&amp;lt; R(*)(Args...), Fn &amp;gt;;  Public Types Documentation typedef ForeignMethodImplType typedef ForeignMethodImpl&amp;lt; Args.</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::detail::GetPointerType</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1detail_1_1_get_pointer_type/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1detail_1_1_get_pointer_type/</guid>
+      <description>wrenbind17::detail::GetPointerType Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Public Functions     Name     T getType(T C::* v)    Public Attributes     Name     decltype(getType(static_cast&amp;lt; M &amp;gt;(nullptr))) typedef type    Detailed Description template &amp;lt;typename M &amp;gt; struct wrenbind17::detail::GetPointerType;  Public Functions Documentation function getType static T getType( T C::* v )  Public Attributes Documentation variable type decltype(getType(static_cast&amp;lt; M &amp;gt;(nullptr))) typedef type;  Updated on 3 February 2020 at 23:01:07 UTC</description>
     </item>
     
     <item>
@@ -88,7 +124,7 @@ Module: Wrenbind17
 #include &amp;lt;exception.hpp&amp;gt;
 Inherits from exception
 Inherited by wrenbind17::BadCast, wrenbind17::CompileError, wrenbind17::NotFound, wrenbind17::RuntimeError
-Public Functions     Name     const char * what() const override    Exception(std::string msg)    Exception() =default    Public Functions Documentation function what inline const char * what() const override  function Exception inline explicit Exception( std::string msg )  function Exception Exception() =default  Updated on 9 December 2019 at 19:38:02 UTC</description>
+Public Functions     Name     const char * what() const override    Exception(std::string msg)    Exception() =default    Public Functions Documentation function what inline const char * what() const override  function Exception inline explicit Exception( std::string msg )  function Exception Exception() =default  Updated on 3 February 2020 at 23:01:07 UTC</description>
     </item>
     
     <item>
@@ -115,7 +151,199 @@ Module: Wrenbind17
 More&amp;hellip;
 #include &amp;lt;foreign.hpp&amp;gt;
 Inherits from wrenbind17::ForeignKlass
-Public Functions     Name     void propReadonlyExt(std::string name)   void propExt(std::string name)   void propReadonly(std::string name)   void prop(std::string name)   void varReadonly(std::string name)   void var(std::string name)   void funcStaticExt(std::string name)   void funcStatic(std::string name)   void funcExt(const ForeignMethodOperator name)   void funcExt(std::string name)   void func(const ForeignMethodOperator name)   void func(std::string name)   void ctor(const std::string &amp;amp; name =&amp;ldquo;new&amp;rdquo;)   virtual void generate(std::ostream &amp;amp; os) const override    ~ForeignKlassImpl() =default    ForeignKlassImpl(std::string name)    Additional inherited members Public Functions inherited from wrenbind17::ForeignKlass</description>
+Public Classes     Name     struct ForeignVarReadonlyDetails   struct ForeignVarDetails   struct ForeignSetterExtDetails&amp;lt; void(*)(T &amp;amp;, V), Fn &amp;gt;   struct ForeignSetterExtDetails   struct ForeignSetterDetails&amp;lt; void(T::*)(V), Fn &amp;gt;   struct ForeignSetterDetails   struct ForeignMethodExtDetails&amp;lt; R(*)(T &amp;amp;, Args&amp;hellip;), Fn &amp;gt;   struct ForeignMethodExtDetails   struct ForeignMethodDetails&amp;lt; R(T::*)(Args&amp;hellip;), Fn &amp;gt;   struct ForeignMethodDetails&amp;lt; R(T::*)(Args&amp;hellip;) const, Fn &amp;gt;   struct ForeignMethodDetails   struct ForeignGetterExtDetails&amp;lt; R(*)(T &amp;amp;), Fn &amp;gt;   struct ForeignGetterExtDetails   struct ForeignGetterDetails&amp;lt; R(T::*)(), Fn &amp;gt;   struct ForeignGetterDetails&amp;lt; R(T::*)() const, Fn &amp;gt;   struct ForeignGetterDetails    Public Functions     Name     void propReadonlyExt(std::string name)   void propExt(std::string name)   void propReadonly(std::string name)   void prop(std::string name)   void varReadonly(std::string name)   void var(std::string name)   void funcStaticExt(std::string name)   void funcStatic(std::string name)   void funcExt(const ForeignMethodOperator name)   void funcExt(std::string name)   void func(const ForeignMethodOperator name)   void func(std::string name)   void ctor(const std::string &amp;amp; name =&amp;ldquo;new&amp;rdquo;)   virtual void generate(std::ostream &amp;amp; os) const override    ~ForeignKlassImpl() =default    ForeignKlassImpl(std::string name)    Additional inherited members Public Functions inherited from wrenbind17::ForeignKlass</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignGetterDetails</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_getter_details/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_getter_details/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignGetterDetails Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Detailed Description template &amp;lt;typename Signature , Signature signature&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignGetterDetails;  Updated on 3 February 2020 at 23:01:07 UTC</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignGetterDetails&lt; R(T::*)() const, Fn &gt;</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_getter_details_3_01_r_07_t_1_1_5_08_07_08_01const_00_01_fn_01_4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_getter_details_3_01_r_07_t_1_1_5_08_07_08_01const_00_01_fn_01_4/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignGetterDetails&amp;lt; R(T::*)() const, Fn &amp;gt; Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Public Functions     Name     WrenForeignMethodFn method()    Detailed Description template &amp;lt;typename R , R(T::*)() const Fn&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignGetterDetails&amp;lt; R(T::*)() const, Fn &amp;gt;;  Public Functions Documentation function method static inline WrenForeignMethodFn method()  Updated on 3 February 2020 at 23:01:07 UTC</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignGetterDetails&lt; R(T::*)(), Fn &gt;</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_getter_details_3_01_r_07_t_1_1_5_08_07_08_00_01_fn_01_4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_getter_details_3_01_r_07_t_1_1_5_08_07_08_00_01_fn_01_4/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignGetterDetails&amp;lt; R(T::*)(), Fn &amp;gt; Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Public Functions     Name     WrenForeignMethodFn method()    Detailed Description template &amp;lt;typename R , R(T::*)() Fn&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignGetterDetails&amp;lt; R(T::*)(), Fn &amp;gt;;  Public Functions Documentation function method static inline WrenForeignMethodFn method()  Updated on 3 February 2020 at 23:01:07 UTC</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignGetterExtDetails</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_getter_ext_details/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_getter_ext_details/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignGetterExtDetails Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Detailed Description template &amp;lt;typename Signature , Signature signature&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignGetterExtDetails;  Updated on 3 February 2020 at 23:01:07 UTC</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignGetterExtDetails&lt; R(*)(T &amp;), Fn &gt;</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_getter_ext_details_3_01_r_07_5_08_07_t_01_6_08_00_01_fn_01_4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_getter_ext_details_3_01_r_07_5_08_07_t_01_6_08_00_01_fn_01_4/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignGetterExtDetails&amp;lt; R(*)(T &amp;amp;), Fn &amp;gt; Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Public Functions     Name     WrenForeignMethodFn method()    Detailed Description template &amp;lt;typename R , R(*)(T &amp;amp;) Fn&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignGetterExtDetails&amp;lt; R(*)(T &amp;amp;), Fn &amp;gt;;  Public Functions Documentation function method static inline WrenForeignMethodFn method()  Updated on 3 February 2020 at 23:01:07 UTC</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignMethodDetails</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_method_details/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_method_details/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignMethodDetails Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Detailed Description template &amp;lt;typename Signature , Signature signature&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignMethodDetails;  Updated on 3 February 2020 at 23:01:07 UTC</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignMethodDetails&lt; R(T::*)(Args...) const, Fn &gt;</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_method_details_3_01_r_07_t_1_1_5_08_07_args_8_8_8_08_01const_00_01_fn_01_4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_method_details_3_01_r_07_t_1_1_5_08_07_args_8_8_8_08_01const_00_01_fn_01_4/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignMethodDetails&amp;lt; R(T::*)(Args&amp;hellip;) const, Fn &amp;gt; Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Public Types     Name     typedef ForeignMethodImpl&amp;lt; Args&amp;hellip; &amp;gt; ForeignMethodImplType    Public Functions     Name     std::unique_ptr&amp;lt; ForeignMethodImplType &amp;gt; make(const ForeignMethodOperator op)   std::unique_ptr&amp;lt; ForeignMethodImplType &amp;gt; make(std::string name)    Detailed Description template &amp;lt;typename R , typename... Args, R(T::*)(Args...) const Fn&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignMethodDetails&amp;lt; R(T::*)(Args.</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignMethodDetails&lt; R(T::*)(Args...), Fn &gt;</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_method_details_3_01_r_07_t_1_1_5_08_07_args_8_8_8_08_00_01_fn_01_4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_method_details_3_01_r_07_t_1_1_5_08_07_args_8_8_8_08_00_01_fn_01_4/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignMethodDetails&amp;lt; R(T::*)(Args&amp;hellip;), Fn &amp;gt; Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Public Types     Name     typedef ForeignMethodImpl&amp;lt; Args&amp;hellip; &amp;gt; ForeignMethodImplType    Public Functions     Name     std::unique_ptr&amp;lt; ForeignMethodImplType &amp;gt; make(const ForeignMethodOperator op)   std::unique_ptr&amp;lt; ForeignMethodImplType &amp;gt; make(std::string name)    Detailed Description template &amp;lt;typename R , typename... Args, R(T::*)(Args...) Fn&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignMethodDetails&amp;lt; R(T::*)(Args...), Fn &amp;gt;;  Public Types Documentation typedef ForeignMethodImplType typedef ForeignMethodImpl&amp;lt; Args.</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignMethodExtDetails</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_method_ext_details/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_method_ext_details/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignMethodExtDetails Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Detailed Description template &amp;lt;typename Signature , Signature signature&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignMethodExtDetails;  Updated on 3 February 2020 at 23:01:07 UTC</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignMethodExtDetails&lt; R(*)(T &amp;, Args...), Fn &gt;</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_method_ext_details_3_01_r_07_5_08_07_t_01_6_40a0be79c6f8fbfdf08b6d7f58910c71/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_method_ext_details_3_01_r_07_5_08_07_t_01_6_40a0be79c6f8fbfdf08b6d7f58910c71/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignMethodExtDetails&amp;lt; R(*)(T &amp;amp;, Args&amp;hellip;), Fn &amp;gt; Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Public Types     Name     typedef ForeignMethodImpl&amp;lt; Args&amp;hellip; &amp;gt; ForeignMethodImplType    Public Functions     Name     std::unique_ptr&amp;lt; ForeignMethodImplType &amp;gt; make(const ForeignMethodOperator op)   std::unique_ptr&amp;lt; ForeignMethodImplType &amp;gt; make(std::string name)    Detailed Description template &amp;lt;typename R , typename... Args, R(*)(T &amp;amp;, Args...) Fn&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignMethodExtDetails&amp;lt; R(*)(T &amp;amp;, Args.</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignSetterDetails</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_setter_details/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_setter_details/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignSetterDetails Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Detailed Description template &amp;lt;typename Signature , Signature signature&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignSetterDetails;  Updated on 3 February 2020 at 23:01:07 UTC</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignSetterDetails&lt; void(T::*)(V), Fn &gt;</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_setter_details_3_01void_07_t_1_1_5_08_07_v_08_00_01_fn_01_4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_setter_details_3_01void_07_t_1_1_5_08_07_v_08_00_01_fn_01_4/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignSetterDetails&amp;lt; void(T::*)(V), Fn &amp;gt; Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Public Functions     Name     WrenForeignMethodFn method()    Detailed Description template &amp;lt;typename V , void(T::*)(V) Fn&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignSetterDetails&amp;lt; void(T::*)(V), Fn &amp;gt;;  Public Functions Documentation function method static inline WrenForeignMethodFn method()  Updated on 3 February 2020 at 23:01:07 UTC</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignSetterExtDetails</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_setter_ext_details/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_setter_ext_details/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignSetterExtDetails Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Detailed Description template &amp;lt;typename Signature , Signature signature&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignSetterExtDetails;  Updated on 3 February 2020 at 23:01:07 UTC</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignSetterExtDetails&lt; void(*)(T &amp;, V), Fn &gt;</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_setter_ext_details_3_01void_07_5_08_07_t_01_6_00_01_v_08_00_01_fn_01_4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_setter_ext_details_3_01void_07_5_08_07_t_01_6_00_01_v_08_00_01_fn_01_4/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignSetterExtDetails&amp;lt; void(*)(T &amp;amp;, V), Fn &amp;gt; Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Public Functions     Name     WrenForeignMethodFn method()    Detailed Description template &amp;lt;typename V , void(*)(T &amp;amp;, V) Fn&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignSetterExtDetails&amp;lt; void(*)(T &amp;amp;, V), Fn &amp;gt;;  Public Functions Documentation function method static inline WrenForeignMethodFn method()  Updated on 3 February 2020 at 23:01:07 UTC</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignVarDetails</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_var_details/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_var_details/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignVarDetails Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Public Functions     Name     std::unique_ptr&amp;lt; ForeignProp &amp;gt; make(std::string name, const bool readonly)    Detailed Description template &amp;lt;typename V , V T::* Ptr&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignVarDetails;  Public Functions Documentation function make static inline std::unique_ptr&amp;lt; ForeignProp &amp;gt; make( std::string name, const bool readonly )  Updated on 3 February 2020 at 23:01:07 UTC</description>
+    </item>
+    
+    <item>
+      <title>wrenbind17::ForeignKlassImpl::ForeignVarReadonlyDetails</title>
+      <link>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_var_readonly_details/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1_foreign_klass_impl_1_1_foreign_var_readonly_details/</guid>
+      <description>wrenbind17::ForeignKlassImpl::ForeignVarReadonlyDetails Struct Reference
+More&amp;hellip;
+#include &amp;lt;foreign.hpp&amp;gt;
+Public Functions     Name     std::unique_ptr&amp;lt; ForeignProp &amp;gt; make(std::string name, const bool readonly)    Detailed Description template &amp;lt;typename V , V T::* Ptr&amp;gt; struct wrenbind17::ForeignKlassImpl::ForeignVarReadonlyDetails;  Public Functions Documentation function make static inline std::unique_ptr&amp;lt; ForeignProp &amp;gt; make( std::string name, const bool readonly )  Updated on 3 February 2020 at 23:01:07 UTC</description>
     </item>
     
     <item>
@@ -154,7 +382,7 @@ Public Functions     Name     std::string generateName(const ForeignMethodOperat
       <description>wrenbind17::ForeignModule Class Reference
 Module: Wrenbind17
 #include &amp;lt;module.hpp&amp;gt;
-Public Functions     Name     const std::string &amp;amp; getName() const   ForeignKlass &amp;amp; findKlass(const std::string &amp;amp; name)   void append(std::string text)   std::string str() const   ForeignKlassImpl&amp;lt; T &amp;gt; &amp;amp; klass(std::string name)   void swap(ForeignModule &amp;amp; other)   ForeignModule &amp;amp; operator=(ForeignModule &amp;amp;&amp;amp; other)   ForeignModule &amp;amp; operator=(const ForeignModule &amp;amp; other)    ~ForeignModule() =default    ForeignModule(ForeignModule &amp;amp;&amp;amp; other)    ForeignModule(const ForeignModule &amp;amp; other)    ForeignModule(std::string name, WrenVM * vm)    Public Functions Documentation function getName inline const std::string &amp;amp; getName() const  function findKlass inline ForeignKlass &amp;amp; findKlass( const std::string &amp;amp; name )  function append inline void append( std::string text )  function str inline std::string str() const  function klass inline ForeignKlassImpl&amp;lt; T &amp;gt; &amp;amp; klass( std::string name )  function swap inline void swap( ForeignModule &amp;amp; other )  function operator= inline ForeignModule &amp;amp; operator=( ForeignModule &amp;amp;&amp;amp; other )  function operator= ForeignModule &amp;amp; operator=( const ForeignModule &amp;amp; other )  function ~ForeignModule ~ForeignModule() =default  function ForeignModule inline ForeignModule( ForeignModule &amp;amp;&amp;amp; other )  function ForeignModule ForeignModule( const ForeignModule &amp;amp; other )  function ForeignModule inline ForeignModule( std::string name, WrenVM * vm )  Updated on 9 December 2019 at 19:38:02 UTC</description>
+Public Functions     Name     const std::string &amp;amp; getName() const   ForeignKlass &amp;amp; findKlass(const std::string &amp;amp; name)   void append(std::string text)   std::string str() const   ForeignKlassImpl&amp;lt; T &amp;gt; &amp;amp; klass(std::string name)   void swap(ForeignModule &amp;amp; other)   ForeignModule &amp;amp; operator=(ForeignModule &amp;amp;&amp;amp; other)   ForeignModule &amp;amp; operator=(const ForeignModule &amp;amp; other)    ~ForeignModule() =default    ForeignModule(ForeignModule &amp;amp;&amp;amp; other)    ForeignModule(const ForeignModule &amp;amp; other)    ForeignModule(std::string name, WrenVM * vm)    Public Functions Documentation function getName inline const std::string &amp;amp; getName() const  function findKlass inline ForeignKlass &amp;amp; findKlass( const std::string &amp;amp; name )  function append inline void append( std::string text )  function str inline std::string str() const  function klass inline ForeignKlassImpl&amp;lt; T &amp;gt; &amp;amp; klass( std::string name )  function swap inline void swap( ForeignModule &amp;amp; other )  function operator= inline ForeignModule &amp;amp; operator=( ForeignModule &amp;amp;&amp;amp; other )  function operator= ForeignModule &amp;amp; operator=( const ForeignModule &amp;amp; other )  function ~ForeignModule ~ForeignModule() =default  function ForeignModule inline ForeignModule( ForeignModule &amp;amp;&amp;amp; other )  function ForeignModule ForeignModule( const ForeignModule &amp;amp; other )  function ForeignModule inline ForeignModule( std::string name, WrenVM * vm )  Updated on 3 February 2020 at 23:01:07 UTC</description>
     </item>
     
     <item>
@@ -167,7 +395,7 @@ Public Functions     Name     const std::string &amp;amp; getName() const   Fore
 Module: Wrenbind17
 #include &amp;lt;foreign.hpp&amp;gt;
 Inherited by wrenbind17::ForeignPropImpl&amp;lt; T, V &amp;gt;
-Public Functions     Name     bool getStatic() const   WrenForeignMethodFn getGetter()   WrenForeignMethodFn getSetter()   const std::string &amp;amp; getName() const   void generate(std::ostream &amp;amp; os) const   virtual ~ForeignProp() =default    ForeignProp(std::string name, WrenForeignMethodFn getter, WrenForeignMethodFn setter, const bool isStatic)    Protected Attributes     Name     bool isStatic   WrenForeignMethodFn setter   WrenForeignMethodFn getter   std::string name    Public Functions Documentation function getStatic inline bool getStatic() const  function getGetter inline WrenForeignMethodFn getGetter()  function getSetter inline WrenForeignMethodFn getSetter()  function getName inline const std::string &amp;amp; getName() const  function generate inline void generate( std::ostream &amp;amp; os ) const  function ~ForeignProp virtual ~ForeignProp() =default  function ForeignProp inline ForeignProp( std::string name, WrenForeignMethodFn getter, WrenForeignMethodFn setter, const bool isStatic )  Protected Attributes Documentation variable isStatic bool isStatic;  variable setter WrenForeignMethodFn setter;  variable getter WrenForeignMethodFn getter;  variable name std::string name;  Updated on 9 December 2019 at 19:38:02 UTC</description>
+Public Functions     Name     bool getStatic() const   WrenForeignMethodFn getGetter()   WrenForeignMethodFn getSetter()   const std::string &amp;amp; getName() const   void generate(std::ostream &amp;amp; os) const   virtual ~ForeignProp() =default    ForeignProp(std::string name, WrenForeignMethodFn getter, WrenForeignMethodFn setter, const bool isStatic)    Protected Attributes     Name     bool isStatic   WrenForeignMethodFn setter   WrenForeignMethodFn getter   std::string name    Public Functions Documentation function getStatic inline bool getStatic() const  function getGetter inline WrenForeignMethodFn getGetter()  function getSetter inline WrenForeignMethodFn getSetter()  function getName inline const std::string &amp;amp; getName() const  function generate inline void generate( std::ostream &amp;amp; os ) const  function ~ForeignProp virtual ~ForeignProp() =default  function ForeignProp inline ForeignProp( std::string name, WrenForeignMethodFn getter, WrenForeignMethodFn setter, const bool isStatic )  Protected Attributes Documentation variable isStatic bool isStatic;  variable setter WrenForeignMethodFn setter;  variable getter WrenForeignMethodFn getter;  variable name std::string name;  Updated on 3 February 2020 at 23:01:07 UTC</description>
     </item>
     
     <item>
@@ -194,7 +422,7 @@ Public Functions     Name      ~ForeignPropImpl() =default    ForeignPropImpl(st
       <description>wrenbind17::Handle Class Reference
 Module: Wrenbind17
 #include &amp;lt;handle.hpp&amp;gt;
-Public Functions     Name      operator bool() const   void reset()   WrenVM * getVm() const   WrenHandle * getHandle() const   void swap(Handle &amp;amp; other)   Handle &amp;amp; operator=(Handle &amp;amp;&amp;amp; other)   Handle &amp;amp; operator=(const Handle &amp;amp; other)    Handle(Handle &amp;amp;&amp;amp; other)    Handle(const Handle &amp;amp; other)    ~Handle()    Handle(WrenVM * vm, WrenHandle * handle)    Handle()    Public Attributes     Name     friend Callback    Public Functions Documentation function operator bool inline operator bool() const  function reset inline void reset()  function getVm inline WrenVM * getVm() const  function getHandle inline WrenHandle * getHandle() const  function swap inline void swap( Handle &amp;amp; other )  function operator= inline Handle &amp;amp; operator=( Handle &amp;amp;&amp;amp; other )  function operator= Handle &amp;amp; operator=( const Handle &amp;amp; other )  function Handle inline Handle( Handle &amp;amp;&amp;amp; other )  function Handle Handle( const Handle &amp;amp; other )  function ~Handle inline ~Handle()  function Handle inline Handle( WrenVM * vm, WrenHandle * handle )  function Handle inline Handle()  Public Attributes Documentation variable Callback friend Callback;  Updated on 9 December 2019 at 19:38:02 UTC</description>
+Public Functions     Name      operator bool() const   void reset()   WrenVM * getVm() const   WrenHandle * getHandle() const   void swap(Handle &amp;amp; other)   Handle &amp;amp; operator=(Handle &amp;amp;&amp;amp; other)   Handle &amp;amp; operator=(const Handle &amp;amp; other)    Handle(Handle &amp;amp;&amp;amp; other)    Handle(const Handle &amp;amp; other)    ~Handle()    Handle(WrenVM * vm, WrenHandle * handle)    Handle()    Public Attributes     Name     friend Callback    Public Functions Documentation function operator bool inline operator bool() const  function reset inline void reset()  function getVm inline WrenVM * getVm() const  function getHandle inline WrenHandle * getHandle() const  function swap inline void swap( Handle &amp;amp; other )  function operator= inline Handle &amp;amp; operator=( Handle &amp;amp;&amp;amp; other )  function operator= Handle &amp;amp; operator=( const Handle &amp;amp; other )  function Handle inline Handle( Handle &amp;amp;&amp;amp; other )  function Handle Handle( const Handle &amp;amp; other )  function ~Handle inline ~Handle()  function Handle inline Handle( WrenVM * vm, WrenHandle * handle )  function Handle inline Handle()  Public Attributes Documentation variable Callback friend Callback;  Updated on 3 February 2020 at 23:01:07 UTC</description>
     </item>
     
     <item>
@@ -220,7 +448,7 @@ Module: Wrenbind17
 #include &amp;lt;exception.hpp&amp;gt;
 Inherits from wrenbind17::Exception, exception
 Public Functions     Name      NotFound()    Additional inherited members Public Functions inherited from wrenbind17::Exception
-    Name     const char * what() const override    Exception(std::string msg)    Exception() =default    Public Functions Documentation function NotFound inline NotFound()  Updated on 9 December 2019 at 19:38:02 UTC</description>
+    Name     const char * what() const override    Exception(std::string msg)    Exception() =default    Public Functions Documentation function NotFound inline NotFound()  Updated on 3 February 2020 at 23:01:07 UTC</description>
     </item>
     
     <item>
@@ -234,7 +462,7 @@ Module: Wrenbind17
 #include &amp;lt;exception.hpp&amp;gt;
 Inherits from wrenbind17::Exception, exception
 Public Functions     Name      RuntimeError(std::string msg)    Additional inherited members Public Functions inherited from wrenbind17::Exception
-    Name     const char * what() const override    Exception(std::string msg)    Exception() =default    Public Functions Documentation function RuntimeError inline explicit RuntimeError( std::string msg )  Updated on 9 December 2019 at 19:38:02 UTC</description>
+    Name     const char * what() const override    Exception(std::string msg)    Exception() =default    Public Functions Documentation function RuntimeError inline explicit RuntimeError( std::string msg )  Updated on 3 February 2020 at 23:01:07 UTC</description>
     </item>
     
     <item>
@@ -246,7 +474,7 @@ Public Functions     Name      RuntimeError(std::string msg)    Additional inher
       <description>wrenbind17::StdListBindings Class Reference
 More&amp;hellip;
 #include &amp;lt;std.hpp&amp;gt;
-Public Types     Name     typedef std::list&amp;lt; T &amp;gt; List   typedef std::list&amp;lt; T &amp;gt;::iterator Iterator    Public Functions     Name     void bind(ForeignModule &amp;amp; m, const std::string &amp;amp; name)   size_t size(List &amp;amp; self)   void clear(List &amp;amp; self)   T pop(List &amp;amp; self)   bool contains(List &amp;amp; self, const T &amp;amp; value)   void insert(List &amp;amp; self, long index, T value)   T removeAt(List &amp;amp; self, long index)   size_t count(List &amp;amp; self)   const T &amp;amp; iteratorValue(List &amp;amp; self, std::shared_ptr&amp;lt; Iterator &amp;gt; other)   std::variant&amp;lt; bool, Iterator &amp;gt; iterate(List &amp;amp; self, std::variant&amp;lt; std::nullptr_t, Iterator &amp;gt; other)   void add(List &amp;amp; self, T value)   const T &amp;amp; getIndex(List &amp;amp; self, size_t index)   void setIndex(List &amp;amp; self, size_t index, T value)    Detailed Description template &amp;lt;typename T &amp;gt; class wrenbind17::StdListBindings;  Public Types Documentation typedef List typedef std::list&amp;lt; T &amp;gt; List;  typedef Iterator typedef std::list&amp;lt; T &amp;gt;::iterator Iterator;  Public Functions Documentation function bind static inline void bind( ForeignModule &amp;amp; m, const std::string &amp;amp; name )  function size static inline size_t size( List &amp;amp; self )  function clear static inline void clear( List &amp;amp; self )  function pop static inline T pop( List &amp;amp; self )  function contains static inline bool contains( List &amp;amp; self, const T &amp;amp; value )  function insert static inline void insert( List &amp;amp; self, long index, T value )  function removeAt static inline T removeAt( List &amp;amp; self, long index )  function count static inline size_t count( List &amp;amp; self )  function iteratorValue static inline const T &amp;amp; iteratorValue( List &amp;amp; self, std::shared_ptr&amp;lt; Iterator &amp;gt; other )  function iterate static inline std::variant&amp;lt; bool, Iterator &amp;gt; iterate( List &amp;amp; self, std::variant&amp;lt; std::nullptr_t, Iterator &amp;gt; other )  function add static inline void add( List &amp;amp; self, T value )  function getIndex static inline const T &amp;amp; getIndex( List &amp;amp; self, size_t index )  function setIndex static inline void setIndex( List &amp;amp; self, size_t index, T value )  Updated on 9 December 2019 at 19:38:02 UTC</description>
+Public Types     Name     typedef std::list&amp;lt; T &amp;gt; List   typedef std::list&amp;lt; T &amp;gt;::iterator Iterator    Public Functions     Name     void bind(ForeignModule &amp;amp; m, const std::string &amp;amp; name)   size_t size(List &amp;amp; self)   void clear(List &amp;amp; self)   T pop(List &amp;amp; self)   bool contains(List &amp;amp; self, const T &amp;amp; value)   void insert(List &amp;amp; self, long index, T value)   T removeAt(List &amp;amp; self, long index)   size_t count(List &amp;amp; self)   const T &amp;amp; iteratorValue(List &amp;amp; self, std::shared_ptr&amp;lt; Iterator &amp;gt; other)   std::variant&amp;lt; bool, Iterator &amp;gt; iterate(List &amp;amp; self, std::variant&amp;lt; std::nullptr_t, Iterator &amp;gt; other)   void add(List &amp;amp; self, T value)   const T &amp;amp; getIndex(List &amp;amp; self, size_t index)   void setIndex(List &amp;amp; self, size_t index, T value)    Detailed Description template &amp;lt;typename T &amp;gt; class wrenbind17::StdListBindings;  Public Types Documentation typedef List typedef std::list&amp;lt; T &amp;gt; List;  typedef Iterator typedef std::list&amp;lt; T &amp;gt;::iterator Iterator;  Public Functions Documentation function bind static inline void bind( ForeignModule &amp;amp; m, const std::string &amp;amp; name )  function size static inline size_t size( List &amp;amp; self )  function clear static inline void clear( List &amp;amp; self )  function pop static inline T pop( List &amp;amp; self )  function contains static inline bool contains( List &amp;amp; self, const T &amp;amp; value )  function insert static inline void insert( List &amp;amp; self, long index, T value )  function removeAt static inline T removeAt( List &amp;amp; self, long index )  function count static inline size_t count( List &amp;amp; self )  function iteratorValue static inline const T &amp;amp; iteratorValue( List &amp;amp; self, std::shared_ptr&amp;lt; Iterator &amp;gt; other )  function iterate static inline std::variant&amp;lt; bool, Iterator &amp;gt; iterate( List &amp;amp; self, std::variant&amp;lt; std::nullptr_t, Iterator &amp;gt; other )  function add static inline void add( List &amp;amp; self, T value )  function getIndex static inline const T &amp;amp; getIndex( List &amp;amp; self, size_t index )  function setIndex static inline void setIndex( List &amp;amp; self, size_t index, T value )  Updated on 3 February 2020 at 23:01:07 UTC</description>
     </item>
     
     <item>
@@ -258,7 +486,7 @@ Public Types     Name     typedef std::list&amp;lt; T &amp;gt; List   typedef st
       <description>wrenbind17::StdVectorBindings Class Reference
 More&amp;hellip;
 #include &amp;lt;std.hpp&amp;gt;
-Public Types     Name     typedef std::vector&amp;lt; T &amp;gt; Vector   typedef std::vector&amp;lt; T &amp;gt;::iterator Iterator    Public Functions     Name     void bind(ForeignModule &amp;amp; m, const std::string &amp;amp; name)   size_t size(Vector &amp;amp; self)   void clear(Vector &amp;amp; self)   T pop(Vector &amp;amp; self)   bool contains(Vector &amp;amp; self, const T &amp;amp; value)   void insert(Vector &amp;amp; self, long index, T value)   T removeAt(Vector &amp;amp; self, long index)   size_t count(Vector &amp;amp; self)   const T &amp;amp; iteratorValue(Vector &amp;amp; self, std::shared_ptr&amp;lt; Iterator &amp;gt; other)   std::variant&amp;lt; bool, Iterator &amp;gt; iterate(Vector &amp;amp; self, std::variant&amp;lt; std::nullptr_t, Iterator &amp;gt; other)   void add(Vector &amp;amp; self, T value)   const T &amp;amp; getIndex(Vector &amp;amp; self, size_t index)   void setIndex(Vector &amp;amp; self, size_t index, T value)    Detailed Description template &amp;lt;typename T &amp;gt; class wrenbind17::StdVectorBindings;  Public Types Documentation typedef Vector typedef std::vector&amp;lt; T &amp;gt; Vector;  typedef Iterator typedef std::vector&amp;lt; T &amp;gt;::iterator Iterator;  Public Functions Documentation function bind static inline void bind( ForeignModule &amp;amp; m, const std::string &amp;amp; name )  function size static inline size_t size( Vector &amp;amp; self )  function clear static inline void clear( Vector &amp;amp; self )  function pop static inline T pop( Vector &amp;amp; self )  function contains static inline bool contains( Vector &amp;amp; self, const T &amp;amp; value )  function insert static inline void insert( Vector &amp;amp; self, long index, T value )  function removeAt static inline T removeAt( Vector &amp;amp; self, long index )  function count static inline size_t count( Vector &amp;amp; self )  function iteratorValue static inline const T &amp;amp; iteratorValue( Vector &amp;amp; self, std::shared_ptr&amp;lt; Iterator &amp;gt; other )  function iterate static inline std::variant&amp;lt; bool, Iterator &amp;gt; iterate( Vector &amp;amp; self, std::variant&amp;lt; std::nullptr_t, Iterator &amp;gt; other )  function add static inline void add( Vector &amp;amp; self, T value )  function getIndex static inline const T &amp;amp; getIndex( Vector &amp;amp; self, size_t index )  function setIndex static inline void setIndex( Vector &amp;amp; self, size_t index, T value )  Updated on 9 December 2019 at 19:38:02 UTC</description>
+Public Types     Name     typedef std::vector&amp;lt; T &amp;gt; Vector   typedef std::vector&amp;lt; T &amp;gt;::iterator Iterator    Public Functions     Name     void bind(ForeignModule &amp;amp; m, const std::string &amp;amp; name)   size_t size(Vector &amp;amp; self)   void clear(Vector &amp;amp; self)   T pop(Vector &amp;amp; self)   bool contains(Vector &amp;amp; self, const T &amp;amp; value)   void insert(Vector &amp;amp; self, long index, T value)   T removeAt(Vector &amp;amp; self, long index)   size_t count(Vector &amp;amp; self)   const T &amp;amp; iteratorValue(Vector &amp;amp; self, std::shared_ptr&amp;lt; Iterator &amp;gt; other)   std::variant&amp;lt; bool, Iterator &amp;gt; iterate(Vector &amp;amp; self, std::variant&amp;lt; std::nullptr_t, Iterator &amp;gt; other)   void add(Vector &amp;amp; self, T value)   const T &amp;amp; getIndex(Vector &amp;amp; self, size_t index)   void setIndex(Vector &amp;amp; self, size_t index, T value)    Detailed Description template &amp;lt;typename T &amp;gt; class wrenbind17::StdVectorBindings;  Public Types Documentation typedef Vector typedef std::vector&amp;lt; T &amp;gt; Vector;  typedef Iterator typedef std::vector&amp;lt; T &amp;gt;::iterator Iterator;  Public Functions Documentation function bind static inline void bind( ForeignModule &amp;amp; m, const std::string &amp;amp; name )  function size static inline size_t size( Vector &amp;amp; self )  function clear static inline void clear( Vector &amp;amp; self )  function pop static inline T pop( Vector &amp;amp; self )  function contains static inline bool contains( Vector &amp;amp; self, const T &amp;amp; value )  function insert static inline void insert( Vector &amp;amp; self, long index, T value )  function removeAt static inline T removeAt( Vector &amp;amp; self, long index )  function count static inline size_t count( Vector &amp;amp; self )  function iteratorValue static inline const T &amp;amp; iteratorValue( Vector &amp;amp; self, std::shared_ptr&amp;lt; Iterator &amp;gt; other )  function iterate static inline std::variant&amp;lt; bool, Iterator &amp;gt; iterate( Vector &amp;amp; self, std::variant&amp;lt; std::nullptr_t, Iterator &amp;gt; other )  function add static inline void add( Vector &amp;amp; self, T value )  function getIndex static inline const T &amp;amp; getIndex( Vector &amp;amp; self, size_t index )  function setIndex static inline void setIndex( Vector &amp;amp; self, size_t index, T value )  Updated on 3 February 2020 at 23:01:07 UTC</description>
     </item>
     
     <item>
@@ -270,7 +498,7 @@ Public Types     Name     typedef std::vector&amp;lt; T &amp;gt; Vector   typede
       <description>wrenbind17::Variable Class Reference
 Module: Wrenbind17
 #include &amp;lt;variable.hpp&amp;gt;
-Public Functions     Name     void reset()    operator bool() const   WrenHandle * getHandle() const   Method func(const std::string &amp;amp; signature)    ~Variable()    Variable(WrenVM * vm, const std::shared_ptr&amp;lt; Handle &amp;gt; &amp;amp; handle)    Variable()    Public Functions Documentation function reset inline void reset()  function operator bool inline operator bool() const  function getHandle inline WrenHandle * getHandle() const  function func inline Method func( const std::string &amp;amp; signature )  function ~Variable inline ~Variable()  function Variable inline Variable( WrenVM * vm, const std::shared_ptr&amp;lt; Handle &amp;gt; &amp;amp; handle )  function Variable inline Variable()  Updated on 9 December 2019 at 19:38:02 UTC</description>
+Public Functions     Name     void reset()    operator bool() const   WrenHandle * getHandle() const   Method func(const std::string &amp;amp; signature)    ~Variable()    Variable(WrenVM * vm, const std::shared_ptr&amp;lt; Handle &amp;gt; &amp;amp; handle)    Variable()    Public Functions Documentation function reset inline void reset()  function operator bool inline operator bool() const  function getHandle inline WrenHandle * getHandle() const  function func inline Method func( const std::string &amp;amp; signature )  function ~Variable inline ~Variable()  function Variable inline Variable( WrenVM * vm, const std::shared_ptr&amp;lt; Handle &amp;gt; &amp;amp; handle )  function Variable inline Variable()  Updated on 3 February 2020 at 23:01:07 UTC</description>
     </item>
     
     <item>
