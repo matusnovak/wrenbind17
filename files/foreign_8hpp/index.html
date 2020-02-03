@@ -12,18 +12,18 @@
     <title>include/wrenbind17/foreign.hpp :: WrenBind17</title>
 
     
-    <link href="/wrenbind17/css/nucleus.css?1580771533" rel="stylesheet">
-    <link href="/wrenbind17/css/fontawesome-all.min.css?1580771533" rel="stylesheet">
-    <link href="/wrenbind17/css/hybrid.css?1580771533" rel="stylesheet">
-    <link href="/wrenbind17/css/featherlight.min.css?1580771533" rel="stylesheet">
-    <link href="/wrenbind17/css/perfect-scrollbar.min.css?1580771533" rel="stylesheet">
-    <link href="/wrenbind17/css/auto-complete.css?1580771533" rel="stylesheet">
-    <link href="/wrenbind17/css/atom-one-dark-reasonable.css?1580771533" rel="stylesheet">
-    <link href="/wrenbind17/css/theme.css?1580771533" rel="stylesheet">
-    <link href="/wrenbind17/css/hugo-theme.css?1580771533" rel="stylesheet">
+    <link href="/wrenbind17/css/nucleus.css?1580772582" rel="stylesheet">
+    <link href="/wrenbind17/css/fontawesome-all.min.css?1580772582" rel="stylesheet">
+    <link href="/wrenbind17/css/hybrid.css?1580772582" rel="stylesheet">
+    <link href="/wrenbind17/css/featherlight.min.css?1580772582" rel="stylesheet">
+    <link href="/wrenbind17/css/perfect-scrollbar.min.css?1580772582" rel="stylesheet">
+    <link href="/wrenbind17/css/auto-complete.css?1580772582" rel="stylesheet">
+    <link href="/wrenbind17/css/atom-one-dark-reasonable.css?1580772582" rel="stylesheet">
+    <link href="/wrenbind17/css/theme.css?1580772582" rel="stylesheet">
+    <link href="/wrenbind17/css/hugo-theme.css?1580772582" rel="stylesheet">
     
 
-    <script src="/wrenbind17/js/jquery-3.3.1.min.js?1580771533"></script>
+    <script src="/wrenbind17/js/jquery-3.3.1.min.js?1580772582"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -50,14 +50,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/wrenbind17/js/lunr.min.js?1580771533"></script>
-<script type="text/javascript" src="/wrenbind17/js/auto-complete.js?1580771533"></script>
+<script type="text/javascript" src="/wrenbind17/js/lunr.min.js?1580772582"></script>
+<script type="text/javascript" src="/wrenbind17/js/auto-complete.js?1580772582"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/matusnovak.github.io\/wrenbind17";
     
 </script>
-<script type="text/javascript" src="/wrenbind17/js/search.js?1580771533"></script>
+<script type="text/javascript" src="/wrenbind17/js/search.js?1580772582"></script>
 
     
   </div>
@@ -1534,7 +1534,13 @@
         ForeignMethod(std<span style="color:#f92672">::</span>string name, WrenForeignMethodFn method, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> isStatic)
             <span style="color:#f92672">:</span> name(std<span style="color:#f92672">::</span>move(name)), method(method), isStatic(isStatic) {
         }
+
         <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>ForeignMethod() <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;
+
+        <span style="color:#75715e">// If you are getting &#34;referencing deleted function&#34; error which is this one below,
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// then you are trying to make a copy of ForeignKlass during vm.klass&lt;Foo&gt;(&#34;Foo&#34;);
+</span><span style="color:#75715e"></span>        ForeignMethod(<span style="color:#66d9ef">const</span> ForeignMethod<span style="color:#f92672">&amp;</span> other) <span style="color:#f92672">=</span> <span style="color:#66d9ef">delete</span>;
+
         <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">generate</span>(std<span style="color:#f92672">::</span>ostream<span style="color:#f92672">&amp;</span> os) <span style="color:#66d9ef">const</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
         <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> getName() <span style="color:#66d9ef">const</span> {
@@ -1559,7 +1565,12 @@
         ForeignProp(std<span style="color:#f92672">::</span>string name, WrenForeignMethodFn getter, WrenForeignMethodFn setter, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> isStatic)
             <span style="color:#f92672">:</span> name(std<span style="color:#f92672">::</span>move(name)), getter(getter), setter(setter), isStatic(isStatic) {
         }
+
         <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>ForeignProp() <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;
+
+        <span style="color:#75715e">// If you are getting &#34;referencing deleted function&#34; error which is this one below,
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// then you are trying to make a copy of ForeignKlass during vm.klass&lt;Foo&gt;(&#34;Foo&#34;);
+</span><span style="color:#75715e"></span>        ForeignProp(<span style="color:#66d9ef">const</span> ForeignProp<span style="color:#f92672">&amp;</span> other) <span style="color:#f92672">=</span> <span style="color:#66d9ef">delete</span>;
 
         <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">generate</span>(std<span style="color:#f92672">::</span>ostream<span style="color:#f92672">&amp;</span> os) <span style="color:#66d9ef">const</span> {
             <span style="color:#66d9ef">if</span> (getter)
@@ -1594,7 +1605,13 @@
     <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
         ForeignKlass(std<span style="color:#f92672">::</span>string name) <span style="color:#f92672">:</span> name(std<span style="color:#f92672">::</span>move(name)) {
         }
+
         <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>ForeignKlass() <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;
+
+        <span style="color:#75715e">// If you are getting &#34;referencing deleted function&#34; error which is this one below,
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// then you are trying to make a copy of this class.
+</span><span style="color:#75715e"></span>        ForeignKlass(<span style="color:#66d9ef">const</span> ForeignKlass<span style="color:#f92672">&amp;</span> other) <span style="color:#f92672">=</span> <span style="color:#66d9ef">delete</span>;
+
         <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">generate</span>(std<span style="color:#f92672">::</span>ostream<span style="color:#f92672">&amp;</span> os) <span style="color:#66d9ef">const</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
         ForeignMethod<span style="color:#f92672">&amp;</span> findFunc(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> name, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> isStatic) {
@@ -1844,7 +1861,15 @@
             allocators.allocate <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
             allocators.finalize <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
         }
+
         <span style="color:#f92672">~</span>ForeignKlassImpl() <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;
+
+        <span style="color:#75715e">// If you are getting &#34;referencing deleted function&#34; error which is this one below,
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// then you are trying to make a copy of this class.
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// Make sure you are not creating a copy while registering your custom C++ class as:
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// auto&amp; cls = vm.module(&#34;mymodule&#34;).klass&lt;Foo&gt;(&#34;Foo&#34;);
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// Notice the &#34;auto&amp;&#34;
+</span><span style="color:#75715e"></span>        ForeignKlassImpl(<span style="color:#66d9ef">const</span> ForeignKlassImpl<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;</span> other) <span style="color:#f92672">=</span> <span style="color:#66d9ef">delete</span>;
 
         <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">generate</span>(std<span style="color:#f92672">::</span>ostream<span style="color:#f92672">&amp;</span> os) <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">override</span> {
             os <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;foreign class &#34;</span> <span style="color:#f92672">&lt;&lt;</span> name <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; {</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
@@ -1950,14 +1975,6 @@
             }
         };
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, V T<span style="color:#f92672">::</span> <span style="color:#f92672">*</span> Ptr<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignVarReadonlyDetails</span> {
-            <span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>ForeignProp<span style="color:#f92672">&gt;</span> make(std<span style="color:#f92672">::</span>string name, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> readonly) {
-                <span style="color:#66d9ef">auto</span> g <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignPropCaller<span style="color:#f92672">&lt;</span>T, V, Ptr<span style="color:#f92672">&gt;::</span>getter;
-                <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>ForeignProp<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>move(name), g, <span style="color:#66d9ef">nullptr</span>, false);
-            }
-        };
-
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span>
         <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignSetterDetails</span>;
 
@@ -2054,7 +2071,7 @@
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Var<span style="color:#f92672">&gt;</span>
         <span style="color:#66d9ef">void</span> varReadonly(std<span style="color:#f92672">::</span>string name) {
             <span style="color:#66d9ef">using</span> R <span style="color:#f92672">=</span> <span style="color:#66d9ef">typename</span> detail<span style="color:#f92672">::</span>GetPointerType<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Var)<span style="color:#f92672">&gt;::</span>type;
-            <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> ForeignVarReadonlyDetails<span style="color:#f92672">&lt;</span>R, Var<span style="color:#f92672">&gt;::</span>make(std<span style="color:#f92672">::</span>move(name), true);
+            <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> ForeignVarDetails<span style="color:#f92672">&lt;</span>R, Var<span style="color:#f92672">&gt;::</span>make(std<span style="color:#f92672">::</span>move(name), true);
             props.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
         }
 
@@ -2092,7 +2109,7 @@
 </span></code></pre></div>
 <hr />
 
-<p>Updated on  3 February 2020 at 23:12:12 UTC</p>
+<p>Updated on  3 February 2020 at 23:29:42 UTC</p>
 
 
 <footer class=" footline" >
@@ -3167,19 +3184,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/wrenbind17/js/clipboard.min.js?1580771533"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1580771533"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1580771533"></script>
-    <script src="/wrenbind17/js/jquery.sticky.js?1580771533"></script>
-    <script src="/wrenbind17/js/featherlight.min.js?1580771533"></script>
-    <script src="/wrenbind17/js/highlight.pack.js?1580771533"></script>
+    <script src="/wrenbind17/js/clipboard.min.js?1580772582"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1580772582"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1580772582"></script>
+    <script src="/wrenbind17/js/jquery.sticky.js?1580772582"></script>
+    <script src="/wrenbind17/js/featherlight.min.js?1580772582"></script>
+    <script src="/wrenbind17/js/highlight.pack.js?1580772582"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1580771533"></script>
-    <script src="/wrenbind17/js/learn.js?1580771533"></script>
-    <script src="/wrenbind17/js/hugo-learn.js?1580771533"></script>
+    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1580772582"></script>
+    <script src="/wrenbind17/js/learn.js?1580772582"></script>
+    <script src="/wrenbind17/js/hugo-learn.js?1580772582"></script>
 
-    <link href="/wrenbind17/mermaid/mermaid.css?1580771533" rel="stylesheet" />
-    <script src="/wrenbind17/mermaid/mermaid.js?1580771533"></script>
+    <link href="/wrenbind17/mermaid/mermaid.css?1580772582" rel="stylesheet" />
+    <script src="/wrenbind17/mermaid/mermaid.js?1580772582"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
