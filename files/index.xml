@@ -17,7 +17,7 @@
       
       <guid>https://matusnovak.github.io/wrenbind17/files/dir_d44c64559bbebec7f509842c48db8b23/</guid>
       <description>include Dir Reference
-Directories    Name     include/wrenbind17    Updated on 3 February 2020 at 23:01:07 UTC</description>
+Directories    Name     include/wrenbind17    Updated on 3 February 2020 at 23:12:12 UTC</description>
     </item>
     
     <item>
@@ -27,7 +27,7 @@ Directories    Name     include/wrenbind17    Updated on 3 February 2020 at 23:0
       
       <guid>https://matusnovak.github.io/wrenbind17/files/dir_0603dac12b22d4faefe24b335e5b06be/</guid>
       <description>include/wrenbind17 Dir Reference
-Files    Name     include/wrenbind17/wrenbind17.hpp   include/wrenbind17/vm.hpp   include/wrenbind17/variable.hpp   include/wrenbind17/std.hpp   include/wrenbind17/push.hpp   include/wrenbind17/pop.hpp   include/wrenbind17/object.hpp   include/wrenbind17/module.hpp   include/wrenbind17/method.hpp   include/wrenbind17/index.hpp   include/wrenbind17/handle.hpp   include/wrenbind17/foreign.hpp   include/wrenbind17/exception.hpp   include/wrenbind17/caller.hpp   include/wrenbind17/any.hpp   include/wrenbind17/allocator.hpp    Updated on 3 February 2020 at 23:01:07 UTC</description>
+Files    Name     include/wrenbind17/wrenbind17.hpp   include/wrenbind17/vm.hpp   include/wrenbind17/variable.hpp   include/wrenbind17/std.hpp   include/wrenbind17/push.hpp   include/wrenbind17/pop.hpp   include/wrenbind17/object.hpp   include/wrenbind17/module.hpp   include/wrenbind17/method.hpp   include/wrenbind17/index.hpp   include/wrenbind17/handle.hpp   include/wrenbind17/foreign.hpp   include/wrenbind17/exception.hpp   include/wrenbind17/caller.hpp   include/wrenbind17/any.hpp   include/wrenbind17/allocator.hpp    Updated on 3 February 2020 at 23:12:12 UTC</description>
     </item>
     
     <item>
@@ -77,7 +77,7 @@ Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::Comp
       
       <guid>https://matusnovak.github.io/wrenbind17/files/foreign_8hpp/</guid>
       <description>include/wrenbind17/foreign.hpp File Reference
-Namespaces    Name     wrenbind17::detail   wrenbind17    Classes     Name     struct wrenbind17::ForeignKlassImpl::ForeignGetterExtDetails&amp;lt; R(*)(T &amp;amp;), Fn &amp;gt;   struct wrenbind17::ForeignKlassImpl::ForeignGetterExtDetails   struct wrenbind17::ForeignKlassImpl::ForeignGetterDetails&amp;lt; R(T::*)() const, Fn &amp;gt;   struct wrenbind17::ForeignKlassImpl::ForeignGetterDetails&amp;lt; R(T::*)(), Fn &amp;gt;   struct wrenbind17::ForeignKlassImpl::ForeignGetterDetails   struct wrenbind17::ForeignKlassImpl::ForeignSetterExtDetails&amp;lt; void(*)(T &amp;amp;, V), Fn &amp;gt;   struct wrenbind17::ForeignKlassImpl::ForeignSetterExtDetails   struct wrenbind17::ForeignKlassImpl::ForeignSetterDetails&amp;lt; void(T::*)(V), Fn &amp;gt;   struct wrenbind17::ForeignKlassImpl::ForeignSetterDetails   struct wrenbind17::ForeignKlassImpl::ForeignVarReadonlyDetails   struct wrenbind17::ForeignKlassImpl::ForeignVarDetails   struct wrenbind17::ForeignKlassImpl::ForeignMethodExtDetails&amp;lt; R(*)(T &amp;amp;, Args&amp;hellip;), Fn &amp;gt;   struct wrenbind17::ForeignKlassImpl::ForeignMethodExtDetails   struct wrenbind17::ForeignKlassImpl::ForeignMethodDetails&amp;lt; R(T::*)(Args&amp;hellip;) const, Fn &amp;gt;   struct wrenbind17::ForeignKlassImpl::ForeignMethodDetails&amp;lt; R(T::*)(Args&amp;hellip;), Fn &amp;gt;   struct wrenbind17::ForeignKlassImpl::ForeignMethodDetails   class wrenbind17::ForeignKlassImpl   struct wrenbind17::detail::GetPointerType   struct wrenbind17::detail::ForeignFunctionDetails&amp;lt; R(*)(Args&amp;hellip;), Fn &amp;gt;   struct wrenbind17::detail::ForeignFunctionDetails   class wrenbind17::ForeignPropImpl   class wrenbind17::ForeignMethodImpl   class wrenbind17::ForeignKlass   class wrenbind17::ForeignProp   class wrenbind17::ForeignMethod    Source code #pragma once  #include &amp;lt;ostream&amp;gt;#include &amp;lt;unordered_map&amp;gt;#include &amp;lt;iostream&amp;gt;#include &amp;#34;allocator.</description>
+Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::ForeignKlassImpl   class wrenbind17::ForeignPropImpl   class wrenbind17::ForeignMethodImpl   class wrenbind17::ForeignKlass   class wrenbind17::ForeignProp   class wrenbind17::ForeignMethod    Source code #pragma once  #include &amp;lt;ostream&amp;gt;#include &amp;lt;unordered_map&amp;gt;#include &amp;lt;iostream&amp;gt;#include &amp;#34;allocator.hpp&amp;#34;#include &amp;#34;caller.hpp&amp;#34; namespace wrenbind17 { enum ForeignMethodOperator { OPERATOR_GET_INDEX, OPERATOR_SET_INDEX, OPERATOR_SUB, OPERATOR_ADD, OPERATOR_MUL, OPERATOR_DIV, OPERATOR_NEG, OPERATOR_MOD, OPERATOR_EQUAL, OPERATOR_NOT_EQUAL, OPERATOR_GT, OPERATOR_LT, OPERATOR_GT_EQUAL, OPERATOR_LT_EQUAL, OPERATOR_SHIFT_LEFT, OPERATOR_SHIFT_RIGHT, OPERATOR_AND, OPERATOR_XOR, OPERATOR_OR }; class ForeignMethod { public: ForeignMethod(std::string name, WrenForeignMethodFn method, const bool isStatic) : name(std::move(name)), method(method), isStatic(isStatic) { } virtual ~ForeignMethod() = default; virtual void generate(std::ostream&amp;amp; os) const = 0; const std::string&amp;amp; getName() const { return name; } WrenForeignMethodFn getMethod() const { return method; } bool getStatic() const { return isStatic; } protected: std::string name; WrenForeignMethodFn method; bool isStatic; }; class ForeignProp { public: ForeignProp(std::string name, WrenForeignMethodFn getter, WrenForeignMethodFn setter, const bool isStatic) : name(std::move(name)), getter(getter), setter(setter), isStatic(isStatic) { } virtual ~ForeignProp() = default; void generate(std::ostream&amp;amp; os) const { if (getter) os &amp;lt;&amp;lt; &amp;#34; foreign &amp;#34; &amp;lt;&amp;lt; name &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; if (setter) os &amp;lt;&amp;lt; &amp;#34; foreign &amp;#34; &amp;lt;&amp;lt; name &amp;lt;&amp;lt; &amp;#34;=(rhs)\n&amp;#34;; } const std::string&amp;amp; getName() const { return name; } WrenForeignMethodFn getSetter() { return setter; } WrenForeignMethodFn getGetter() { return getter; } bool getStatic() const { return isStatic; } protected: std::string name; WrenForeignMethodFn getter; WrenForeignMethodFn setter; bool isStatic; }; class ForeignKlass { public: ForeignKlass(std::string name) : name(std::move(name)) { } virtual ~ForeignKlass() = default; virtual void generate(std::ostream&amp;amp; os) const = 0; ForeignMethod&amp;amp; findFunc(const std::string&amp;amp; name, const bool isStatic) { const auto it = methods.</description>
     </item>
     
     <item>
@@ -187,7 +187,7 @@ Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::VM  
       
       <guid>https://matusnovak.github.io/wrenbind17/files/wrenbind17_8hpp/</guid>
       <description>include/wrenbind17/wrenbind17.hpp File Reference
-Source code #pragma once  #include &amp;#34;vm.hpp&amp;#34; Updated on 3 February 2020 at 23:01:08 UTC</description>
+Source code #pragma once  #include &amp;#34;vm.hpp&amp;#34; Updated on 3 February 2020 at 23:12:12 UTC</description>
     </item>
     
   </channel>
