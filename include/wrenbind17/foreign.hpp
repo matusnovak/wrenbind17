@@ -42,7 +42,13 @@ namespace wrenbind17 {
         ForeignMethod(std::string name, WrenForeignMethodFn method, const bool isStatic)
             : name(std::move(name)), method(method), isStatic(isStatic) {
         }
+
         virtual ~ForeignMethod() = default;
+
+        // If you are getting "referencing deleted function" error which is this one below,
+        // then you are trying to make a copy of ForeignKlass during vm.klass<Foo>("Foo");
+        ForeignMethod(const ForeignMethod& other) = delete;
+
         virtual void generate(std::ostream& os) const = 0;
 
         const std::string& getName() const {
@@ -70,7 +76,12 @@ namespace wrenbind17 {
         ForeignProp(std::string name, WrenForeignMethodFn getter, WrenForeignMethodFn setter, const bool isStatic)
             : name(std::move(name)), getter(getter), setter(setter), isStatic(isStatic) {
         }
+
         virtual ~ForeignProp() = default;
+
+        // If you are getting "referencing deleted function" error which is this one below,
+        // then you are trying to make a copy of ForeignKlass during vm.klass<Foo>("Foo");
+        ForeignProp(const ForeignProp& other) = delete;
 
         void generate(std::ostream& os) const {
             if (getter)
@@ -108,7 +119,13 @@ namespace wrenbind17 {
     public:
         ForeignKlass(std::string name) : name(std::move(name)) {
         }
+
         virtual ~ForeignKlass() = default;
+
+        // If you are getting "referencing deleted function" error which is this one below,
+        // then you are trying to make a copy of this class.
+        ForeignKlass(const ForeignKlass& other) = delete;
+
         virtual void generate(std::ostream& os) const = 0;
 
         ForeignMethod& findFunc(const std::string& name, const bool isStatic) {
@@ -367,7 +384,15 @@ namespace wrenbind17 {
             allocators.allocate = nullptr;
             allocators.finalize = nullptr;
         }
+
         ~ForeignKlassImpl() = default;
+
+        // If you are getting "referencing deleted function" error which is this one below,
+        // then you are trying to make a copy of this class.
+        // Make sure you are not creating a copy while registering your custom C++ class as:
+        // auto& cls = vm.module("mymodule").klass<Foo>("Foo");
+        // Notice the "auto&"
+        ForeignKlassImpl(const ForeignKlassImpl<T>& other) = delete;
 
         void generate(std::ostream& os) const override {
             os << "foreign class " << name << " {\n";
