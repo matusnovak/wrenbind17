@@ -498,6 +498,14 @@ namespace wrenbind17 {
             }
         };
 
+        template <typename V, V T:: * Ptr>
+        struct ForeignVarReadonlyDetails {
+            static std::unique_ptr<ForeignProp> make(std::string name, const bool readonly) {
+                auto g = detail::ForeignPropCaller<T, V, Ptr>::getter;
+                return std::make_unique<ForeignProp>(std::move(name), g, nullptr, false);
+            }
+        };
+
         template <typename Signature, Signature signature>
         struct ForeignSetterDetails;
 
@@ -594,7 +602,7 @@ namespace wrenbind17 {
         template <auto Var>
         void varReadonly(std::string name) {
             using R = typename detail::GetPointerType<decltype(Var)>::type;
-            auto ptr = ForeignVarDetails<R, Var>::make(std::move(name), true);
+            auto ptr = ForeignVarReadonlyDetails<R, Var>::make(std::move(name), true);
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
