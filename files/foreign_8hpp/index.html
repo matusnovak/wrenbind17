@@ -12,18 +12,18 @@
     <title>include/wrenbind17/foreign.hpp :: WrenBind17</title>
 
     
-    <link href="/wrenbind17/css/nucleus.css?1580772582" rel="stylesheet">
-    <link href="/wrenbind17/css/fontawesome-all.min.css?1580772582" rel="stylesheet">
-    <link href="/wrenbind17/css/hybrid.css?1580772582" rel="stylesheet">
-    <link href="/wrenbind17/css/featherlight.min.css?1580772582" rel="stylesheet">
-    <link href="/wrenbind17/css/perfect-scrollbar.min.css?1580772582" rel="stylesheet">
-    <link href="/wrenbind17/css/auto-complete.css?1580772582" rel="stylesheet">
-    <link href="/wrenbind17/css/atom-one-dark-reasonable.css?1580772582" rel="stylesheet">
-    <link href="/wrenbind17/css/theme.css?1580772582" rel="stylesheet">
-    <link href="/wrenbind17/css/hugo-theme.css?1580772582" rel="stylesheet">
+    <link href="/wrenbind17/css/nucleus.css?1580849333" rel="stylesheet">
+    <link href="/wrenbind17/css/fontawesome-all.min.css?1580849333" rel="stylesheet">
+    <link href="/wrenbind17/css/hybrid.css?1580849333" rel="stylesheet">
+    <link href="/wrenbind17/css/featherlight.min.css?1580849333" rel="stylesheet">
+    <link href="/wrenbind17/css/perfect-scrollbar.min.css?1580849333" rel="stylesheet">
+    <link href="/wrenbind17/css/auto-complete.css?1580849333" rel="stylesheet">
+    <link href="/wrenbind17/css/atom-one-dark-reasonable.css?1580849333" rel="stylesheet">
+    <link href="/wrenbind17/css/theme.css?1580849333" rel="stylesheet">
+    <link href="/wrenbind17/css/hugo-theme.css?1580849333" rel="stylesheet">
     
 
-    <script src="/wrenbind17/js/jquery-3.3.1.min.js?1580772582"></script>
+    <script src="/wrenbind17/js/jquery-3.3.1.min.js?1580849333"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -50,14 +50,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/wrenbind17/js/lunr.min.js?1580772582"></script>
-<script type="text/javascript" src="/wrenbind17/js/auto-complete.js?1580772582"></script>
+<script type="text/javascript" src="/wrenbind17/js/lunr.min.js?1580849333"></script>
+<script type="text/javascript" src="/wrenbind17/js/auto-complete.js?1580849333"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/matusnovak.github.io\/wrenbind17";
     
 </script>
-<script type="text/javascript" src="/wrenbind17/js/search.js?1580772582"></script>
+<script type="text/javascript" src="/wrenbind17/js/search.js?1580849333"></script>
 
     
   </div>
@@ -1975,6 +1975,14 @@
             }
         };
 
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, V T<span style="color:#f92672">::</span> <span style="color:#f92672">*</span> Ptr<span style="color:#f92672">&gt;</span>
+        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignVarReadonlyDetails</span> {
+            <span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>ForeignProp<span style="color:#f92672">&gt;</span> make(std<span style="color:#f92672">::</span>string name, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> readonly) {
+                <span style="color:#66d9ef">auto</span> g <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignPropCaller<span style="color:#f92672">&lt;</span>T, V, Ptr<span style="color:#f92672">&gt;::</span>getter;
+                <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>ForeignProp<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>move(name), g, <span style="color:#66d9ef">nullptr</span>, false);
+            }
+        };
+
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span>
         <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignSetterDetails</span>;
 
@@ -2071,7 +2079,7 @@
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Var<span style="color:#f92672">&gt;</span>
         <span style="color:#66d9ef">void</span> varReadonly(std<span style="color:#f92672">::</span>string name) {
             <span style="color:#66d9ef">using</span> R <span style="color:#f92672">=</span> <span style="color:#66d9ef">typename</span> detail<span style="color:#f92672">::</span>GetPointerType<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Var)<span style="color:#f92672">&gt;::</span>type;
-            <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> ForeignVarDetails<span style="color:#f92672">&lt;</span>R, Var<span style="color:#f92672">&gt;::</span>make(std<span style="color:#f92672">::</span>move(name), true);
+            <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> ForeignVarReadonlyDetails<span style="color:#f92672">&lt;</span>R, Var<span style="color:#f92672">&gt;::</span>make(std<span style="color:#f92672">::</span>move(name), true);
             props.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
         }
 
@@ -2109,7 +2117,7 @@
 </span></code></pre></div>
 <hr />
 
-<p>Updated on  3 February 2020 at 23:29:42 UTC</p>
+<p>Updated on  4 February 2020 at 20:48:53 UTC</p>
 
 
 <footer class=" footline" >
@@ -3184,19 +3192,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/wrenbind17/js/clipboard.min.js?1580772582"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1580772582"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1580772582"></script>
-    <script src="/wrenbind17/js/jquery.sticky.js?1580772582"></script>
-    <script src="/wrenbind17/js/featherlight.min.js?1580772582"></script>
-    <script src="/wrenbind17/js/highlight.pack.js?1580772582"></script>
+    <script src="/wrenbind17/js/clipboard.min.js?1580849334"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1580849334"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1580849334"></script>
+    <script src="/wrenbind17/js/jquery.sticky.js?1580849334"></script>
+    <script src="/wrenbind17/js/featherlight.min.js?1580849334"></script>
+    <script src="/wrenbind17/js/highlight.pack.js?1580849334"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1580772582"></script>
-    <script src="/wrenbind17/js/learn.js?1580772582"></script>
-    <script src="/wrenbind17/js/hugo-learn.js?1580772582"></script>
+    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1580849334"></script>
+    <script src="/wrenbind17/js/learn.js?1580849334"></script>
+    <script src="/wrenbind17/js/hugo-learn.js?1580849334"></script>
 
-    <link href="/wrenbind17/mermaid/mermaid.css?1580772582" rel="stylesheet" />
-    <script src="/wrenbind17/mermaid/mermaid.js?1580772582"></script>
+    <link href="/wrenbind17/mermaid/mermaid.css?1580849334" rel="stylesheet" />
+    <script src="/wrenbind17/mermaid/mermaid.js?1580849334"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

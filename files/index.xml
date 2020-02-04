@@ -17,7 +17,7 @@
       
       <guid>https://matusnovak.github.io/wrenbind17/files/dir_d44c64559bbebec7f509842c48db8b23/</guid>
       <description>include Dir Reference
-Directories    Name     include/wrenbind17    Updated on 3 February 2020 at 23:29:42 UTC</description>
+Directories    Name     include/wrenbind17    Updated on 4 February 2020 at 20:48:53 UTC</description>
     </item>
     
     <item>
@@ -27,7 +27,7 @@ Directories    Name     include/wrenbind17    Updated on 3 February 2020 at 23:2
       
       <guid>https://matusnovak.github.io/wrenbind17/files/dir_0603dac12b22d4faefe24b335e5b06be/</guid>
       <description>include/wrenbind17 Dir Reference
-Files    Name     include/wrenbind17/wrenbind17.hpp   include/wrenbind17/vm.hpp   include/wrenbind17/variable.hpp   include/wrenbind17/std.hpp   include/wrenbind17/push.hpp   include/wrenbind17/pop.hpp   include/wrenbind17/object.hpp   include/wrenbind17/module.hpp   include/wrenbind17/method.hpp   include/wrenbind17/index.hpp   include/wrenbind17/handle.hpp   include/wrenbind17/foreign.hpp   include/wrenbind17/exception.hpp   include/wrenbind17/caller.hpp   include/wrenbind17/any.hpp   include/wrenbind17/allocator.hpp    Updated on 3 February 2020 at 23:29:42 UTC</description>
+Files    Name     include/wrenbind17/wrenbind17.hpp   include/wrenbind17/vm.hpp   include/wrenbind17/variable.hpp   include/wrenbind17/std.hpp   include/wrenbind17/push.hpp   include/wrenbind17/pop.hpp   include/wrenbind17/object.hpp   include/wrenbind17/module.hpp   include/wrenbind17/method.hpp   include/wrenbind17/index.hpp   include/wrenbind17/handle.hpp   include/wrenbind17/foreign.hpp   include/wrenbind17/exception.hpp   include/wrenbind17/caller.hpp   include/wrenbind17/any.hpp   include/wrenbind17/allocator.hpp    Updated on 4 February 2020 at 20:48:53 UTC</description>
     </item>
     
     <item>
@@ -187,7 +187,7 @@ Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::VM  
       
       <guid>https://matusnovak.github.io/wrenbind17/files/wrenbind17_8hpp/</guid>
       <description>include/wrenbind17/wrenbind17.hpp File Reference
-Source code #pragma once  #include &amp;#34;vm.hpp&amp;#34; Updated on 3 February 2020 at 23:29:42 UTC</description>
+Source code #pragma once  #include &amp;#34;vm.hpp&amp;#34; Updated on 4 February 2020 at 20:48:53 UTC</description>
     </item>
     
   </channel>
