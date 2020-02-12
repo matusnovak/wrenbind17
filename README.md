@@ -17,7 +17,7 @@ WrenBind17 is a C++17 wrapper for [Wren programming language](http://wren.io/). 
 * [Upcasting to base types when passing C++ instances](https://matusnovak.github.io/wrenbind17/tutorial/upcasting.html).
 * Memory leak tested.
 * Supports `std::variant`.
-* Supports `std::vector` and `std::list` via helper classes (optional).
+* Supports [std::map std::unordered_map](https://matusnovak.github.io/wrenbind17/tutorial/maps/) and [std::vector std::list](https://matusnovak.github.io/wrenbind17/tutorial/lists/) via helper classes (optional).
 * [Easy binding of operators](https://matusnovak.github.io/wrenbind17/tutorial/overload-operators.html) such as `+`, `-`, `[]`, etc.
 * [Long but easy to follow tutorial](https://matusnovak.github.io/wrenbind17/tutorial/installation.html).
 * [Supports Fn.new{}](https://matusnovak.github.io/wrenbind17/tutorial/callbacks.html).
@@ -33,7 +33,7 @@ WrenBind17 is a C++17 wrapper for [Wren programming language](http://wren.io/). 
 
 * Lambdas (very tricky due to passing function pointers, most likely not ever be implemented).
 * `..`, `...`, and `is` operator binding.
-* Helper classes for binding `std::queue`, `std::deque`, `std::stack`, `std::set`, `std::unordered_set`, `std::map`, and `std::unordered_map`.
+* Helper classes for binding `std::queue`, `std::deque`, `std::stack`, `std::set`, and `std::unordered_set`.
 
 
 ## Example
