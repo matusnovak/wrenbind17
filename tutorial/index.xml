@@ -167,6 +167,15 @@ import &amp;#34;std&amp;#34; for VectorInt var v = VectorInt.new() v.add(42) // 
     </item>
     
     <item>
+      <title>Maps</title>
+      <link>https://matusnovak.github.io/wrenbind17/tutorial/maps/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matusnovak.github.io/wrenbind17/tutorial/maps/</guid>
+      <description>Pre-made STL map and unordered_map bindings Native Wren maps cannot be accessed within C++. There is some work being done here: wren-lang/wren#725 but at the moment it is not in the release version of Wren. As an alternative, WrenBind17 provides a sample wrapper for std::map and std::unordered_map. This also includes support for std::variant as the map value type. The provided wrappers are StdMapBindings&amp;lt;K, T&amp;gt; and StdUnorderedMapBindings&amp;lt;K, T&amp;gt; where K is the key type (for example an std::string) and the T is the value type which can be anything including a variant.</description>
+    </item>
+    
+    <item>
       <title>Pass multiple types to C&#43;&#43;</title>
       <link>https://matusnovak.github.io/wrenbind17/tutorial/variant/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

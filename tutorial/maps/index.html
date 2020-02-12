@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/wrenbind17/images/favicon.png" type="image/png">
 
-    <title>include/wrenbind17/index.hpp :: WrenBind17</title>
+    <title>Maps :: WrenBind17</title>
 
     
     <link href="/wrenbind17/css/nucleus.css?1581541233" rel="stylesheet">
@@ -33,7 +33,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/wrenbind17/files/index_8hpp/">
+  <body class="" data-url="/wrenbind17/tutorial/maps/">
     <nav id="sidebar" class="">
 
 
@@ -524,7 +524,7 @@
   
     
     <li data-nav-id="/wrenbind17/files/" title="Files" class="dd-item 
-        parent
+        
         
         
         ">
@@ -700,7 +700,7 @@
  
   
     
-      <li data-nav-id="/wrenbind17/files/index_8hpp/" title="include/wrenbind17/index.hpp" class="dd-item active">
+      <li data-nav-id="/wrenbind17/files/index_8hpp/" title="include/wrenbind17/index.hpp" class="dd-item ">
         <a href="/wrenbind17/files/index_8hpp/">
         include/wrenbind17/index.hpp
         
@@ -1000,7 +1000,7 @@
   
     
     <li data-nav-id="/wrenbind17/tutorial/" title="Tutorial" class="dd-item 
-        
+        parent
         
         
         ">
@@ -1309,7 +1309,7 @@
  
   
     
-      <li data-nav-id="/wrenbind17/tutorial/maps/" title="Maps" class="dd-item ">
+      <li data-nav-id="/wrenbind17/tutorial/maps/" title="Maps" class="dd-item active">
         <a href="/wrenbind17/tutorial/maps/">
         Maps
         
@@ -1427,7 +1427,7 @@
             
           
           
-            <a href='/wrenbind17/'>WrenBind17</a> > <a href='/wrenbind17/files/'>Files</a> > include/wrenbind17/index.hpp
+            <a href='/wrenbind17/'>WrenBind17</a> > <a href='/wrenbind17/tutorial/'>Tutorial</a> > Maps
           
          
           
@@ -1444,8 +1444,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#namespaces">Namespaces</a></li>
-<li><a href="#source-code">Source code</a></li>
+<li><a href="#pre-made-stl-map-and-unordered-map-bindings">Pre-made STL map and unordered_map bindings</a></li>
+<li><a href="#maps-with-variant-value-type">Maps with variant value type</a></li>
+<li><a href="#custom-maps">Custom maps</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1464,7 +1465,7 @@
           
             <h1>
               
-              include/wrenbind17/index.hpp
+              Maps
             </h1>
           
 
@@ -1474,58 +1475,232 @@
 
 
 
-<p><strong>include/wrenbind17/index.hpp File Reference</strong></p>
+<h2 id="pre-made-stl-map-and-unordered-map-bindings">Pre-made STL map and unordered_map bindings</h2>
 
-<h2 id="namespaces">Namespaces</h2>
+<p>Native Wren maps cannot be accessed within C++. There is some work being done here: <a href="https://github.com/wren-lang/wren/pull/725">wren-lang/wren#725</a> but at the moment it is not in the release version of Wren. As an alternative, WrenBind17 provides a sample wrapper for <code>std::map</code> and <code>std::unordered_map</code>. This also includes support for <code>std::variant</code> as the map value type. The provided wrappers are <code>StdMapBindings&lt;K, T&gt;</code> and <code>StdUnorderedMapBindings&lt;K, T&gt;</code> where K is the key type (for example an <code>std::string</code>) and the T is the value type which can be anything including a variant.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;std&#34;</span>);
+wren<span style="color:#f92672">::</span>StdUnorderedMapBindings<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;::</span>bind(m, <span style="color:#e6db74">&#34;MapOfStrings&#34;</span>);
+</code></pre></div>
+<p>And the Wren code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;std&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">MapOfStrings</span>
 
-<table>
-<thead>
-<tr>
-<th>Name</th>
-</tr>
-</thead>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">map</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">MapOfStrings</span>.<span style="color:#66d9ef">new</span>()
 
-<tbody>
-<tr>
-<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/">wrenbind17</a></strong></td>
-</tr>
-</tbody>
-</table>
+<span style="color:#75715e">// Set the value using [] operator
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;hello&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;world&#34;</span> 
 
-<h2 id="source-code">Source code</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#pragma once
+<span style="color:#75715e">// Access the value
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;hello&#34;</span>]
+
+<span style="color:#75715e">// Exactly same as in std::map::operator[]
+</span><span style="color:#75715e">// If the key does not exist, then it is created
+</span><span style="color:#75715e">// using the default value.
+</span><span style="color:#75715e">// So &#34;value2&#34; becomes empty string!
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">value2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;nonexisting_key&#34;</span>]
+
+<span style="color:#75715e">// Removes value by key and returns the value removed.
+</span><span style="color:#75715e">// If the key does not exist, the returned value is null.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">removed</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">remove</span>(<span style="color:#e6db74">&#34;hello&#34;</span>)  
+
+<span style="color:#75715e">// Check if the key exists
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">containsKey</span>(<span style="color:#e6db74">&#34;hello&#34;</span>)) {
+    <span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;Key exists&#34;</span>)
+}
+
+<span style="color:#75715e">// Clears the map, removing all elements.
+</span><span style="color:#75715e">// Same as std::map::clear()
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">clear</span>()
+
+<span style="color:#75715e">// Get the number of elements in the map.
+</span><span style="color:#75715e">// Both the function size() and the property count do the same thing.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">total</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">size</span>()
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">total</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">count</span>
+
+<span style="color:#75715e">// Check if the map is empty
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">empty</span>()) {
+    <span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;There is nothing in the map!&#34;</span>)
+}
+
+<span style="color:#75715e">// Iterate over the map.
+</span><span style="color:#75715e">// The map has an iterator of std::map&lt;K, T&gt;::iterator which
+</span><span style="color:#75715e">// returns std::pair&lt;K, T&gt; pairs.
+</span><span style="color:#75715e">// So to access the key you have to use the key property of the pair.
+</span><span style="color:#75715e">// And the same goes for the value.
+</span><span style="color:#75715e">// This is exactly the same behavior as iterating over the map in C++
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">pair</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">map</span>) {
+    <span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;Key: %(pair.key) value: %(pair.value)&#34;</span>)
+}
+</code></pre></div>
+
+<div class="notices note" ><p>I highly recommend going through <code>wrenbind17/include/wrenbind17/std.hpp</code> to see how exactly this works.</p>
+</div>
+
+
+<h2 id="maps-with-variant-value-type">Maps with variant value type</h2>
+
+<p>Sometimes you need more than one type inside of the map, something like a Json. To do that, you can use the <code>std::variant</code> as the map mapped type. An example below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">bool</span>, std<span style="color:#f92672">::</span>string, std<span style="color:#f92672">::</span>nullptr_t<span style="color:#f92672">&gt;</span> Multitype;
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FooClass</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    ...
+
+    <span style="color:#66d9ef">void</span> useMap(std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, Multitype<span style="color:#f92672">&gt;&amp;</span> map) {
+        <span style="color:#75715e">// Get the Multitype value by the key
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> multitype <span style="color:#f92672">=</span> map[<span style="color:#e6db74">&#34;string&#34;</span>]
+
+         <span style="color:#75715e">// Get std::string from the variant.
+</span><span style="color:#75715e"></span>         <span style="color:#75715e">// Because std::string is the 3rd template argument
+</span><span style="color:#75715e"></span>         <span style="color:#75715e">// of the std::variant Multitype, then we 
+</span><span style="color:#75715e"></span>         <span style="color:#75715e">// need to use std::get&lt;index&gt; to access the type!
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> str <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">2</span><span style="color:#f92672">&gt;</span>(multitype);
+    }
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    Wren<span style="color:#f92672">::</span>VM vm;
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;std&#34;</span>);
+    wren<span style="color:#f92672">::</span>StdUnorderedMapBindings<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, Multitype<span style="color:#f92672">&gt;::</span>bind(m, <span style="color:#e6db74">&#34;MapOfMultitypes&#34;</span>);
+
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>FooClass<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;FooClass&#34;</span>);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>FooClass<span style="color:#f92672">::</span>useMap<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;useMap&#34;</span>);
+
+    vm.runFromSource(...);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div>
+<p>And the Wren code for the above map of variants:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;std&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">MapOfMultitypes</span>, <span style="color:#a6e22e">FooClass</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">map</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">MapOfMultitypes</span>.<span style="color:#66d9ef">new</span>()
+<span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;string&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;world&#34;</span>
+<span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;int&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">123456</span>
+<span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;null&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span> <span style="color:#75715e">// Will become std::nullptr_t
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;boolean&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+
+<span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">pair</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">map</span>) {
+    <span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;Key: %(pair.key) value: %(pair.value)&#34;</span>)
+}
+
+<span style="color:#75715e">// Pass the foo to some custom class
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">FooClass</span>.<span style="color:#66d9ef">new</span>()
+<span style="color:#a6e22e">foo</span>.<span style="color:#a6e22e">useMap</span>(<span style="color:#a6e22e">map</span>)
+</code></pre></div>
+<h2 id="custom-maps">Custom maps</h2>
+
+<p>To create a custom map you will need to implement the <a href="http://wren.io/control-flow.html#the-iterator-protocol">Iterator Protocol</a> and the <code>[]</code> operator.</p>
+
+<p>Let&rsquo;s start with the basics, create a wren VM and add register the map (with the key and value types defined!) to the Wren. You can&rsquo;t create a generic map, Wren does not support that. If you want to have different map types with different key types or value types, you will need to do this multiple times. That&rsquo;s what <code>StdMapBindings&lt;K, T&gt;</code> and <code>StdUnorderedMapBindings&lt;K, T&gt;</code> are designed for.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> MapOfInts;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    wren<span style="color:#f92672">::</span>VM vm;
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>MapOfInts<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;MapOfInts&#34;</span>);
+    cls.ctor(); <span style="color:#75715e">// Empty default constructor
 </span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">namespace</span> wrenbind17 {
-<span style="color:#75715e">#ifndef DOXYGEN_SHOULD_SKIP_THIS
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">namespace</span> detail {
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span>size_t... Is<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">index_list</span> {};
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div>
+<p>Now, the iterator and iterator value. This is based on the Wren requirements to implement a class that can be iterated. See <a href="http://wren.io/control-flow.html#the-iterator-protocol">Iterator Protocol</a> for more information.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span>, MapOfInts<span style="color:#f92672">::</span>iterator<span style="color:#f92672">&gt;</span> iterate(
+        MapOfInts<span style="color:#f92672">&amp;</span> self, 
+        std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>nullptr_t, MapOfInts<span style="color:#f92672">::</span>iterator<span style="color:#f92672">&gt;</span> other) {
 
-        <span style="color:#75715e">// Declare primary template for index range builder
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span>size_t MIN, size_t N, size_t... Is<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">range_builder</span>;
+    <span style="color:#75715e">// If the variant holds &#34;1&#34; then the value being hold is a MapOfInts::iterator
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (other.index() <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+        <span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span>MapOfInts<span style="color:#f92672">::</span>iterator<span style="color:#f92672">&gt;</span>(other);
+        <span style="color:#f92672">++</span>it;
+        <span style="color:#66d9ef">if</span> (it <span style="color:#f92672">!=</span> self.end()) {
+            <span style="color:#66d9ef">return</span> {it};
+        }
 
-        <span style="color:#75715e">// Base step
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span>size_t MIN, size_t... Is<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">range_builder</span><span style="color:#f92672">&lt;</span>MIN, MIN, Is...<span style="color:#f92672">&gt;</span> {
-            <span style="color:#66d9ef">typedef</span> index_list<span style="color:#f92672">&lt;</span>Is...<span style="color:#f92672">&gt;</span> type;
-        };
+        <span style="color:#66d9ef">return</span> {false};
+    } 
+    <span style="color:#75715e">// Otherwise the variant holds &#34;0&#34; therfore a null
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">else</span> {
+        <span style="color:#66d9ef">return</span> {self.begin()};
+    }
+}
 
-        <span style="color:#75715e">// Induction step
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span>size_t MIN, size_t N, size_t... Is<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">range_builder</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> range_builder<span style="color:#f92672">&lt;</span>MIN, N <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, N <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, Is...<span style="color:#f92672">&gt;</span> {};
+<span style="color:#75715e">// The &#34;value_type&#34; is the std::pair&lt;K, T&gt; of the MapOfInts
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> MapOfInts<span style="color:#f92672">::</span>value_type iteratorValue(
+        MapOfInts<span style="color:#f92672">&amp;</span> self, 
+        std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>MapOfInts<span style="color:#f92672">::</span>iterator<span style="color:#f92672">&gt;</span> other) {
 
-        <span style="color:#75715e">// Meta-function that returns a [MIN, MAX) index range
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span>size_t MIN, size_t MAX<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">using</span> index_range <span style="color:#f92672">=</span> <span style="color:#66d9ef">typename</span> detail<span style="color:#f92672">::</span>range_builder<span style="color:#f92672">&lt;</span>MIN, MAX<span style="color:#f92672">&gt;::</span>type;
-    } <span style="color:#75715e">// namespace detail
-</span><span style="color:#75715e"></span><span style="color:#75715e">#endif
-</span><span style="color:#75715e"></span>} <span style="color:#75715e">// namespace wrenbind17
-</span></code></pre></div>
-<hr />
+    <span style="color:#75715e">// This simply returns the iterator value which is the std::pair
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> it <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>other;
+    <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>it;
+}
+</code></pre></div>
+<p>You will also need these two functions to access the key and the value type of the pairs during iteration.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// The &#34;key_type&#34; is the std::string and &#34;mapped_type&#34; is the int
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> MapOfInts<span style="color:#f92672">::</span>key_type<span style="color:#f92672">&amp;</span> pairKey(MapOfInts<span style="color:#f92672">::</span>value_type<span style="color:#f92672">&amp;</span> pair) {
+    <span style="color:#66d9ef">return</span> pair.first;
+}
 
-<p>Updated on 12 February 2020 at 21:00:33 UTC</p>
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> MapOfInts<span style="color:#f92672">::</span>mapped_type<span style="color:#f92672">&amp;</span> pairValue(MapOfInts<span style="color:#f92672">::</span>value_type<span style="color:#f92672">&amp;</span> pair) {
+    <span style="color:#66d9ef">return</span> pair.second;
+}
+</code></pre></div>
+<p>Furthemore accessing or setting the values by key using the operator <code>[]</code> can be done as the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setIndex</span>(MapOfInts<span style="color:#f92672">&amp;</span> self, <span style="color:#66d9ef">const</span> MapOfInts<span style="color:#f92672">::</span>key_type<span style="color:#f92672">&amp;</span> key, MapOfInts<span style="color:#f92672">::</span>mapped_type value) {
+    self[key] <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>move(value);
+}
 
+<span style="color:#66d9ef">static</span> MapOfInts<span style="color:#f92672">::</span>mapped_type<span style="color:#f92672">&amp;</span> getIndex(MapOfInts<span style="color:#f92672">&amp;</span> self, <span style="color:#66d9ef">const</span> MapOfInts<span style="color:#f92672">::</span>key_type<span style="color:#f92672">&amp;</span> key) {
+    <span style="color:#66d9ef">return</span> self[key];
+}
+</code></pre></div>
+<p>You will have to then bind these functions above to the MapOfInts class.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> MapOfInts;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    wren<span style="color:#f92672">::</span>VM vm;
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>MapOfInts<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;MapOfInts&#34;</span>);
+    cls.ctor(); <span style="color:#75715e">// Empty default constructor
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// These two functions must be named exactly like this, Wren requires these names.
+</span><span style="color:#75715e"></span>    cls.funcExt<span style="color:#f92672">&lt;&amp;</span>iterate<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;iterate&#34;</span>);
+    cls.funcExt<span style="color:#f92672">&lt;&amp;</span>iteratorValue<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;iteratorValue&#34;</span>);
+
+    <span style="color:#75715e">// These two functions add the operator [] functionality.
+</span><span style="color:#75715e"></span>    cls.funcExt<span style="color:#f92672">&lt;&amp;</span>getIndex<span style="color:#f92672">&gt;</span>(wren<span style="color:#f92672">::</span>ForeignMethodOperator<span style="color:#f92672">::</span>OPERATOR_GET_INDEX);
+    cls.funcExt<span style="color:#f92672">&lt;&amp;</span>setIndex<span style="color:#f92672">&gt;</span>(wren<span style="color:#f92672">::</span>ForeignMethodOperator<span style="color:#f92672">::</span>OPERATOR_SET_INDEX);
+
+    <span style="color:#75715e">// Bind the iterator of this map, without this
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// you cannot pass the iterator between Wren and C++
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> iter <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>MapOfInts<span style="color:#f92672">::</span>iterator<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;MapOfIntsIter&#34;</span>);
+    iter.ctor();
+
+    <span style="color:#75715e">// Bind the pair of this map too. You need this
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// so you can access the keys and values during iteration.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> pair <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>MapOfInts<span style="color:#f92672">::</span>value_type<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;MapOfIntsPair&#34;</span>);
+    pair.propReadonlyExt<span style="color:#f92672">&lt;&amp;</span>pairKey<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;key&#34;</span>);
+    pair.propReadonlyExt<span style="color:#f92672">&lt;&amp;</span>pairValue<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;value&#34;</span>);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div>
+<p>Sample Wren usage:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;mymodule&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">MapOfInts</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">map</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">MapOfInts</span>.<span style="color:#66d9ef">new</span>()
+
+<span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;first&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">123</span>
+<span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;second&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">456</span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;second&#34;</span>]
+
+
+<span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">pair</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">map</span>) {
+    <span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;Key: %(pair.key) value: %(pair.value)&#34;</span>)
+}
+</code></pre></div>
 
 <footer class=" footline" >
 	
@@ -1934,382 +2109,6 @@
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
                 
                 
 
@@ -2578,6 +2377,382 @@
             
             
                 
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -2618,10 +2793,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/wrenbind17/files/handle_8hpp/" title="include/wrenbind17/handle.hpp"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/wrenbind17/tutorial/lists/" title="Lists"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/wrenbind17/files/method_8hpp/" title="include/wrenbind17/method.hpp" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/wrenbind17/tutorial/variant/" title="Pass multiple types to C&#43;&#43;" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -2631,19 +2806,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/wrenbind17/js/clipboard.min.js?1581541233"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1581541233"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1581541233"></script>
-    <script src="/wrenbind17/js/jquery.sticky.js?1581541233"></script>
-    <script src="/wrenbind17/js/featherlight.min.js?1581541233"></script>
-    <script src="/wrenbind17/js/highlight.pack.js?1581541233"></script>
+    <script src="/wrenbind17/js/clipboard.min.js?1581541234"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1581541234"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1581541234"></script>
+    <script src="/wrenbind17/js/jquery.sticky.js?1581541234"></script>
+    <script src="/wrenbind17/js/featherlight.min.js?1581541234"></script>
+    <script src="/wrenbind17/js/highlight.pack.js?1581541234"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1581541233"></script>
-    <script src="/wrenbind17/js/learn.js?1581541233"></script>
-    <script src="/wrenbind17/js/hugo-learn.js?1581541233"></script>
+    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1581541234"></script>
+    <script src="/wrenbind17/js/learn.js?1581541234"></script>
+    <script src="/wrenbind17/js/hugo-learn.js?1581541234"></script>
 
-    <link href="/wrenbind17/mermaid/mermaid.css?1581541233" rel="stylesheet" />
-    <script src="/wrenbind17/mermaid/mermaid.js?1581541233"></script>
+    <link href="/wrenbind17/mermaid/mermaid.css?1581541234" rel="stylesheet" />
+    <script src="/wrenbind17/mermaid/mermaid.js?1581541234"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

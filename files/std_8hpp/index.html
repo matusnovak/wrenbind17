@@ -12,18 +12,18 @@
     <title>include/wrenbind17/std.hpp :: WrenBind17</title>
 
     
-    <link href="/wrenbind17/css/nucleus.css?1580849333" rel="stylesheet">
-    <link href="/wrenbind17/css/fontawesome-all.min.css?1580849333" rel="stylesheet">
-    <link href="/wrenbind17/css/hybrid.css?1580849333" rel="stylesheet">
-    <link href="/wrenbind17/css/featherlight.min.css?1580849333" rel="stylesheet">
-    <link href="/wrenbind17/css/perfect-scrollbar.min.css?1580849333" rel="stylesheet">
-    <link href="/wrenbind17/css/auto-complete.css?1580849333" rel="stylesheet">
-    <link href="/wrenbind17/css/atom-one-dark-reasonable.css?1580849333" rel="stylesheet">
-    <link href="/wrenbind17/css/theme.css?1580849333" rel="stylesheet">
-    <link href="/wrenbind17/css/hugo-theme.css?1580849333" rel="stylesheet">
+    <link href="/wrenbind17/css/nucleus.css?1581541233" rel="stylesheet">
+    <link href="/wrenbind17/css/fontawesome-all.min.css?1581541233" rel="stylesheet">
+    <link href="/wrenbind17/css/hybrid.css?1581541233" rel="stylesheet">
+    <link href="/wrenbind17/css/featherlight.min.css?1581541233" rel="stylesheet">
+    <link href="/wrenbind17/css/perfect-scrollbar.min.css?1581541233" rel="stylesheet">
+    <link href="/wrenbind17/css/auto-complete.css?1581541233" rel="stylesheet">
+    <link href="/wrenbind17/css/atom-one-dark-reasonable.css?1581541233" rel="stylesheet">
+    <link href="/wrenbind17/css/theme.css?1581541233" rel="stylesheet">
+    <link href="/wrenbind17/css/hugo-theme.css?1581541233" rel="stylesheet">
     
 
-    <script src="/wrenbind17/js/jquery-3.3.1.min.js?1580849333"></script>
+    <script src="/wrenbind17/js/jquery-3.3.1.min.js?1581541233"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -50,14 +50,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/wrenbind17/js/lunr.min.js?1580849333"></script>
-<script type="text/javascript" src="/wrenbind17/js/auto-complete.js?1580849333"></script>
+<script type="text/javascript" src="/wrenbind17/js/lunr.min.js?1581541233"></script>
+<script type="text/javascript" src="/wrenbind17/js/auto-complete.js?1581541233"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/matusnovak.github.io\/wrenbind17";
     
 </script>
-<script type="text/javascript" src="/wrenbind17/js/search.js?1580849333"></script>
+<script type="text/javascript" src="/wrenbind17/js/search.js?1581541233"></script>
 
     
   </div>
@@ -90,6 +90,25 @@
           
           
         
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/" title="wrenbind17::AbstractMapBindings" class="dd-item ">
+        <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/">
+        wrenbind17::AbstractMapBindings
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
           
             
             
@@ -1290,6 +1309,25 @@
  
   
     
+      <li data-nav-id="/wrenbind17/tutorial/maps/" title="Maps" class="dd-item ">
+        <a href="/wrenbind17/tutorial/maps/">
+        Maps
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
       <li data-nav-id="/wrenbind17/tutorial/variant/" title="Pass multiple types to C&#43;&#43;" class="dd-item ">
         <a href="/wrenbind17/tutorial/variant/">
         Pass multiple types to C&#43;&#43;
@@ -1468,6 +1506,11 @@
 <tbody>
 <tr>
 <td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/">wrenbind17::AbstractMapBindings</a></strong></td>
+</tr>
+
+<tr>
+<td>class</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/">wrenbind17::StdListBindings</a></strong></td>
 </tr>
 
@@ -1481,13 +1524,14 @@
 <h2 id="source-code">Source code</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#pragma once
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;module.hpp&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;module.hpp&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;map&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unordered_map&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">namespace</span> wrenbind17 {
-    <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
-    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StdVectorBindings</span> {
+    <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StdVectorBindings</span> {
     <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
         <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>iterator Iterator;
         <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> Vector;
@@ -1534,7 +1578,7 @@
                 <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>move(ret);
             } <span style="color:#66d9ef">else</span> {
                 <span style="color:#66d9ef">if</span> (index <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) {
-                    index <span style="color:#f92672">=</span> self.size() <span style="color:#f92672">+</span> index;
+                    index <span style="color:#f92672">=</span> <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span>(self.size()) <span style="color:#f92672">+</span> index;
                 }
 
                 <span style="color:#66d9ef">if</span> (size_t(index) <span style="color:#f92672">&gt;</span> self.size()) {
@@ -1556,7 +1600,7 @@
                 self.push_back(std<span style="color:#f92672">::</span>move(value));
             } <span style="color:#66d9ef">else</span> {
                 <span style="color:#66d9ef">if</span> (index <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) {
-                    index <span style="color:#f92672">=</span> self.size() <span style="color:#f92672">+</span> index;
+                    index <span style="color:#f92672">=</span> <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span>(self.size()) <span style="color:#f92672">+</span> index;
                 }
 
                 <span style="color:#66d9ef">if</span> (size_t(index) <span style="color:#f92672">&gt;</span> self.size()) {
@@ -1588,13 +1632,17 @@
             <span style="color:#66d9ef">return</span> self.size();
         }
 
+        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">empty</span>(Vector<span style="color:#f92672">&amp;</span> self) {
+            <span style="color:#66d9ef">return</span> self.empty();
+        }
+
         <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bind</span>(ForeignModule<span style="color:#f92672">&amp;</span> m, <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> name) {
             <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> iter <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Iterator<span style="color:#f92672">&gt;</span>(name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;Iter&#34;</span>);
             iter.ctor();
 
             <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Vector<span style="color:#f92672">&gt;</span>(name);
             cls.ctor();
-            
+
             cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>StdVectorBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>getIndex<span style="color:#f92672">&gt;</span>(OPERATOR_GET_INDEX);
             cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>StdVectorBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>setIndex<span style="color:#f92672">&gt;</span>(OPERATOR_SET_INDEX);
             cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>StdVectorBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>add<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;add&#34;</span>);
@@ -1606,12 +1654,12 @@
             cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>StdVectorBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>pop<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;pop&#34;</span>);
             cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>StdVectorBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>clear<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;clear&#34;</span>);
             cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>StdVectorBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>size<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;size&#34;</span>);
+            cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>StdVectorBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>empty<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;empty&#34;</span>);
             cls.<span style="color:#66d9ef">template</span> propReadonlyExt<span style="color:#f92672">&lt;&amp;</span>StdVectorBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>count<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;count&#34;</span>);
         }
     };
 
-    <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
-    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StdListBindings</span> {
+    <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StdListBindings</span> {
     <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
         <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>iterator Iterator;
         <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> List;
@@ -1662,7 +1710,7 @@
                 <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>move(ret);
             } <span style="color:#66d9ef">else</span> {
                 <span style="color:#66d9ef">if</span> (index <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) {
-                    index <span style="color:#f92672">=</span> self.size() <span style="color:#f92672">+</span> index;
+                    index <span style="color:#f92672">=</span> <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span>(self.size()) <span style="color:#f92672">+</span> index;
                 }
 
                 <span style="color:#66d9ef">if</span> (size_t(index) <span style="color:#f92672">&gt;</span> self.size()) {
@@ -1686,7 +1734,7 @@
                 self.push_back(std<span style="color:#f92672">::</span>move(value));
             } <span style="color:#66d9ef">else</span> {
                 <span style="color:#66d9ef">if</span> (index <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) {
-                    index <span style="color:#f92672">=</span> self.size() <span style="color:#f92672">+</span> index;
+                    index <span style="color:#f92672">=</span> <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span>(self.size()) <span style="color:#f92672">+</span> index;
                 }
 
                 <span style="color:#66d9ef">if</span> (size_t(index) <span style="color:#f92672">&gt;</span> self.size()) {
@@ -1719,13 +1767,17 @@
             <span style="color:#66d9ef">return</span> self.size();
         }
 
+        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">empty</span>(List<span style="color:#f92672">&amp;</span> self) {
+            <span style="color:#66d9ef">return</span> self.empty();
+        }
+
         <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bind</span>(ForeignModule<span style="color:#f92672">&amp;</span> m, <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> name) {
             <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> iter <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Iterator<span style="color:#f92672">&gt;</span>(name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;Iter&#34;</span>);
             iter.ctor();
 
             <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>List<span style="color:#f92672">&gt;</span>(name);
             cls.ctor();
-            
+
             cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>StdListBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>getIndex<span style="color:#f92672">&gt;</span>(OPERATOR_GET_INDEX);
             cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>StdListBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>setIndex<span style="color:#f92672">&gt;</span>(OPERATOR_SET_INDEX);
             cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>StdListBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>add<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;add&#34;</span>);
@@ -1737,14 +1789,118 @@
             cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>StdListBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>pop<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;pop&#34;</span>);
             cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>StdListBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>clear<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;clear&#34;</span>);
             cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>StdListBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>size<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;size&#34;</span>);
+            cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>StdListBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>empty<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;empty&#34;</span>);
             cls.<span style="color:#66d9ef">template</span> propReadonlyExt<span style="color:#f92672">&lt;&amp;</span>StdListBindings<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>count<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;count&#34;</span>);
         }
     };
+
+    <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Map<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AbstractMapBindings</span> {
+    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">typename</span> Map<span style="color:#f92672">::</span>key_type K;
+        <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">typename</span> Map<span style="color:#f92672">::</span>mapped_type T;
+        <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">typename</span> Map<span style="color:#f92672">::</span>iterator Iterator;
+        <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">typename</span> Map<span style="color:#f92672">::</span>value_type Pair;
+
+        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setIndex</span>(Map<span style="color:#f92672">&amp;</span> self, <span style="color:#66d9ef">const</span> K<span style="color:#f92672">&amp;</span> key, T value) {
+            self[key] <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>move(value);
+        }
+
+        <span style="color:#66d9ef">static</span> T<span style="color:#f92672">&amp;</span> getIndex(Map<span style="color:#f92672">&amp;</span> self, <span style="color:#66d9ef">const</span> K<span style="color:#f92672">&amp;</span> key) {
+            <span style="color:#66d9ef">return</span> self[key];
+        }
+
+        <span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>T, std<span style="color:#f92672">::</span>nullptr_t<span style="color:#f92672">&gt;</span> remove(Map<span style="color:#f92672">&amp;</span> self, <span style="color:#66d9ef">const</span> K<span style="color:#f92672">&amp;</span> key) {
+            <span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> self.find(key);
+            <span style="color:#66d9ef">if</span> (it <span style="color:#f92672">!=</span> self.end()) {
+                <span style="color:#66d9ef">auto</span> ret <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>move(it<span style="color:#f92672">-&gt;</span>second);
+                self.erase(it);
+                <span style="color:#66d9ef">return</span> {ret};
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#66d9ef">return</span> {<span style="color:#66d9ef">nullptr</span>};
+            }
+        }
+
+        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">containsKey</span>(Map<span style="color:#f92672">&amp;</span> self, <span style="color:#66d9ef">const</span> K<span style="color:#f92672">&amp;</span> key) {
+            <span style="color:#66d9ef">return</span> self.find(key) <span style="color:#f92672">!=</span> self.end();
+        }
+
+        <span style="color:#66d9ef">static</span> size_t <span style="color:#a6e22e">count</span>(Map<span style="color:#f92672">&amp;</span> self) {
+            <span style="color:#66d9ef">return</span> self.size();
+        }
+
+        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">clear</span>(Map<span style="color:#f92672">&amp;</span> self) {
+            self.clear();
+        }
+
+        <span style="color:#66d9ef">static</span> size_t <span style="color:#a6e22e">size</span>(Map<span style="color:#f92672">&amp;</span> self) {
+            <span style="color:#66d9ef">return</span> self.size();
+        }
+
+        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">empty</span>(Map<span style="color:#f92672">&amp;</span> self) {
+            <span style="color:#66d9ef">return</span> self.empty();
+        }
+
+        <span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span>, Iterator<span style="color:#f92672">&gt;</span> iterate(Map<span style="color:#f92672">&amp;</span> self, std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>nullptr_t, Iterator<span style="color:#f92672">&gt;</span> other) {
+            <span style="color:#66d9ef">if</span> (other.index() <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+                <span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span>Iterator<span style="color:#f92672">&gt;</span>(other);
+                <span style="color:#f92672">++</span>it;
+                <span style="color:#66d9ef">if</span> (it <span style="color:#f92672">!=</span> self.end()) {
+                    <span style="color:#66d9ef">return</span> {it};
+                }
+
+                <span style="color:#66d9ef">return</span> {false};
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#66d9ef">return</span> {self.begin()};
+            }
+        }
+
+        <span style="color:#66d9ef">static</span> Pair <span style="color:#a6e22e">iteratorValue</span>(Map<span style="color:#f92672">&amp;</span> self, std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>Iterator<span style="color:#f92672">&gt;</span> other) {
+            <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> it <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>other;
+            <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>it;
+        }
+
+        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> K<span style="color:#f92672">&amp;</span> pairKey(Pair<span style="color:#f92672">&amp;</span> pair) {
+            <span style="color:#66d9ef">return</span> pair.first;
+        }
+
+        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> pairValue(Pair<span style="color:#f92672">&amp;</span> pair) {
+            <span style="color:#66d9ef">return</span> pair.second;
+        }
+
+        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bind</span>(ForeignModule<span style="color:#f92672">&amp;</span> m, <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> name) {
+            <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> pair <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Pair<span style="color:#f92672">&gt;</span>(name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;Pair&#34;</span>);
+            pair.<span style="color:#66d9ef">template</span> propReadonlyExt<span style="color:#f92672">&lt;&amp;</span>AbstractMapBindings<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&gt;::</span>pairKey<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;key&#34;</span>);
+            pair.<span style="color:#66d9ef">template</span> propReadonlyExt<span style="color:#f92672">&lt;&amp;</span>AbstractMapBindings<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&gt;::</span>pairValue<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;value&#34;</span>);
+
+            <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> iter <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Iterator<span style="color:#f92672">&gt;</span>(name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;Iter&#34;</span>);
+            iter.ctor();
+            
+            <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&gt;</span>(name);
+            cls.ctor();
+
+            cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>AbstractMapBindings<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&gt;::</span>getIndex<span style="color:#f92672">&gt;</span>(OPERATOR_GET_INDEX);
+            cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>AbstractMapBindings<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&gt;::</span>setIndex<span style="color:#f92672">&gt;</span>(OPERATOR_SET_INDEX);
+            cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>AbstractMapBindings<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&gt;::</span>remove<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;remove&#34;</span>);
+            cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>AbstractMapBindings<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&gt;::</span>containsKey<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;containsKey&#34;</span>);
+            cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>AbstractMapBindings<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&gt;::</span>iterate<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;iterate&#34;</span>);
+            cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>AbstractMapBindings<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&gt;::</span>iteratorValue<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;iteratorValue&#34;</span>);
+            cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>AbstractMapBindings<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&gt;::</span>clear<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;clear&#34;</span>);
+            cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>AbstractMapBindings<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&gt;::</span>size<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;size&#34;</span>);
+            cls.<span style="color:#66d9ef">template</span> funcExt<span style="color:#f92672">&lt;&amp;</span>AbstractMapBindings<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&gt;::</span>empty<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;empty&#34;</span>);
+            cls.<span style="color:#66d9ef">template</span> propReadonlyExt<span style="color:#f92672">&lt;&amp;</span>AbstractMapBindings<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&gt;::</span>count<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;count&#34;</span>);
+        }
+    };
+
+    <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> K, <span style="color:#66d9ef">typename</span> V<span style="color:#f92672">&gt;</span>
+    <span style="color:#66d9ef">using</span> StdMapBindings <span style="color:#f92672">=</span> AbstractMapBindings<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>map<span style="color:#f92672">&lt;</span>K, V<span style="color:#f92672">&gt;&gt;</span>;
+
+    <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> K, <span style="color:#66d9ef">typename</span> V<span style="color:#f92672">&gt;</span>
+    <span style="color:#66d9ef">using</span> StdUnorderedMapBindings <span style="color:#f92672">=</span> AbstractMapBindings<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span>K, V<span style="color:#f92672">&gt;&gt;</span>;
 } <span style="color:#75715e">// namespace wrenbind17
 </span></code></pre></div>
 <hr />
 
-<p>Updated on  4 February 2020 at 20:48:53 UTC</p>
+<p>Updated on 12 February 2020 at 21:00:33 UTC</p>
 
 
 <footer class=" footline" >
@@ -2130,6 +2286,22 @@
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
                     
@@ -2154,38 +2326,6 @@
                     
                         
                         
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -2379,6 +2519,38 @@
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
                     
                 
                 
@@ -2521,6 +2693,22 @@
                     
                     
 
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
                     
                         
             
@@ -2819,19 +3007,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/wrenbind17/js/clipboard.min.js?1580849334"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1580849334"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1580849334"></script>
-    <script src="/wrenbind17/js/jquery.sticky.js?1580849334"></script>
-    <script src="/wrenbind17/js/featherlight.min.js?1580849334"></script>
-    <script src="/wrenbind17/js/highlight.pack.js?1580849334"></script>
+    <script src="/wrenbind17/js/clipboard.min.js?1581541234"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1581541234"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1581541234"></script>
+    <script src="/wrenbind17/js/jquery.sticky.js?1581541234"></script>
+    <script src="/wrenbind17/js/featherlight.min.js?1581541234"></script>
+    <script src="/wrenbind17/js/highlight.pack.js?1581541234"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1580849334"></script>
-    <script src="/wrenbind17/js/learn.js?1580849334"></script>
-    <script src="/wrenbind17/js/hugo-learn.js?1580849334"></script>
+    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1581541234"></script>
+    <script src="/wrenbind17/js/learn.js?1581541234"></script>
+    <script src="/wrenbind17/js/hugo-learn.js?1581541234"></script>
 
-    <link href="/wrenbind17/mermaid/mermaid.css?1580849334" rel="stylesheet" />
-    <script src="/wrenbind17/mermaid/mermaid.js?1580849334"></script>
+    <link href="/wrenbind17/mermaid/mermaid.css?1581541234" rel="stylesheet" />
+    <script src="/wrenbind17/mermaid/mermaid.js?1581541234"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

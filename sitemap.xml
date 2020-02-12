@@ -63,6 +63,10 @@
   </url>
   
   <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/maps/</loc>
+  </url>
+  
+  <url>
     <loc>https://matusnovak.github.io/wrenbind17/tutorial/variant/</loc>
   </url>
   
@@ -180,6 +184,10 @@
   
   <url>
     <loc>https://matusnovak.github.io/wrenbind17/namespaces/namespacewrenbind17/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/</loc>
   </url>
   
   <url>

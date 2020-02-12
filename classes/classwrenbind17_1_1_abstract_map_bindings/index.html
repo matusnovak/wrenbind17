@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/wrenbind17/images/favicon.png" type="image/png">
 
-    <title>include/wrenbind17/index.hpp :: WrenBind17</title>
+    <title>wrenbind17::AbstractMapBindings :: WrenBind17</title>
 
     
     <link href="/wrenbind17/css/nucleus.css?1581541233" rel="stylesheet">
@@ -33,7 +33,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/wrenbind17/files/index_8hpp/">
+  <body class="" data-url="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/">
     <nav id="sidebar" class="">
 
 
@@ -74,7 +74,7 @@
   
     
     <li data-nav-id="/wrenbind17/classes/" title="Classes" class="dd-item 
-        
+        parent
         
         
         ">
@@ -98,7 +98,7 @@
  
   
     
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/" title="wrenbind17::AbstractMapBindings" class="dd-item ">
+      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/" title="wrenbind17::AbstractMapBindings" class="dd-item active">
         <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/">
         wrenbind17::AbstractMapBindings
         
@@ -524,7 +524,7 @@
   
     
     <li data-nav-id="/wrenbind17/files/" title="Files" class="dd-item 
-        parent
+        
         
         
         ">
@@ -700,7 +700,7 @@
  
   
     
-      <li data-nav-id="/wrenbind17/files/index_8hpp/" title="include/wrenbind17/index.hpp" class="dd-item active">
+      <li data-nav-id="/wrenbind17/files/index_8hpp/" title="include/wrenbind17/index.hpp" class="dd-item ">
         <a href="/wrenbind17/files/index_8hpp/">
         include/wrenbind17/index.hpp
         
@@ -1427,7 +1427,7 @@
             
           
           
-            <a href='/wrenbind17/'>WrenBind17</a> > <a href='/wrenbind17/files/'>Files</a> > include/wrenbind17/index.hpp
+            <a href='/wrenbind17/'>WrenBind17</a> > <a href='/wrenbind17/classes/'>Classes</a> > wrenbind17::AbstractMapBindings
           
          
           
@@ -1444,8 +1444,32 @@
 <ul>
 <li>
 <ul>
-<li><a href="#namespaces">Namespaces</a></li>
-<li><a href="#source-code">Source code</a></li>
+<li><a href="#public-types">Public Types</a></li>
+<li><a href="#public-functions">Public Functions</a></li>
+<li><a href="#detailed-description">Detailed Description</a></li>
+<li><a href="#public-types-documentation">Public Types Documentation</a>
+<ul>
+<li><a href="#typedef-pair">typedef Pair</a></li>
+<li><a href="#typedef-iterator">typedef Iterator</a></li>
+<li><a href="#typedef-t">typedef T</a></li>
+<li><a href="#typedef-k">typedef K</a></li>
+</ul></li>
+<li><a href="#public-functions-documentation">Public Functions Documentation</a>
+<ul>
+<li><a href="#function-bind">function bind</a></li>
+<li><a href="#function-pairvalue">function pairValue</a></li>
+<li><a href="#function-pairkey">function pairKey</a></li>
+<li><a href="#function-iteratorvalue">function iteratorValue</a></li>
+<li><a href="#function-iterate">function iterate</a></li>
+<li><a href="#function-empty">function empty</a></li>
+<li><a href="#function-size">function size</a></li>
+<li><a href="#function-clear">function clear</a></li>
+<li><a href="#function-count">function count</a></li>
+<li><a href="#function-containskey">function containsKey</a></li>
+<li><a href="#function-remove">function remove</a></li>
+<li><a href="#function-getindex">function getIndex</a></li>
+<li><a href="#function-setindex">function setIndex</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -1464,7 +1488,7 @@
           
             <h1>
               
-              include/wrenbind17/index.hpp
+              wrenbind17::AbstractMapBindings
             </h1>
           
 
@@ -1474,54 +1498,216 @@
 
 
 
-<p><strong>include/wrenbind17/index.hpp File Reference</strong></p>
+<p><strong>wrenbind17::AbstractMapBindings Class Reference</strong></p>
 
-<h2 id="namespaces">Namespaces</h2>
+<p><a href="#detailed-description">More&hellip;</a></p>
+
+<p><code>#include &lt;std.hpp&gt;</code></p>
+
+<h2 id="public-types">Public Types</h2>
 
 <table>
 <thead>
 <tr>
+<th></th>
 <th>Name</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/">wrenbind17</a></strong></td>
+<td>typedef Map::value_type</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-pair">Pair</a></strong></td>
+</tr>
+
+<tr>
+<td>typedef Map::iterator</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-iterator">Iterator</a></strong></td>
+</tr>
+
+<tr>
+<td>typedef Map::mapped_type</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-t">T</a></strong></td>
+</tr>
+
+<tr>
+<td>typedef Map::key_type</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-k">K</a></strong></td>
 </tr>
 </tbody>
 </table>
 
-<h2 id="source-code">Source code</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#pragma once
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">namespace</span> wrenbind17 {
-<span style="color:#75715e">#ifndef DOXYGEN_SHOULD_SKIP_THIS
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">namespace</span> detail {
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span>size_t... Is<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">index_list</span> {};
+<h2 id="public-functions">Public Functions</h2>
 
-        <span style="color:#75715e">// Declare primary template for index range builder
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span>size_t MIN, size_t N, size_t... Is<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">range_builder</span>;
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
 
-        <span style="color:#75715e">// Base step
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span>size_t MIN, size_t... Is<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">range_builder</span><span style="color:#f92672">&lt;</span>MIN, MIN, Is...<span style="color:#f92672">&gt;</span> {
-            <span style="color:#66d9ef">typedef</span> index_list<span style="color:#f92672">&lt;</span>Is...<span style="color:#f92672">&gt;</span> type;
-        };
+<tbody>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#function-bind">bind</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_module/">ForeignModule</a> &amp; m, const std::string &amp; name)</td>
+</tr>
 
-        <span style="color:#75715e">// Induction step
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span>size_t MIN, size_t N, size_t... Is<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">range_builder</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> range_builder<span style="color:#f92672">&lt;</span>MIN, N <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, N <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, Is...<span style="color:#f92672">&gt;</span> {};
+<tr>
+<td>const <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-t">T</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#function-pairvalue">pairValue</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-pair">Pair</a> &amp; pair)</td>
+</tr>
 
-        <span style="color:#75715e">// Meta-function that returns a [MIN, MAX) index range
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span>size_t MIN, size_t MAX<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">using</span> index_range <span style="color:#f92672">=</span> <span style="color:#66d9ef">typename</span> detail<span style="color:#f92672">::</span>range_builder<span style="color:#f92672">&lt;</span>MIN, MAX<span style="color:#f92672">&gt;::</span>type;
-    } <span style="color:#75715e">// namespace detail
-</span><span style="color:#75715e"></span><span style="color:#75715e">#endif
-</span><span style="color:#75715e"></span>} <span style="color:#75715e">// namespace wrenbind17
-</span></code></pre></div>
+<tr>
+<td>const <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-k">K</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#function-pairkey">pairKey</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-pair">Pair</a> &amp; pair)</td>
+</tr>
+
+<tr>
+<td><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-pair">Pair</a></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#function-iteratorvalue">iteratorValue</a></strong>(Map &amp; self, std::shared_ptr&lt; <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-iterator">Iterator</a> &gt; other)</td>
+</tr>
+
+<tr>
+<td>std::variant&lt; bool, <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-iterator">Iterator</a> &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#function-iterate">iterate</a></strong>(Map &amp; self, std::variant&lt; std::nullptr_t, <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-iterator">Iterator</a> &gt; other)</td>
+</tr>
+
+<tr>
+<td>bool</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#function-empty">empty</a></strong>(Map &amp; self)</td>
+</tr>
+
+<tr>
+<td>size_t</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#function-size">size</a></strong>(Map &amp; self)</td>
+</tr>
+
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#function-clear">clear</a></strong>(Map &amp; self)</td>
+</tr>
+
+<tr>
+<td>size_t</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#function-count">count</a></strong>(Map &amp; self)</td>
+</tr>
+
+<tr>
+<td>bool</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#function-containskey">containsKey</a></strong>(Map &amp; self, const <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-k">K</a> &amp; key)</td>
+</tr>
+
+<tr>
+<td>std::variant&lt; <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-t">T</a>, std::nullptr_t &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#function-remove">remove</a></strong>(Map &amp; self, const <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-k">K</a> &amp; key)</td>
+</tr>
+
+<tr>
+<td><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-t">T</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#function-getindex">getIndex</a></strong>(Map &amp; self, const <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-k">K</a> &amp; key)</td>
+</tr>
+
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#function-setindex">setIndex</a></strong>(Map &amp; self, const <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-k">K</a> &amp; key, <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/#typedef-t">T</a> value)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="detailed-description">Detailed Description</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Map <span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">wrenbind17</span><span style="color:#f92672">::</span>AbstractMapBindings;
+</code></pre></div>
+<h2 id="public-types-documentation">Public Types Documentation</h2>
+
+<h3 id="typedef-pair">typedef Pair</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> Map<span style="color:#f92672">::</span>value_type Pair;
+</code></pre></div>
+<h3 id="typedef-iterator">typedef Iterator</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> Map<span style="color:#f92672">::</span>iterator Iterator;
+</code></pre></div>
+<h3 id="typedef-t">typedef T</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> Map<span style="color:#f92672">::</span>mapped_type T;
+</code></pre></div>
+<h3 id="typedef-k">typedef K</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> Map<span style="color:#f92672">::</span>key_type K;
+</code></pre></div>
+<h2 id="public-functions-documentation">Public Functions Documentation</h2>
+
+<h3 id="function-bind">function bind</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> bind(
+    ForeignModule <span style="color:#f92672">&amp;</span> m,
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name
+)
+</code></pre></div>
+<h3 id="function-pairvalue">function pairValue</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">const</span> T <span style="color:#f92672">&amp;</span> pairValue(
+    Pair <span style="color:#f92672">&amp;</span> pair
+)
+</code></pre></div>
+<h3 id="function-pairkey">function pairKey</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">const</span> K <span style="color:#f92672">&amp;</span> pairKey(
+    Pair <span style="color:#f92672">&amp;</span> pair
+)
+</code></pre></div>
+<h3 id="function-iteratorvalue">function iteratorValue</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> Pair iteratorValue(
+    Map <span style="color:#f92672">&amp;</span> self,
+    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> Iterator <span style="color:#f92672">&gt;</span> other
+)
+</code></pre></div>
+<h3 id="function-iterate">function iterate</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">bool</span>, Iterator <span style="color:#f92672">&gt;</span> iterate(
+    Map <span style="color:#f92672">&amp;</span> self,
+    std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>nullptr_t, Iterator <span style="color:#f92672">&gt;</span> other
+)
+</code></pre></div>
+<h3 id="function-empty">function empty</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> empty(
+    Map <span style="color:#f92672">&amp;</span> self
+)
+</code></pre></div>
+<h3 id="function-size">function size</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> size_t size(
+    Map <span style="color:#f92672">&amp;</span> self
+)
+</code></pre></div>
+<h3 id="function-clear">function clear</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> clear(
+    Map <span style="color:#f92672">&amp;</span> self
+)
+</code></pre></div>
+<h3 id="function-count">function count</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> size_t count(
+    Map <span style="color:#f92672">&amp;</span> self
+)
+</code></pre></div>
+<h3 id="function-containskey">function containsKey</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> containsKey(
+    Map <span style="color:#f92672">&amp;</span> self,
+    <span style="color:#66d9ef">const</span> K <span style="color:#f92672">&amp;</span> key
+)
+</code></pre></div>
+<h3 id="function-remove">function remove</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span> T, std<span style="color:#f92672">::</span>nullptr_t <span style="color:#f92672">&gt;</span> remove(
+    Map <span style="color:#f92672">&amp;</span> self,
+    <span style="color:#66d9ef">const</span> K <span style="color:#f92672">&amp;</span> key
+)
+</code></pre></div>
+<h3 id="function-getindex">function getIndex</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> T <span style="color:#f92672">&amp;</span> getIndex(
+    Map <span style="color:#f92672">&amp;</span> self,
+    <span style="color:#66d9ef">const</span> K <span style="color:#f92672">&amp;</span> key
+)
+</code></pre></div>
+<h3 id="function-setindex">function setIndex</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> setIndex(
+    Map <span style="color:#f92672">&amp;</span> self,
+    <span style="color:#66d9ef">const</span> K <span style="color:#f92672">&amp;</span> key,
+    T value
+)
+</code></pre></div>
 <hr />
 
 <p>Updated on 12 February 2020 at 21:00:33 UTC</p>
@@ -1563,8 +1749,6 @@
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -1578,6 +1762,26 @@
             
             
                 
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1910,22 +2114,6 @@
             
         
                     
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
             
         
                     
@@ -1934,7 +2122,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -1947,9 +2134,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -2079,7 +2263,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -2095,9 +2278,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -2618,10 +2798,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/wrenbind17/files/handle_8hpp/" title="include/wrenbind17/handle.hpp"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/wrenbind17/classes/" title="Classes"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/wrenbind17/files/method_8hpp/" title="include/wrenbind17/method.hpp" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/wrenbind17/classes/classwrenbind17_1_1_any/" title="wrenbind17::Any" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
