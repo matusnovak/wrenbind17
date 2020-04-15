@@ -254,3 +254,134 @@ TEST_CASE("Non comparable list") {
     // Just needs to compile OK
     wren::StdVectorBindings<NonComparable>::bind(m, "NonComparable");
 }
+
+TEST_CASE("Native lists") {
+    typedef std::variant<std::nullptr_t, double, bool, std::string> ListItem;
+
+    class NativeListAcceptor {
+    public:
+        void set(const std::vector<ListItem>& items) {
+            this->items = items;
+        }
+
+        void set2(std::vector<ListItem> items) {
+            this->items = items;
+        }
+
+        const std::vector<ListItem>& get() const {
+            return items;
+        }
+
+        std::vector<ListItem> get2() const {
+            return items;
+        }
+
+    private:
+        std::vector<ListItem> items;
+    };
+
+    wren::VM vm;
+    auto& m = vm.module("test");
+    auto& c = m.klass<NativeListAcceptor>("NativeListAcceptor");
+    c.ctor<>();
+    c.func<&NativeListAcceptor::set>("set");
+    c.func<&NativeListAcceptor::get>("get");
+    c.func<&NativeListAcceptor::set2>("set2");
+    c.func<&NativeListAcceptor::get2>("get2");
+
+    SECTION("Get element from native array") {
+        const std::string code = R"(
+            import "test" for NativeListAcceptor
+
+            class Main {
+                static main(list) {
+                    var items = list.get()
+                    System.print("Item 0: %(items[0]) ")
+                    System.print("Item 1: %(items[1]) ")
+                    return items[1]
+                }
+            }
+        )";
+
+        NativeListAcceptor instance;
+        std::vector<ListItem> items;
+        items.push_back(nullptr);
+        items.push_back(std::string("Hello World"));
+        instance.set(items);
+
+        vm.runFromSource("main", code);
+        auto func = vm.find("main", "Main").func("main(_)");
+        auto res = func(&instance).as<std::string>();
+
+        REQUIRE(res == "Hello World");
+    }
+
+    SECTION("Get element from native array return as copy") {
+        const std::string code = R"(
+            import "test" for NativeListAcceptor
+
+            class Main {
+                static main(list) {
+                    var items = list.get2()
+                    System.print("Item 0: %(items[0]) ")
+                    System.print("Item 1: %(items[1]) ")
+                    return items[1]
+                }
+            }
+        )";
+
+        NativeListAcceptor instance;
+        std::vector<ListItem> items;
+        items.push_back(nullptr);
+        items.push_back(std::string("Hello World"));
+        instance.set(items);
+
+        vm.runFromSource("main", code);
+        auto func = vm.find("main", "Main").func("main(_)");
+        auto res = func(&instance).as<std::string>();
+
+        REQUIRE(res == "Hello World");
+    }
+
+    SECTION("Set elements into native array") {
+        const std::string code = R"(
+            import "test" for NativeListAcceptor
+
+            class Main {
+                static main(list) {
+                    var items = [null, 123, true, "Hello World"]
+                    list.set(items)
+                }
+            }
+        )";
+
+        NativeListAcceptor instance;
+
+        vm.runFromSource("main", code);
+        auto func = vm.find("main", "Main").func("main(_)");
+        (void)func(&instance);
+
+        REQUIRE(instance.get().size() == 4);
+    }
+
+    SECTION("Set elements into native array pass by copy") {
+        const std::string code = R"(
+            import "test" for NativeListAcceptor
+
+            class Main {
+                static main(list) {
+                    var items = [null, 123, true, "Hello World"]
+                    list.set2(items)
+                }
+            }
+        )";
+
+        NativeListAcceptor instance;
+
+        vm.runFromSource("main", code);
+        auto func = vm.find("main", "Main").func("main(_)");
+        (void)func(&instance);
+
+        REQUIRE(instance.get().size() == 4);
+    }
+}

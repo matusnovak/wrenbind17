@@ -1,10 +1,10 @@
 #pragma once
 
-#include <ostream>
-#include <unordered_map>
-#include <iostream>
 #include "allocator.hpp"
 #include "caller.hpp"
+#include <iostream>
+#include <ostream>
+#include <unordered_map>
 
 /**
  * @ingroup wrenbind17
@@ -62,6 +62,7 @@ namespace wrenbind17 {
         bool getStatic() const {
             return isStatic;
         }
+
     protected:
         std::string name;
         WrenForeignMethodFn method;
@@ -105,6 +106,7 @@ namespace wrenbind17 {
         bool getStatic() const {
             return isStatic;
         }
+
     protected:
         std::string name;
         WrenForeignMethodFn getter;
@@ -117,7 +119,7 @@ namespace wrenbind17 {
      */
     class ForeignKlass {
     public:
-        ForeignKlass(std::string name) : name(std::move(name)) {
+        ForeignKlass(std::string name) : name(std::move(name)), allocators{nullptr, nullptr} {
         }
 
         virtual ~ForeignKlass() = default;
@@ -200,8 +202,7 @@ namespace wrenbind17 {
     /**
      * @ingroup wrenbind17
      */
-    template <typename... Args>
-    class ForeignMethodImpl : public ForeignMethod {
+    template <typename... Args> class ForeignMethodImpl : public ForeignMethod {
     public:
         ForeignMethodImpl(std::string name, std::string signature, WrenForeignMethodFn fn, const bool isStatic)
             : ForeignMethod(std::move(name), fn, isStatic), signature(std::move(signature)) {
@@ -316,6 +317,7 @@ namespace wrenbind17 {
                     throw Exception("Operator not supported");
             }
         }
+
     private:
         std::string signature;
     };
@@ -323,8 +325,7 @@ namespace wrenbind17 {
     /**
      * @ingroup wrenbind17
      */
-    template <typename T, typename V>
-    class ForeignPropImpl : public ForeignProp {
+    template <typename T, typename V> class ForeignPropImpl : public ForeignProp {
     public:
         ForeignPropImpl(std::string name, WrenForeignMethodFn getter, WrenForeignMethodFn setter, const bool isStatic)
             : ForeignProp(std::move(name), getter, setter, isStatic) {
@@ -334,8 +335,7 @@ namespace wrenbind17 {
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
     namespace detail {
-        template <typename... Args>
-        inline std::string generateNameArgs() {
+        template <typename... Args> inline std::string generateNameArgs() {
             constexpr auto n = sizeof...(Args);
             std::stringstream ss;
             ss << "(";
@@ -349,11 +349,9 @@ namespace wrenbind17 {
             return ss.str();
         }
 
-        template <typename Signature, Signature signature>
-        struct ForeignFunctionDetails;
+        template <typename Signature, Signature signature> struct ForeignFunctionDetails;
 
-        template <typename R, typename... Args, R (*Fn)(Args...)>
-        struct ForeignFunctionDetails<R (*)(Args...), Fn> {
+        template <typename R, typename... Args, R (*Fn)(Args...)> struct ForeignFunctionDetails<R (*)(Args...), Fn> {
             typedef ForeignMethodImpl<Args...> ForeignMethodImplType;
 
             static std::unique_ptr<ForeignMethodImplType> make(std::string name) {
@@ -364,10 +362,8 @@ namespace wrenbind17 {
             }
         };
 
-        template <typename M>
-        struct GetPointerType {
-            template <typename C, typename T>
-            static T getType(T C::*v);
+        template <typename M> struct GetPointerType {
+            template <typename C, typename T> static T getType(T C::*v);
 
             typedef decltype(getType(static_cast<M>(nullptr))) type;
         };
@@ -377,8 +373,7 @@ namespace wrenbind17 {
     /**
      * @ingroup wrenbind17
      */
-    template <typename T>
-    class ForeignKlassImpl : public ForeignKlass {
+    template <typename T> class ForeignKlassImpl : public ForeignKlass {
     public:
         ForeignKlassImpl(std::string name) : ForeignKlass(std::move(name)) {
             allocators.allocate = nullptr;
@@ -408,8 +403,7 @@ namespace wrenbind17 {
             os << "}\n\n";
         }
 
-        template <typename... Args>
-        void ctor(const std::string& name = "new") {
+        template <typename... Args> void ctor(const std::string& name = "new") {
             allocators.allocate = &detail::ForeignKlassAllocator<T, Args...>::allocate;
             allocators.finalize = &detail::ForeignKlassAllocator<T, Args...>::finalize;
             std::stringstream ss;
@@ -426,8 +420,7 @@ namespace wrenbind17 {
         }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-        template <typename Signature, Signature signature>
-        struct ForeignMethodDetails;
+        template <typename Signature, Signature signature> struct ForeignMethodDetails;
 
         template <typename R, typename... Args, R (T::*Fn)(Args...)>
         struct ForeignMethodDetails<R (T::*)(Args...), Fn> {
@@ -467,8 +460,7 @@ namespace wrenbind17 {
             }
         };
 
-        template <typename Signature, Signature signature>
-        struct ForeignMethodExtDetails;
+        template <typename Signature, Signature signature> struct ForeignMethodExtDetails;
 
         template <typename R, typename... Args, R (*Fn)(T&, Args...)>
         struct ForeignMethodExtDetails<R (*)(T&, Args...), Fn> {
@@ -489,8 +481,7 @@ namespace wrenbind17 {
             }
         };
 
-        template <typename V, V T::*Ptr>
-        struct ForeignVarDetails {
+        template <typename V, V T::*Ptr> struct ForeignVarDetails {
             static std::unique_ptr<ForeignProp> make(std::string name, const bool readonly) {
                 auto s = readonly ? nullptr : detail::ForeignPropCaller<T, V, Ptr>::setter;
                 auto g = detail::ForeignPropCaller<T, V, Ptr>::getter;
@@ -498,139 +489,117 @@ namespace wrenbind17 {
             }
         };
 
-        template <typename V, V T:: * Ptr>
-        struct ForeignVarReadonlyDetails {
+        template <typename V, V T::*Ptr> struct ForeignVarReadonlyDetails {
             static std::unique_ptr<ForeignProp> make(std::string name, const bool readonly) {
                 auto g = detail::ForeignPropCaller<T, V, Ptr>::getter;
                 return std::make_unique<ForeignProp>(std::move(name), g, nullptr, false);
             }
         };
 
-        template <typename Signature, Signature signature>
-        struct ForeignSetterDetails;
+        template <typename Signature, Signature signature> struct ForeignSetterDetails;
 
-        template <typename V, void (T::*Fn)(V)>
-        struct ForeignSetterDetails<void (T::*)(V), Fn> {
+        template <typename V, void (T::*Fn)(V)> struct ForeignSetterDetails<void (T::*)(V), Fn> {
             static WrenForeignMethodFn method() {
                 return detail::ForeignMethodCaller<void, T, V>::template call<Fn>;
             }
         };
 
-        template <typename Signature, Signature signature>
-        struct ForeignSetterExtDetails;
+        template <typename Signature, Signature signature> struct ForeignSetterExtDetails;
 
-        template <typename V, void (*Fn)(T&, V)>
-        struct ForeignSetterExtDetails<void (*)(T&, V), Fn> {
+        template <typename V, void (*Fn)(T&, V)> struct ForeignSetterExtDetails<void (*)(T&, V), Fn> {
             static WrenForeignMethodFn method() {
                 return detail::ForeignMethodExtCaller<void, T, V>::template call<Fn>;
             }
         };
 
-        template <typename Signature, Signature signature>
-        struct ForeignGetterDetails;
+        template <typename Signature, Signature signature> struct ForeignGetterDetails;
 
-        template <typename R, R (T::*Fn)()>
-        struct ForeignGetterDetails<R (T::*)(), Fn> {
+        template <typename R, R (T::*Fn)()> struct ForeignGetterDetails<R (T::*)(), Fn> {
             static WrenForeignMethodFn method() {
                 return detail::ForeignMethodCaller<R, T>::template call<Fn>;
             }
         };
 
-        template <typename R, R (T::*Fn)() const>
-        struct ForeignGetterDetails<R (T::*)() const, Fn> {
+        template <typename R, R (T::*Fn)() const> struct ForeignGetterDetails<R (T::*)() const, Fn> {
             static WrenForeignMethodFn method() {
                 return detail::ForeignMethodCaller<R, T>::template call<Fn>;
             }
         };
 
-        template <typename Signature, Signature signature>
-        struct ForeignGetterExtDetails;
+        template <typename Signature, Signature signature> struct ForeignGetterExtDetails;
 
-        template <typename R, R (*Fn)(T&)>
-        struct ForeignGetterExtDetails<R (*)(T&), Fn> {
+        template <typename R, R (*Fn)(T&)> struct ForeignGetterExtDetails<R (*)(T&), Fn> {
             static WrenForeignMethodFn method() {
                 return detail::ForeignMethodExtCaller<R, T>::template call<Fn>;
             }
         };
 #endif
 
-        template <auto Fn>
-        void func(std::string name) {
+        template <auto Fn> void func(std::string name) {
             auto ptr = ForeignMethodDetails<decltype(Fn), Fn>::make(std::move(name));
             methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
-        template <auto Fn>
-        void func(const ForeignMethodOperator name) {
+        template <auto Fn> void func(const ForeignMethodOperator name) {
             auto ptr = ForeignMethodDetails<decltype(Fn), Fn>::make(name);
             methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
-        template <auto Fn>
-        void funcExt(std::string name) {
+        template <auto Fn> void funcExt(std::string name) {
             auto ptr = ForeignMethodExtDetails<decltype(Fn), Fn>::make(std::move(name));
             methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
-        template <auto Fn>
-        void funcExt(const ForeignMethodOperator name) {
+        template <auto Fn> void funcExt(const ForeignMethodOperator name) {
             auto ptr = ForeignMethodExtDetails<decltype(Fn), Fn>::make(name);
             methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
-        template <auto Fn>
-        void funcStatic(std::string name) {
+        template <auto Fn> void funcStatic(std::string name) {
             auto ptr = detail::ForeignFunctionDetails<decltype(Fn), Fn>::make(std::move(name));
             methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
-        template <auto Fn>
-        void funcStaticExt(std::string name) {
-            // This is exactly the same as funcStatic because there is 
+        template <auto Fn> void funcStaticExt(std::string name) {
+            // This is exactly the same as funcStatic because there is
             // no difference for "static void Foo::foo(){}" and "void foo(){}"!
             auto ptr = detail::ForeignFunctionDetails<decltype(Fn), Fn>::make(std::move(name));
             methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
-        template <auto Var>
-        void var(std::string name) {
+        template <auto Var> void var(std::string name) {
             using R = typename detail::GetPointerType<decltype(Var)>::type;
             auto ptr = ForeignVarDetails<R, Var>::make(std::move(name), false);
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
-        template <auto Var>
-        void varReadonly(std::string name) {
+        template <auto Var> void varReadonly(std::string name) {
             using R = typename detail::GetPointerType<decltype(Var)>::type;
             auto ptr = ForeignVarReadonlyDetails<R, Var>::make(std::move(name), true);
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
-        template <auto Getter, auto Setter>
-        void prop(std::string name) {
+        template <auto Getter, auto Setter> void prop(std::string name) {
             auto g = ForeignGetterDetails<decltype(Getter), Getter>::method();
             auto s = ForeignSetterDetails<decltype(Setter), Setter>::method();
             auto ptr = std::make_unique<ForeignProp>(std::move(name), g, s, false);
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
-        template <auto Getter>
-        void propReadonly(std::string name) {
+        template <auto Getter> void propReadonly(std::string name) {
             auto g = ForeignGetterDetails<decltype(Getter), Getter>::method();
             auto ptr = std::make_unique<ForeignProp>(std::move(name), g, nullptr, false);
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
-        template <auto Getter, auto Setter>
-        void propExt(std::string name) {
+        template <auto Getter, auto Setter> void propExt(std::string name) {
             auto g = ForeignGetterExtDetails<decltype(Getter), Getter>::method();
             auto s = ForeignSetterExtDetails<decltype(Setter), Setter>::method();
             auto ptr = std::make_unique<ForeignProp>(std::move(name), g, s, false);
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
-        template <auto Getter>
-        void propReadonlyExt(std::string name) {
+        template <auto Getter> void propReadonlyExt(std::string name) {
             auto g = ForeignGetterExtDetails<decltype(Getter), Getter>::method();
             auto ptr = std::make_unique<ForeignProp>(std::move(name), g, nullptr, false);
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));

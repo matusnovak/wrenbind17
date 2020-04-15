@@ -227,6 +227,10 @@ namespace wrenbind17 {
             name = classToName.at(hash);
         }
 
+        inline bool isClassRegistered(const size_t hash) const {
+            return classToModule.find(hash) != classToModule.end();
+        }
+
         inline void addClassCast(std::shared_ptr<detail::ForeignPtrConvertor> convertor, const size_t hash,
                                  const size_t other) {
             classCasting.insert(std::make_pair(std::make_pair(hash, other), std::move(convertor)));
@@ -283,6 +287,10 @@ namespace wrenbind17 {
     inline void getClassType(WrenVM* vm, std::string& module, std::string& name, const size_t hash) {
         auto self = reinterpret_cast<VM*>(wrenGetUserData(vm));
         self->getClassType(module, name, hash);
+    }
+    inline bool isClassRegistered(WrenVM* vm, const size_t hash) {
+        auto self = reinterpret_cast<VM*>(wrenGetUserData(vm));
+        return self->isClassRegistered(hash);
     }
     inline void addClassCast(WrenVM* vm, std::shared_ptr<detail::ForeignPtrConvertor> convertor, const size_t hash,
                              const size_t other) {

@@ -1,6 +1,9 @@
 #pragma once
 
 #include "object.hpp"
+#include <list>
+#include <queue>
+#include <vector>
 
 namespace wrenbind17 {
     void getClassType(WrenVM* vm, std::string& module, std::string& name, size_t hash);
@@ -30,7 +33,7 @@ namespace wrenbind17 {
                     return "unknown";
             }
         }
-        
+
         template <typename T> inline bool is(WrenVM* vm, const int idx) {
             const auto type = wrenGetSlotType(vm, idx);
             if (type != WrenType::WREN_TYPE_FOREIGN)
@@ -153,9 +156,8 @@ namespace wrenbind17 {
         template <WrenType Type> inline void validate(WrenVM* vm, int idx) {
             const auto t = wrenGetSlotType(vm, idx);
             if (t != Type)
-                throw BadCast("Bad cast when getting value from Wren got "
-                    + std::string(wrenSlotTypeToStr(t))
-                    + " expected " + std::string(wrenSlotTypeToStr(Type)));
+                throw BadCast("Bad cast when getting value from Wren got " + std::string(wrenSlotTypeToStr(t)) +
+                              " expected " + std::string(wrenSlotTypeToStr(Type)));
         }
 
         template <typename T> std::shared_ptr<T> getSlotForeign(WrenVM* vm, void* slot) {
@@ -358,7 +360,7 @@ namespace wrenbind17 {
         }
 
         template <typename VariantType, typename T, typename... Ts>
-        VariantType loopAndFindVariant(WrenVM* vm, int idx) {
+        VariantType loopAndFindVariant(WrenVM* vm, const int idx) {
             if (CheckSlot<T>::f(vm, idx)) {
                 return {PopHelper<T>::f(vm, idx)};
             }
@@ -366,23 +368,123 @@ namespace wrenbind17 {
         }
 
         template <typename... Ts> struct PopHelper<std::variant<Ts...>> {
-            static inline std::variant<Ts...> f(WrenVM* vm, int idx) {
+            static inline std::variant<Ts...> f(WrenVM* vm, const int idx) {
                 using VariantType = typename std::variant<Ts...>;
                 return loopAndFindVariant<VariantType, Ts...>(vm, idx);
             }
         };
 
         template <typename... Ts> struct PopHelper<std::variant<Ts...>&> {
-            static inline std::variant<Ts...> f(WrenVM* vm, int idx) {
+            static inline std::variant<Ts...> f(WrenVM* vm, const int idx) {
                 using VariantType = typename std::variant<Ts...>;
                 return loopAndFindVariant<VariantType, Ts...>(vm, idx);
             }
         };
 
         template <typename... Ts> struct PopHelper<const std::variant<Ts...>&> {
-            static inline std::variant<Ts...> f(WrenVM* vm, int idx) {
+            static inline std::variant<Ts...> f(WrenVM* vm, const int idx) {
                 using VariantType = typename std::variant<Ts...>;
                 return loopAndFindVariant<VariantType, Ts...>(vm, idx);
+            }
+        };
+
+        // ============================================================================================================
+        //                                       STD VECTOR
+        // ============================================================================================================
+
+        template <typename Iterable> Iterable popIterable(WrenVM* vm, const int idx) {
+            Iterable res;
+            res.reserve(wrenGetListCount(vm, idx));
+            for (size_t i = 0; i < res.capacity(); i++) {
+                wrenGetListElement(vm, idx, static_cast<int>(i), 0);
+                res.push_back(PopHelper<typename Iterable::value_type>::f(vm, 0));
+            }
+            return res;
+        }
+
+        template <typename T> struct PopHelper<const std::vector<T>&> {
+            static inline std::vector<T> f(WrenVM* vm, const int idx) {
+                const auto type = wrenGetSlotType(vm, idx);
+                if (type == WrenType::WREN_TYPE_FOREIGN) {
+                    return *getSlotForeign<std::vector<T>>(vm, idx).get();
+                }
+                if (type != WrenType::WREN_TYPE_LIST)
+                    throw BadCast("Bad cast when getting value from Wren expected list");
+
+                return popIterable<std::vector<T>>(vm, idx);
+            }
+        };
+
+        template <typename T> struct PopHelper<std::vector<T>> {
+            static inline std::vector<T> f(WrenVM* vm, const int idx) {
+                const auto type = wrenGetSlotType(vm, idx);
+                if (type == WrenType::WREN_TYPE_FOREIGN) {
+                    return *getSlotForeign<std::vector<T>>(vm, idx).get();
+                }
+                if (type != WrenType::WREN_TYPE_LIST)
+                    throw BadCast("Bad cast when getting value from Wren expected list");
+
+                return popIterable<std::vector<T>>(vm, idx);
+            }
+        };
+
+        // ============================================================================================================
+        //                                       STD LIST
+        // ============================================================================================================
+
+        template <typename T> struct PopHelper<const std::list<T>&> {
+            static inline std::list<T> f(WrenVM* vm, const int idx) {
+                const auto type = wrenGetSlotType(vm, idx);
+                if (type == WrenType::WREN_TYPE_FOREIGN) {
+                    return *getSlotForeign<std::list<T>>(vm, idx).get();
+                }
+                if (type != WrenType::WREN_TYPE_LIST)
+                    throw BadCast("Bad cast when getting value from Wren expected list");
+
+                return popIterable<std::list<T>>(vm, idx);
+            }
+        };
+
+        template <typename T> struct PopHelper<std::list<T>> {
+            static inline std::list<T> f(WrenVM* vm, const int idx) {
+                const auto type = wrenGetSlotType(vm, idx);
+                if (type == WrenType::WREN_TYPE_FOREIGN) {
+                    return *getSlotForeign<std::list<T>>(vm, idx).get();
+                }
+                if (type != WrenType::WREN_TYPE_LIST)
+                    throw BadCast("Bad cast when getting value from Wren expected list");
+
+                return popIterable<std::list<T>>(vm, idx);
+            }
+        };
+
+        // ============================================================================================================
+        //                                       STD QUEUE
+        // ============================================================================================================
+
+        template <typename T> struct PopHelper<const std::queue<T>&> {
+            static inline std::queue<T> f(WrenVM* vm, const int idx) {
+                const auto type = wrenGetSlotType(vm, idx);
+                if (type == WrenType::WREN_TYPE_FOREIGN) {
+                    return *getSlotForeign<std::queue<T>>(vm, idx).get();
+                }
+                if (type != WrenType::WREN_TYPE_LIST)
+                    throw BadCast("Bad cast when getting value from Wren expected list");
+
+                return popIterable<std::queue<T>>(vm, idx);
+            }
+        };
+
+        template <typename T> struct PopHelper<std::queue<T>> {
+            static inline std::queue<T> f(WrenVM* vm, const int idx) {
+                const auto type = wrenGetSlotType(vm, idx);
+                if (type == WrenType::WREN_TYPE_FOREIGN) {
+                    return *getSlotForeign<std::queue<T>>(vm, idx).get();
+                }
+                if (type != WrenType::WREN_TYPE_LIST)
+                    throw BadCast("Bad cast when getting value from Wren expected list");
+
+                return popIterable<std::queue<T>>(vm, idx);
             }
         };
     } // namespace detail
