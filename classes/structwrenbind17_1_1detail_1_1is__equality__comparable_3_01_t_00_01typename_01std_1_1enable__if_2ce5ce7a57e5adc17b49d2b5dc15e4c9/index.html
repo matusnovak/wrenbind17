@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/wrenbind17/images/favicon.png" type="image/png">
 
-    <title>Abstract classes :: WrenBind17</title>
+    <title>wrenbind17::detail::is_equality_comparable&lt; T, typename std::enable_if&lt; true, decltype(std::declval&lt; T &amp; &gt;()==std::declval&lt; T &amp; &gt;(),(void) 0)&gt;::type &gt; :: WrenBind17</title>
 
     
     <link href="/wrenbind17/css/nucleus.css?1586977201" rel="stylesheet">
@@ -33,7 +33,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/wrenbind17/tutorial/abstract-classes/">
+  <body class="" data-url="/wrenbind17/classes/structwrenbind17_1_1detail_1_1is__equality__comparable_3_01_t_00_01typename_01std_1_1enable__if_2ce5ce7a57e5adc17b49d2b5dc15e4c9/">
     <nav id="sidebar" class="">
 
 
@@ -74,7 +74,7 @@
   
     
     <li data-nav-id="/wrenbind17/classes/" title="Classes" class="dd-item 
-        
+        parent
         
         
         ">
@@ -231,7 +231,7 @@
  
   
     
-      <li data-nav-id="/wrenbind17/classes/structwrenbind17_1_1detail_1_1is__equality__comparable_3_01_t_00_01typename_01std_1_1enable__if_2ce5ce7a57e5adc17b49d2b5dc15e4c9/" title="wrenbind17::detail::is_equality_comparable&lt; T, typename std::enable_if&lt; true, decltype(std::declval&lt; T &amp; &gt;()==std::declval&lt; T &amp; &gt;(),(void) 0)&gt;::type &gt;" class="dd-item ">
+      <li data-nav-id="/wrenbind17/classes/structwrenbind17_1_1detail_1_1is__equality__comparable_3_01_t_00_01typename_01std_1_1enable__if_2ce5ce7a57e5adc17b49d2b5dc15e4c9/" title="wrenbind17::detail::is_equality_comparable&lt; T, typename std::enable_if&lt; true, decltype(std::declval&lt; T &amp; &gt;()==std::declval&lt; T &amp; &gt;(),(void) 0)&gt;::type &gt;" class="dd-item active">
         <a href="/wrenbind17/classes/structwrenbind17_1_1detail_1_1is__equality__comparable_3_01_t_00_01typename_01std_1_1enable__if_2ce5ce7a57e5adc17b49d2b5dc15e4c9/">
         wrenbind17::detail::is_equality_comparable&lt; T, typename std::enable_if&lt; true, decltype(std::declval&lt; T &amp; &gt;()==std::declval&lt; T &amp; &gt;(),(void) 0)&gt;::type &gt;
         
@@ -1114,7 +1114,7 @@
   
     
     <li data-nav-id="/wrenbind17/tutorial/" title="Tutorial" class="dd-item 
-        parent
+        
         
         
         ">
@@ -1252,7 +1252,7 @@
  
   
     
-      <li data-nav-id="/wrenbind17/tutorial/abstract-classes/" title="Abstract classes" class="dd-item active">
+      <li data-nav-id="/wrenbind17/tutorial/abstract-classes/" title="Abstract classes" class="dd-item ">
         <a href="/wrenbind17/tutorial/abstract-classes/">
         Abstract classes
         
@@ -1541,7 +1541,7 @@
             
           
           
-            <a href='/wrenbind17/'>WrenBind17</a> > <a href='/wrenbind17/tutorial/'>Tutorial</a> > Abstract classes
+            <a href='/wrenbind17/'>WrenBind17</a> > <a href='/wrenbind17/classes/'>Classes</a> > wrenbind17::detail::is_equality_comparable< T, typename std::enable_if< true, decltype(std::declval< T & >()==std::declval< T & >(),(void) 0)>::type >
           
          
           
@@ -1554,7 +1554,14 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#detailed-description">Detailed Description</a></li>
+</ul></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -1570,7 +1577,7 @@
           
             <h1>
               
-              Abstract classes
+              wrenbind17::detail::is_equality_comparable&lt; T, typename std::enable_if&lt; true, decltype(std::declval&lt; T &amp; &gt;()==std::declval&lt; T &amp; &gt;(),(void) 0)&gt;::type &gt;
             </h1>
           
 
@@ -1578,17 +1585,24 @@
 
 
 
-<p>What if you want to pass an abstract class to Wren? You can&rsquo;t allocate it, but you can only pass it around as a reference or a pointer? Imagine a specific derived &ldquo;Entity&rdquo; class that has a common abstract/interface class?</p>
 
-<p>The only thing you have to do is to NOT to add constructor by calling <code>ctor</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">wren<span style="color:#f92672">::</span>VM vm;
-<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
 
-<span style="color:#75715e">// Add class &#34;Vec3&#34;
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Entity<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Entity&#34;</span>);
-<span style="color:#75715e">// cls.ctor&lt;&gt;(); Do not add constructor!
-</span><span style="color:#75715e"></span>cls.func<span style="color:#f92672">&lt;&amp;</span>Entity<span style="color:#f92672">::</span>foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;foo&#34;</span>);
+<p><strong>wrenbind17::detail::is_equality_comparable&lt; T, typename std::enable_if&lt; true, decltype(std::declval&lt; T &amp; &gt;()==std::declval&lt; T &amp; &gt;(),(void) 0)&gt;::type &gt; Struct Reference</strong></p>
+
+<p><a href="#detailed-description">More&hellip;</a></p>
+
+<p><code>#include &lt;std.hpp&gt;</code></p>
+
+<p>Inherits from true_type</p>
+
+<h2 id="detailed-description">Detailed Description</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T <span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">wrenbind17</span><span style="color:#f92672">::</span>detail<span style="color:#f92672">::</span>is_equality_comparable<span style="color:#f92672">&lt;</span> T, <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>enable_if<span style="color:#f92672">&lt;</span> true, <span style="color:#66d9ef">decltype</span>(std<span style="color:#f92672">::</span>declval<span style="color:#f92672">&lt;</span> T <span style="color:#f92672">&amp;</span> <span style="color:#f92672">&gt;</span>()<span style="color:#f92672">==</span>std<span style="color:#f92672">::</span>declval<span style="color:#f92672">&lt;</span> T <span style="color:#f92672">&amp;</span> <span style="color:#f92672">&gt;</span>(),(<span style="color:#66d9ef">void</span>) <span style="color:#ae81ff">0</span>)<span style="color:#f92672">&gt;::</span>type <span style="color:#f92672">&gt;</span>;
 </code></pre></div>
+<hr />
+
+<p>Updated on 15 April 2020 at 19:00:00 UTC</p>
+
 
 <footer class=" footline" >
 	
@@ -1626,8 +1640,6 @@
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -1641,6 +1653,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1754,21 +1769,6 @@
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -1786,37 +1786,8 @@
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
                         
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
                         
-            
-            
-                
                     
                 
                 
@@ -1828,262 +1799,6 @@
                     
             
         
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
                     
                         
             
@@ -2405,22 +2120,6 @@
             
         
                     
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
                         
             
             
@@ -2453,6 +2152,19 @@
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
             
         
                     
@@ -2460,23 +2172,6 @@
             
             
                 
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
                     
                 
                 
@@ -2574,6 +2269,21 @@
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
                     
                 
                 
@@ -2591,8 +2301,309 @@
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
                         
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
                         
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
                     
                 
                 
@@ -2777,10 +2788,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/wrenbind17/tutorial/bind-cpp-class/" title="Bind C&#43;&#43; class"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/wrenbind17/classes/structwrenbind17_1_1detail_1_1is__equality__comparable/" title="wrenbind17::detail::is_equality_comparable"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/wrenbind17/tutorial/overload-operators/" title="Overload operators" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/wrenbind17/classes/classwrenbind17_1_1_exception/" title="wrenbind17::Exception" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

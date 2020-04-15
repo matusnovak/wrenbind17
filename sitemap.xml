@@ -211,6 +211,18 @@
   </url>
   
   <url>
+    <loc>https://matusnovak.github.io/wrenbind17/namespaces/namespacewrenbind17_1_1detail/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1detail_1_1is__equality__comparable/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1detail_1_1is__equality__comparable_3_01_t_00_01typename_01std_1_1enable__if_2ce5ce7a57e5adc17b49d2b5dc15e4c9/</loc>
+  </url>
+  
+  <url>
     <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_exception/</loc>
   </url>
   
@@ -264,6 +276,18 @@
   
   <url>
     <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_std_vector_helper/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_std_vector_helper_3_01_t_00_01typename_01std_1_1enable__if_3_01detail_1_1is_9ed14e99eb1e8a4cf5463842b9d26037/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_std_vector_helper_3_01_t_00_01typename_01std_1_1enable__if_3_9detail_1_1is__00e67679ae85136e10c5db88faa3df1f/</loc>
   </url>
   
   <url>
