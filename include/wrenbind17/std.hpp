@@ -7,6 +7,34 @@
 #include <vector>
 
 namespace wrenbind17 {
+    namespace detail {
+        template <typename T, typename = void> struct is_equality_comparable : std::false_type {};
+
+        template <typename T>
+        struct is_equality_comparable<
+            T, typename std::enable_if<true, decltype(std::declval<T&>() == std::declval<T&>(), (void)0)>::type>
+            : std::true_type {};
+    } // namespace detail
+
+    template <typename T, typename T2 = void> class StdVectorHelper;
+
+    template <typename T>
+    class StdVectorHelper<T, typename std::enable_if<detail::is_equality_comparable<T>::value>::type> {
+    public:
+        static bool contains(std::vector<T>& self, const T& value) {
+            return std::find(self.begin(), self.end(), value) != self.end();
+        }
+    };
+
+    template <typename T>
+    class StdVectorHelper<T, typename std::enable_if<!detail::is_equality_comparable<T>::value>::type> {
+    public:
+        static bool contains(std::vector<T>& self, const T& value) {
+            return std::find_if(self.begin(), self.end(), [&](const T& e) -> bool { return &e == &value; }) !=
+                   self.end();
+        }
+    };
+
     template <typename T> class StdVectorBindings {
     public:
         typedef typename std::vector<T>::iterator Iterator;
@@ -34,6 +62,8 @@ namespace wrenbind17 {
 
                 return {false};
             } else {
+                if (self.empty())
+                    return {false};
                 return {self.begin()};
             }
         }
@@ -47,19 +77,19 @@ namespace wrenbind17 {
             return self.size();
         }
 
-        static T removeAt(Vector& self, long index) {
+        static T removeAt(Vector& self, int32_t index) {
             if (index == -1) {
                 auto ret = std::move(self.back());
                 self.pop_back();
                 return std::move(ret);
             } else {
                 if (index < 0) {
-                    index = static_cast<long>(self.size()) + index;
+                    index = static_cast<int32_t>(self.size()) + index;
                 }
 
-                if (size_t(index) > self.size()) {
+                if (index > static_cast<int32_t>(self.size())) {
                     throw std::out_of_range("invalid index");
-                } else if (index == self.size()) {
+                } else if (index == static_cast<int32_t>(self.size())) {
                     auto ret = std::move(self.back());
                     self.pop_back();
                     return std::move(ret);
@@ -71,17 +101,17 @@ namespace wrenbind17 {
             }
         }
 
-        static void insert(Vector& self, long index, T value) {
+        static void insert(Vector& self, int32_t index, T value) {
             if (index == -1) {
                 self.push_back(std::move(value));
             } else {
                 if (index < 0) {
-                    index = static_cast<long>(self.size()) + index;
+                    index = static_cast<int32_t>(self.size()) + index;
                 }
 
-                if (size_t(index) > self.size()) {
+                if (index > static_cast<int32_t>(self.size())) {
                     throw std::out_of_range("invalid index");
-                } else if (index == self.size()) {
+                } else if (index == static_cast<int32_t>(self.size())) {
                     self.push_back(std::move(value));
                 } else {
                     auto it = self.begin() + index;
@@ -91,7 +121,8 @@ namespace wrenbind17 {
         }
 
         static bool contains(Vector& self, const T& value) {
-            return std::find(self.begin(), self.end(), value) != self.end();
+            // return std::find(self.begin(), self.end(), value) != self.end();
+            return StdVectorHelper<T>::contains(self, value);
         }
 
         static T pop(Vector& self) {
@@ -166,6 +197,8 @@ namespace wrenbind17 {
 
                 return {false};
             } else {
+                if (self.empty())
+                    return {false};
                 return {self.begin()};
             }
         }
@@ -179,19 +212,19 @@ namespace wrenbind17 {
             return self.size();
         }
 
-        static T removeAt(List& self, long index) {
+        static T removeAt(List& self, int32_t index) {
             if (index == -1) {
                 auto ret = std::move(self.back());
                 self.pop_back();
                 return std::move(ret);
             } else {
                 if (index < 0) {
-                    index = static_cast<long>(self.size()) + index;
+                    index = static_cast<int32_t>(self.size()) + index;
                 }
 
-                if (size_t(index) > self.size()) {
+                if (index > static_cast<int32_t>(self.size())) {
                     throw std::out_of_range("invalid index");
-                } else if (index == self.size()) {
+                } else if (index == static_cast<int32_t>(self.size())) {
                     auto ret = std::move(self.back());
                     self.pop_back();
                     return std::move(ret);
@@ -205,17 +238,17 @@ namespace wrenbind17 {
             }
         }
 
-        static void insert(List& self, long index, T value) {
+        static void insert(List& self, int32_t index, T value) {
             if (index == -1) {
                 self.push_back(std::move(value));
             } else {
                 if (index < 0) {
-                    index = static_cast<long>(self.size()) + index;
+                    index = static_cast<int32_t>(self.size()) + index;
                 }
 
-                if (size_t(index) > self.size()) {
+                if (index > static_cast<int32_t>(self.size())) {
                     throw std::out_of_range("invalid index");
-                } else if (index == self.size()) {
+                } else if (index == static_cast<int32_t>(self.size())) {
                     self.push_back(std::move(value));
                 } else {
                     auto it = self.begin();
@@ -350,7 +383,7 @@ namespace wrenbind17 {
 
             auto& iter = m.klass<Iterator>(name + "Iter");
             iter.ctor();
-            
+
             auto& cls = m.klass<Map>(name);
             cls.ctor();
 
@@ -367,9 +400,7 @@ namespace wrenbind17 {
         }
     };
 
-    template <typename K, typename V>
-    using StdMapBindings = AbstractMapBindings<std::map<K, V>>;
+    template <typename K, typename V> using StdMapBindings = AbstractMapBindings<std::map<K, V>>;
 
-    template <typename K, typename V>
-    using StdUnorderedMapBindings = AbstractMapBindings<std::unordered_map<K, V>>;
+    template <typename K, typename V> using StdUnorderedMapBindings = AbstractMapBindings<std::unordered_map<K, V>>;
 } // namespace wrenbind17

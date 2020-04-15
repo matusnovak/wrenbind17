@@ -3,8 +3,7 @@
 
 namespace wren = wrenbind17;
 
-#define RUN(NAME, VALUE) \
-    vm.find("main", "Main").func(NAME).operator()(VALUE).as<int>()
+#define RUN(NAME, VALUE) vm.find("main", "Main").func(NAME).operator()(VALUE).as<int>()
 
 TEST_CASE("Pass std vector to Wren") {
     const std::string code = R"(
@@ -66,6 +65,14 @@ TEST_CASE("Pass std vector to Wren") {
                 vector.clear()
                 return vector.count
             }
+
+            static main12(vector) {
+                var sum = 0
+                for (value in vector) {
+                    sum = sum + value
+                }
+                return sum
+            }
         }
     )";
 
@@ -110,6 +117,10 @@ TEST_CASE("Pass std vector to Wren") {
     }
     SECTION("main11") {
         REQUIRE(RUN("main11(_)", vector) == 0);
+    }
+    SECTION("main12") {
+        std::vector<int> empty;
+        REQUIRE(RUN("main12(_)", empty) == 0);
     }
 }
 
@@ -174,6 +185,13 @@ TEST_CASE("Pass std list to Wren") {
                 list.clear()
                 return list.count
             }
+            static main12(vector) {
+                var sum = 0
+                for (value in vector) {
+                    sum = sum + value
+                }
+                return sum
+            }
         }
     )";
 
@@ -218,4 +236,21 @@ TEST_CASE("Pass std list to Wren") {
     SECTION("main11") {
         REQUIRE(RUN("main11(_)", list) == 0);
     }
+    SECTION("main12") {
+        std::list<int> empty;
+        REQUIRE(RUN("main11(_)", empty) == 0);
+    }
+}
+
+class NonComparable {
+    std::string hello;
+    std::shared_ptr<int[]> arr;
+};
+
+TEST_CASE("Non comparable list") {
+    wren::VM vm;
+
+    auto& m = vm.module("test");
+    // Just needs to compile OK
+    wren::StdVectorBindings<NonComparable>::bind(m, "NonComparable");
 }
