@@ -12,18 +12,18 @@
     <title>include/wrenbind17/push.hpp :: WrenBind17</title>
 
     
-    <link href="/wrenbind17/css/nucleus.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/fontawesome-all.min.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/hybrid.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/featherlight.min.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/perfect-scrollbar.min.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/auto-complete.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/atom-one-dark-reasonable.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/theme.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/hugo-theme.css?1586977201" rel="stylesheet">
+    <link href="/wrenbind17/css/nucleus.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/fontawesome-all.min.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/hybrid.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/featherlight.min.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/perfect-scrollbar.min.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/auto-complete.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/atom-one-dark-reasonable.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/theme.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/hugo-theme.css?1587068254" rel="stylesheet">
     
 
-    <script src="/wrenbind17/js/jquery-3.3.1.min.js?1586977201"></script>
+    <script src="/wrenbind17/js/jquery-3.3.1.min.js?1587068254"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -50,14 +50,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/wrenbind17/js/lunr.min.js?1586977201"></script>
-<script type="text/javascript" src="/wrenbind17/js/auto-complete.js?1586977201"></script>
+<script type="text/javascript" src="/wrenbind17/js/lunr.min.js?1587068254"></script>
+<script type="text/javascript" src="/wrenbind17/js/auto-complete.js?1587068254"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/matusnovak.github.io\/wrenbind17";
     
 </script>
-<script type="text/javascript" src="/wrenbind17/js/search.js?1586977201"></script>
+<script type="text/javascript" src="/wrenbind17/js/search.js?1587068254"></script>
 
     
   </div>
@@ -1610,54 +1610,87 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#pragma once
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;object.hpp&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;queue&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">namespace</span> wrenbind17 {
 <span style="color:#75715e">#ifndef DOXYGEN_SHOULD_SKIP_THIS
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">getClassType</span>(WrenVM<span style="color:#f92672">*</span> vm, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> module, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> name, size_t hash);
+    <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">isClassRegistered</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> size_t hash);
     detail<span style="color:#f92672">::</span>ForeignPtrConvertor<span style="color:#f92672">*</span> getClassCast(WrenVM<span style="color:#f92672">*</span> vm, size_t hash, size_t other);
 
     <span style="color:#66d9ef">namespace</span> detail {
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PushHelper</span>;
 
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> pushAsConstRef(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, <span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> value) {
+            <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>std<span style="color:#f92672">::</span>is_same<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>remove_const<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>type<span style="color:#f92672">&gt;</span>(), <span style="color:#e6db74">&#34;type can&#39;t be int&#34;</span>);
+            <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>std<span style="color:#f92672">::</span>is_same<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>remove_const<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>type<span style="color:#f92672">&gt;</span>(),
+                          <span style="color:#e6db74">&#34;type can&#39;t be std::string&#34;</span>);
+            <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>is_shared_ptr<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>value, <span style="color:#e6db74">&#34;type can&#39;t be shared_ptr&lt;T&gt;&#34;</span>);
+            <span style="color:#66d9ef">try</span> {
+                std<span style="color:#f92672">::</span>string module;
+                std<span style="color:#f92672">::</span>string klass;
+                getClassType(vm, module, klass, <span style="color:#66d9ef">typeid</span>(T).hash_code());
+
+                wrenEnsureSlots(vm, idx <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+                wrenGetVariable(vm, module.c_str(), klass.c_str(), idx);
+
+                <span style="color:#66d9ef">auto</span> memory <span style="color:#f92672">=</span> wrenSetSlotNewForeign(vm, idx, idx, <span style="color:#66d9ef">sizeof</span>(ForeignObject<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>));
+                <span style="color:#66d9ef">auto</span><span style="color:#f92672">*</span> foreign <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> (memory) ForeignObject<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(value));
+            } <span style="color:#66d9ef">catch</span> (std<span style="color:#f92672">::</span>out_of_range<span style="color:#f92672">&amp;</span> e) {
+                (<span style="color:#66d9ef">void</span>)e;
+                <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">BadCast</span>(<span style="color:#e6db74">&#34;Class type not registered in Wren VM&#34;</span>);
+            }
+        }
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> pushAsMove(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, T<span style="color:#f92672">&amp;&amp;</span> value) {
+            <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>std<span style="color:#f92672">::</span>is_same<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, T<span style="color:#f92672">&gt;</span>(), <span style="color:#e6db74">&#34;type can&#39;t be int&#34;</span>);
+            <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>std<span style="color:#f92672">::</span>is_same<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, T<span style="color:#f92672">&gt;</span>(), <span style="color:#e6db74">&#34;type can&#39;t be std::string&#34;</span>);
+            <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>is_shared_ptr<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>value, <span style="color:#e6db74">&#34;type can&#39;t be shared_ptr&lt;T&gt;&#34;</span>);
+            <span style="color:#66d9ef">try</span> {
+                std<span style="color:#f92672">::</span>string module;
+                std<span style="color:#f92672">::</span>string klass;
+                getClassType(vm, module, klass, <span style="color:#66d9ef">typeid</span>(T).hash_code());
+
+                wrenEnsureSlots(vm, idx <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+                wrenGetVariable(vm, module.c_str(), klass.c_str(), idx);
+
+                <span style="color:#66d9ef">auto</span> memory <span style="color:#f92672">=</span> wrenSetSlotNewForeign(vm, idx, idx, <span style="color:#66d9ef">sizeof</span>(ForeignObject<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>));
+                <span style="color:#66d9ef">auto</span><span style="color:#f92672">*</span> foreign <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> (memory) ForeignObject<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>move(value)));
+            } <span style="color:#66d9ef">catch</span> (std<span style="color:#f92672">::</span>out_of_range<span style="color:#f92672">&amp;</span> e) {
+                (<span style="color:#66d9ef">void</span>)e;
+                <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">BadCast</span>(<span style="color:#e6db74">&#34;Class type not registered in Wren VM&#34;</span>);
+            }
+        }
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> pushAsPtr(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, T<span style="color:#f92672">*</span> value) {
+            <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>std<span style="color:#f92672">::</span>is_same<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, T<span style="color:#f92672">&gt;</span>(), <span style="color:#e6db74">&#34;type can&#39;t be int&#34;</span>);
+            <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>std<span style="color:#f92672">::</span>is_same<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, T<span style="color:#f92672">&gt;</span>(), <span style="color:#e6db74">&#34;type can&#39;t be std::string&#34;</span>);
+            <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>is_shared_ptr<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>value, <span style="color:#e6db74">&#34;type can&#39;t be shared_ptr&lt;T&gt;&#34;</span>);
+            <span style="color:#66d9ef">try</span> {
+                std<span style="color:#f92672">::</span>string module;
+                std<span style="color:#f92672">::</span>string klass;
+                getClassType(vm, module, klass, <span style="color:#66d9ef">typeid</span>(T).hash_code());
+
+                wrenEnsureSlots(vm, idx <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+                wrenGetVariable(vm, module.c_str(), klass.c_str(), idx);
+
+                <span style="color:#66d9ef">auto</span> memory <span style="color:#f92672">=</span> wrenSetSlotNewForeign(vm, idx, idx, <span style="color:#66d9ef">sizeof</span>(ForeignObject<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>));
+                <span style="color:#66d9ef">auto</span><span style="color:#f92672">*</span> foreign <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> (memory) ForeignObject<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(value, [](T<span style="color:#f92672">*</span> t) {}));
+            } <span style="color:#66d9ef">catch</span> (std<span style="color:#f92672">::</span>out_of_range<span style="color:#f92672">&amp;</span> e) {
+                (<span style="color:#66d9ef">void</span>)e;
+                <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">BadCast</span>(<span style="color:#e6db74">&#34;Class type not registered in Wren VM&#34;</span>);
+            }
+        }
+
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PushHelper</span> {
             <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, <span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> value) {
-                <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>std<span style="color:#f92672">::</span>is_same<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>remove_const<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>type<span style="color:#f92672">&gt;</span>(), <span style="color:#e6db74">&#34;type can&#39;t be int&#34;</span>);
-                <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>std<span style="color:#f92672">::</span>is_same<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>remove_const<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>type<span style="color:#f92672">&gt;</span>(), <span style="color:#e6db74">&#34;type can&#39;t be std::string&#34;</span>);
-                <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>is_shared_ptr<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>value, <span style="color:#e6db74">&#34;type can&#39;t be shared_ptr&lt;T&gt;&#34;</span>);
-                <span style="color:#66d9ef">try</span> {
-                    std<span style="color:#f92672">::</span>string module;
-                    std<span style="color:#f92672">::</span>string klass;
-                    getClassType(vm, module, klass, <span style="color:#66d9ef">typeid</span>(T).hash_code());
-
-                    wrenEnsureSlots(vm, idx <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
-                    wrenGetVariable(vm, module.c_str(), klass.c_str(), idx);
-
-                    <span style="color:#66d9ef">auto</span> memory <span style="color:#f92672">=</span> wrenSetSlotNewForeign(vm, idx, idx, <span style="color:#66d9ef">sizeof</span>(ForeignObject<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>));
-                    <span style="color:#66d9ef">auto</span><span style="color:#f92672">*</span> foreign <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> (memory) ForeignObject<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(value));
-                } <span style="color:#66d9ef">catch</span> (std<span style="color:#f92672">::</span>out_of_range<span style="color:#f92672">&amp;</span> e) {
-                    (<span style="color:#66d9ef">void</span>)e;
-                    <span style="color:#66d9ef">throw</span> BadCast(<span style="color:#e6db74">&#34;Class type not registered in Wren VM&#34;</span>);
-                }
+                pushAsConstRef(vm, idx, value);
             }
 
             <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, T<span style="color:#f92672">&amp;&amp;</span> value) {
-                <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>std<span style="color:#f92672">::</span>is_same<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, T<span style="color:#f92672">&gt;</span>(), <span style="color:#e6db74">&#34;type can&#39;t be int&#34;</span>);
-                <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>std<span style="color:#f92672">::</span>is_same<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, T<span style="color:#f92672">&gt;</span>(), <span style="color:#e6db74">&#34;type can&#39;t be std::string&#34;</span>);
-                <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>is_shared_ptr<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>value, <span style="color:#e6db74">&#34;type can&#39;t be shared_ptr&lt;T&gt;&#34;</span>);
-                <span style="color:#66d9ef">try</span> {
-                    std<span style="color:#f92672">::</span>string module;
-                    std<span style="color:#f92672">::</span>string klass;
-                    getClassType(vm, module, klass, <span style="color:#66d9ef">typeid</span>(T).hash_code());
-
-                    wrenEnsureSlots(vm, idx <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
-                    wrenGetVariable(vm, module.c_str(), klass.c_str(), idx);
-
-                    <span style="color:#66d9ef">auto</span> memory <span style="color:#f92672">=</span> wrenSetSlotNewForeign(vm, idx, idx, <span style="color:#66d9ef">sizeof</span>(ForeignObject<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>));
-                    <span style="color:#66d9ef">auto</span><span style="color:#f92672">*</span> foreign <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> (memory) ForeignObject<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>move(value)));
-                } <span style="color:#66d9ef">catch</span> (std<span style="color:#f92672">::</span>out_of_range<span style="color:#f92672">&amp;</span> e) {
-                    (<span style="color:#66d9ef">void</span>)e;
-                    <span style="color:#66d9ef">throw</span> BadCast(<span style="color:#e6db74">&#34;Class type not registered in Wren VM&#34;</span>);
-                }
+                pushAsMove(vm, idx, std<span style="color:#f92672">::</span>move(value));
             }
         };
 
@@ -1669,23 +1702,7 @@
 
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PushHelper</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">*&gt;</span> {
             <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, T<span style="color:#f92672">*</span> value) {
-                <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>std<span style="color:#f92672">::</span>is_same<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, T<span style="color:#f92672">&gt;</span>(), <span style="color:#e6db74">&#34;type can&#39;t be int&#34;</span>);
-                <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>std<span style="color:#f92672">::</span>is_same<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, T<span style="color:#f92672">&gt;</span>(), <span style="color:#e6db74">&#34;type can&#39;t be std::string&#34;</span>);
-                <span style="color:#66d9ef">static_assert</span>(<span style="color:#f92672">!</span>is_shared_ptr<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>value, <span style="color:#e6db74">&#34;type can&#39;t be shared_ptr&lt;T&gt;&#34;</span>);
-                <span style="color:#66d9ef">try</span> {
-                    std<span style="color:#f92672">::</span>string module;
-                    std<span style="color:#f92672">::</span>string klass;
-                    getClassType(vm, module, klass, <span style="color:#66d9ef">typeid</span>(T).hash_code());
-
-                    wrenEnsureSlots(vm, idx <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
-                    wrenGetVariable(vm, module.c_str(), klass.c_str(), idx);
-
-                    <span style="color:#66d9ef">auto</span> memory <span style="color:#f92672">=</span> wrenSetSlotNewForeign(vm, idx, idx, <span style="color:#66d9ef">sizeof</span>(ForeignObject<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>));
-                    <span style="color:#66d9ef">auto</span><span style="color:#f92672">*</span> foreign <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> (memory) ForeignObject<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(value, [](T<span style="color:#f92672">*</span> t) {}));
-                } <span style="color:#66d9ef">catch</span> (std<span style="color:#f92672">::</span>out_of_range<span style="color:#f92672">&amp;</span> e) {
-                    (<span style="color:#66d9ef">void</span>)e;
-                    <span style="color:#66d9ef">throw</span> BadCast(<span style="color:#e6db74">&#34;Class type not registered in Wren VM&#34;</span>);
-                }
+                pushAsPtr(vm, idx, value);
             }
         };
 
@@ -1717,28 +1734,28 @@
 </span><span style="color:#75715e"></span>        <span style="color:#75715e">//                                       BASIC TYPES
 </span><span style="color:#75715e"></span>        <span style="color:#75715e">// ============================================================================================================
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e">#define WRENBIND17_PUSH_HELPER(T, FUNC) \
-</span><span style="color:#75715e">        template &lt;&gt; inline void PushHelper&lt;T&gt;::f(WrenVM* vm, int idx, const T&amp; value) { \
-</span><span style="color:#75715e">            FUNC; \
-</span><span style="color:#75715e">        } \
-</span><span style="color:#75715e">        template &lt;&gt; inline void PushHelper&lt;T&gt;::f(WrenVM* vm, int idx, T&amp;&amp; value) { \
-</span><span style="color:#75715e">            FUNC; \
-</span><span style="color:#75715e">        } \
-</span><span style="color:#75715e">        template &lt;&gt; inline void PushHelper&lt;const T&gt;::f(WrenVM* vm, int idx, const T value) { \
-</span><span style="color:#75715e">            FUNC; \
-</span><span style="color:#75715e">        } \
-</span><span style="color:#75715e">        template &lt;&gt; inline void PushHelper&lt;T&amp;&gt;::f(WrenVM* vm, int idx, T&amp; value) { \
-</span><span style="color:#75715e">            FUNC; \
-</span><span style="color:#75715e">        } \
-</span><span style="color:#75715e">        template &lt;&gt; inline void PushHelper&lt;const T&amp;&gt;::f(WrenVM* vm, int idx, const T&amp; value) { \
-</span><span style="color:#75715e">            FUNC; \
-</span><span style="color:#75715e">        } \
-</span><span style="color:#75715e">        template &lt;&gt; inline void PushHelper&lt;T*&gt;::f(WrenVM* vm, int idx, T* value) { \
-</span><span style="color:#75715e">            PushHelper&lt;T&gt;::f(vm, idx, *value); \
-</span><span style="color:#75715e">        } \
-</span><span style="color:#75715e">        template &lt;&gt; inline void PushHelper&lt;const T*&gt;::f(WrenVM* vm, int idx, const T* value) { \
-</span><span style="color:#75715e">            PushHelper&lt;T&gt;::f(vm, idx, *value); \
-</span><span style="color:#75715e">        }
+<span style="color:#75715e">#define WRENBIND17_PUSH_HELPER(T, FUNC)                                                                                \
+</span><span style="color:#75715e">    template &lt;&gt; inline void PushHelper&lt;T&gt;::f(WrenVM* vm, int idx, const T&amp; value) {                                    \
+</span><span style="color:#75715e">        FUNC;                                                                                                          \
+</span><span style="color:#75715e">    }                                                                                                                  \
+</span><span style="color:#75715e">    template &lt;&gt; inline void PushHelper&lt;T&gt;::f(WrenVM* vm, int idx, T&amp;&amp; value) {                                         \
+</span><span style="color:#75715e">        FUNC;                                                                                                          \
+</span><span style="color:#75715e">    }                                                                                                                  \
+</span><span style="color:#75715e">    template &lt;&gt; inline void PushHelper&lt;const T&gt;::f(WrenVM* vm, int idx, const T value) {                               \
+</span><span style="color:#75715e">        FUNC;                                                                                                          \
+</span><span style="color:#75715e">    }                                                                                                                  \
+</span><span style="color:#75715e">    template &lt;&gt; inline void PushHelper&lt;T&amp;&gt;::f(WrenVM* vm, int idx, T&amp; value) {                                         \
+</span><span style="color:#75715e">        FUNC;                                                                                                          \
+</span><span style="color:#75715e">    }                                                                                                                  \
+</span><span style="color:#75715e">    template &lt;&gt; inline void PushHelper&lt;const T&amp;&gt;::f(WrenVM* vm, int idx, const T&amp; value) {                             \
+</span><span style="color:#75715e">        FUNC;                                                                                                          \
+</span><span style="color:#75715e">    }                                                                                                                  \
+</span><span style="color:#75715e">    template &lt;&gt; inline void PushHelper&lt;T*&gt;::f(WrenVM* vm, int idx, T* value) {                                         \
+</span><span style="color:#75715e">        PushHelper&lt;T&gt;::f(vm, idx, *value);                                                                             \
+</span><span style="color:#75715e">    }                                                                                                                  \
+</span><span style="color:#75715e">    template &lt;&gt; inline void PushHelper&lt;const T*&gt;::f(WrenVM* vm, int idx, const T* value) {                             \
+</span><span style="color:#75715e">        PushHelper&lt;T&gt;::f(vm, idx, *value);                                                                             \
+</span><span style="color:#75715e">    }
 </span><span style="color:#75715e"></span>
         WRENBIND17_PUSH_HELPER(<span style="color:#66d9ef">char</span>, wrenSetSlotDouble(vm, idx, <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span>(value)));
         WRENBIND17_PUSH_HELPER(<span style="color:#66d9ef">int8_t</span>, wrenSetSlotDouble(vm, idx, <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span>(value)));
@@ -1880,13 +1897,125 @@
                 PushHelper<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Ts...<span style="color:#f92672">&gt;&gt;::</span>f(vm, idx, value);
             }
         };
+
+        <span style="color:#75715e">// ============================================================================================================
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//                                       STD VECTOR
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// ============================================================================================================
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Iter<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> loopAndPushIterable(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> idx, Iter begin, Iter end) {
+            <span style="color:#66d9ef">using</span> T <span style="color:#f92672">=</span> <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>iterator_traits<span style="color:#f92672">&lt;</span>Iter<span style="color:#f92672">&gt;::</span>value_type;
+            wrenSetSlotNewList(vm, idx);
+            <span style="color:#66d9ef">auto</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> begin; it <span style="color:#f92672">!=</span> end; <span style="color:#f92672">++</span>it) {
+                PushHelper<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>f(vm, idx <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#f92672">*</span>it);
+                wrenInsertInList(vm, idx, i<span style="color:#f92672">++</span>, idx <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+            }
+        }
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PushHelper</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> value) {
+                <span style="color:#66d9ef">if</span> (isClassRegistered(vm, <span style="color:#66d9ef">typeid</span>(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>).hash_code())) {
+                    pushAsMove<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx, std<span style="color:#f92672">::</span>move(value));
+                } <span style="color:#66d9ef">else</span> {
+                    loopAndPushIterable(vm, idx, value.begin(), value.end());
+                }
+            }
+        };
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PushHelper</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> value) {
+                <span style="color:#66d9ef">if</span> (isClassRegistered(vm, <span style="color:#66d9ef">typeid</span>(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>).hash_code())) {
+                    pushAsPtr<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx, value);
+                } <span style="color:#66d9ef">else</span> {
+                    loopAndPushIterable(vm, idx, value<span style="color:#f92672">-&gt;</span>begin(), value<span style="color:#f92672">-&gt;</span>end());
+                }
+            }
+        };
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PushHelper</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;</span> value) {
+                <span style="color:#66d9ef">if</span> (isClassRegistered(vm, <span style="color:#66d9ef">typeid</span>(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>).hash_code())) {
+                    pushAsConstRef<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx, value);
+                } <span style="color:#66d9ef">else</span> {
+                    loopAndPushIterable(vm, idx, value.begin(), value.end());
+                }
+            }
+        };
+
+        <span style="color:#75715e">// ============================================================================================================
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//                                       STD List
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// ============================================================================================================
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PushHelper</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> value) {
+                <span style="color:#66d9ef">if</span> (isClassRegistered(vm, <span style="color:#66d9ef">typeid</span>(std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>).hash_code())) {
+                    pushAsMove<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx, std<span style="color:#f92672">::</span>move(value));
+                } <span style="color:#66d9ef">else</span> {
+                    loopAndPushIterable(vm, idx, value.begin(), value.end());
+                }
+            }
+        };
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PushHelper</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> value) {
+                <span style="color:#66d9ef">if</span> (isClassRegistered(vm, <span style="color:#66d9ef">typeid</span>(std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>).hash_code())) {
+                    pushAsPtr<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx, value);
+                } <span style="color:#66d9ef">else</span> {
+                    loopAndPushIterable(vm, idx, value<span style="color:#f92672">-&gt;</span>begin(), value<span style="color:#f92672">-&gt;</span>end());
+                }
+            }
+        };
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PushHelper</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;</span> value) {
+                <span style="color:#66d9ef">if</span> (isClassRegistered(vm, <span style="color:#66d9ef">typeid</span>(std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>).hash_code())) {
+                    pushAsConstRef<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx, value);
+                } <span style="color:#66d9ef">else</span> {
+                    loopAndPushIterable(vm, idx, value.begin(), value.end());
+                }
+            }
+        };
+
+        <span style="color:#75715e">// ============================================================================================================
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//                                       STD Queue
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// ============================================================================================================
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PushHelper</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> value) {
+                <span style="color:#66d9ef">if</span> (isClassRegistered(vm, <span style="color:#66d9ef">typeid</span>(std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>).hash_code())) {
+                    pushAsMove<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx, std<span style="color:#f92672">::</span>move(value));
+                } <span style="color:#66d9ef">else</span> {
+                    loopAndPushIterable(vm, idx, value.begin(), value.end());
+                }
+            }
+        };
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PushHelper</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> value) {
+                <span style="color:#66d9ef">if</span> (isClassRegistered(vm, <span style="color:#66d9ef">typeid</span>(std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>).hash_code())) {
+                    pushAsPtr<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx, value);
+                } <span style="color:#66d9ef">else</span> {
+                    loopAndPushIterable(vm, idx, value<span style="color:#f92672">-&gt;</span>begin(), value<span style="color:#f92672">-&gt;</span>end());
+                }
+            }
+        };
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PushHelper</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;</span> value) {
+                <span style="color:#66d9ef">if</span> (isClassRegistered(vm, <span style="color:#66d9ef">typeid</span>(std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>).hash_code())) {
+                    pushAsConstRef<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx, value);
+                } <span style="color:#66d9ef">else</span> {
+                    loopAndPushIterable(vm, idx, value.begin(), value.end());
+                }
+            }
+        };
     } <span style="color:#75715e">// namespace detail
 </span><span style="color:#75715e"></span><span style="color:#75715e">#endif
 </span><span style="color:#75715e"></span>} <span style="color:#75715e">// namespace wrenbind17
 </span></code></pre></div>
 <hr />
 
-<p>Updated on 15 April 2020 at 19:00:01 UTC</p>
+<p>Updated on 16 April 2020 at 20:17:34 UTC</p>
 
 
 <footer class=" footline" >
@@ -3089,19 +3218,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/wrenbind17/js/clipboard.min.js?1586977201"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1586977201"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1586977201"></script>
-    <script src="/wrenbind17/js/jquery.sticky.js?1586977201"></script>
-    <script src="/wrenbind17/js/featherlight.min.js?1586977201"></script>
-    <script src="/wrenbind17/js/highlight.pack.js?1586977201"></script>
+    <script src="/wrenbind17/js/clipboard.min.js?1587068254"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1587068254"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1587068254"></script>
+    <script src="/wrenbind17/js/jquery.sticky.js?1587068254"></script>
+    <script src="/wrenbind17/js/featherlight.min.js?1587068254"></script>
+    <script src="/wrenbind17/js/highlight.pack.js?1587068254"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1586977201"></script>
-    <script src="/wrenbind17/js/learn.js?1586977201"></script>
-    <script src="/wrenbind17/js/hugo-learn.js?1586977201"></script>
+    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1587068254"></script>
+    <script src="/wrenbind17/js/learn.js?1587068254"></script>
+    <script src="/wrenbind17/js/hugo-learn.js?1587068254"></script>
 
-    <link href="/wrenbind17/mermaid/mermaid.css?1586977201" rel="stylesheet" />
-    <script src="/wrenbind17/mermaid/mermaid.js?1586977201"></script>
+    <link href="/wrenbind17/mermaid/mermaid.css?1587068254" rel="stylesheet" />
+    <script src="/wrenbind17/mermaid/mermaid.js?1587068254"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

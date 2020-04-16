@@ -12,18 +12,18 @@
     <title>include/wrenbind17/foreign.hpp :: WrenBind17</title>
 
     
-    <link href="/wrenbind17/css/nucleus.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/fontawesome-all.min.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/hybrid.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/featherlight.min.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/perfect-scrollbar.min.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/auto-complete.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/atom-one-dark-reasonable.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/theme.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/hugo-theme.css?1586977201" rel="stylesheet">
+    <link href="/wrenbind17/css/nucleus.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/fontawesome-all.min.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/hybrid.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/featherlight.min.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/perfect-scrollbar.min.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/auto-complete.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/atom-one-dark-reasonable.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/theme.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/hugo-theme.css?1587068254" rel="stylesheet">
     
 
-    <script src="/wrenbind17/js/jquery-3.3.1.min.js?1586977201"></script>
+    <script src="/wrenbind17/js/jquery-3.3.1.min.js?1587068254"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -50,14 +50,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/wrenbind17/js/lunr.min.js?1586977201"></script>
-<script type="text/javascript" src="/wrenbind17/js/auto-complete.js?1586977201"></script>
+<script type="text/javascript" src="/wrenbind17/js/lunr.min.js?1587068254"></script>
+<script type="text/javascript" src="/wrenbind17/js/auto-complete.js?1587068254"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/matusnovak.github.io\/wrenbind17";
     
 </script>
-<script type="text/javascript" src="/wrenbind17/js/search.js?1586977201"></script>
+<script type="text/javascript" src="/wrenbind17/js/search.js?1587068254"></script>
 
     
   </div>
@@ -1653,11 +1653,11 @@
 <h2 id="source-code">Source code</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#pragma once
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unordered_map&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;allocator.hpp&#34;</span><span style="color:#75715e">
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;allocator.hpp&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;caller.hpp&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unordered_map&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">namespace</span> wrenbind17 {
     <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">ForeignMethodOperator</span> {
@@ -1706,6 +1706,7 @@
         <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">getStatic</span>() <span style="color:#66d9ef">const</span> {
             <span style="color:#66d9ef">return</span> isStatic;
         }
+
     <span style="color:#66d9ef">protected</span><span style="color:#f92672">:</span>
         std<span style="color:#f92672">::</span>string name;
         WrenForeignMethodFn method;
@@ -1746,6 +1747,7 @@
         <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">getStatic</span>() <span style="color:#66d9ef">const</span> {
             <span style="color:#66d9ef">return</span> isStatic;
         }
+
     <span style="color:#66d9ef">protected</span><span style="color:#f92672">:</span>
         std<span style="color:#f92672">::</span>string name;
         WrenForeignMethodFn getter;
@@ -1755,7 +1757,7 @@
 
     <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ForeignKlass</span> {
     <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-        ForeignKlass(std<span style="color:#f92672">::</span>string name) <span style="color:#f92672">:</span> name(std<span style="color:#f92672">::</span>move(name)) {
+        ForeignKlass(std<span style="color:#f92672">::</span>string name) <span style="color:#f92672">:</span> name(std<span style="color:#f92672">::</span>move(name)), allocators{<span style="color:#66d9ef">nullptr</span>, <span style="color:#66d9ef">nullptr</span>} {
         }
 
         <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>ForeignKlass() <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;
@@ -1835,8 +1837,7 @@
         WrenForeignClassMethods allocators;
     };
 
-    <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span>... Args<span style="color:#f92672">&gt;</span>
-    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ForeignMethodImpl</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> ForeignMethod {
+    <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span>... Args<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ForeignMethodImpl</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> ForeignMethod {
     <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
         ForeignMethodImpl(std<span style="color:#f92672">::</span>string name, std<span style="color:#f92672">::</span>string signature, WrenForeignMethodFn fn, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> isStatic)
             <span style="color:#f92672">:</span> ForeignMethod(std<span style="color:#f92672">::</span>move(name), fn, isStatic), signature(std<span style="color:#f92672">::</span>move(signature)) {
@@ -1951,12 +1952,12 @@
                     <span style="color:#66d9ef">throw</span> Exception(<span style="color:#e6db74">&#34;Operator not supported&#34;</span>);
             }
         }
+
     <span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
         std<span style="color:#f92672">::</span>string signature;
     };
 
-    <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> V<span style="color:#f92672">&gt;</span>
-    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ForeignPropImpl</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> ForeignProp {
+    <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> V<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ForeignPropImpl</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> ForeignProp {
     <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
         ForeignPropImpl(std<span style="color:#f92672">::</span>string name, WrenForeignMethodFn getter, WrenForeignMethodFn setter, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> isStatic)
             <span style="color:#f92672">:</span> ForeignProp(std<span style="color:#f92672">::</span>move(name), getter, setter, isStatic) {
@@ -1966,8 +1967,7 @@
 
 <span style="color:#75715e">#ifndef DOXYGEN_SHOULD_SKIP_THIS
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">namespace</span> detail {
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span>... Args<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>string generateNameArgs() {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span>... Args<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>string generateNameArgs() {
             <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">auto</span> n <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>...(Args);
             std<span style="color:#f92672">::</span>stringstream ss;
             ss <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;(&#34;</span>;
@@ -1981,11 +1981,9 @@
             <span style="color:#66d9ef">return</span> ss.str();
         }
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignFunctionDetails</span>;
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignFunctionDetails</span>;
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, <span style="color:#66d9ef">typename</span>... Args, R (<span style="color:#f92672">*</span>Fn)(Args...)<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignFunctionDetails</span><span style="color:#f92672">&lt;</span>R (<span style="color:#f92672">*</span>)(Args...), Fn<span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, <span style="color:#66d9ef">typename</span>... Args, R (<span style="color:#f92672">*</span>Fn)(Args...)<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignFunctionDetails</span><span style="color:#f92672">&lt;</span>R (<span style="color:#f92672">*</span>)(Args...), Fn<span style="color:#f92672">&gt;</span> {
             <span style="color:#66d9ef">typedef</span> ForeignMethodImpl<span style="color:#f92672">&lt;</span>Args...<span style="color:#f92672">&gt;</span> ForeignMethodImplType;
 
             <span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>ForeignMethodImplType<span style="color:#f92672">&gt;</span> make(std<span style="color:#f92672">::</span>string name) {
@@ -1996,18 +1994,15 @@
             }
         };
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> M<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">GetPointerType</span> {
-            <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> C, <span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
-            <span style="color:#66d9ef">static</span> T getType(T C<span style="color:#f92672">::*</span>v);
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> M<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">GetPointerType</span> {
+            <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> C, <span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">static</span> T getType(T C<span style="color:#f92672">::*</span>v);
 
             <span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">decltype</span>(getType(<span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span>M<span style="color:#f92672">&gt;</span>(<span style="color:#66d9ef">nullptr</span>))) type;
         };
     } <span style="color:#75715e">// namespace detail
 </span><span style="color:#75715e"></span><span style="color:#75715e">#endif
 </span><span style="color:#75715e"></span>
-    <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
-    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ForeignKlassImpl</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> ForeignKlass {
+    <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ForeignKlassImpl</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> ForeignKlass {
     <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
         ForeignKlassImpl(std<span style="color:#f92672">::</span>string name) <span style="color:#f92672">:</span> ForeignKlass(std<span style="color:#f92672">::</span>move(name)) {
             allocators.allocate <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
@@ -2037,8 +2032,7 @@
             os <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;}</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>;
         }
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span>... Args<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">void</span> ctor(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;new&#34;</span>) {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span>... Args<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> ctor(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;new&#34;</span>) {
             allocators.allocate <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>detail<span style="color:#f92672">::</span>ForeignKlassAllocator<span style="color:#f92672">&lt;</span>T, Args...<span style="color:#f92672">&gt;::</span>allocate;
             allocators.finalize <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>detail<span style="color:#f92672">::</span>ForeignKlassAllocator<span style="color:#f92672">&lt;</span>T, Args...<span style="color:#f92672">&gt;::</span>finalize;
             std<span style="color:#f92672">::</span>stringstream ss;
@@ -2055,8 +2049,7 @@
         }
 
 <span style="color:#75715e">#ifndef DOXYGEN_SHOULD_SKIP_THIS
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignMethodDetails</span>;
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignMethodDetails</span>;
 
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, <span style="color:#66d9ef">typename</span>... Args, R (T<span style="color:#f92672">::*</span>Fn)(Args...)<span style="color:#f92672">&gt;</span>
         <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignMethodDetails</span><span style="color:#f92672">&lt;</span>R (T<span style="color:#f92672">::*</span>)(Args...), Fn<span style="color:#f92672">&gt;</span> {
@@ -2096,8 +2089,7 @@
             }
         };
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignMethodExtDetails</span>;
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignMethodExtDetails</span>;
 
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, <span style="color:#66d9ef">typename</span>... Args, R (<span style="color:#f92672">*</span>Fn)(T<span style="color:#f92672">&amp;</span>, Args...)<span style="color:#f92672">&gt;</span>
         <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignMethodExtDetails</span><span style="color:#f92672">&lt;</span>R (<span style="color:#f92672">*</span>)(T<span style="color:#f92672">&amp;</span>, Args...), Fn<span style="color:#f92672">&gt;</span> {
@@ -2118,8 +2110,7 @@
             }
         };
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, V T<span style="color:#f92672">::*</span>Ptr<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignVarDetails</span> {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, V T<span style="color:#f92672">::*</span>Ptr<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignVarDetails</span> {
             <span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>ForeignProp<span style="color:#f92672">&gt;</span> make(std<span style="color:#f92672">::</span>string name, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> readonly) {
                 <span style="color:#66d9ef">auto</span> s <span style="color:#f92672">=</span> readonly <span style="color:#f92672">?</span> <span style="color:#66d9ef">nullptr</span> <span style="color:#f92672">:</span> detail<span style="color:#f92672">::</span>ForeignPropCaller<span style="color:#f92672">&lt;</span>T, V, Ptr<span style="color:#f92672">&gt;::</span>setter;
                 <span style="color:#66d9ef">auto</span> g <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignPropCaller<span style="color:#f92672">&lt;</span>T, V, Ptr<span style="color:#f92672">&gt;::</span>getter;
@@ -2127,139 +2118,117 @@
             }
         };
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, V T<span style="color:#f92672">::</span> <span style="color:#f92672">*</span> Ptr<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignVarReadonlyDetails</span> {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, V T<span style="color:#f92672">::*</span>Ptr<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignVarReadonlyDetails</span> {
             <span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>ForeignProp<span style="color:#f92672">&gt;</span> make(std<span style="color:#f92672">::</span>string name, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> readonly) {
                 <span style="color:#66d9ef">auto</span> g <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignPropCaller<span style="color:#f92672">&lt;</span>T, V, Ptr<span style="color:#f92672">&gt;::</span>getter;
                 <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>ForeignProp<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>move(name), g, <span style="color:#66d9ef">nullptr</span>, false);
             }
         };
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignSetterDetails</span>;
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignSetterDetails</span>;
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, <span style="color:#66d9ef">void</span> (T<span style="color:#f92672">::*</span>Fn)(V)<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignSetterDetails</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span> (T<span style="color:#f92672">::*</span>)(V), Fn<span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, <span style="color:#66d9ef">void</span> (T<span style="color:#f92672">::*</span>Fn)(V)<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignSetterDetails</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span> (T<span style="color:#f92672">::*</span>)(V), Fn<span style="color:#f92672">&gt;</span> {
             <span style="color:#66d9ef">static</span> WrenForeignMethodFn <span style="color:#a6e22e">method</span>() {
                 <span style="color:#66d9ef">return</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span>, T, V<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
             }
         };
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignSetterExtDetails</span>;
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignSetterExtDetails</span>;
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, <span style="color:#66d9ef">void</span> (<span style="color:#f92672">*</span>Fn)(T<span style="color:#f92672">&amp;</span>, V)<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignSetterExtDetails</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span> (<span style="color:#f92672">*</span>)(T<span style="color:#f92672">&amp;</span>, V), Fn<span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, <span style="color:#66d9ef">void</span> (<span style="color:#f92672">*</span>Fn)(T<span style="color:#f92672">&amp;</span>, V)<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignSetterExtDetails</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span> (<span style="color:#f92672">*</span>)(T<span style="color:#f92672">&amp;</span>, V), Fn<span style="color:#f92672">&gt;</span> {
             <span style="color:#66d9ef">static</span> WrenForeignMethodFn <span style="color:#a6e22e">method</span>() {
                 <span style="color:#66d9ef">return</span> detail<span style="color:#f92672">::</span>ForeignMethodExtCaller<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span>, T, V<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
             }
         };
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignGetterDetails</span>;
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignGetterDetails</span>;
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, R (T<span style="color:#f92672">::*</span>Fn)()<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignGetterDetails</span><span style="color:#f92672">&lt;</span>R (T<span style="color:#f92672">::*</span>)(), Fn<span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, R (T<span style="color:#f92672">::*</span>Fn)()<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignGetterDetails</span><span style="color:#f92672">&lt;</span>R (T<span style="color:#f92672">::*</span>)(), Fn<span style="color:#f92672">&gt;</span> {
             <span style="color:#66d9ef">static</span> WrenForeignMethodFn <span style="color:#a6e22e">method</span>() {
                 <span style="color:#66d9ef">return</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span>R, T<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
             }
         };
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, R (T<span style="color:#f92672">::*</span>Fn)() <span style="color:#66d9ef">const</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignGetterDetails</span><span style="color:#f92672">&lt;</span>R (T<span style="color:#f92672">::*</span>)() <span style="color:#66d9ef">const</span>, Fn<span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, R (T<span style="color:#f92672">::*</span>Fn)() <span style="color:#66d9ef">const</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignGetterDetails</span><span style="color:#f92672">&lt;</span>R (T<span style="color:#f92672">::*</span>)() <span style="color:#66d9ef">const</span>, Fn<span style="color:#f92672">&gt;</span> {
             <span style="color:#66d9ef">static</span> WrenForeignMethodFn <span style="color:#a6e22e">method</span>() {
                 <span style="color:#66d9ef">return</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span>R, T<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
             }
         };
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignGetterExtDetails</span>;
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignGetterExtDetails</span>;
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, R (<span style="color:#f92672">*</span>Fn)(T<span style="color:#f92672">&amp;</span>)<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignGetterExtDetails</span><span style="color:#f92672">&lt;</span>R (<span style="color:#f92672">*</span>)(T<span style="color:#f92672">&amp;</span>), Fn<span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, R (<span style="color:#f92672">*</span>Fn)(T<span style="color:#f92672">&amp;</span>)<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignGetterExtDetails</span><span style="color:#f92672">&lt;</span>R (<span style="color:#f92672">*</span>)(T<span style="color:#f92672">&amp;</span>), Fn<span style="color:#f92672">&gt;</span> {
             <span style="color:#66d9ef">static</span> WrenForeignMethodFn <span style="color:#a6e22e">method</span>() {
                 <span style="color:#66d9ef">return</span> detail<span style="color:#f92672">::</span>ForeignMethodExtCaller<span style="color:#f92672">&lt;</span>R, T<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
             }
         };
 <span style="color:#75715e">#endif
 </span><span style="color:#75715e"></span>
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">void</span> func(std<span style="color:#f92672">::</span>string name) {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> func(std<span style="color:#f92672">::</span>string name) {
             <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> ForeignMethodDetails<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Fn), Fn<span style="color:#f92672">&gt;::</span>make(std<span style="color:#f92672">::</span>move(name));
             methods.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
         }
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">void</span> func(<span style="color:#66d9ef">const</span> ForeignMethodOperator name) {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> func(<span style="color:#66d9ef">const</span> ForeignMethodOperator name) {
             <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> ForeignMethodDetails<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Fn), Fn<span style="color:#f92672">&gt;::</span>make(name);
             methods.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
         }
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">void</span> funcExt(std<span style="color:#f92672">::</span>string name) {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> funcExt(std<span style="color:#f92672">::</span>string name) {
             <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> ForeignMethodExtDetails<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Fn), Fn<span style="color:#f92672">&gt;::</span>make(std<span style="color:#f92672">::</span>move(name));
             methods.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
         }
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">void</span> funcExt(<span style="color:#66d9ef">const</span> ForeignMethodOperator name) {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> funcExt(<span style="color:#66d9ef">const</span> ForeignMethodOperator name) {
             <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> ForeignMethodExtDetails<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Fn), Fn<span style="color:#f92672">&gt;::</span>make(name);
             methods.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
         }
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">void</span> funcStatic(std<span style="color:#f92672">::</span>string name) {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> funcStatic(std<span style="color:#f92672">::</span>string name) {
             <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignFunctionDetails<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Fn), Fn<span style="color:#f92672">&gt;::</span>make(std<span style="color:#f92672">::</span>move(name));
             methods.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
         }
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">void</span> funcStaticExt(std<span style="color:#f92672">::</span>string name) {
-            <span style="color:#75715e">// This is exactly the same as funcStatic because there is 
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> funcStaticExt(std<span style="color:#f92672">::</span>string name) {
+            <span style="color:#75715e">// This is exactly the same as funcStatic because there is
 </span><span style="color:#75715e"></span>            <span style="color:#75715e">// no difference for &#34;static void Foo::foo(){}&#34; and &#34;void foo(){}&#34;!
 </span><span style="color:#75715e"></span>            <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignFunctionDetails<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Fn), Fn<span style="color:#f92672">&gt;::</span>make(std<span style="color:#f92672">::</span>move(name));
             methods.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
         }
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Var<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">void</span> var(std<span style="color:#f92672">::</span>string name) {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Var<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> var(std<span style="color:#f92672">::</span>string name) {
             <span style="color:#66d9ef">using</span> R <span style="color:#f92672">=</span> <span style="color:#66d9ef">typename</span> detail<span style="color:#f92672">::</span>GetPointerType<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Var)<span style="color:#f92672">&gt;::</span>type;
             <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> ForeignVarDetails<span style="color:#f92672">&lt;</span>R, Var<span style="color:#f92672">&gt;::</span>make(std<span style="color:#f92672">::</span>move(name), false);
             props.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
         }
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Var<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">void</span> varReadonly(std<span style="color:#f92672">::</span>string name) {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Var<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> varReadonly(std<span style="color:#f92672">::</span>string name) {
             <span style="color:#66d9ef">using</span> R <span style="color:#f92672">=</span> <span style="color:#66d9ef">typename</span> detail<span style="color:#f92672">::</span>GetPointerType<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Var)<span style="color:#f92672">&gt;::</span>type;
             <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> ForeignVarReadonlyDetails<span style="color:#f92672">&lt;</span>R, Var<span style="color:#f92672">&gt;::</span>make(std<span style="color:#f92672">::</span>move(name), true);
             props.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
         }
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Getter, <span style="color:#66d9ef">auto</span> Setter<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">void</span> prop(std<span style="color:#f92672">::</span>string name) {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Getter, <span style="color:#66d9ef">auto</span> Setter<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> prop(std<span style="color:#f92672">::</span>string name) {
             <span style="color:#66d9ef">auto</span> g <span style="color:#f92672">=</span> ForeignGetterDetails<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Getter), Getter<span style="color:#f92672">&gt;::</span>method();
             <span style="color:#66d9ef">auto</span> s <span style="color:#f92672">=</span> ForeignSetterDetails<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Setter), Setter<span style="color:#f92672">&gt;::</span>method();
             <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>ForeignProp<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>move(name), g, s, false);
             props.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
         }
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Getter<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">void</span> propReadonly(std<span style="color:#f92672">::</span>string name) {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Getter<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> propReadonly(std<span style="color:#f92672">::</span>string name) {
             <span style="color:#66d9ef">auto</span> g <span style="color:#f92672">=</span> ForeignGetterDetails<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Getter), Getter<span style="color:#f92672">&gt;::</span>method();
             <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>ForeignProp<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>move(name), g, <span style="color:#66d9ef">nullptr</span>, false);
             props.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
         }
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Getter, <span style="color:#66d9ef">auto</span> Setter<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">void</span> propExt(std<span style="color:#f92672">::</span>string name) {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Getter, <span style="color:#66d9ef">auto</span> Setter<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> propExt(std<span style="color:#f92672">::</span>string name) {
             <span style="color:#66d9ef">auto</span> g <span style="color:#f92672">=</span> ForeignGetterExtDetails<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Getter), Getter<span style="color:#f92672">&gt;::</span>method();
             <span style="color:#66d9ef">auto</span> s <span style="color:#f92672">=</span> ForeignSetterExtDetails<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Setter), Setter<span style="color:#f92672">&gt;::</span>method();
             <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>ForeignProp<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>move(name), g, s, false);
             props.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
         }
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Getter<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">void</span> propReadonlyExt(std<span style="color:#f92672">::</span>string name) {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Getter<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> propReadonlyExt(std<span style="color:#f92672">::</span>string name) {
             <span style="color:#66d9ef">auto</span> g <span style="color:#f92672">=</span> ForeignGetterExtDetails<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Getter), Getter<span style="color:#f92672">&gt;::</span>method();
             <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>ForeignProp<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>move(name), g, <span style="color:#66d9ef">nullptr</span>, false);
             props.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
@@ -2269,7 +2238,7 @@
 </span></code></pre></div>
 <hr />
 
-<p>Updated on 15 April 2020 at 19:00:00 UTC</p>
+<p>Updated on 16 April 2020 at 20:17:34 UTC</p>
 
 
 <footer class=" footline" >
@@ -3472,19 +3441,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/wrenbind17/js/clipboard.min.js?1586977201"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1586977201"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1586977201"></script>
-    <script src="/wrenbind17/js/jquery.sticky.js?1586977201"></script>
-    <script src="/wrenbind17/js/featherlight.min.js?1586977201"></script>
-    <script src="/wrenbind17/js/highlight.pack.js?1586977201"></script>
+    <script src="/wrenbind17/js/clipboard.min.js?1587068254"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1587068254"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1587068254"></script>
+    <script src="/wrenbind17/js/jquery.sticky.js?1587068254"></script>
+    <script src="/wrenbind17/js/featherlight.min.js?1587068254"></script>
+    <script src="/wrenbind17/js/highlight.pack.js?1587068254"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1586977201"></script>
-    <script src="/wrenbind17/js/learn.js?1586977201"></script>
-    <script src="/wrenbind17/js/hugo-learn.js?1586977201"></script>
+    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1587068254"></script>
+    <script src="/wrenbind17/js/learn.js?1587068254"></script>
+    <script src="/wrenbind17/js/hugo-learn.js?1587068254"></script>
 
-    <link href="/wrenbind17/mermaid/mermaid.css?1586977201" rel="stylesheet" />
-    <script src="/wrenbind17/mermaid/mermaid.js?1586977201"></script>
+    <link href="/wrenbind17/mermaid/mermaid.css?1587068254" rel="stylesheet" />
+    <script src="/wrenbind17/mermaid/mermaid.js?1587068254"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

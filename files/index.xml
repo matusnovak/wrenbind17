@@ -17,7 +17,7 @@
       
       <guid>https://matusnovak.github.io/wrenbind17/files/dir_d44c64559bbebec7f509842c48db8b23/</guid>
       <description>include Dir Reference
-Directories    Name     include/wrenbind17    Updated on 15 April 2020 at 19:00:00 UTC</description>
+Directories    Name     include/wrenbind17    Updated on 16 April 2020 at 20:17:34 UTC</description>
     </item>
     
     <item>
@@ -27,7 +27,7 @@ Directories    Name     include/wrenbind17    Updated on 15 April 2020 at 19:00:
       
       <guid>https://matusnovak.github.io/wrenbind17/files/dir_0603dac12b22d4faefe24b335e5b06be/</guid>
       <description>include/wrenbind17 Dir Reference
-Files    Name     include/wrenbind17/wrenbind17.hpp   include/wrenbind17/vm.hpp   include/wrenbind17/variable.hpp   include/wrenbind17/std.hpp   include/wrenbind17/push.hpp   include/wrenbind17/pop.hpp   include/wrenbind17/object.hpp   include/wrenbind17/module.hpp   include/wrenbind17/method.hpp   include/wrenbind17/index.hpp   include/wrenbind17/handle.hpp   include/wrenbind17/foreign.hpp   include/wrenbind17/exception.hpp   include/wrenbind17/caller.hpp   include/wrenbind17/any.hpp   include/wrenbind17/allocator.hpp    Updated on 15 April 2020 at 19:00:00 UTC</description>
+Files    Name     include/wrenbind17/wrenbind17.hpp   include/wrenbind17/vm.hpp   include/wrenbind17/variable.hpp   include/wrenbind17/std.hpp   include/wrenbind17/push.hpp   include/wrenbind17/pop.hpp   include/wrenbind17/object.hpp   include/wrenbind17/module.hpp   include/wrenbind17/method.hpp   include/wrenbind17/index.hpp   include/wrenbind17/handle.hpp   include/wrenbind17/foreign.hpp   include/wrenbind17/exception.hpp   include/wrenbind17/caller.hpp   include/wrenbind17/any.hpp   include/wrenbind17/allocator.hpp    Updated on 16 April 2020 at 20:17:34 UTC</description>
     </item>
     
     <item>
@@ -77,7 +77,7 @@ Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::Comp
       
       <guid>https://matusnovak.github.io/wrenbind17/files/foreign_8hpp/</guid>
       <description>include/wrenbind17/foreign.hpp File Reference
-Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::ForeignKlassImpl   class wrenbind17::ForeignPropImpl   class wrenbind17::ForeignMethodImpl   class wrenbind17::ForeignKlass   class wrenbind17::ForeignProp   class wrenbind17::ForeignMethod    Source code #pragma once  #include &amp;lt;ostream&amp;gt;#include &amp;lt;unordered_map&amp;gt;#include &amp;lt;iostream&amp;gt;#include &amp;#34;allocator.hpp&amp;#34;#include &amp;#34;caller.hpp&amp;#34; namespace wrenbind17 { enum ForeignMethodOperator { OPERATOR_GET_INDEX, OPERATOR_SET_INDEX, OPERATOR_SUB, OPERATOR_ADD, OPERATOR_MUL, OPERATOR_DIV, OPERATOR_NEG, OPERATOR_MOD, OPERATOR_EQUAL, OPERATOR_NOT_EQUAL, OPERATOR_GT, OPERATOR_LT, OPERATOR_GT_EQUAL, OPERATOR_LT_EQUAL, OPERATOR_SHIFT_LEFT, OPERATOR_SHIFT_RIGHT, OPERATOR_AND, OPERATOR_XOR, OPERATOR_OR }; class ForeignMethod { public: ForeignMethod(std::string name, WrenForeignMethodFn method, const bool isStatic) : name(std::move(name)), method(method), isStatic(isStatic) { } virtual ~ForeignMethod() = default; // If you are getting &amp;#34;referencing deleted function&amp;#34; error which is this one below,  // then you are trying to make a copy of ForeignKlass during vm.</description>
+Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::ForeignKlassImpl   class wrenbind17::ForeignPropImpl   class wrenbind17::ForeignMethodImpl   class wrenbind17::ForeignKlass   class wrenbind17::ForeignProp   class wrenbind17::ForeignMethod    Source code #pragma once  #include &amp;#34;allocator.hpp&amp;#34;#include &amp;#34;caller.hpp&amp;#34;#include &amp;lt;iostream&amp;gt;#include &amp;lt;ostream&amp;gt;#include &amp;lt;unordered_map&amp;gt; namespace wrenbind17 { enum ForeignMethodOperator { OPERATOR_GET_INDEX, OPERATOR_SET_INDEX, OPERATOR_SUB, OPERATOR_ADD, OPERATOR_MUL, OPERATOR_DIV, OPERATOR_NEG, OPERATOR_MOD, OPERATOR_EQUAL, OPERATOR_NOT_EQUAL, OPERATOR_GT, OPERATOR_LT, OPERATOR_GT_EQUAL, OPERATOR_LT_EQUAL, OPERATOR_SHIFT_LEFT, OPERATOR_SHIFT_RIGHT, OPERATOR_AND, OPERATOR_XOR, OPERATOR_OR }; class ForeignMethod { public: ForeignMethod(std::string name, WrenForeignMethodFn method, const bool isStatic) : name(std::move(name)), method(method), isStatic(isStatic) { } virtual ~ForeignMethod() = default; // If you are getting &amp;#34;referencing deleted function&amp;#34; error which is this one below,  // then you are trying to make a copy of ForeignKlass during vm.</description>
     </item>
     
     <item>
@@ -137,7 +137,7 @@ Namespaces    Name     wrenbind17    Source code #pragma once  #include &amp;#34
       
       <guid>https://matusnovak.github.io/wrenbind17/files/pop_8hpp/</guid>
       <description>include/wrenbind17/pop.hpp File Reference
-Namespaces    Name     wrenbind17    Source code #pragma once  #include &amp;#34;object.hpp&amp;#34; namespace wrenbind17 { void getClassType(WrenVM* vm, std::string&amp;amp; module, std::string&amp;amp; name, size_t hash); detail::ForeignPtrConvertor* getClassCast(WrenVM* vm, size_t hash, size_t other); #ifndef DOXYGEN_SHOULD_SKIP_THIS  namespace detail { // ============================================================================================================  // CHECK SLOTS FOR TYPE  // ============================================================================================================  inline const char* wrenSlotTypeToStr(const WrenType type) { switch (type) { case WREN_TYPE_BOOL: return &amp;#34;bool&amp;#34;; case WREN_TYPE_FOREIGN: return &amp;#34;instance&amp;#34;; case WREN_TYPE_LIST: return &amp;#34;list&amp;#34;; case WREN_TYPE_NULL: return &amp;#34;null&amp;#34;; case WREN_TYPE_NUM: return &amp;#34;number&amp;#34;; case WREN_TYPE_STRING: return &amp;#34;string&amp;#34;; case WREN_TYPE_UNKNOWN: default: return &amp;#34;unknown&amp;#34;; } } template &amp;lt;typename T&amp;gt; inline bool is(WrenVM* vm, const int idx) { const auto type = wrenGetSlotType(vm, idx); if (type !</description>
+Namespaces    Name     wrenbind17    Source code #pragma once  #include &amp;#34;object.hpp&amp;#34;#include &amp;lt;list&amp;gt;#include &amp;lt;queue&amp;gt;#include &amp;lt;vector&amp;gt; namespace wrenbind17 { void getClassType(WrenVM* vm, std::string&amp;amp; module, std::string&amp;amp; name, size_t hash); detail::ForeignPtrConvertor* getClassCast(WrenVM* vm, size_t hash, size_t other); #ifndef DOXYGEN_SHOULD_SKIP_THIS  namespace detail { // ============================================================================================================  // CHECK SLOTS FOR TYPE  // ============================================================================================================  inline const char* wrenSlotTypeToStr(const WrenType type) { switch (type) { case WREN_TYPE_BOOL: return &amp;#34;bool&amp;#34;; case WREN_TYPE_FOREIGN: return &amp;#34;instance&amp;#34;; case WREN_TYPE_LIST: return &amp;#34;list&amp;#34;; case WREN_TYPE_NULL: return &amp;#34;null&amp;#34;; case WREN_TYPE_NUM: return &amp;#34;number&amp;#34;; case WREN_TYPE_STRING: return &amp;#34;string&amp;#34;; case WREN_TYPE_UNKNOWN: default: return &amp;#34;unknown&amp;#34;; } } template &amp;lt;typename T&amp;gt; inline bool is(WrenVM* vm, const int idx) { const auto type = wrenGetSlotType(vm, idx); if (type !</description>
     </item>
     
     <item>
@@ -147,7 +147,7 @@ Namespaces    Name     wrenbind17    Source code #pragma once  #include &amp;#34
       
       <guid>https://matusnovak.github.io/wrenbind17/files/push_8hpp/</guid>
       <description>include/wrenbind17/push.hpp File Reference
-Namespaces    Name     wrenbind17    Source code #pragma once  #include &amp;#34;object.hpp&amp;#34; namespace wrenbind17 { #ifndef DOXYGEN_SHOULD_SKIP_THIS  void getClassType(WrenVM* vm, std::string&amp;amp; module, std::string&amp;amp; name, size_t hash); detail::ForeignPtrConvertor* getClassCast(WrenVM* vm, size_t hash, size_t other); namespace detail { template &amp;lt;typename T&amp;gt; struct PushHelper; template &amp;lt;typename T&amp;gt; struct PushHelper { static inline void f(WrenVM* vm, int idx, const T&amp;amp; value) { static_assert(!</description>
+Namespaces    Name     wrenbind17    Source code #pragma once  #include &amp;#34;object.hpp&amp;#34;#include &amp;lt;list&amp;gt;#include &amp;lt;queue&amp;gt;#include &amp;lt;vector&amp;gt; namespace wrenbind17 { #ifndef DOXYGEN_SHOULD_SKIP_THIS  void getClassType(WrenVM* vm, std::string&amp;amp; module, std::string&amp;amp; name, size_t hash); bool isClassRegistered(WrenVM* vm, const size_t hash); detail::ForeignPtrConvertor* getClassCast(WrenVM* vm, size_t hash, size_t other); namespace detail { template &amp;lt;typename T&amp;gt; struct PushHelper; template &amp;lt;typename T&amp;gt; void pushAsConstRef(WrenVM* vm, int idx, const T&amp;amp; value) { static_assert(!</description>
     </item>
     
     <item>
@@ -187,7 +187,7 @@ Namespaces    Name     wrenbind17    Classes     Name     class wrenbind17::VM  
       
       <guid>https://matusnovak.github.io/wrenbind17/files/wrenbind17_8hpp/</guid>
       <description>include/wrenbind17/wrenbind17.hpp File Reference
-Source code #pragma once  #include &amp;#34;vm.hpp&amp;#34; Updated on 15 April 2020 at 19:00:01 UTC</description>
+Source code #pragma once  #include &amp;#34;vm.hpp&amp;#34; Updated on 16 April 2020 at 20:17:34 UTC</description>
     </item>
     
   </channel>

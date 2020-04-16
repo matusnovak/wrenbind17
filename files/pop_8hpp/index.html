@@ -12,18 +12,18 @@
     <title>include/wrenbind17/pop.hpp :: WrenBind17</title>
 
     
-    <link href="/wrenbind17/css/nucleus.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/fontawesome-all.min.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/hybrid.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/featherlight.min.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/perfect-scrollbar.min.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/auto-complete.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/atom-one-dark-reasonable.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/theme.css?1586977201" rel="stylesheet">
-    <link href="/wrenbind17/css/hugo-theme.css?1586977201" rel="stylesheet">
+    <link href="/wrenbind17/css/nucleus.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/fontawesome-all.min.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/hybrid.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/featherlight.min.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/perfect-scrollbar.min.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/auto-complete.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/atom-one-dark-reasonable.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/theme.css?1587068254" rel="stylesheet">
+    <link href="/wrenbind17/css/hugo-theme.css?1587068254" rel="stylesheet">
     
 
-    <script src="/wrenbind17/js/jquery-3.3.1.min.js?1586977201"></script>
+    <script src="/wrenbind17/js/jquery-3.3.1.min.js?1587068254"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -50,14 +50,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/wrenbind17/js/lunr.min.js?1586977201"></script>
-<script type="text/javascript" src="/wrenbind17/js/auto-complete.js?1586977201"></script>
+<script type="text/javascript" src="/wrenbind17/js/lunr.min.js?1587068254"></script>
+<script type="text/javascript" src="/wrenbind17/js/auto-complete.js?1587068254"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/matusnovak.github.io\/wrenbind17";
     
 </script>
-<script type="text/javascript" src="/wrenbind17/js/search.js?1586977201"></script>
+<script type="text/javascript" src="/wrenbind17/js/search.js?1587068254"></script>
 
     
   </div>
@@ -1610,6 +1610,9 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#pragma once
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;object.hpp&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;queue&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">namespace</span> wrenbind17 {
     <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">getClassType</span>(WrenVM<span style="color:#f92672">*</span> vm, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> module, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> name, size_t hash);
@@ -1639,7 +1642,7 @@
                     <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;unknown&#34;</span>;
             }
         }
-        
+
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> is(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> idx) {
             <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span> type <span style="color:#f92672">=</span> wrenGetSlotType(vm, idx);
             <span style="color:#66d9ef">if</span> (type <span style="color:#f92672">!=</span> WrenType<span style="color:#f92672">::</span>WREN_TYPE_FOREIGN)
@@ -1762,9 +1765,8 @@
 </span><span style="color:#75715e"></span>        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span>WrenType Type<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> validate(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx) {
             <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span> t <span style="color:#f92672">=</span> wrenGetSlotType(vm, idx);
             <span style="color:#66d9ef">if</span> (t <span style="color:#f92672">!=</span> Type)
-                <span style="color:#66d9ef">throw</span> BadCast(<span style="color:#e6db74">&#34;Bad cast when getting value from Wren got &#34;</span>
-                    <span style="color:#f92672">+</span> std<span style="color:#f92672">::</span>string(wrenSlotTypeToStr(t))
-                    <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; expected &#34;</span> <span style="color:#f92672">+</span> std<span style="color:#f92672">::</span>string(wrenSlotTypeToStr(Type)));
+                <span style="color:#66d9ef">throw</span> BadCast(<span style="color:#e6db74">&#34;Bad cast when getting value from Wren got &#34;</span> <span style="color:#f92672">+</span> std<span style="color:#f92672">::</span>string(wrenSlotTypeToStr(t)) <span style="color:#f92672">+</span>
+                              <span style="color:#e6db74">&#34; expected &#34;</span> <span style="color:#f92672">+</span> std<span style="color:#f92672">::</span>string(wrenSlotTypeToStr(Type)));
         }
 
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> getSlotForeign(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> slot) {
@@ -1967,7 +1969,7 @@
         }
 
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> VariantType, <span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span>... Ts<span style="color:#f92672">&gt;</span>
-        VariantType loopAndFindVariant(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx) {
+        VariantType loopAndFindVariant(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> idx) {
             <span style="color:#66d9ef">if</span> (CheckSlot<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>f(vm, idx)) {
                 <span style="color:#66d9ef">return</span> {PopHelper<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>f(vm, idx)};
             }
@@ -1975,23 +1977,123 @@
         }
 
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span>... Ts<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PopHelper</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Ts...<span style="color:#f92672">&gt;&gt;</span> {
-            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Ts...<span style="color:#f92672">&gt;</span> f(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx) {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Ts...<span style="color:#f92672">&gt;</span> f(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> idx) {
                 <span style="color:#66d9ef">using</span> VariantType <span style="color:#f92672">=</span> <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Ts...<span style="color:#f92672">&gt;</span>;
                 <span style="color:#66d9ef">return</span> loopAndFindVariant<span style="color:#f92672">&lt;</span>VariantType, Ts...<span style="color:#f92672">&gt;</span>(vm, idx);
             }
         };
 
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span>... Ts<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PopHelper</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Ts...<span style="color:#f92672">&gt;&amp;&gt;</span> {
-            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Ts...<span style="color:#f92672">&gt;</span> f(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx) {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Ts...<span style="color:#f92672">&gt;</span> f(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> idx) {
                 <span style="color:#66d9ef">using</span> VariantType <span style="color:#f92672">=</span> <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Ts...<span style="color:#f92672">&gt;</span>;
                 <span style="color:#66d9ef">return</span> loopAndFindVariant<span style="color:#f92672">&lt;</span>VariantType, Ts...<span style="color:#f92672">&gt;</span>(vm, idx);
             }
         };
 
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span>... Ts<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PopHelper</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Ts...<span style="color:#f92672">&gt;&amp;&gt;</span> {
-            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Ts...<span style="color:#f92672">&gt;</span> f(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx) {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Ts...<span style="color:#f92672">&gt;</span> f(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> idx) {
                 <span style="color:#66d9ef">using</span> VariantType <span style="color:#f92672">=</span> <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Ts...<span style="color:#f92672">&gt;</span>;
                 <span style="color:#66d9ef">return</span> loopAndFindVariant<span style="color:#f92672">&lt;</span>VariantType, Ts...<span style="color:#f92672">&gt;</span>(vm, idx);
+            }
+        };
+
+        <span style="color:#75715e">// ============================================================================================================
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//                                       STD VECTOR
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// ============================================================================================================
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Iterable<span style="color:#f92672">&gt;</span> Iterable popIterable(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> idx) {
+            Iterable res;
+            res.reserve(wrenGetListCount(vm, idx));
+            <span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> res.capacity(); i<span style="color:#f92672">++</span>) {
+                wrenGetListElement(vm, idx, <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(i), <span style="color:#ae81ff">0</span>);
+                res.push_back(PopHelper<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Iterable<span style="color:#f92672">::</span>value_type<span style="color:#f92672">&gt;::</span>f(vm, <span style="color:#ae81ff">0</span>));
+            }
+            <span style="color:#66d9ef">return</span> res;
+        }
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PopHelper</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> f(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> idx) {
+                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span> type <span style="color:#f92672">=</span> wrenGetSlotType(vm, idx);
+                <span style="color:#66d9ef">if</span> (type <span style="color:#f92672">==</span> WrenType<span style="color:#f92672">::</span>WREN_TYPE_FOREIGN) {
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>getSlotForeign<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx).get();
+                }
+                <span style="color:#66d9ef">if</span> (type <span style="color:#f92672">!=</span> WrenType<span style="color:#f92672">::</span>WREN_TYPE_LIST)
+                    <span style="color:#66d9ef">throw</span> BadCast(<span style="color:#e6db74">&#34;Bad cast when getting value from Wren expected list&#34;</span>);
+
+                <span style="color:#66d9ef">return</span> popIterable<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx);
+            }
+        };
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PopHelper</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> f(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> idx) {
+                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span> type <span style="color:#f92672">=</span> wrenGetSlotType(vm, idx);
+                <span style="color:#66d9ef">if</span> (type <span style="color:#f92672">==</span> WrenType<span style="color:#f92672">::</span>WREN_TYPE_FOREIGN) {
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>getSlotForeign<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx).get();
+                }
+                <span style="color:#66d9ef">if</span> (type <span style="color:#f92672">!=</span> WrenType<span style="color:#f92672">::</span>WREN_TYPE_LIST)
+                    <span style="color:#66d9ef">throw</span> BadCast(<span style="color:#e6db74">&#34;Bad cast when getting value from Wren expected list&#34;</span>);
+
+                <span style="color:#66d9ef">return</span> popIterable<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx);
+            }
+        };
+
+        <span style="color:#75715e">// ============================================================================================================
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//                                       STD LIST
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// ============================================================================================================
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PopHelper</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> f(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> idx) {
+                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span> type <span style="color:#f92672">=</span> wrenGetSlotType(vm, idx);
+                <span style="color:#66d9ef">if</span> (type <span style="color:#f92672">==</span> WrenType<span style="color:#f92672">::</span>WREN_TYPE_FOREIGN) {
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>getSlotForeign<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx).get();
+                }
+                <span style="color:#66d9ef">if</span> (type <span style="color:#f92672">!=</span> WrenType<span style="color:#f92672">::</span>WREN_TYPE_LIST)
+                    <span style="color:#66d9ef">throw</span> BadCast(<span style="color:#e6db74">&#34;Bad cast when getting value from Wren expected list&#34;</span>);
+
+                <span style="color:#66d9ef">return</span> popIterable<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx);
+            }
+        };
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PopHelper</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> f(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> idx) {
+                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span> type <span style="color:#f92672">=</span> wrenGetSlotType(vm, idx);
+                <span style="color:#66d9ef">if</span> (type <span style="color:#f92672">==</span> WrenType<span style="color:#f92672">::</span>WREN_TYPE_FOREIGN) {
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>getSlotForeign<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx).get();
+                }
+                <span style="color:#66d9ef">if</span> (type <span style="color:#f92672">!=</span> WrenType<span style="color:#f92672">::</span>WREN_TYPE_LIST)
+                    <span style="color:#66d9ef">throw</span> BadCast(<span style="color:#e6db74">&#34;Bad cast when getting value from Wren expected list&#34;</span>);
+
+                <span style="color:#66d9ef">return</span> popIterable<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx);
+            }
+        };
+
+        <span style="color:#75715e">// ============================================================================================================
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//                                       STD QUEUE
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// ============================================================================================================
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PopHelper</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> f(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> idx) {
+                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span> type <span style="color:#f92672">=</span> wrenGetSlotType(vm, idx);
+                <span style="color:#66d9ef">if</span> (type <span style="color:#f92672">==</span> WrenType<span style="color:#f92672">::</span>WREN_TYPE_FOREIGN) {
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>getSlotForeign<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx).get();
+                }
+                <span style="color:#66d9ef">if</span> (type <span style="color:#f92672">!=</span> WrenType<span style="color:#f92672">::</span>WREN_TYPE_LIST)
+                    <span style="color:#66d9ef">throw</span> BadCast(<span style="color:#e6db74">&#34;Bad cast when getting value from Wren expected list&#34;</span>);
+
+                <span style="color:#66d9ef">return</span> popIterable<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx);
+            }
+        };
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PopHelper</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> f(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> idx) {
+                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span> type <span style="color:#f92672">=</span> wrenGetSlotType(vm, idx);
+                <span style="color:#66d9ef">if</span> (type <span style="color:#f92672">==</span> WrenType<span style="color:#f92672">::</span>WREN_TYPE_FOREIGN) {
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>getSlotForeign<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx).get();
+                }
+                <span style="color:#66d9ef">if</span> (type <span style="color:#f92672">!=</span> WrenType<span style="color:#f92672">::</span>WREN_TYPE_LIST)
+                    <span style="color:#66d9ef">throw</span> BadCast(<span style="color:#e6db74">&#34;Bad cast when getting value from Wren expected list&#34;</span>);
+
+                <span style="color:#66d9ef">return</span> popIterable<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>queue<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx);
             }
         };
     } <span style="color:#75715e">// namespace detail
@@ -2000,7 +2102,7 @@
 </span></code></pre></div>
 <hr />
 
-<p>Updated on 15 April 2020 at 19:00:00 UTC</p>
+<p>Updated on 16 April 2020 at 20:17:34 UTC</p>
 
 
 <footer class=" footline" >
@@ -3203,19 +3305,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/wrenbind17/js/clipboard.min.js?1586977201"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1586977201"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1586977201"></script>
-    <script src="/wrenbind17/js/jquery.sticky.js?1586977201"></script>
-    <script src="/wrenbind17/js/featherlight.min.js?1586977201"></script>
-    <script src="/wrenbind17/js/highlight.pack.js?1586977201"></script>
+    <script src="/wrenbind17/js/clipboard.min.js?1587068254"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1587068254"></script>
+    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1587068254"></script>
+    <script src="/wrenbind17/js/jquery.sticky.js?1587068254"></script>
+    <script src="/wrenbind17/js/featherlight.min.js?1587068254"></script>
+    <script src="/wrenbind17/js/highlight.pack.js?1587068254"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1586977201"></script>
-    <script src="/wrenbind17/js/learn.js?1586977201"></script>
-    <script src="/wrenbind17/js/hugo-learn.js?1586977201"></script>
+    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1587068254"></script>
+    <script src="/wrenbind17/js/learn.js?1587068254"></script>
+    <script src="/wrenbind17/js/hugo-learn.js?1587068254"></script>
 
-    <link href="/wrenbind17/mermaid/mermaid.css?1586977201" rel="stylesheet" />
-    <script src="/wrenbind17/mermaid/mermaid.js?1586977201"></script>
+    <link href="/wrenbind17/mermaid/mermaid.css?1587068254" rel="stylesheet" />
+    <script src="/wrenbind17/mermaid/mermaid.js?1587068254"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
