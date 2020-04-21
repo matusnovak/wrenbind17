@@ -5,6 +5,7 @@ install/
 .vs/
 *.kdev4
 *~
+CMakeSettings.json
 
 # doxygen
 docs/doxygen/*.md

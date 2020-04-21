@@ -22,6 +22,8 @@ TEST_CASE("Returning bad any must throw correct exception") {
     wren::VM vm;
     auto& m = vm.module("test");
     auto& c = m.klass<HelloClass>("HelloClass");
+    (void)c;
+
     vm.runFromSource("main", code);
     auto main = vm.find("main", "Main").func("main()");
 

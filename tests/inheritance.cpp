@@ -45,6 +45,7 @@ TEST_CASE("Inheritance") {
     wren::VM vm;
     auto& m = vm.module("test");
     auto& cls = m.klass<BaseClass>("BaseClass");
+    (void)cls;
 
     auto& cls2 = m.klass<DerivedClass, BaseClass>("DerivedClass");
     cls2.ctor<>();
@@ -75,6 +76,7 @@ TEST_CASE("Inheritance with shared_ptr") {
     wren::VM vm;
     auto& m = vm.module("test");
     auto& cls = m.klass<BaseClass>("BaseClass");
+    (void)cls;
 
     auto& cls2 = m.klass<DerivedClass, BaseClass>("DerivedClass");
     cls2.ctor<>();

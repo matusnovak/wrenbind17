@@ -210,7 +210,6 @@ namespace wrenbind17 {
         ~ForeignMethodImpl() = default;
 
         void generate(std::ostream& os) const override {
-            constexpr auto n = sizeof...(Args);
             os << "    foreign " << (isStatic ? "static " : "") << signature << "\n";
         }
 

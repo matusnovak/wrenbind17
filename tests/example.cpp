@@ -5,7 +5,7 @@ namespace wren = wrenbind17;
 
 class MyFoo {
 public:
-    MyFoo(const int year, const std::string& message) : year(year), message(message), type("MyFoo") {
+    MyFoo(const int year, const std::string& message) : message(message), year(year), type("MyFoo") {
     }
 
     std::string message;

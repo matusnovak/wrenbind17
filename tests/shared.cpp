@@ -11,7 +11,7 @@ public:
         counter++;
         id = size_t(this);
     }
-    SomeClass(const std::string& name, std::shared_ptr<SomeClass> parent) : name(name), parent(std::move(parent)) {
+    SomeClass(const std::string& name, std::shared_ptr<SomeClass> parent) : parent(std::move(parent)), name(name) {
         counter++;
         id = size_t(this);
     }

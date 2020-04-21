@@ -124,7 +124,6 @@ TEST_CASE("String slots") {
 
     SECTION("String by const ref") {
         auto s = std::string("Hello World");
-        const auto& ref = s;
         constRef(s);
         REQUIRE(Foo::str == "Hello World");
         Foo::str.clear();

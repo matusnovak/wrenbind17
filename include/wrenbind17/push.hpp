@@ -29,6 +29,7 @@ namespace wrenbind17 {
 
                 auto memory = wrenSetSlotNewForeign(vm, idx, idx, sizeof(ForeignObject<T>));
                 auto* foreign = new (memory) ForeignObject<T>(std::make_shared<T>(value));
+                (void)foreign;
             } catch (std::out_of_range& e) {
                 (void)e;
                 throw BadCast("Class type not registered in Wren VM");
@@ -49,6 +50,7 @@ namespace wrenbind17 {
 
                 auto memory = wrenSetSlotNewForeign(vm, idx, idx, sizeof(ForeignObject<T>));
                 auto* foreign = new (memory) ForeignObject<T>(std::make_shared<T>(std::move(value)));
+                (void)foreign;
             } catch (std::out_of_range& e) {
                 (void)e;
                 throw BadCast("Class type not registered in Wren VM");
@@ -69,6 +71,7 @@ namespace wrenbind17 {
 
                 auto memory = wrenSetSlotNewForeign(vm, idx, idx, sizeof(ForeignObject<T>));
                 auto* foreign = new (memory) ForeignObject<T>(std::shared_ptr<T>(value, [](T* t) {}));
+                (void)foreign;
             } catch (std::out_of_range& e) {
                 (void)e;
                 throw BadCast("Class type not registered in Wren VM");
@@ -216,6 +219,7 @@ namespace wrenbind17 {
 
                     auto memory = wrenSetSlotNewForeign(vm, idx, idx, sizeof(ForeignObject<T>));
                     auto* foreign = new (memory) ForeignObject<T>(value);
+                    (void)foreign;
                 } catch (std::out_of_range& e) {
                     (void)e;
                     throw BadCast("Class type not registered in Wren VM");

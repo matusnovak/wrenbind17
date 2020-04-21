@@ -7,11 +7,11 @@ static int counter = 0;
 
 class NonCopyable {
 public:
-    NonCopyable(const std::string& name) : name(name), parent(nullptr) {
+    NonCopyable(const std::string& name) : parent(nullptr), name(name) {
         counter++;
         id = size_t(this);
     }
-    NonCopyable(const std::string& name, NonCopyable& parent) : name(name), parent(&parent) {
+    NonCopyable(const std::string& name, NonCopyable& parent) : parent(&parent), name(name) {
         counter++;
         id = size_t(this);
     }
