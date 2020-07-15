@@ -99,7 +99,6 @@ jobs:
 
       - name: Create Changelog
         id: create_changelog
-        if: startsWith(github.ref, 'refs/tags/v')
         shell: bash
         run: |
           last_tag=$(git describe --tags --abbrev=0 @^ || true)
@@ -137,7 +136,7 @@ jobs:
         shell: bash
         run: |
           sudo apt-get install doxygen zip unzip -y
-          wget https://github.com/gohugoio/hugo/releases/download/v0.59.1/hugo_extended_0.59.1_Linux-64bit.deb
+          wget https://github.com/gohugoio/hugo/releases/download/v0.74.1/hugo_extended_0.74.1_Linux-64bit.deb
           sudo dpkg -i hugo_extended_0.59.1_Linux-64bit.deb
           wget https://github.com/matusnovak/doxybook2/releases/download/v1.1.6/doxybook2-linux-amd64-v1.1.6.zip
           unzip doxybook2-linux-amd64-v1.1.6.zip
