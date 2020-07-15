@@ -17,23 +17,6 @@ if(WRENBIND17_BUILD_TESTS OR WRENBIND17_BUILD_WREN)
 endif()
 
 if(WRENBIND17_BUILD_TESTS)
-  # Code Coverage Configuration target
-  add_library(coverage_config INTERFACE)
-
-  if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-    # Add required flags (GCC & LLVM/Clang)
-    target_compile_options(coverage_config INTERFACE
-      -O0        # no optimization
-      -g         # generate debug info
-      --coverage # sets all required flags
-    )
-    if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
-      target_link_options(coverage_config INTERFACE --coverage)
-    else()
-      target_link_libraries(coverage_config INTERFACE --coverage)
-    endif()
-  endif()
-
   # Find Catch2 library
   find_package(Catch2 REQUIRED)
 
@@ -46,7 +29,11 @@ if(WRENBIND17_BUILD_TESTS)
   set_target_properties(${PROJECT_NAME}_Tests PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF)
   target_include_directories(${PROJECT_NAME}_Tests PRIVATE ${CATCH2_INCLUDE_DIR})
   target_link_libraries(${PROJECT_NAME}_Tests PUBLIC Wren ${PROJECT_NAME})
-  target_link_libraries(${PROJECT_NAME}_Tests PRIVATE coverage_config)
+  if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    # Coverage info
+    target_compile_options(${PROJECT_NAME}_Tests PRIVATE -fprofile-arcs -ftest-coverage -g -O0)
+    target_link_options(${PROJECT_NAME}_Tests PRIVATE -lgcov --coverage)
+  endif()
   if(MINGW)
     target_compile_options(${PROJECT_NAME}_Tests PRIVATE -Wa,-mbig-obj)
   endif()
