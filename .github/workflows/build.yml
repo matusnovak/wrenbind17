@@ -90,7 +90,6 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         shell: bash
         run: |
-          sudo apt-get update -y
           sudo apt-get install -y lcov valgrind
           valgrind --suppressions=./wren.supp ./build/WrenBind17_Tests
 
@@ -104,7 +103,7 @@ jobs:
         run: |
           cd build
           ls /usr/bin | grep gcov
-          lcov --directory . --capture --output-file coverage.info
+          lcov --directory . --capture --output-file coverage.info --gcov-tool /usr/bin/x86_64-linux-gnu-gcov-9
           lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' '*tests*' '*catch2*' '*vm*' --output-file coverage.info
           lcov --list coverage.info
           bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
@@ -136,6 +135,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
   
   docs:
+    name: Documentation
     needs: [build]
     runs-on: ubuntu-latest
     steps:
