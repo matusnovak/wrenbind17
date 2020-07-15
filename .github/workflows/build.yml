@@ -135,8 +135,10 @@ jobs:
         shell: bash
         run: |
           sudo apt-get install doxygen zip unzip -y
-          wget https://github.com/gohugoio/hugo/releases/download/v0.74.1/hugo_extended_0.74.1_Linux-64bit.deb
-          sudo dpkg -i hugo_extended_0.74.1_Linux-64bit.deb
+          wget https://github.com/gohugoio/hugo/releases/download/v0.74.1/hugo_extended_0.74.1_Linux-64bit.tar.gz
+          tar xvf hugo_extended_0.74.1_Linux-64bit.tar.gz
+          sudo chmod +x ./hugo
+          ./hugo version
           wget https://github.com/matusnovak/doxybook2/releases/download/v1.1.6/doxybook2-linux-amd64-v1.1.6.zip
           unzip doxybook2-linux-amd64-v1.1.6.zip
           sudo cp bin/doxybook2 /usr/local/bin/doxybook2
@@ -158,7 +160,7 @@ jobs:
         shell: bash
         run: |
           cd docs
-          hugo
+          ./hugo
       
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
