@@ -160,7 +160,7 @@ jobs:
         shell: bash
         run: |
           cd docs
-          ./hugo
+          ../hugo
       
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
