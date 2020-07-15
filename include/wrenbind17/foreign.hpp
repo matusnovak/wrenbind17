@@ -36,6 +36,7 @@ namespace wrenbind17 {
     };
     /**
      * @ingroup wrenbind17
+     * @brief Holds information about a foreign function of a foreign class
      */
     class ForeignMethod {
     public:
@@ -51,14 +52,23 @@ namespace wrenbind17 {
 
         virtual void generate(std::ostream& os) const = 0;
 
+        /*!
+         * @brief Returns the name of the method
+         */
         const std::string& getName() const {
             return name;
         }
 
+        /*!
+         * @brief Returns the raw pointer of this method
+         */
         WrenForeignMethodFn getMethod() const {
             return method;
         }
 
+        /*!
+         * @brief Returns true if this method is marked as static
+         */
         bool getStatic() const {
             return isStatic;
         }
@@ -71,6 +81,7 @@ namespace wrenbind17 {
 
     /**
      * @ingroup wrenbind17
+     * @brief Holds information about a foreign property of a foreign class
      */
     class ForeignProp {
     public:
@@ -91,18 +102,30 @@ namespace wrenbind17 {
                 os << "    foreign " << name << "=(rhs)\n";
         }
 
+        /*!
+         * @brief Returns the name of this property
+         */
         const std::string& getName() const {
             return name;
         }
 
+        /*!
+         * @brief Returns the pointer to the raw function for settings this property
+         */
         WrenForeignMethodFn getSetter() {
             return setter;
         }
 
+        /*!
+         * @brief Returns the pointer to the raw function for getting this property
+         */
         WrenForeignMethodFn getGetter() {
             return getter;
         }
 
+        /*!
+         * @brief Returns true if this property is static
+         */
         bool getStatic() const {
             return isStatic;
         }
@@ -116,6 +139,7 @@ namespace wrenbind17 {
 
     /**
      * @ingroup wrenbind17
+     * @brief A foreign class
      */
     class ForeignKlass {
     public:
@@ -130,6 +154,9 @@ namespace wrenbind17 {
 
         virtual void generate(std::ostream& os) const = 0;
 
+        /*!
+         * @brief Looks up a foreign function that belongs to this class
+         */
         ForeignMethod& findFunc(const std::string& name, const bool isStatic) {
             const auto it = methods.find(name);
             if (it == methods.end())
@@ -139,6 +166,9 @@ namespace wrenbind17 {
             return *it->second;
         }
 
+        /*!
+         * @brief Looks up a foreign property that belongs to this class
+         */
         ForeignProp& findProp(const std::string& name, const bool isStatic) {
             const auto it = props.find(name);
             if (it == props.end())
@@ -148,6 +178,9 @@ namespace wrenbind17 {
             return *it->second;
         }
 
+        /*!
+         * @brief Finds a function based on the signature
+         */
         WrenForeignMethodFn findSignature(const std::string& signature, const bool isStatic) {
             switch (signature[0]) {
                 case '[':
@@ -183,10 +216,16 @@ namespace wrenbind17 {
             }
         }
 
+        /*!
+         * @brief Returns the name of this foreign class
+         */
         const std::string& getName() const {
             return name;
         }
 
+        /*!
+         * @brief Returns a struct with pointers to the allocator and deallocator
+         */
         WrenForeignClassMethods& getAllocators() {
             return allocators;
         }
@@ -201,6 +240,7 @@ namespace wrenbind17 {
 
     /**
      * @ingroup wrenbind17
+     * @brief Type specific implementation of foreign method
      */
     template <typename... Args> class ForeignMethodImpl : public ForeignMethod {
     public:
@@ -371,6 +411,7 @@ namespace wrenbind17 {
 
     /**
      * @ingroup wrenbind17
+     * @brtief Type specific implementation of foreign class
      */
     template <typename T> class ForeignKlassImpl : public ForeignKlass {
     public:
@@ -388,6 +429,9 @@ namespace wrenbind17 {
         // Notice the "auto&"
         ForeignKlassImpl(const ForeignKlassImpl<T>& other) = delete;
 
+        /*!
+         * @brief Generate Wren code for this class
+         */
         void generate(std::ostream& os) const override {
             os << "foreign class " << name << " {\n";
             if (!ctorDef.empty()) {
@@ -402,6 +446,9 @@ namespace wrenbind17 {
             os << "}\n\n";
         }
 
+        /*!
+         * @brief Add a constructor to this class
+         */
         template <typename... Args> void ctor(const std::string& name = "new") {
             allocators.allocate = &detail::ForeignKlassAllocator<T, Args...>::allocate;
             allocators.finalize = &detail::ForeignKlassAllocator<T, Args...>::finalize;
@@ -534,31 +581,224 @@ namespace wrenbind17 {
         };
 #endif
 
+        /*!
+         * @brief Add a member function to this class
+         * @details The number of arguments and what type of arguments
+         * this class needs is handled at compile time with metaprogramming.
+         * When this C++ function you are adding is called from Wren, it will check
+         * the types passed and will match the C++ signature. If the types do not match
+         * an exception is thrown that can be handled by Wren as a fiber.
+         *
+         * Example:
+         *
+         * @code
+         * class Foo {
+         * public:
+         *     Foo(const std::string& msg) {...}
+         *     void bar() {...}
+         *     int baz() const {...}
+         * };
+         *
+         * int main() {
+         *     ...
+         *     wren::VM vm;
+         *     auto& m = vm.module("mymodule");
+         *
+         *     // Add class "Foo"
+         *     auto& cls = m.klass<Foo>("Foo");
+         *
+         *     // Define constructor (you can only specify one constructor)
+         *     cls.ctor<const std::string&>();
+         *
+         *     // Add some methods
+         *     cls.func<&Foo::bar>("bar");
+         *     cls.func<&Foo::baz>("baz");
+         * }
+         * @endcode
+         */
         template <auto Fn> void func(std::string name) {
             auto ptr = ForeignMethodDetails<decltype(Fn), Fn>::make(std::move(name));
             methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
+        /*!
+         * @brief Add a member operator function to this class that exists outside of the class
+         * @see ForeignMethodOperator
+         * @details The number of arguments and what type of arguments
+         * this class needs is handled at compile time with metaprogramming.
+         * When this C++ function you are adding is called from Wren, it will check
+         * the types passed and will match the C++ signature. If the types do not match
+         * an exception is thrown that can be handled by Wren as a fiber.
+         *
+         * Example:
+         *
+         * @code
+         * class Foo {
+         * public:
+         *     Foo(const std::string& msg) {...}
+         *     Foo& operator+(const std::string& other) {...}
+         * };
+         *
+         * int main() {
+         *     ...
+         *     wren::VM vm;
+         *     auto& m = vm.module("mymodule");
+         *
+         *     // Add class "Foo"
+         *     auto& cls = m.klass<Foo>("Foo");
+         *
+         *     // Define constructor (you can only specify one constructor)
+         *     cls.ctor<const std::string&>();
+         *
+         *     // Add some methods
+         *     cls.func<&Foo::operator+>(wren::ForeignMethodOperator::OPERATOR_ADD);
+         * }
+         * @endcode
+         */
         template <auto Fn> void func(const ForeignMethodOperator name) {
             auto ptr = ForeignMethodDetails<decltype(Fn), Fn>::make(name);
             methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
+        /*!
+         * @brief Add a member function via a static function
+         * @details The number of arguments and what type of arguments
+         * this class needs is handled at compile time with metaprogramming.
+         * When this C++ function you are adding is called from Wren, it will check
+         * the types passed and will match the C++ signature. If the types do not match
+         * an exception is thrown that can be handled by Wren as a fiber.
+         *
+         * This function does not accept class methods, but instead it uses regular functions
+         * that have first parameter as "this" which is a reference to the class you are
+         * adding.
+         *
+         * Example:
+         *
+         * @code
+         * class Foo {
+         * public:
+         *     Foo(const std::string& msg) {...}
+         *
+         *     std::string message;
+         * };
+         *
+         * static std::string fooBaz(Foo& self, int a, int b) {
+         *     return self.message;
+         * }
+         *
+         * int main() {
+         *     ...
+         *     wren::VM vm;
+         *     auto& m = vm.module("mymodule");
+         *
+         *     // Add class "Foo"
+         *     auto& cls = m.klass<Foo>("Foo");
+         *
+         *     // Define constructor (you can only specify one constructor)
+         *     cls.ctor<const std::string&>();
+         *
+         *     // Add some methods
+         *     cls.funcExt<&fooBaz>("bar");
+         * }
+         * @endcode
+         */
         template <auto Fn> void funcExt(std::string name) {
             auto ptr = ForeignMethodExtDetails<decltype(Fn), Fn>::make(std::move(name));
             methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
+        /*!
+         * @brief Add a member operator via a static function that exists outside of the class
+         * @see ForeignMethodOperator
+         * @details Same as funcExt but instead it can accept an operator enumeration.
+         */
         template <auto Fn> void funcExt(const ForeignMethodOperator name) {
             auto ptr = ForeignMethodExtDetails<decltype(Fn), Fn>::make(name);
             methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
+        /*!
+         * @brief Add a static function to this class
+         * @see func
+         * @details The number of arguments and what type of arguments
+         * this class needs is handled at compile time with metaprogramming.
+         * When this C++ function you are adding is called from Wren, it will check
+         * the types passed and will match the C++ signature. If the types do not match
+         * an exception is thrown that can be handled by Wren as a fiber.
+         *
+         * This only works if the function you are adding is static.
+         *
+         * Example:
+         *
+         * @code
+         * class Foo {
+         * public:
+         *     Foo(const std::string& msg) {...}
+         *     static void bar() {...}
+         *     static int baz() const {...}
+         * };
+         *
+         * int main() {
+         *     ...
+         *     wren::VM vm;
+         *     auto& m = vm.module("mymodule");
+         *
+         *     // Add class "Foo"
+         *     auto& cls = m.klass<Foo>("Foo");
+         *
+         *     // Define constructor (you can only specify one constructor)
+         *     cls.ctor<const std::string&>();
+         *
+         *     // Add some methods
+         *     cls.funcStatic<&Foo::bar>("bar");
+         *     cls.funcStatic<&Foo::baz>("baz");
+         * }
+         * @endcode
+         */
         template <auto Fn> void funcStatic(std::string name) {
             auto ptr = detail::ForeignFunctionDetails<decltype(Fn), Fn>::make(std::move(name));
             methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
+        /*!
+         * @brief Add a static function to this class that exists outside of the class
+         * @see funcStatic
+         * @details The number of arguments and what type of arguments
+         * this class needs is handled at compile time with metaprogramming.
+         * When this C++ function you are adding is called from Wren, it will check
+         * the types passed and will match the C++ signature. If the types do not match
+         * an exception is thrown that can be handled by Wren as a fiber.
+         *
+         * This only works if the function you are adding is static.
+         *
+         * Example:
+         *
+         * @code
+         * class Foo {
+         * public:
+         *     Foo(const std::string& msg) {...}
+         * };
+         *
+         * static void fooBar() { ... }
+         * static void fooBaz() { ... }
+         *
+         * int main() {
+         *     ...
+         *     wren::VM vm;
+         *     auto& m = vm.module("mymodule");
+         *
+         *     // Add class "Foo"
+         *     auto& cls = m.klass<Foo>("Foo");
+         *
+         *     // Define constructor (you can only specify one constructor)
+         *     cls.ctor<const std::string&>();
+         *
+         *     // Add some methods
+         *     cls.funcStatic<&fooBar>("bar");
+         *     cls.funcStatic<&fooBaz>("baz");
+         * }
+         * @endcode
+         */
         template <auto Fn> void funcStaticExt(std::string name) {
             // This is exactly the same as funcStatic because there is
             // no difference for "static void Foo::foo(){}" and "void foo(){}"!
@@ -566,18 +806,81 @@ namespace wrenbind17 {
             methods.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
+        /*!
+         * @brief Add a read-write variable to this class
+         * @details Example:
+         *
+         * @code
+         * class Foo {
+         * public:
+         *     Foo(const std::string& msg) {...}
+         *
+         *     std::string msg;
+         * };
+         *
+         * int main() {
+         *     ...
+         *     wren::VM vm;
+         *     auto& m = vm.module("mymodule");
+         *
+         *     // Add class "Foo"
+         *     auto& cls = m.klass<Foo>("Foo");
+         *
+         *     // Define constructor (you can only specify one constructor)
+         *     cls.ctor<const std::string&>();
+         *
+         *     // Add class variable as a read write Wren class property
+         *     cls.var<&Foo::msg>("msg");
+         * }
+         * @endcode
+         */
         template <auto Var> void var(std::string name) {
             using R = typename detail::GetPointerType<decltype(Var)>::type;
             auto ptr = ForeignVarDetails<R, Var>::make(std::move(name), false);
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
+        /*!
+         * @brief Add a read-only variable to this class
+         * @details This is exactly the same as var() but the variable
+         * can be only read from Wren. It cannot be reassigned.
+         */
         template <auto Var> void varReadonly(std::string name) {
             using R = typename detail::GetPointerType<decltype(Var)>::type;
             auto ptr = ForeignVarReadonlyDetails<R, Var>::make(std::move(name), true);
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
+        /*!
+         * @brief Add a read-write property to this class via a getter and a setter
+         * @details This essentially creates the same thing as var()
+         * but instead of using pointer to the class field, it uses getter and setter functions.
+         * @code
+         * class Foo {
+         * public:
+         *     Foo(const std::string& msg) {...}
+         *     void setMsg(const std::string& msg) {...}
+         *     const std::string& getMsg() const {...}
+         * private:
+         *     std::string msg;
+         * };
+         *
+         * int main() {
+         *     ...
+         *     wren::VM vm;
+         *     auto& m = vm.module("mymodule");
+         *
+         *     // Add class "Foo"
+         *     auto& cls = m.klass<Foo>("Foo");
+         *
+         *     // Define constructor (you can only specify one constructor)
+         *     cls.ctor<const std::string&>();
+         *
+         *     // Add class variable as a read write Wren class property
+         *     cls.prop<&Foo::getMsg, &Foo::setMsg>("msg");
+         * }
+         * @endcode
+         */
         template <auto Getter, auto Setter> void prop(std::string name) {
             auto g = ForeignGetterDetails<decltype(Getter), Getter>::method();
             auto s = ForeignSetterDetails<decltype(Setter), Setter>::method();
@@ -585,12 +888,81 @@ namespace wrenbind17 {
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
+        /*!
+         * @brief Add a read-onlu property to this class via a getter
+         * @details This essentially creates the same thing as varReadonly()
+         * but instead of using pointer to the class field, it uses a getter.
+         * This property will be read only and cannot be reassigned from Wren.
+         * @code
+         * class Foo {
+         * public:
+         *     Foo(const std::string& msg) {...}
+         *     void setMsg(const std::string& msg) {...}
+         *     const std::string& getMsg() const {...}
+         * private:
+         *     std::string msg;
+         * };
+         *
+         * int main() {
+         *     ...
+         *     wren::VM vm;
+         *     auto& m = vm.module("mymodule");
+         *
+         *     // Add class "Foo"
+         *     auto& cls = m.klass<Foo>("Foo");
+         *
+         *     // Define constructor (you can only specify one constructor)
+         *     cls.ctor<const std::string&>();
+         *
+         *     // Add class variable as a read only Wren class property
+         *     cls.propReadonly<&Foo::getMsg>("msg");
+         * }
+         * @endcode
+         */
         template <auto Getter> void propReadonly(std::string name) {
             auto g = ForeignGetterDetails<decltype(Getter), Getter>::method();
             auto ptr = std::make_unique<ForeignProp>(std::move(name), g, nullptr, false);
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
+        /*!
+         * @brief Add a read-write property to this class via a getter and a setter
+         * @see prop
+         * @details This essentially creates the same thing as var()
+         * but instead of using pointer to the class field, it uses a static getter and setter.
+         * The setter and getter do not have to belong to the class itself, but must be
+         * static functions, and must accept the class as a reference as a first parameter.
+         * @code
+         * class Foo {
+         * public:
+         *     Foo(const std::string& msg) {...}
+         *     std::string msg;
+         * };
+         *
+         * static void fooSetMsg(Foo& self, const std::string& msg) {
+         *     self.msg = msg;
+         * }
+         *
+         * static const std::string& msg fooGetMsg(Foo& self) {
+         *     return self.msg;
+         * }
+         *
+         * int main() {
+         *     ...
+         *     wren::VM vm;
+         *     auto& m = vm.module("mymodule");
+         *
+         *     // Add class "Foo"
+         *     auto& cls = m.klass<Foo>("Foo");
+         *
+         *     // Define constructor (you can only specify one constructor)
+         *     cls.ctor<const std::string&>();
+         *
+         *     // Add class variable as a read write Wren class property
+         *     cls.propExt<&fooGetMsg, &fooSetMsg>("msg");
+         * }
+         * @endcode
+         */
         template <auto Getter, auto Setter> void propExt(std::string name) {
             auto g = ForeignGetterExtDetails<decltype(Getter), Getter>::method();
             auto s = ForeignSetterExtDetails<decltype(Setter), Setter>::method();
@@ -598,6 +970,40 @@ namespace wrenbind17 {
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
+        /*!
+         * @brief Add a read-only property to this class via a getter
+         * @see propReadonly
+         * @details This essentially creates the same thing as varReadonly()
+         * but instead of using pointer to the class field, it uses a static getter.
+         * The setter and does not have to belong to the class itself, but must be
+         * static function, and must accept the class as a reference as a first parameter.
+         * @code
+         * class Foo {
+         * public:
+         *     Foo(const std::string& msg) {...}
+         *     std::string msg;
+         * };
+         *
+         * static const std::string& msg fooGetMsg(Foo& self) {
+         *     return self.msg;
+         * }
+         *
+         * int main() {
+         *     ...
+         *     wren::VM vm;
+         *     auto& m = vm.module("mymodule");
+         *
+         *     // Add class "Foo"
+         *     auto& cls = m.klass<Foo>("Foo");
+         *
+         *     // Define constructor (you can only specify one constructor)
+         *     cls.ctor<const std::string&>();
+         *
+         *     // Add class variable as a read only Wren class property
+         *     cls.propReadonlyExt<&fooGetMsg>("msg");
+         * }
+         * @endcode
+         */
         template <auto Getter> void propReadonlyExt(std::string name) {
             auto g = ForeignGetterExtDetails<decltype(Getter), Getter>::method();
             auto ptr = std::make_unique<ForeignProp>(std::move(name), g, nullptr, false);

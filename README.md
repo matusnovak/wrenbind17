@@ -2,39 +2,38 @@
 
 [![Build Status](https://travis-ci.com/matusnovak/wrenbind17.svg?branch=master)](https://travis-ci.com/matusnovak/wrenbind17) [![Build status](https://ci.appveyor.com/api/projects/status/fy974aj37cdyxc0i/branch/master?svg=true)](https://ci.appveyor.com/project/matusnovak/wrenbind17/branch/master) [![CircleCI](https://circleci.com/gh/matusnovak/wrenbind17.svg?style=svg)](https://circleci.com/gh/matusnovak/wrenbind17) [![codecov](https://codecov.io/gh/matusnovak/wrenbind17/branch/master/graph/badge.svg)](https://codecov.io/gh/matusnovak/wrenbind17)
 
-WrenBind17 is a C++17 wrapper for [Wren programming language](http://wren.io/). This project was heavily inspired by [pybind11](https://github.com/pybind/pybind11) and by [Wren++](https://github.com/Nelarius/wrenpp). This library is header only and does not need any compilation steps. Simply include the `<wrenbind17/wrenbind17.hpp>` header in your application and you are good to go!
+WrenBind17 is a C++17 wrapper for [Wren programming language](http://wren.io/). This project was heavily inspired by [pybind11](https://github.com/pybind/pybind11) and by [Wren++](https://github.com/Nelarius/wrenpp). This library is header only and does not need any compilation steps. Simply include the WrenBind17 header `<wrenbind17/wrenbind17.hpp>`, link the Wren library, and you are good to go.
 
 ## Features
 
 * Header only.
 * Works with Visual Studio 2017, MinGW-w64, Linux GCC, and Apple Clang on Mac OSX.
 * C++17 so you don't need to use `decltype()` on class methods to bind them to Wren.
-* [Foreign modules are automatically generated for you](https://matusnovak.github.io/wrenbind17/tutorial/hello_world.html). You don't need to write the extra foreign classes in separate file.
+* Foreign modules are automatically generated for you. You don't need to write the extra foreign classes in separate file.
 * **Supports strict type safety.** You won't be able to pass just any variable from Wren back to the C++, preventing you getting segmentation faults.
-* Objects are wrapped in `std::shared_ptr` so you have easier access when passing objects around.
+* **Objects are wrapped in std::shared_ptr so you have easier access when passing objects around.** This also enables easy object lifetime management.
 * Easy binding system inspired by [pybind11](https://github.com/pybind/pybind11).
-* [Works with exceptions](https://matusnovak.github.io/wrenbind17/tutorial/exceptions.html).
-* [Upcasting to base types when passing C++ instances](https://matusnovak.github.io/wrenbind17/tutorial/upcasting.html).
+* Works with exceptions.
+* Upcasting to base types when passing C++ instances.
 * Memory leak tested.
-* Supports `std::variant`.
-* Supports [std::map std::unordered_map](https://matusnovak.github.io/wrenbind17/tutorial/maps/) and [std::vector std::list](https://matusnovak.github.io/wrenbind17/tutorial/lists/) via helper classes (optional).
-* [Easy binding of operators](https://matusnovak.github.io/wrenbind17/tutorial/overload-operators.html) such as `+`, `-`, `[]`, etc.
-* [Long but easy to follow tutorial](https://matusnovak.github.io/wrenbind17/tutorial/installation.html).
-* [Supports Fn.new{}](https://matusnovak.github.io/wrenbind17/tutorial/callbacks.html).
-* [Supports inheritance (a workaround)](https://matusnovak.github.io/wrenbind17/tutorial/inheritance.html).
-* [Supports modularity via look-up paths](https://matusnovak.github.io/wrenbind17/tutorial/modules.html).
-* [Supports passing variables by move](https://matusnovak.github.io/wrenbind17/tutorial/call-wren.html)
+* Supports STL containers such as `std::variant`, `std::optional`, `std::vector`, `std::list`, `std::deque`, `std::set`, `std::unordered_set`, `std::map`, `std::unordered_map` which can be handled either natively or as a foreign class.
+* Easy binding of operators such as `+`, `-`, `[]`, etc.
+* Long but easy to follow tutorial ([here](https://matusnovak.github.io/wrenbind17/tutorial/)).
+* Supports native lists and native maps.
+* Supports Fn.new{}.
+* Supports inheritance (a workaround).
+* Supports modularity via look-up paths.
+* Supports passing variables by move.
 
 ## Limitations
 
 * Passing by a reference to a Wren function will create a copy. Use a pointer if you do not wish to create copies and maintain single instance of a given class. This does not affect C++ member functions that return a reference, in that case it will be treated exactly same as a pointer.
+* STL containers `std::unique_ptr`, `std::queue`, `std::stack` are not supported.
 
 ## Not yet implemented
 
 * Lambdas (very tricky due to passing function pointers, most likely not ever be implemented).
 * `..`, `...`, and `is` operator binding.
-* Helper classes for binding `std::queue`, `std::deque`, `std::stack`, `std::set`, and `std::unordered_set`.
-
 
 ## Example
 
@@ -127,9 +126,7 @@ int main(int argc, char *argv[]) {
 
 ## Documentation
 
-Tutorials can be found [**here**](https://matusnovak.github.io/wrenbind17/tutorial/installation/)
-
-And the autogenerated API documentation via Doxygen [**here**](https://matusnovak.github.io/wrenbind17/modules/group__wrenbind17/)
+Tutorials and API documentation can be found here: [https://matusnovak.github.io/wrenbind17/](https://matusnovak.github.io/wrenbind17/)
 
 ## Build
 
@@ -148,7 +145,7 @@ Pull requests are welcome
 ```
 MIT License
 
-Copyright (c) 2019 Matus Novak
+Copyright (c) 2019-2020 Matus Novak
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

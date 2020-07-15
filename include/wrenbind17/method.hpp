@@ -13,8 +13,8 @@ namespace wrenbind17 {
             (void)idx;
         }
 
-        template <typename First, typename... Other> inline void pushArgs(
-            WrenVM* vm, int idx, First&& first, Other&&... other) {
+        template <typename First, typename... Other>
+        inline void pushArgs(WrenVM* vm, int idx, First&& first, Other&&... other) {
             PushHelper<First>::f(vm, idx, std::forward<First>(first));
             pushArgs(vm, ++idx, std::forward<Other>(other)...);
         }
@@ -42,14 +42,10 @@ namespace wrenbind17 {
      */
     class Method {
     public:
-        Method()
-            : vm(nullptr) {
-        }
+        Method() = default;
 
-        Method(WrenVM* vm, std::shared_ptr<Handle> variable, std::shared_ptr<Handle> handle)
-            : vm(vm),
-              variable(std::move(variable)),
-              handle(std::move(handle)) {
+        Method(std::shared_ptr<Handle> variable, std::shared_ptr<Handle> handle)
+            : variable(std::move(variable)), handle(std::move(handle)) {
         }
 
         ~Method() {
@@ -57,22 +53,24 @@ namespace wrenbind17 {
         }
 
         template <typename... Args> Any operator()(Args&&... args) {
-            return detail::CallAndReturn<Args...>::func(vm, variable->getHandle(), handle->getHandle(),
-                                                        std::forward<Args>(args)...);
+            if (const auto ptr = handle->getVmWeak().lock().get()) {
+                return detail::CallAndReturn<Args...>::func(ptr, variable->getHandle(), handle->getHandle(),
+                                                            std::forward<Args>(args)...);
+            } else {
+                throw RuntimeError("Invalid handle");
+            }
         }
 
         operator bool() const {
-            return vm && variable && handle;
+            return variable && handle;
         }
 
         void reset() {
-            vm = nullptr;
             handle.reset();
             variable.reset();
         }
 
     private:
-        WrenVM* vm;
         std::shared_ptr<Handle> variable;
         std::shared_ptr<Handle> handle;
     };

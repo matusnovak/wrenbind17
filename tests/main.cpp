@@ -6,17 +6,16 @@ namespace wren = wrenbind17;
 
 class RandomClass {
 public:
-	RandomClass(std::string msg):msg(msg){
+    RandomClass(std::string msg) : msg(msg) {
+    }
 
-	}
+    ~RandomClass() = default;
 
-	~RandomClass() = default;
-
-	std::string msg;
+    std::string msg;
 };
 
 TEST_CASE("Move VM") {
-	const std::string code = R"(
+    const std::string code = R"(
         import "test" for RandomClass
 
         class Main {
@@ -33,12 +32,12 @@ TEST_CASE("Move VM") {
     cls.ctor<std::string>();
     cls.var<&RandomClass::msg>("msg");
 
-	vm.runFromSource("main", code);
+    vm.runFromSource("main", code);
 
-	auto vm2 = std::move(vm);
+    auto vm2 = std::move(vm);
 
-	auto main = vm2.find("main", "Main").func("main()");
-	auto res = main();
-	REQUIRE(res.is<std::string>());
-	REQUIRE(res.as<std::string>() == "Hello World");
+    auto main = vm2.find("main", "Main").func("main()");
+    auto res = main();
+    REQUIRE(res.is<std::string>());
+    REQUIRE(res.as<std::string>() == "Hello World");
 }

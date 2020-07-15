@@ -1,9 +1,11 @@
 ---
-title: Customize VM behavior
-weight: 170
+title: 9. Customize VM
 ---
 
-## Min heap and growth
+# 9. Customize VM
+
+
+## 9.1. Min heap and growth
 
 To control the minimal heap, heap growth, and initial heap, use the constructor to do so. Example:
 
@@ -34,7 +36,7 @@ int main(...) {
 
 ```
 
-## Print function
+## 9.2. Print function
 
 The print function is defined as:
 
@@ -56,38 +58,45 @@ int main(...) {
 }
 ```
 
-## File loader function
+## 9.3. File loader function
 
-When loading other files via `import "hello" for Foo`, then VM will use a file loader function to read the file into a string. This will only happen once per file, even if the file is imported multiple times (Wren controls this). Please note that a function (as shown below) is already provided by default to the `wren::VM`. You don't need to set your own, it's optional. Also, this function does not override the loading of built-in modules (modules you add via `auto& m = vm.module(...);`) but instead this function will get called only after a built-in module with the specific name has not been found. Example:
+
+You can use your own custom mechanism for handling the imports. This is done by defining your own function of the following type:
 
 ```cpp
-#include <wrenbind17/wrenbind17.hpp>
-namespace wren = wrenbind17; // Alias
+typedef std::function<std::string(
+        const std::vector<std::string>& paths, 
+        const std::string& name
+    )> LoadFileFn;
+```
 
+And using it as this:
+
+```cpp
 int main(...) {
-    auto loadFileFn = [](const std::vector<std::string>& paths, 
-                         const std::string& name) -> std::string {
-                             
-        for (const auto& path : paths) {
-            const auto test = path + "/" + std::string(name) + ".wren";
+    wren::VM vm({"./"});
 
-            std::ifstream t(test);
-            if (!t)
-                continue;
+    const myLoader = [](
+        const std::vector<std::string>& paths, 
+        const std::string& name) -> std::string {
+        
+        // "paths" - This list comes from the 
+        // first argument of the wren::VM constructor.
+        //
+        // "name" - The name of the import.
 
-            std::string source(std::istreambuf_iterator<char>(t), 
-                               std::istreambuf_iterator<char>());
-            return source;
-        }
+        // Return the source code in this function or throw an exception.
+        // For example you can throw wren::NotFound();
 
-        // To indicate that a file does not exist
-        // you must throw eny exception! But, returning
-        // an empty string will count as:
-        // "file exists but it's empty"!
-        throw wren::NotFound();
-    };
+        return "";
+	};
 
-    wren::VM vm();
-    vm.setLoadFileFunc(loadFileFn);
+    vm.setLoadFileFunc(myLoader);
 }
 ```
+
+{{< hint warning >}}
+**Warning**
+
+Changing the loader function will also modify the `wren::VM::runFromModule` function. That function depends on the loader. The argument you pass into the `runFromModule` will become the `name` parameter in the loader.
+{{< /hint >}}

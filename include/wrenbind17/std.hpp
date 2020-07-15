@@ -7,6 +7,7 @@
 #include <vector>
 
 namespace wrenbind17 {
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
     namespace detail {
         template <typename T, typename = void> struct is_equality_comparable : std::false_type {};
 
@@ -34,6 +35,7 @@ namespace wrenbind17 {
                    self.end();
         }
     };
+#endif
 
     template <typename T> class StdVectorBindings {
     public:

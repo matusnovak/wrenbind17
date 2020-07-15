@@ -1,9 +1,6 @@
 #pragma once
 
 #include "object.hpp"
-#include <list>
-#include <queue>
-#include <vector>
 
 namespace wrenbind17 {
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -167,13 +164,33 @@ namespace wrenbind17 {
         WRENBIND17_PUSH_HELPER(bool, wrenSetSlotBool(vm, idx, value));
         WRENBIND17_PUSH_HELPER(std::nullptr_t, wrenSetSlotNull(vm, idx));
 
-        // ============================================================================================================
-        //                                       STD STRING
-        // ============================================================================================================
-
         template <> struct PushHelper<std::string> {
             static inline void f(WrenVM* vm, int idx, const std::string value) {
                 wrenSetSlotString(vm, idx, value.c_str());
+            }
+        };
+
+        template <size_t N> struct PushHelper<const char (&)[N]> {
+            static inline void f(WrenVM* vm, int idx, const char (&value)[N]) {
+                wrenSetSlotString(vm, idx, value);
+            }
+        };
+
+        template <size_t N> struct PushHelper<char (&)[N]> {
+            static inline void f(WrenVM* vm, int idx, char (&value)[N]) {
+                wrenSetSlotString(vm, idx, value);
+            }
+        };
+
+        template <> struct PushHelper<const char*&> {
+            static inline void f(WrenVM* vm, int idx, const char*& value) {
+                wrenSetSlotString(vm, idx, value);
+            }
+        };
+
+        template <> struct PushHelper<char*&> {
+            static inline void f(WrenVM* vm, int idx, char*& value) {
+                wrenSetSlotString(vm, idx, value);
             }
         };
 
@@ -200,10 +217,6 @@ namespace wrenbind17 {
                 wrenSetSlotString(vm, idx, value.c_str());
             }
         };
-
-        // ============================================================================================================
-        //                                       STD SHARED POINTERS
-        // ============================================================================================================
 
         template <typename T> struct PushHelper<std::shared_ptr<T>> {
             static inline void f(WrenVM* vm, int idx, std::shared_ptr<T> value) {
@@ -251,52 +264,6 @@ namespace wrenbind17 {
             }
         };
 
-        // ============================================================================================================
-        //                                       STD VARIANT
-        // ============================================================================================================
-
-        template <typename VariantType>
-        inline void loopAndPushVariant(WrenVM* vm, int idx, const VariantType& v, size_t i) {
-            PushHelper<std::nullptr_t>::f(vm, idx, nullptr);
-        }
-
-        template <typename VariantType, typename T, typename... Ts>
-        inline void loopAndPushVariant(WrenVM* vm, int idx, const VariantType& v, size_t i) {
-            if (v.index() == i) {
-                PushHelper<T>::f(vm, idx, std::get<T>(v));
-            } else {
-                loopAndPushVariant<VariantType, Ts...>(vm, idx, v, i + 1);
-            }
-        }
-
-        template <typename... Ts> struct PushHelper<std::variant<Ts...>> {
-            inline static void f(WrenVM* vm, int idx, const std::variant<Ts...>& value) {
-                loopAndPushVariant<std::variant<Ts...>, Ts...>(vm, idx, value, 0);
-            }
-        };
-
-        template <typename... Ts> struct PushHelper<std::variant<Ts...>&> {
-            inline static void f(WrenVM* vm, int idx, const std::variant<Ts...>& value) {
-                PushHelper<std::variant<Ts...>>::f(vm, idx, value);
-            }
-        };
-
-        template <typename... Ts> struct PushHelper<std::variant<Ts...>*> {
-            inline static void f(WrenVM* vm, int idx, const std::variant<Ts...>* value) {
-                PushHelper<std::variant<Ts...>>::f(vm, idx, *value);
-            }
-        };
-
-        template <typename... Ts> struct PushHelper<const std::variant<Ts...>&> {
-            inline static void f(WrenVM* vm, int idx, const std::variant<Ts...>& value) {
-                PushHelper<std::variant<Ts...>>::f(vm, idx, value);
-            }
-        };
-
-        // ============================================================================================================
-        //                                       STD VECTOR
-        // ============================================================================================================
-
         template <typename Iter> inline void loopAndPushIterable(WrenVM* vm, const int idx, Iter begin, Iter end) {
             using T = typename std::iterator_traits<Iter>::value_type;
             wrenSetSlotNewList(vm, idx);
@@ -307,103 +274,18 @@ namespace wrenbind17 {
             }
         }
 
-        template <typename T> struct PushHelper<std::vector<T>> {
-            static inline void f(WrenVM* vm, int idx, std::vector<T> value) {
-                if (isClassRegistered(vm, typeid(std::vector<T>).hash_code())) {
-                    pushAsMove<std::vector<T>>(vm, idx, std::move(value));
-                } else {
-                    loopAndPushIterable(vm, idx, value.begin(), value.end());
-                }
+        template <typename Iter> inline void loopAndPushKeyPair(WrenVM* vm, const int idx, Iter begin, Iter end) {
+            using T = typename std::iterator_traits<Iter>::value_type;
+            using Key = typename T::first_type;
+            using Value = typename T::second_type;
+            wrenSetSlotNewMap(vm, idx);
+            wrenEnsureSlots(vm, 3);
+            for (auto it = begin; it != end; ++it) {
+                PushHelper<Key>::f(vm, idx + 1, std::forward<Key>(it->first));
+                PushHelper<Value>::f(vm, idx + 2, std::forward<Value>(it->second));
+                wrenSetMapValue(vm, idx, idx + 1, idx + 2);
             }
-        };
-
-        template <typename T> struct PushHelper<std::vector<T>*> {
-            static inline void f(WrenVM* vm, int idx, std::vector<T>* value) {
-                if (isClassRegistered(vm, typeid(std::vector<T>).hash_code())) {
-                    pushAsPtr<std::vector<T>>(vm, idx, value);
-                } else {
-                    loopAndPushIterable(vm, idx, value->begin(), value->end());
-                }
-            }
-        };
-
-        template <typename T> struct PushHelper<const std::vector<T>&> {
-            static inline void f(WrenVM* vm, int idx, const std::vector<T>& value) {
-                if (isClassRegistered(vm, typeid(std::vector<T>).hash_code())) {
-                    pushAsConstRef<std::vector<T>>(vm, idx, value);
-                } else {
-                    loopAndPushIterable(vm, idx, value.begin(), value.end());
-                }
-            }
-        };
-
-        // ============================================================================================================
-        //                                       STD List
-        // ============================================================================================================
-
-        template <typename T> struct PushHelper<std::list<T>> {
-            static inline void f(WrenVM* vm, int idx, std::list<T> value) {
-                if (isClassRegistered(vm, typeid(std::list<T>).hash_code())) {
-                    pushAsMove<std::list<T>>(vm, idx, std::move(value));
-                } else {
-                    loopAndPushIterable(vm, idx, value.begin(), value.end());
-                }
-            }
-        };
-
-        template <typename T> struct PushHelper<std::list<T>*> {
-            static inline void f(WrenVM* vm, int idx, std::list<T>* value) {
-                if (isClassRegistered(vm, typeid(std::list<T>).hash_code())) {
-                    pushAsPtr<std::list<T>>(vm, idx, value);
-                } else {
-                    loopAndPushIterable(vm, idx, value->begin(), value->end());
-                }
-            }
-        };
-
-        template <typename T> struct PushHelper<const std::list<T>&> {
-            static inline void f(WrenVM* vm, int idx, const std::list<T>& value) {
-                if (isClassRegistered(vm, typeid(std::list<T>).hash_code())) {
-                    pushAsConstRef<std::list<T>>(vm, idx, value);
-                } else {
-                    loopAndPushIterable(vm, idx, value.begin(), value.end());
-                }
-            }
-        };
-
-        // ============================================================================================================
-        //                                       STD Queue
-        // ============================================================================================================
-
-        template <typename T> struct PushHelper<std::queue<T>> {
-            static inline void f(WrenVM* vm, int idx, std::queue<T> value) {
-                if (isClassRegistered(vm, typeid(std::queue<T>).hash_code())) {
-                    pushAsMove<std::queue<T>>(vm, idx, std::move(value));
-                } else {
-                    loopAndPushIterable(vm, idx, value.begin(), value.end());
-                }
-            }
-        };
-
-        template <typename T> struct PushHelper<std::queue<T>*> {
-            static inline void f(WrenVM* vm, int idx, std::queue<T>* value) {
-                if (isClassRegistered(vm, typeid(std::queue<T>).hash_code())) {
-                    pushAsPtr<std::queue<T>>(vm, idx, value);
-                } else {
-                    loopAndPushIterable(vm, idx, value->begin(), value->end());
-                }
-            }
-        };
-
-        template <typename T> struct PushHelper<const std::queue<T>&> {
-            static inline void f(WrenVM* vm, int idx, const std::queue<T>& value) {
-                if (isClassRegistered(vm, typeid(std::queue<T>).hash_code())) {
-                    pushAsConstRef<std::queue<T>>(vm, idx, value);
-                } else {
-                    loopAndPushIterable(vm, idx, value.begin(), value.end());
-                }
-            }
-        };
+        }
     } // namespace detail
 #endif
 } // namespace wrenbind17

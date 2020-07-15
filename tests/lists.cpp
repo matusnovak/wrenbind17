@@ -255,39 +255,44 @@ TEST_CASE("Non comparable list") {
     wren::StdVectorBindings<NonComparable>::bind(m, "NonComparable");
 }
 
-TEST_CASE("Native lists") {
-    typedef std::variant<std::nullptr_t, double, bool, std::string> ListItem;
+typedef std::variant<std::nullptr_t, double, bool, std::string> ListItem;
 
-    class NativeListAcceptor {
-    public:
-        void set(const std::vector<ListItem>& items) {
-            this->items = items;
-        }
+template <typename Container> class NativeListAcceptor {
+public:
+    NativeListAcceptor() = default;
 
-        void set2(std::vector<ListItem> items) {
-            this->items = items;
-        }
+    void set(const Container& items) {
+        this->items = items;
+    }
 
-        const std::vector<ListItem>& get() const {
-            return items;
-        }
+    void set2(Container items) {
+        this->items = items;
+    }
 
-        std::vector<ListItem> get2() const {
-            return items;
-        }
+    const Container& get() const {
+        return items;
+    }
 
-    private:
-        std::vector<ListItem> items;
-    };
+    Container get2() const {
+        return items;
+    }
+
+private:
+    Container items;
+};
+
+TEST_CASE("Native lists of vector") {
+    using Container = std::vector<ListItem>;
+    using ListAcceptor = NativeListAcceptor<Container>;
 
     wren::VM vm;
     auto& m = vm.module("test");
-    auto& c = m.klass<NativeListAcceptor>("NativeListAcceptor");
-    c.ctor<>();
-    c.func<&NativeListAcceptor::set>("set");
-    c.func<&NativeListAcceptor::get>("get");
-    c.func<&NativeListAcceptor::set2>("set2");
-    c.func<&NativeListAcceptor::get2>("get2");
+    auto& c = m.klass<ListAcceptor>("NativeListAcceptor");
+    c.template ctor<>();
+    c.template func<&ListAcceptor::set>("set");
+    c.template func<&ListAcceptor::get>("get");
+    c.template func<&ListAcceptor::set2>("set2");
+    c.template func<&ListAcceptor::get2>("get2");
 
     SECTION("Get element from native array") {
         const std::string code = R"(
@@ -303,8 +308,8 @@ TEST_CASE("Native lists") {
             }
         )";
 
-        NativeListAcceptor instance;
-        std::vector<ListItem> items;
+        ListAcceptor instance;
+        Container items;
         items.push_back(nullptr);
         items.push_back(std::string("Hello World"));
         instance.set(items);
@@ -330,8 +335,8 @@ TEST_CASE("Native lists") {
             }
         )";
 
-        NativeListAcceptor instance;
-        std::vector<ListItem> items;
+        ListAcceptor instance;
+        Container items;
         items.push_back(nullptr);
         items.push_back(std::string("Hello World"));
         instance.set(items);
@@ -355,13 +360,17 @@ TEST_CASE("Native lists") {
             }
         )";
 
-        NativeListAcceptor instance;
+        ListAcceptor instance;
 
         vm.runFromSource("main", code);
         auto func = vm.find("main", "Main").func("main(_)");
         (void)func(&instance);
 
         REQUIRE(instance.get().size() == 4);
+        REQUIRE(std::get<std::nullptr_t>(instance.get()[0]) == nullptr);
+        REQUIRE(std::get<double>(instance.get()[1]) == 123.0);
+        REQUIRE(std::get<bool>(instance.get()[2]) == true);
+        REQUIRE(std::get<std::string>(instance.get()[3]) == "Hello World");
     }
 
     SECTION("Set elements into native array pass by copy") {
@@ -376,12 +385,43 @@ TEST_CASE("Native lists") {
             }
         )";
 
-        NativeListAcceptor instance;
+        ListAcceptor instance;
 
         vm.runFromSource("main", code);
         auto func = vm.find("main", "Main").func("main(_)");
         (void)func(&instance);
 
         REQUIRE(instance.get().size() == 4);
+        REQUIRE(std::get<std::nullptr_t>(instance.get()[0]) == nullptr);
+        REQUIRE(std::get<double>(instance.get()[1]) == 123.0);
+        REQUIRE(std::get<bool>(instance.get()[2]) == true);
+        REQUIRE(std::get<std::string>(instance.get()[3]) == "Hello World");
     }
+}
+
+TEST_CASE("Get native lists as vector") {
+    using Container = std::vector<ListItem>;
+
+    const std::string code = R"(
+        class Main {
+            static main() {
+                return [null, 123, true, "Hello World"]
+            }
+        }
+    )";
+
+    wren::VM vm;
+
+    vm.runFromSource("main", code);
+    auto func = vm.find("main", "Main").func("main()");
+
+    auto res = func();
+    REQUIRE(res.isList());
+    auto vec = res.as<Container>();
+
+    REQUIRE(vec.size() == 4);
+    REQUIRE(std::get<std::nullptr_t>(vec[0]) == nullptr);
+    REQUIRE(std::get<double>(vec[1]) == 123.0);
+    REQUIRE(std::get<bool>(vec[2]) == true);
+    REQUIRE(std::get<std::string>(vec[3]) == "Hello World");
 }

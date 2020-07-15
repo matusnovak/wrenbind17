@@ -2,11 +2,12 @@ baseURL = "https://matusnovak.github.io/wrenbind17"
 editURL = "https://github.com/matusnovak/wrenbind17/tree/master/docs/content"
 languageCode = "en-us"
 title = "WrenBind17"
-theme = "hugo-theme-learn"
-pygmentscodefences = true
+theme = "hugo-book"
+pygmentsCodeFences = true
 
-[[Languages.en.menu.shortcuts]]
-    name = "<i class='fab fa-fw fa-github'></i> GitHub repo"
-    identifier = "ds"
-    url = "https://github.com/matusnovak/wrenbind17/"
-    weight = 10
+[params]
+  BookEditPath = 'tree/master/docs/content'
+  BookSearch = true
+  BookRepo = 'https://github.com/matusnovak/wrenbind17'
+  BookToC = true
+  BookMenuBundle = '/menu'

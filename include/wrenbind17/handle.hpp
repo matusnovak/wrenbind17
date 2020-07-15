@@ -1,27 +1,30 @@
 #pragma once
 
-#include <wren.hpp>
 #include <memory>
+#include <wren.hpp>
 
 /**
  * @ingroup wrenbind17
  */
 namespace wrenbind17 {
-    class Callback;
+    std::shared_ptr<WrenVM> getSharedVm(WrenVM* vm);
+
     /**
      * @ingroup wrenbind17
+     * @brief Holds a reference to some Wren type
+     * @details This is used by Map, Method, and Variable classes.
      */
     class Handle {
     public:
-        Handle() : vm(nullptr), handle(nullptr) {
+        Handle() : handle(nullptr) {
         }
-        Handle(WrenVM* vm, WrenHandle* handle) : vm(vm), handle(handle) {
+        Handle(const std::shared_ptr<WrenVM> vm, WrenHandle* handle) : vm(vm), handle(handle) {
         }
         ~Handle() {
             reset();
         }
         Handle(const Handle& other) = delete;
-        Handle(Handle&& other) noexcept : vm(nullptr), handle(nullptr) {
+        Handle(Handle&& other) noexcept : handle(nullptr) {
             swap(other);
         }
         Handle& operator=(const Handle& other) = delete;
@@ -41,24 +44,31 @@ namespace wrenbind17 {
         }
 
         WrenVM* getVm() const {
+            if (const auto ptr = vm.lock()) {
+                return ptr.get();
+            } else {
+                throw RuntimeError("Invalid handle");
+            }
+        }
+
+        const std::weak_ptr<WrenVM>& getVmWeak() const {
             return vm;
         }
 
         void reset() {
-            if (vm && handle) {
-                wrenReleaseHandle(vm, handle);
-                vm = nullptr;
+            if (!vm.expired() && handle) {
+                wrenReleaseHandle(vm.lock().get(), handle);
+                vm.reset();
                 handle = nullptr;
             }
         }
 
         operator bool() const {
-            return vm && handle;
+            return !vm.expired() && handle;
         }
 
-        friend Callback;
     private:
-        WrenVM* vm;
+        std::weak_ptr<WrenVM> vm;
         WrenHandle* handle;
     };
 } // namespace wrenbind17
