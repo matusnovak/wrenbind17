@@ -30,10 +30,11 @@ WrenBind17 is a C++17 wrapper for [Wren programming language](http://wren.io/). 
 * Passing by a reference to a Wren function will create a copy. Use a pointer if you do not wish to create copies and maintain single instance of a given class. This does not affect C++ member functions that return a reference, in that case it will be treated exactly same as a pointer.
 * STL containers `std::unique_ptr`, `std::queue`, `std::stack` are not supported.
 
-## Not yet implemented
+## TODO
 
-* Lambdas (very tricky due to passing function pointers, most likely not ever be implemented).
-* `..`, `...`, and `is` operator binding.
+* Lambdas
+* `..`, `...`, and `is` operators
+* lcov coverage (currently broken with gcc-9)
 
 ## Example
 

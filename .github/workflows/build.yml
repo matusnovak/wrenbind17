@@ -98,7 +98,6 @@ jobs:
         run: cd build && ctest -C Debug --verbose
 
       - name: Create Changelog
-        id: create_changelog
         shell: bash
         run: |
           last_tag=$(git describe --tags --abbrev=0 @^ || true)
