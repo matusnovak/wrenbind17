@@ -87,7 +87,7 @@ jobs:
           fi
 
       - name: Valgrind
-        if: ${{ matrix.os == 'ubuntu-latest' }}
+        if: ${{ matrix.os == 'ubuntu-18.04' }}
         shell: bash
         run: |
           sudo apt-get install -y lcov valgrind
@@ -98,7 +98,7 @@ jobs:
         run: cd build && ctest -C Debug --verbose
 
       - name: Coverage
-        if: ${{ matrix.os == 'ubuntu-latest' }}
+        if: ${{ matrix.os == 'ubuntu-18.04' }}
         shell: bash
         run: |
           cd build
