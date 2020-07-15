@@ -103,6 +103,7 @@ jobs:
         shell: bash
         run: |
           cd build
+          ls /usr/bin | grep gcov
           lcov --directory . --capture --output-file coverage.info
           lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' '*tests*' '*catch2*' '*vm*' --output-file coverage.info
           lcov --list coverage.info
