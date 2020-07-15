@@ -1,1624 +1,179 @@
 <!DOCTYPE html>
-<html lang="en" class="js csstransforms3d">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.59.1" />
-    <meta name="description" content="">
+<html lang="en" dir=>
 
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="wrenbind17::StdListBindings #  More&hellip;
+#include &lt;std.hpp&gt;
+Public Types #      Name     typedef std::list&lt; T &gt; List   typedef std::list&lt; T &gt;::iterator Iterator    Public Functions #      Name     void bind(ForeignModule &amp; m, const std::string &amp; name)   bool empty(List &amp; self)   size_t size(List &amp; self)   void clear(List &amp; self)   T pop(List &amp; self)   bool contains(List &amp; self, const T &amp; value)   void insert(List &amp; self, int32_t index, T value)   T removeAt(List &amp; self, int32_t index)   size_t count(List &amp; self)   const T &amp; iteratorValue(List &amp; self, std::shared_ptr&lt; Iterator &gt; other)   std::variant&lt; bool, Iterator &gt; iterate(List &amp; self, std::variant&lt; std::nullptr_t, Iterator &gt; other)   void add(List &amp; self, T value)   const T &amp; getIndex(List &amp; self, size_t index)   void setIndex(List &amp; self, size_t index, T value)    Detailed Description #  template &lt;typename T &gt; class wrenbind17::StdListBindings; Public Types Documentation #  typedef List #  typedef std::list&lt;T&gt; wrenbind17::StdListBindings&lt; T &gt;::List; typedef Iterator #  typedef std::list&lt;T&gt;::iterator wrenbind17::StdListBindings&lt; T &gt;::Iterator; Public Functions Documentation #  function bind #  static inline void bind( ForeignModule &amp; m, const std::string &amp; name ) function empty #  static inline bool empty( List &amp; self ) function size #  static inline size_t size( List &amp; self ) function clear #  static inline void clear( List &amp; self ) function pop #  static inline T pop( List &amp; self ) function contains #  static inline bool contains( List &amp; self, const T &amp; value ) function insert #  static inline void insert( List &amp; self, int32_t index, T value ) function removeAt #  static inline T removeAt( List &amp; self, int32_t index ) function count #  static inline size_t count( List &amp; self ) function iteratorValue #  static inline const T &amp; iteratorValue( List &amp; self, std::shared_ptr&lt; Iterator &gt; other ) function iterate #  static inline std::variant&lt; bool, Iterator &gt; iterate( List &amp; self, std::variant&lt; std::nullptr_t, Iterator &gt; other ) function add #  static inline void add( List &amp; self, T value ) function getIndex #  static inline const T &amp; getIndex( List &amp; self, size_t index ) function setIndex #  static inline void setIndex( List &amp; self, size_t index, T value )  Updated on 15 July 2020 at 21:49:27 UTC">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="wrenbind17::StdListBindings" />
+<meta property="og:description" content="wrenbind17::StdListBindings #  More&hellip;
+#include &lt;std.hpp&gt;
+Public Types #      Name     typedef std::list&lt; T &gt; List   typedef std::list&lt; T &gt;::iterator Iterator    Public Functions #      Name     void bind(ForeignModule &amp; m, const std::string &amp; name)   bool empty(List &amp; self)   size_t size(List &amp; self)   void clear(List &amp; self)   T pop(List &amp; self)   bool contains(List &amp; self, const T &amp; value)   void insert(List &amp; self, int32_t index, T value)   T removeAt(List &amp; self, int32_t index)   size_t count(List &amp; self)   const T &amp; iteratorValue(List &amp; self, std::shared_ptr&lt; Iterator &gt; other)   std::variant&lt; bool, Iterator &gt; iterate(List &amp; self, std::variant&lt; std::nullptr_t, Iterator &gt; other)   void add(List &amp; self, T value)   const T &amp; getIndex(List &amp; self, size_t index)   void setIndex(List &amp; self, size_t index, T value)    Detailed Description #  template &lt;typename T &gt; class wrenbind17::StdListBindings; Public Types Documentation #  typedef List #  typedef std::list&lt;T&gt; wrenbind17::StdListBindings&lt; T &gt;::List; typedef Iterator #  typedef std::list&lt;T&gt;::iterator wrenbind17::StdListBindings&lt; T &gt;::Iterator; Public Functions Documentation #  function bind #  static inline void bind( ForeignModule &amp; m, const std::string &amp; name ) function empty #  static inline bool empty( List &amp; self ) function size #  static inline size_t size( List &amp; self ) function clear #  static inline void clear( List &amp; self ) function pop #  static inline T pop( List &amp; self ) function contains #  static inline bool contains( List &amp; self, const T &amp; value ) function insert #  static inline void insert( List &amp; self, int32_t index, T value ) function removeAt #  static inline T removeAt( List &amp; self, int32_t index ) function count #  static inline size_t count( List &amp; self ) function iteratorValue #  static inline const T &amp; iteratorValue( List &amp; self, std::shared_ptr&lt; Iterator &gt; other ) function iterate #  static inline std::variant&lt; bool, Iterator &gt; iterate( List &amp; self, std::variant&lt; std::nullptr_t, Iterator &gt; other ) function add #  static inline void add( List &amp; self, T value ) function getIndex #  static inline const T &amp; getIndex( List &amp; self, size_t index ) function setIndex #  static inline void setIndex( List &amp; self, size_t index, T value )  Updated on 15 July 2020 at 21:49:27 UTC" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/" />
 
-    <link rel="icon" href="/wrenbind17/images/favicon.png" type="image/png">
+<title>wrenbind17::StdListBindings | WrenBind17</title>
+<link rel="manifest" href="/wrenbind17/manifest.json">
+<link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
+<script defer src="/wrenbind17/en.search.min.4c4b9dc154e48a349cd075ed787ef435b66ace026b12dd7ff903db6321b02ad9.js" integrity="sha256-TEudwVTkijSc0HXteH70NbZqzgJrEt1/&#43;QPbYyGwKtk="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
 
-    <title>wrenbind17::StdListBindings :: WrenBind17</title>
+  
+</head>
 
-    
-    <link href="/wrenbind17/css/nucleus.css?1587498964" rel="stylesheet">
-    <link href="/wrenbind17/css/fontawesome-all.min.css?1587498964" rel="stylesheet">
-    <link href="/wrenbind17/css/hybrid.css?1587498964" rel="stylesheet">
-    <link href="/wrenbind17/css/featherlight.min.css?1587498964" rel="stylesheet">
-    <link href="/wrenbind17/css/perfect-scrollbar.min.css?1587498964" rel="stylesheet">
-    <link href="/wrenbind17/css/auto-complete.css?1587498964" rel="stylesheet">
-    <link href="/wrenbind17/css/atom-one-dark-reasonable.css?1587498964" rel="stylesheet">
-    <link href="/wrenbind17/css/theme.css?1587498964" rel="stylesheet">
-    <link href="/wrenbind17/css/hugo-theme.css?1587498964" rel="stylesheet">
-    
-
-    <script src="/wrenbind17/js/jquery-3.3.1.min.js?1587498964"></script>
-
-    <style>
-      :root #header + #content > #left > #rlblock_left{
-          display:none !important;
-      }
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
       
-    </style>
-    
-  </head>
-  <body class="" data-url="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/">
-    <nav id="sidebar" class="">
+  <nav>
+<h2 class="book-brand">
+  <a href="/wrenbind17"><span>WrenBind17</span>
+  </a>
+</h2>
 
 
-
-  <div id="header-wrapper">
-    <div id="header">
-      <h3 style="color:white;">WrenBind17</h3>
-
-    </div>
-    
-        <div class="searchbox">
-    <label for="search-by"><i class="fas fa-search"></i></label>
-    <input data-search-input id="search-by" type="search" placeholder="Search...">
-    <span data-search-clear=""><i class="fas fa-times"></i></span>
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
 </div>
 
-<script type="text/javascript" src="/wrenbind17/js/lunr.min.js?1587498964"></script>
-<script type="text/javascript" src="/wrenbind17/js/auto-complete.js?1587498964"></script>
-<script type="text/javascript">
-    
-        var baseurl = "https:\/\/matusnovak.github.io\/wrenbind17";
-    
-</script>
-<script type="text/javascript" src="/wrenbind17/js/search.js?1587498964"></script>
 
-    
-  </div>
 
-    <div class="highlightable">
-    <ul class="topics">
 
-        
-          
-          
 
 
- 
-  
-    
-    <li data-nav-id="/wrenbind17/classes/" title="Classes" class="dd-item 
-        parent
-        
-        
-        ">
-      <a href="/wrenbind17/classes/">
-          Classes
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-          
-        
-          
-            
-            
 
 
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/" title="wrenbind17::AbstractMapBindings" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/">
-        wrenbind17::AbstractMapBindings
-        
-        </a>
-    </li>
-     
-  
- 
 
-            
-          
-            
-            
 
 
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_any/" title="wrenbind17::Any" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_any/">
-        wrenbind17::Any
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_any_1_1_content/" title="wrenbind17::Any::Content" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_any_1_1_content/">
-        wrenbind17::Any::Content
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_any_1_1_data/" title="wrenbind17::Any::Data" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_any_1_1_data/">
-        wrenbind17::Any::Data
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_bad_cast/" title="wrenbind17::BadCast" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_bad_cast/">
-        wrenbind17::BadCast
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_compile_error/" title="wrenbind17::CompileError" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_compile_error/">
-        wrenbind17::CompileError
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/structwrenbind17_1_1detail_1_1is__equality__comparable/" title="wrenbind17::detail::is_equality_comparable" class="dd-item ">
-        <a href="/wrenbind17/classes/structwrenbind17_1_1detail_1_1is__equality__comparable/">
-        wrenbind17::detail::is_equality_comparable
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/structwrenbind17_1_1detail_1_1is__equality__comparable_3_01_t_00_01typename_01std_1_1enable__if_2ce5ce7a57e5adc17b49d2b5dc15e4c9/" title="wrenbind17::detail::is_equality_comparable&lt; T, typename std::enable_if&lt; true, decltype(std::declval&lt; T &amp; &gt;()==std::declval&lt; T &amp; &gt;(),(void) 0)&gt;::type &gt;" class="dd-item ">
-        <a href="/wrenbind17/classes/structwrenbind17_1_1detail_1_1is__equality__comparable_3_01_t_00_01typename_01std_1_1enable__if_2ce5ce7a57e5adc17b49d2b5dc15e4c9/">
-        wrenbind17::detail::is_equality_comparable&lt; T, typename std::enable_if&lt; true, decltype(std::declval&lt; T &amp; &gt;()==std::declval&lt; T &amp; &gt;(),(void) 0)&gt;::type &gt;
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_exception/" title="wrenbind17::Exception" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_exception/">
-        wrenbind17::Exception
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/" title="wrenbind17::ForeignKlass" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/">
-        wrenbind17::ForeignKlass
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/" title="wrenbind17::ForeignKlassImpl" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/">
-        wrenbind17::ForeignKlassImpl
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/" title="wrenbind17::ForeignMethod" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">
-        wrenbind17::ForeignMethod
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/" title="wrenbind17::ForeignMethodImpl" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/">
-        wrenbind17::ForeignMethodImpl
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_foreign_module/" title="wrenbind17::ForeignModule" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_module/">
-        wrenbind17::ForeignModule
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop/" title="wrenbind17::ForeignProp" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop/">
-        wrenbind17::ForeignProp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop_impl/" title="wrenbind17::ForeignPropImpl" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop_impl/">
-        wrenbind17::ForeignPropImpl
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_handle/" title="wrenbind17::Handle" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_handle/">
-        wrenbind17::Handle
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_method/" title="wrenbind17::Method" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_method/">
-        wrenbind17::Method
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_not_found/" title="wrenbind17::NotFound" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_not_found/">
-        wrenbind17::NotFound
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_runtime_error/" title="wrenbind17::RuntimeError" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_runtime_error/">
-        wrenbind17::RuntimeError
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/" title="wrenbind17::StdListBindings" class="dd-item active">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/">
-        wrenbind17::StdListBindings
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/" title="wrenbind17::StdVectorBindings" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/">
-        wrenbind17::StdVectorBindings
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_std_vector_helper/" title="wrenbind17::StdVectorHelper" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_helper/">
-        wrenbind17::StdVectorHelper
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_std_vector_helper_3_01_t_00_01typename_01std_1_1enable__if_3_01detail_1_1is_9ed14e99eb1e8a4cf5463842b9d26037/" title="wrenbind17::StdVectorHelper&lt; T, typename std::enable_if&lt; detail::is_equality_comparable&lt; T &gt;::value &gt;::type &gt;" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_helper_3_01_t_00_01typename_01std_1_1enable__if_3_01detail_1_1is_9ed14e99eb1e8a4cf5463842b9d26037/">
-        wrenbind17::StdVectorHelper&lt; T, typename std::enable_if&lt; detail::is_equality_comparable&lt; T &gt;::value &gt;::type &gt;
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_std_vector_helper_3_01_t_00_01typename_01std_1_1enable__if_3_9detail_1_1is__00e67679ae85136e10c5db88faa3df1f/" title="wrenbind17::StdVectorHelper&lt; T, typename std::enable_if&lt;!detail::is_equality_comparable&lt; T &gt;::value &gt;::type &gt;" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_helper_3_01_t_00_01typename_01std_1_1enable__if_3_9detail_1_1is__00e67679ae85136e10c5db88faa3df1f/">
-        wrenbind17::StdVectorHelper&lt; T, typename std::enable_if&lt;!detail::is_equality_comparable&lt; T &gt;::value &gt;::type &gt;
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_variable/" title="wrenbind17::Variable" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_variable/">
-        wrenbind17::Variable
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/classes/classwrenbind17_1_1_v_m/" title="wrenbind17::VM" class="dd-item ">
-        <a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">
-        wrenbind17::VM
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-              
-    </li>
-  
- 
-
-          
-          
-
-
- 
-  
-    
-    <li data-nav-id="/wrenbind17/files/" title="Files" class="dd-item 
-        
-        
-        
-        ">
-      <a href="/wrenbind17/files/">
-          Files
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/dir_d44c64559bbebec7f509842c48db8b23/" title="include" class="dd-item ">
-        <a href="/wrenbind17/files/dir_d44c64559bbebec7f509842c48db8b23/">
-        include
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/dir_0603dac12b22d4faefe24b335e5b06be/" title="include/wrenbind17" class="dd-item ">
-        <a href="/wrenbind17/files/dir_0603dac12b22d4faefe24b335e5b06be/">
-        include/wrenbind17
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/allocator_8hpp/" title="include/wrenbind17/allocator.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/allocator_8hpp/">
-        include/wrenbind17/allocator.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/any_8hpp/" title="include/wrenbind17/any.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/any_8hpp/">
-        include/wrenbind17/any.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/caller_8hpp/" title="include/wrenbind17/caller.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/caller_8hpp/">
-        include/wrenbind17/caller.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/exception_8hpp/" title="include/wrenbind17/exception.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/exception_8hpp/">
-        include/wrenbind17/exception.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/foreign_8hpp/" title="include/wrenbind17/foreign.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/foreign_8hpp/">
-        include/wrenbind17/foreign.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/handle_8hpp/" title="include/wrenbind17/handle.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/handle_8hpp/">
-        include/wrenbind17/handle.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/index_8hpp/" title="include/wrenbind17/index.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/index_8hpp/">
-        include/wrenbind17/index.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/method_8hpp/" title="include/wrenbind17/method.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/method_8hpp/">
-        include/wrenbind17/method.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/module_8hpp/" title="include/wrenbind17/module.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/module_8hpp/">
-        include/wrenbind17/module.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/object_8hpp/" title="include/wrenbind17/object.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/object_8hpp/">
-        include/wrenbind17/object.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/pop_8hpp/" title="include/wrenbind17/pop.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/pop_8hpp/">
-        include/wrenbind17/pop.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/push_8hpp/" title="include/wrenbind17/push.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/push_8hpp/">
-        include/wrenbind17/push.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/std_8hpp/" title="include/wrenbind17/std.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/std_8hpp/">
-        include/wrenbind17/std.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/variable_8hpp/" title="include/wrenbind17/variable.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/variable_8hpp/">
-        include/wrenbind17/variable.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/vm_8hpp/" title="include/wrenbind17/vm.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/vm_8hpp/">
-        include/wrenbind17/vm.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/files/wrenbind17_8hpp/" title="include/wrenbind17/wrenbind17.hpp" class="dd-item ">
-        <a href="/wrenbind17/files/wrenbind17_8hpp/">
-        include/wrenbind17/wrenbind17.hpp
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-              
-    </li>
-  
- 
-
-          
-          
-
-
- 
-  
-    
-    <li data-nav-id="/wrenbind17/modules/" title="Modules" class="dd-item 
-        
-        
-        
-        ">
-      <a href="/wrenbind17/modules/">
-          Modules
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/modules/group__wrenbind17/" title="Wrenbind17" class="dd-item ">
-        <a href="/wrenbind17/modules/group__wrenbind17/">
-        Wrenbind17
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-              
-    </li>
-  
- 
-
-          
-          
-
-
- 
-  
-    
-    <li data-nav-id="/wrenbind17/namespaces/" title="Namespaces" class="dd-item 
-        
-        
-        
-        ">
-      <a href="/wrenbind17/namespaces/">
-          Namespaces
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/namespaces/namespacewrenbind17/" title="wrenbind17" class="dd-item ">
-        <a href="/wrenbind17/namespaces/namespacewrenbind17/">
-        wrenbind17
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/namespaces/namespacewrenbind17_1_1detail/" title="wrenbind17::detail" class="dd-item ">
-        <a href="/wrenbind17/namespaces/namespacewrenbind17_1_1detail/">
-        wrenbind17::detail
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-              
-    </li>
-  
- 
-
-          
-          
-
-
- 
-  
-    
-    <li data-nav-id="/wrenbind17/tutorial/" title="Tutorial" class="dd-item 
-        
-        
-        
-        ">
-      <a href="/wrenbind17/tutorial/">
-          Tutorial
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-          
-        
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/installation/" title="Installation" class="dd-item ">
-        <a href="/wrenbind17/tutorial/installation/">
-        Installation
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/hello-world/" title="Hello World" class="dd-item ">
-        <a href="/wrenbind17/tutorial/hello-world/">
-        Hello World
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/executing-code/" title="Executing code" class="dd-item ">
-        <a href="/wrenbind17/tutorial/executing-code/">
-        Executing code
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/modules/" title="Modules" class="dd-item ">
-        <a href="/wrenbind17/tutorial/modules/">
-        Modules
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/exceptions/" title="Exceptions" class="dd-item ">
-        <a href="/wrenbind17/tutorial/exceptions/">
-        Exceptions
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/bind-cpp-class/" title="Bind C&#43;&#43; class" class="dd-item ">
-        <a href="/wrenbind17/tutorial/bind-cpp-class/">
-        Bind C&#43;&#43; class
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/abstract-classes/" title="Abstract classes" class="dd-item ">
-        <a href="/wrenbind17/tutorial/abstract-classes/">
-        Abstract classes
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/overload-operators/" title="Overload operators" class="dd-item ">
-        <a href="/wrenbind17/tutorial/overload-operators/">
-        Overload operators
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/call-wren/" title="Call Wren and pass variables" class="dd-item ">
-        <a href="/wrenbind17/tutorial/call-wren/">
-        Call Wren and pass variables
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/call-cpp/" title="Call C&#43;&#43; and pass variables" class="dd-item ">
-        <a href="/wrenbind17/tutorial/call-cpp/">
-        Call C&#43;&#43; and pass variables
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/raw-modules/" title="Raw Modules" class="dd-item ">
-        <a href="/wrenbind17/tutorial/raw-modules/">
-        Raw Modules
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/inheritance/" title="Inheritance via composition" class="dd-item ">
-        <a href="/wrenbind17/tutorial/inheritance/">
-        Inheritance via composition
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/callbacks/" title="Callbacks via Fn.new" class="dd-item ">
-        <a href="/wrenbind17/tutorial/callbacks/">
-        Callbacks via Fn.new
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/upcasting/" title="Upcasting" class="dd-item ">
-        <a href="/wrenbind17/tutorial/upcasting/">
-        Upcasting
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/lists/" title="Lists" class="dd-item ">
-        <a href="/wrenbind17/tutorial/lists/">
-        Lists
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/maps/" title="Maps" class="dd-item ">
-        <a href="/wrenbind17/tutorial/maps/">
-        Maps
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/variant/" title="Pass multiple types to C&#43;&#43;" class="dd-item ">
-        <a href="/wrenbind17/tutorial/variant/">
-        Pass multiple types to C&#43;&#43;
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
- 
-  
-    
-      <li data-nav-id="/wrenbind17/tutorial/customize/" title="Customize VM behavior" class="dd-item ">
-        <a href="/wrenbind17/tutorial/customize/">
-        Customize VM behavior
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-              
-    </li>
-  
- 
-
-          
-         
-    </ul>
-
-    
-    
-      <section id="shortcuts">
-        <h3>More</h3>
-        <ul>
-          
-              <li> 
-                  <a class="padding" href="https://github.com/matusnovak/wrenbind17/"><i class='fab fa-fw fa-github'></i> GitHub repo</a>
-              </li>
-          
-        </ul>
-      </section>
-    
-
-    
-    <section id="footer">
-      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="https://getgrav.org">Grav</a> and <a href="https://gohugo.io/">Hugo</a></p>
-
-    </section>
-  </div>
-</nav>
-
-
-
-
-
-        <section id="body">
-        <div id="overlay"></div>
-        <div class="padding highlightable">
-              
-              <div>
-                <div id="top-bar">
-                
-                
-                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <span id="sidebar-toggle-span">
-                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
-                          <i class="fas fa-bars"></i>
-                        </a>
-                    </span>
-                  
-                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
-                  
-                  <span class="links">
-                 
-                 
-                    
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            <a href='/wrenbind17/'>WrenBind17</a> > <a href='/wrenbind17/classes/'>Classes</a> > wrenbind17::StdListBindings
-          
-         
-          
-         
-          
-        
-                 
-                  </span>
-                </div>
-                
-                    <div class="progress">
-    <div class="wrapper">
-<nav id="TableOfContents">
+  <ul>
+<li><a href="/wrenbind17/">Home</a></li>
+<li><a href="/wrenbind17/tutorial/">Tutorial</a>
 <ul>
-<li>
-<ul>
-<li><a href="#public-types">Public Types</a></li>
-<li><a href="#public-functions">Public Functions</a></li>
-<li><a href="#detailed-description">Detailed Description</a></li>
-<li><a href="#public-types-documentation">Public Types Documentation</a>
-<ul>
-<li><a href="#typedef-list">typedef List</a></li>
-<li><a href="#typedef-iterator">typedef Iterator</a></li>
-</ul></li>
-<li><a href="#public-functions-documentation">Public Functions Documentation</a>
-<ul>
-<li><a href="#function-bind">function bind</a></li>
-<li><a href="#function-empty">function empty</a></li>
-<li><a href="#function-size">function size</a></li>
-<li><a href="#function-clear">function clear</a></li>
-<li><a href="#function-pop">function pop</a></li>
-<li><a href="#function-contains">function contains</a></li>
-<li><a href="#function-insert">function insert</a></li>
-<li><a href="#function-removeat">function removeAt</a></li>
-<li><a href="#function-count">function count</a></li>
-<li><a href="#function-iteratorvalue">function iteratorValue</a></li>
-<li><a href="#function-iterate">function iterate</a></li>
-<li><a href="#function-add">function add</a></li>
-<li><a href="#function-getindex">function getIndex</a></li>
-<li><a href="#function-setindex">function setIndex</a></li>
-</ul></li>
-</ul></li>
+<li><a href="/wrenbind17/tutorial/install/">1. Installation</a></li>
+<li><a href="/wrenbind17/tutorial/hello_world/">2. Hello World</a></li>
+<li><a href="/wrenbind17/tutorial/call_wren/">3. Call Wren function</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/types/">4. Supported types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/execute_code/">5. Executing from file</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/custom_types/">6. Custom types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/operators/">7. Class operators</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/modules/">8. Modules and files</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/customize/">9. Customize VM</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/fn/">10. Fn.new and callbacks</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/stl/">11. STL containers</a></li>
 </ul>
+</li>
+<li>Api Documentation
+<ul>
+<li><a href="/wrenbind17/classes/">Classes</a></li>
+<li><a href="/wrenbind17/namespaces/">Namespaces</a></li>
+<li><a href="/wrenbind17/modules/">Modules</a></li>
+<li><a href="/wrenbind17/files/">Files</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
 </nav>
-    </div>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/wrenbind17/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>wrenbind17::StdListBindings</strong>
+
+  <label for="toc-control">
+    
+    <img src="/wrenbind17/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
 </div>
 
-                
-              </div>
-            </div>
-            
-        <div id="head-tags">
-        
-        </div>
-        
-        <div id="body-inner">
-          
-            <h1>
-              
-              wrenbind17::StdListBindings
-            </h1>
-          
 
-        
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#public-types">Public Types</a></li>
+    <li><a href="#public-functions">Public Functions</a></li>
+    <li><a href="#detailed-description">Detailed Description</a></li>
+    <li><a href="#public-types-documentation">Public Types Documentation</a>
+      <ul>
+        <li><a href="#typedef-list">typedef List</a></li>
+        <li><a href="#typedef-iterator">typedef Iterator</a></li>
+      </ul>
+    </li>
+    <li><a href="#public-functions-documentation">Public Functions Documentation</a>
+      <ul>
+        <li><a href="#function-bind">function bind</a></li>
+        <li><a href="#function-empty">function empty</a></li>
+        <li><a href="#function-size">function size</a></li>
+        <li><a href="#function-clear">function clear</a></li>
+        <li><a href="#function-pop">function pop</a></li>
+        <li><a href="#function-contains">function contains</a></li>
+        <li><a href="#function-insert">function insert</a></li>
+        <li><a href="#function-removeat">function removeAt</a></li>
+        <li><a href="#function-count">function count</a></li>
+        <li><a href="#function-iteratorvalue">function iteratorValue</a></li>
+        <li><a href="#function-iterate">function iterate</a></li>
+        <li><a href="#function-add">function add</a></li>
+        <li><a href="#function-getindex">function getIndex</a></li>
+        <li><a href="#function-setindex">function setIndex</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
 
+  </aside>
+  
+ 
+      </header>
 
-
-
-<p><strong>wrenbind17::StdListBindings Class Reference</strong></p>
-
+      
+      
+  <article class="markdown"><h1 id="wrenbind17stdlistbindings">
+  wrenbind17::StdListBindings
+  <a class="anchor" href="#wrenbind17stdlistbindings">#</a>
+</h1>
 <p><a href="#detailed-description">More&hellip;</a></p>
-
 <p><code>#include &lt;std.hpp&gt;</code></p>
-
-<h2 id="public-types">Public Types</h2>
-
+<h2 id="public-types">
+  Public Types
+  <a class="anchor" href="#public-types">#</a>
+</h2>
 <table>
 <thead>
 <tr>
@@ -1626,22 +181,21 @@
 <th>Name</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>typedef std::list&lt; T &gt;</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-list">List</a></strong></td>
 </tr>
-
 <tr>
 <td>typedef std::list&lt; T &gt;::iterator</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-iterator">Iterator</a></strong></td>
 </tr>
 </tbody>
 </table>
-
-<h2 id="public-functions">Public Functions</h2>
-
+<h2 id="public-functions">
+  Public Functions
+  <a class="anchor" href="#public-functions">#</a>
+</h2>
 <table>
 <thead>
 <tr>
@@ -1649,1395 +203,289 @@
 <th>Name</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>void</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#function-bind">bind</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_module/">ForeignModule</a> &amp; m, const std::string &amp; name)</td>
 </tr>
-
 <tr>
 <td>bool</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#function-empty">empty</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-list">List</a> &amp; self)</td>
 </tr>
-
 <tr>
 <td>size_t</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#function-size">size</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-list">List</a> &amp; self)</td>
 </tr>
-
 <tr>
 <td>void</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#function-clear">clear</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-list">List</a> &amp; self)</td>
 </tr>
-
 <tr>
 <td>T</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#function-pop">pop</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-list">List</a> &amp; self)</td>
 </tr>
-
 <tr>
 <td>bool</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#function-contains">contains</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-list">List</a> &amp; self, const T &amp; value)</td>
 </tr>
-
 <tr>
 <td>void</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#function-insert">insert</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-list">List</a> &amp; self, int32_t index, T value)</td>
 </tr>
-
 <tr>
 <td>T</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#function-removeat">removeAt</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-list">List</a> &amp; self, int32_t index)</td>
 </tr>
-
 <tr>
 <td>size_t</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#function-count">count</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-list">List</a> &amp; self)</td>
 </tr>
-
 <tr>
 <td>const T &amp;</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#function-iteratorvalue">iteratorValue</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-list">List</a> &amp; self, std::shared_ptr&lt; <a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-iterator">Iterator</a> &gt; other)</td>
 </tr>
-
 <tr>
 <td>std::variant&lt; bool, <a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-iterator">Iterator</a> &gt;</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#function-iterate">iterate</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-list">List</a> &amp; self, std::variant&lt; std::nullptr_t, <a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-iterator">Iterator</a> &gt; other)</td>
 </tr>
-
 <tr>
 <td>void</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#function-add">add</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-list">List</a> &amp; self, T value)</td>
 </tr>
-
 <tr>
 <td>const T &amp;</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#function-getindex">getIndex</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-list">List</a> &amp; self, size_t index)</td>
 </tr>
-
 <tr>
 <td>void</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#function-setindex">setIndex</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/#typedef-list">List</a> &amp; self, size_t index, T value)</td>
 </tr>
 </tbody>
 </table>
-
-<h2 id="detailed-description">Detailed Description</h2>
+<h2 id="detailed-description">
+  Detailed Description
+  <a class="anchor" href="#detailed-description">#</a>
+</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T <span style="color:#f92672">&gt;</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">wrenbind17</span><span style="color:#f92672">::</span>StdListBindings;
-</code></pre></div>
-<h2 id="public-types-documentation">Public Types Documentation</h2>
-
-<h3 id="typedef-list">typedef List</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span> T <span style="color:#f92672">&gt;</span> List;
-</code></pre></div>
-<h3 id="typedef-iterator">typedef Iterator</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span> T <span style="color:#f92672">&gt;::</span>iterator Iterator;
-</code></pre></div>
-<h2 id="public-functions-documentation">Public Functions Documentation</h2>
-
-<h3 id="function-bind">function bind</h3>
+</code></pre></div><h2 id="public-types-documentation">
+  Public Types Documentation
+  <a class="anchor" href="#public-types-documentation">#</a>
+</h2>
+<h3 id="typedef-list">
+  typedef List
+  <a class="anchor" href="#typedef-list">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> wrenbind17<span style="color:#f92672">::</span>StdListBindings<span style="color:#f92672">&lt;</span> T <span style="color:#f92672">&gt;::</span>List;
+</code></pre></div><h3 id="typedef-iterator">
+  typedef Iterator
+  <a class="anchor" href="#typedef-iterator">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>iterator wrenbind17<span style="color:#f92672">::</span>StdListBindings<span style="color:#f92672">&lt;</span> T <span style="color:#f92672">&gt;::</span>Iterator;
+</code></pre></div><h2 id="public-functions-documentation">
+  Public Functions Documentation
+  <a class="anchor" href="#public-functions-documentation">#</a>
+</h2>
+<h3 id="function-bind">
+  function bind
+  <a class="anchor" href="#function-bind">#</a>
+</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> bind(
     ForeignModule <span style="color:#f92672">&amp;</span> m,
     <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name
 )
-</code></pre></div>
-<h3 id="function-empty">function empty</h3>
+</code></pre></div><h3 id="function-empty">
+  function empty
+  <a class="anchor" href="#function-empty">#</a>
+</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> empty(
     List <span style="color:#f92672">&amp;</span> self
 )
-</code></pre></div>
-<h3 id="function-size">function size</h3>
+</code></pre></div><h3 id="function-size">
+  function size
+  <a class="anchor" href="#function-size">#</a>
+</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> size_t size(
     List <span style="color:#f92672">&amp;</span> self
 )
-</code></pre></div>
-<h3 id="function-clear">function clear</h3>
+</code></pre></div><h3 id="function-clear">
+  function clear
+  <a class="anchor" href="#function-clear">#</a>
+</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> clear(
     List <span style="color:#f92672">&amp;</span> self
 )
-</code></pre></div>
-<h3 id="function-pop">function pop</h3>
+</code></pre></div><h3 id="function-pop">
+  function pop
+  <a class="anchor" href="#function-pop">#</a>
+</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> T pop(
     List <span style="color:#f92672">&amp;</span> self
 )
-</code></pre></div>
-<h3 id="function-contains">function contains</h3>
+</code></pre></div><h3 id="function-contains">
+  function contains
+  <a class="anchor" href="#function-contains">#</a>
+</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> contains(
     List <span style="color:#f92672">&amp;</span> self,
     <span style="color:#66d9ef">const</span> T <span style="color:#f92672">&amp;</span> value
 )
-</code></pre></div>
-<h3 id="function-insert">function insert</h3>
+</code></pre></div><h3 id="function-insert">
+  function insert
+  <a class="anchor" href="#function-insert">#</a>
+</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> insert(
     List <span style="color:#f92672">&amp;</span> self,
     <span style="color:#66d9ef">int32_t</span> index,
     T value
 )
-</code></pre></div>
-<h3 id="function-removeat">function removeAt</h3>
+</code></pre></div><h3 id="function-removeat">
+  function removeAt
+  <a class="anchor" href="#function-removeat">#</a>
+</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> T removeAt(
     List <span style="color:#f92672">&amp;</span> self,
     <span style="color:#66d9ef">int32_t</span> index
 )
-</code></pre></div>
-<h3 id="function-count">function count</h3>
+</code></pre></div><h3 id="function-count">
+  function count
+  <a class="anchor" href="#function-count">#</a>
+</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> size_t count(
     List <span style="color:#f92672">&amp;</span> self
 )
-</code></pre></div>
-<h3 id="function-iteratorvalue">function iteratorValue</h3>
+</code></pre></div><h3 id="function-iteratorvalue">
+  function iteratorValue
+  <a class="anchor" href="#function-iteratorvalue">#</a>
+</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">const</span> T <span style="color:#f92672">&amp;</span> iteratorValue(
     List <span style="color:#f92672">&amp;</span> self,
     std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> Iterator <span style="color:#f92672">&gt;</span> other
 )
-</code></pre></div>
-<h3 id="function-iterate">function iterate</h3>
+</code></pre></div><h3 id="function-iterate">
+  function iterate
+  <a class="anchor" href="#function-iterate">#</a>
+</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">bool</span>, Iterator <span style="color:#f92672">&gt;</span> iterate(
     List <span style="color:#f92672">&amp;</span> self,
     std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>nullptr_t, Iterator <span style="color:#f92672">&gt;</span> other
 )
-</code></pre></div>
-<h3 id="function-add">function add</h3>
+</code></pre></div><h3 id="function-add">
+  function add
+  <a class="anchor" href="#function-add">#</a>
+</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> add(
     List <span style="color:#f92672">&amp;</span> self,
     T value
 )
-</code></pre></div>
-<h3 id="function-getindex">function getIndex</h3>
+</code></pre></div><h3 id="function-getindex">
+  function getIndex
+  <a class="anchor" href="#function-getindex">#</a>
+</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">const</span> T <span style="color:#f92672">&amp;</span> getIndex(
     List <span style="color:#f92672">&amp;</span> self,
     size_t index
 )
-</code></pre></div>
-<h3 id="function-setindex">function setIndex</h3>
+</code></pre></div><h3 id="function-setindex">
+  function setIndex
+  <a class="anchor" href="#function-setindex">#</a>
+</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> setIndex(
     List <span style="color:#f92672">&amp;</span> self,
     size_t index,
     T value
 )
-</code></pre></div>
-<hr />
+</code></pre></div><hr>
+<p>Updated on 15 July 2020 at 21:49:27 UTC</p>
+</article>
+ 
+      
 
-<p>Updated on 21 April 2020 at 19:56:03 UTC</p>
-
-
-<footer class=" footline" >
-	
-</footer>
-
-
-        
-        </div> 
-        
-
-      </div>
-
-    <div id="navigation">
-        
-        
-        
-        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
+      <footer class="book-footer">
         
-                    
-                        
-            
-            
-                
-                    
-                
-                
+  <div class="flex flex-wrap justify-between">
 
-                    
-                    
-                    
 
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
 
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
 
-                    
-                    
-                    
 
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
+  <div>
+    <a class="flex align-center" href="https://github.com/matusnovak/wrenbind17/tree/master/docs/content//Classes/classwrenbind17_1_1_std_list_bindings.md" target="_blank" rel="noopener">
+      <img src="/wrenbind17/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
 
-                    
-                    
-                    
+</div>
 
-                    
-            
+ 
         
-                    
-                        
-            
-            
-                
-                    
-                
-                
+      </footer>
 
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-        
-        
+      
+  
+  <div class="book-comments">
 
+</div>
+  
+ 
 
-	 
-	 
-		
-			<a class="nav nav-prev" href="/wrenbind17/classes/classwrenbind17_1_1_runtime_error/" title="wrenbind17::RuntimeError"> <i class="fa fa-chevron-left"></i></a>
-		
-		
-			<a class="nav nav-next" href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/" title="wrenbind17::StdVectorBindings" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
-		
-	
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
     </div>
 
-    </section>
     
-    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
-      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
-    </div>
-    <script src="/wrenbind17/js/clipboard.min.js?1587498964"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.min.js?1587498964"></script>
-    <script src="/wrenbind17/js/perfect-scrollbar.jquery.min.js?1587498964"></script>
-    <script src="/wrenbind17/js/jquery.sticky.js?1587498964"></script>
-    <script src="/wrenbind17/js/featherlight.min.js?1587498964"></script>
-    <script src="/wrenbind17/js/highlight.pack.js?1587498964"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/wrenbind17/js/modernizr.custom-3.6.0.js?1587498964"></script>
-    <script src="/wrenbind17/js/learn.js?1587498964"></script>
-    <script src="/wrenbind17/js/hugo-learn.js?1587498964"></script>
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#public-types">Public Types</a></li>
+    <li><a href="#public-functions">Public Functions</a></li>
+    <li><a href="#detailed-description">Detailed Description</a></li>
+    <li><a href="#public-types-documentation">Public Types Documentation</a>
+      <ul>
+        <li><a href="#typedef-list">typedef List</a></li>
+        <li><a href="#typedef-iterator">typedef Iterator</a></li>
+      </ul>
+    </li>
+    <li><a href="#public-functions-documentation">Public Functions Documentation</a>
+      <ul>
+        <li><a href="#function-bind">function bind</a></li>
+        <li><a href="#function-empty">function empty</a></li>
+        <li><a href="#function-size">function size</a></li>
+        <li><a href="#function-clear">function clear</a></li>
+        <li><a href="#function-pop">function pop</a></li>
+        <li><a href="#function-contains">function contains</a></li>
+        <li><a href="#function-insert">function insert</a></li>
+        <li><a href="#function-removeat">function removeAt</a></li>
+        <li><a href="#function-count">function count</a></li>
+        <li><a href="#function-iteratorvalue">function iteratorValue</a></li>
+        <li><a href="#function-iterate">function iterate</a></li>
+        <li><a href="#function-add">function add</a></li>
+        <li><a href="#function-getindex">function getIndex</a></li>
+        <li><a href="#function-setindex">function setIndex</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
-    <link href="/wrenbind17/mermaid/mermaid.css?1587498964" rel="stylesheet" />
-    <script src="/wrenbind17/mermaid/mermaid.js?1587498964"></script>
-    <script>
-        mermaid.initialize({ startOnLoad: true });
-    </script>
+ 
+    </aside>
     
+  </main>
 
-  </body>
+  
+</body>
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
 

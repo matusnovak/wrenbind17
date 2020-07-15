@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="3. Call Wren function #  3.1. Simple call #  To call a Wren function, you will have to first run the source code. Only then you can use wren::VM::find function to find the class defined in the Wren code. This will give you an object of wren::Variable which can be any Wren variable from the VM. In this case, it&rsquo;s a class. Next, find the method you want to call via wren::Variable::func.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="3. Call Wren function" />
+<meta property="og:description" content="3. Call Wren function #  3.1. Simple call #  To call a Wren function, you will have to first run the source code. Only then you can use wren::VM::find function to find the class defined in the Wren code. This will give you an object of wren::Variable which can be any Wren variable from the VM. In this case, it&rsquo;s a class. Next, find the method you want to call via wren::Variable::func." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://matusnovak.github.io/wrenbind17/tutorial/call_wren/" />
+
+<title>3. Call Wren function | WrenBind17</title>
+<link rel="manifest" href="/wrenbind17/manifest.json">
+<link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
+<script defer src="/wrenbind17/en.search.min.4c4b9dc154e48a349cd075ed787ef435b66ace026b12dd7ff903db6321b02ad9.js" integrity="sha256-TEudwVTkijSc0HXteH70NbZqzgJrEt1/&#43;QPbYyGwKtk="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/wrenbind17"><span>WrenBind17</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><a href="/wrenbind17/">Home</a></li>
+<li><a href="/wrenbind17/tutorial/">Tutorial</a>
+<ul>
+<li><a href="/wrenbind17/tutorial/install/">1. Installation</a></li>
+<li><a href="/wrenbind17/tutorial/hello_world/">2. Hello World</a></li>
+<li><a href="/wrenbind17/tutorial/call_wren/"class=active>3. Call Wren function</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/types/">4. Supported types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/execute_code/">5. Executing from file</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/custom_types/">6. Custom types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/operators/">7. Class operators</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/modules/">8. Modules and files</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/customize/">9. Customize VM</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/fn/">10. Fn.new and callbacks</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/stl/">11. STL containers</a></li>
+</ul>
+</li>
+<li>Api Documentation
+<ul>
+<li><a href="/wrenbind17/classes/">Classes</a></li>
+<li><a href="/wrenbind17/namespaces/">Namespaces</a></li>
+<li><a href="/wrenbind17/modules/">Modules</a></li>
+<li><a href="/wrenbind17/files/">Files</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/wrenbind17/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>3. Call Wren function</strong>
+
+  <label for="toc-control">
+    
+    <img src="/wrenbind17/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#31-simple-call">3.1. Simple call</a></li>
+    <li><a href="#32-call-with-arguments">3.2. Call with arguments</a></li>
+    <li><a href="#33-return-values">3.3. Return values</a></li>
+    <li><a href="#34-lifetime-of-return-values">3.4. Lifetime of return values</a></li>
+    <li><a href="#35-call-non-static-methods">3.5. Call non-static methods</a></li>
+    <li><a href="#36-call-with-custom-types">3.6. Call with custom types</a>
+      <ul>
+        <li><a href="#361-pass-by-a-copyreference">3.6.1. Pass by a copy/reference</a></li>
+        <li><a href="#362-pass-by-a-move">3.6.2. Pass by a move</a></li>
+        <li><a href="#363-pass-by-a-pointer">3.6.3. Pass by a pointer</a></li>
+        <li><a href="#364-pass-as-a-shared-pointer">3.6.4. Pass as a shared pointer</a></li>
+      </ul>
+    </li>
+    <li><a href="#37-return-custom-types-from-wren">3.7. Return custom types from Wren</a></li>
+    <li><a href="#38-catch-wren-errors">3.8. Catch Wren errors</a></li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="3-call-wren-function">
+  3. Call Wren function
+  <a class="anchor" href="#3-call-wren-function">#</a>
+</h1>
+<h2 id="31-simple-call">
+  3.1. Simple call
+  <a class="anchor" href="#31-simple-call">#</a>
+</h2>
+<p>To call a Wren function, you will have to first run the source code. Only then you can use <code>wren::VM::find</code> function to find the class defined in the Wren code. This will give you an object of <code>wren::Variable</code> which can be any Wren variable from the VM. In this case, it&rsquo;s a class. Next, find the method you want to call via <code>wren::Variable::func</code>.</p>
+<p>You will have to specify the exact signature of the method. In this case, the <code>static main()</code> has no parameters, therefore the signature is <code>main()</code>. If you have a method with multiple parameters, for example <code>static main(a, b) { ... }</code>, then the signature is the following: <code>main(_,_)</code>. Use underscores to specify parameters (don&rsquo;t use the parameter name). Whitespace is not allowed.</p>
+<blockquote class="book-hint warning">
+  <p><strong>Warning</strong></p>
+<p>The <code>wren::VM::find</code> throws an exception if the class (or a class instance) is not found in the module.</p>
+
+</blockquote>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>argv[]) {
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string code <span style="color:#f92672">=</span> R<span style="color:#e6db74">&#34;(</span>
+        <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">main</span>() {
+                System.print(<span style="color:#e6db74">&#34;Hello World!&#34;</span>)
+            }
+        }
+    )<span style="color:#e6db74">&#34;;</span>
+
+    <span style="color:#75715e">// Create new VM
+</span><span style="color:#75715e"></span>    wren<span style="color:#f92672">::</span>VM vm;
+
+    <span style="color:#75715e">// Runs the code from the std::string as a &#34;main&#34; module
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// The System.print(&#34;Hello World!&#34;) will not be called
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// because it is in a function
+</span><span style="color:#75715e"></span>    vm.runFromSource(<span style="color:#e6db74">&#34;main&#34;</span>, code);
+
+    <span style="color:#75715e">// Find class Main in module main
+</span><span style="color:#75715e"></span>    wren<span style="color:#f92672">::</span>Variable mainClass <span style="color:#f92672">=</span> vm.find(<span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#e6db74">&#34;Main&#34;</span>);
+
+    <span style="color:#75715e">// Find function main() in class Main
+</span><span style="color:#75715e"></span>    wren<span style="color:#f92672">::</span>Method main <span style="color:#f92672">=</span> mainClass.func(<span style="color:#e6db74">&#34;main()&#34;</span>);
+
+    <span style="color:#75715e">// Execute the function
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// Puts &#34;Hello World!&#34; into the stdout of your terminal.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// This calls the wren::Method::operator()(...) function.
+</span><span style="color:#75715e"></span>    main();
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h2 id="32-call-with-arguments">
+  3.2. Call with arguments
+  <a class="anchor" href="#32-call-with-arguments">#</a>
+</h2>
+<p>To call a Wren function that accepts arguments, simply look up the function using a signature that also matches the number of parameters of that function.</p>
+<p>See <a href="https://matusnovak.github.io/wrenbind17/tutorial/types/">4. Supported types</a> to see what types are supported when passing arguments into a Wren function.</p>
+<blockquote class="book-hint warning">
+  <p><strong>Warning</strong></p>
+<p>If you call a Wren function via the <code>wren::Method::operator()(...)</code> C++ function, and the number of arguments do not match the signature, it will throw an exception.</p>
+
+</blockquote>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>argv[]) {
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string code <span style="color:#f92672">=</span> R<span style="color:#e6db74">&#34;(</span>
+        <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">main</span>(a, b) {
+                x <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b
+                System.print(<span style="color:#e6db74">&#34;The result is: %(x) &#34;</span>)
+            }
+        }
+    )<span style="color:#e6db74">&#34;;</span>
+
+    <span style="color:#75715e">// Create new VM
+</span><span style="color:#75715e"></span>    wren<span style="color:#f92672">::</span>VM vm;
+
+    <span style="color:#75715e">// Runs the code from the std::string as a &#34;main&#34; module
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// The System.print(&#34;Hello World!&#34;) will not be called
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// because it is in a function
+</span><span style="color:#75715e"></span>    vm.runFromSource(<span style="color:#e6db74">&#34;main&#34;</span>, code);
+
+    <span style="color:#75715e">// Find class Main in module main
+</span><span style="color:#75715e"></span>    wren<span style="color:#f92672">::</span>Variable mainClass <span style="color:#f92672">=</span> vm.find(<span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#e6db74">&#34;Main&#34;</span>);
+
+    <span style="color:#75715e">// Find function main() in class Main
+</span><span style="color:#75715e"></span>    wren<span style="color:#f92672">::</span>Method main <span style="color:#f92672">=</span> mainClass.func(<span style="color:#e6db74">&#34;main(_,_)&#34;</span>);
+
+    <span style="color:#75715e">// Execute the function
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// Puts &#34;The result is 25&#34; into the stdout of your terminal.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// This calls the wren::Method::operator()(...) function.
+</span><span style="color:#75715e"></span>    main(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">15</span>);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h2 id="33-return-values">
+  3.3. Return values
+  <a class="anchor" href="#33-return-values">#</a>
+</h2>
+<p>Returning values is simply done via <code>wren::Any</code> which can hold any value that Wren can handle. The return value that is held by the <code>wren::Any</code> is not guaranteed to be a useable C++ variable. You can call the <code>wren::Any::is&lt;T&gt;()</code> function to check if the return value is some C++ type. Due to the design of Wren, the code below will cast the two integers <code>10</code> and <code>15</code> into doubles (float64) type, because that&rsquo;s how Wren handles numbers (no real integers).</p>
+<p>The <code>result.is&lt;int&gt;()</code> below will work because all doubles can be casted into integers, also the other way around. You will loose precision, if you return a double and get it as an integer. <strong>Only numeric types are casted between each other.</strong></p>
+<p>You can always extract the value from <code>wren::Any</code> as long as <code>wren::VM</code> is alive. Calling the <code>.as&lt;T&gt;()</code> function multiple times is allowed.</p>
+<p>See <a href="https://matusnovak.github.io/wrenbind17/tutorial/types/">4. Supported types</a> to see what types are supported when returning values from a Wren function.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>argv[]) {
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string code <span style="color:#f92672">=</span> R<span style="color:#e6db74">&#34;(</span>
+        <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">main</span>(a, b) {
+                <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b
+            }
+        }
+    )<span style="color:#e6db74">&#34;;</span>
+
+    <span style="color:#75715e">// Create new VM
+</span><span style="color:#75715e"></span>    wren<span style="color:#f92672">::</span>VM vm;
+
+    <span style="color:#75715e">// Runs the code from the std::string as a &#34;main&#34; module
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// The System.print(&#34;Hello World!&#34;) will not be called
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// because it is in a function
+</span><span style="color:#75715e"></span>    vm.runFromSource(<span style="color:#e6db74">&#34;main&#34;</span>, code);
+
+    <span style="color:#75715e">// Find class Main in module main
+</span><span style="color:#75715e"></span>    wren<span style="color:#f92672">::</span>Variable mainClass <span style="color:#f92672">=</span> vm.find(<span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#e6db74">&#34;Main&#34;</span>);
+
+    <span style="color:#75715e">// Find function main() in class Main
+</span><span style="color:#75715e"></span>    wren<span style="color:#f92672">::</span>Method main <span style="color:#f92672">=</span> mainClass.func(<span style="color:#e6db74">&#34;main(_,_)&#34;</span>);
+
+    <span style="color:#75715e">// Execute the function
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// This calls the wren::Method::operator()(...) function.
+</span><span style="color:#75715e"></span>    wren<span style="color:#f92672">::</span>Any result <span style="color:#f92672">=</span> main(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">15</span>);
+
+    assert(result.is<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>());
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;The result is: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> result.as<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h2 id="34-lifetime-of-return-values">
+  3.4. Lifetime of return values
+  <a class="anchor" href="#34-lifetime-of-return-values">#</a>
+</h2>
+<p>The lifetime of the returned value is exteded by the <code>wren::Any</code>. You can extend the lifetime of the <code>wren::Any</code> beyond the lifetime of <code>wren::VM</code>.</p>
+<p>Due to the fact that the <code>wren::Handle</code> (used by <code>wren::Any</code>) is using a weak pointer to the VM, the <code>wren::Any</code> becomes empty once the <code>wren::VM</code> is destroyed. You can&rsquo;t use it afterwards and any action will result in an exception of type <code>wren::RuntimeException</code>. This ensures that if you store <code>wren::Any</code> and can&rsquo;t handle the lifetime (for example in a lambda capture) then you won&rsquo;t get segmentation faults. It is handled for you automatically.</p>
+<h2 id="35-call-non-static-methods">
+  3.5. Call non-static methods
+  <a class="anchor" href="#35-call-non-static-methods">#</a>
+</h2>
+<p>You can call non-static methods in classes. In all of the examples above, the class has a static main function, but this is not needed. You can do the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> {
+    <span style="color:#a6e22e">construct</span> <span style="color:#66d9ef">new</span>() {
+
+    }
+
+    <span style="color:#a6e22e">main</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>) {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span>
+    }
+}
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Instance</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Main</span>.<span style="color:#66d9ef">new</span>()
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// Find the class
+</span><span style="color:#75715e"></span>wren<span style="color:#f92672">::</span>Variable wrenClass <span style="color:#f92672">=</span> vm.find(<span style="color:#e6db74">&#34;somemodule&#34;</span>, <span style="color:#e6db74">&#34;Instance&#34;</span>);
+
+<span style="color:#75715e">// Find the function with two arguments
+</span><span style="color:#75715e"></span>wren<span style="color:#f92672">::</span>Method wrenMethod <span style="color:#f92672">=</span> wrenClass.func(<span style="color:#e6db74">&#34;main(_, _)&#34;</span>);
+</code></pre></div><blockquote class="book-hint warning">
+  <p><strong>Note</strong></p>
+<p>This only works if the instance variable name starts with a capital letter -&gt; <code>Instance</code>.</p>
+
+</blockquote>
+
+<h2 id="36-call-with-custom-types">
+  3.6. Call with custom types
+  <a class="anchor" href="#36-call-with-custom-types">#</a>
+</h2>
+<p>You can call Wren function and pass custom C++ types into it. This only works if you have added (binding) your custom type into your Wren VM that you are calling the function in. See <a href="https://matusnovak.github.io/wrenbind17/tutorial/types/">4. Supported types</a> to understand how that is done.</p>
+<h3 id="361-pass-by-a-copyreference">
+  3.6.1. Pass by a copy/reference
+  <a class="anchor" href="#361-pass-by-a-copyreference">#</a>
+</h3>
+<p>This is the default behavior of passing class instances to Wren. As shown below, the class will be moved as a copy. Your class must be trivially copyable or a copy constructor defined. Passing anything into a function call will implicitly the use a reference, passing explicitly by a reference also creates a copy. Use a pointer if you do not want to create a copy. Or even better, use a shared pointer.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Foo foo <span style="color:#f92672">=</span> Foo(<span style="color:#e6db74">&#34;Hello World&#34;</span>);
+wren<span style="color:#f92672">::</span>Method main <span style="color:#f92672">=</span> vm.find(<span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#e6db74">&#34;Main&#34;</span>).func(<span style="color:#e6db74">&#34;main(_)&#34;</span>);
+main(foo);
+</code></pre></div><h3 id="362-pass-by-a-move">
+  3.6.2. Pass by a move
+  <a class="anchor" href="#362-pass-by-a-move">#</a>
+</h3>
+<p>It is possible to pass it to Wren by a move as shown below. The instance will be moved into a new <code>std::shared_ptr&lt;Foo&gt;</code> handled by the Wren VM. This is possible only if your class has a move constructor.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Foo foo <span style="color:#f92672">=</span> Foo(<span style="color:#e6db74">&#34;Hello World&#34;</span>);
+wren<span style="color:#f92672">::</span>Method main <span style="color:#f92672">=</span> vm.find(<span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#e6db74">&#34;Main&#34;</span>).func(<span style="color:#e6db74">&#34;main(_)&#34;</span>);
+main(std<span style="color:#f92672">::</span>move(foo));
+</code></pre></div><h3 id="363-pass-by-a-pointer">
+  3.6.3. Pass by a pointer
+  <a class="anchor" href="#363-pass-by-a-pointer">#</a>
+</h3>
+<p>The instance will be moved into a new <code>std::shared_ptr&lt;Foo&gt;</code> handled by Wren <strong>but the deleter of that shared pointer is empty</strong>. Meaning, you will get the instance inside of Wren, but the lifetime of the instance is determinted solely by the C++. <strong>Make sure the instance you pass as a raw pointer lives longer than the Wren VM</strong>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Foo foo <span style="color:#f92672">=</span> Foo(<span style="color:#e6db74">&#34;Hello World&#34;</span>);
+wren<span style="color:#f92672">::</span>Method main <span style="color:#f92672">=</span> vm.find(<span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#e6db74">&#34;Main&#34;</span>).func(<span style="color:#e6db74">&#34;main(_)&#34;</span>);
+main(std<span style="color:#f92672">::</span>move(foo));
+</code></pre></div><h3 id="364-pass-as-a-shared-pointer">
+  3.6.4. Pass as a shared pointer
+  <a class="anchor" href="#364-pass-as-a-shared-pointer">#</a>
+</h3>
+<p><strong>This is the recommended method.</strong> You will not have any issues with the lifetime of the instance. You will also avoid accidental segmentation faults. Moving shared pointer has no different effect than passing shared pointer as a reference or a copy. It will act exactly the same. Doing this will also extend the lifetime of the <code>Foo</code> object held by the shared pointer.</p>
+<p>Deletion happens only when Wren garbace collects the instance and the same shared pointer is also no longer needed on C++ side.</p>
+<p>TL;DR: Nothing special, it is just a shared pointer.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span> foo(<span style="color:#66d9ef">new</span> Foo(<span style="color:#e6db74">&#34;Hello World&#34;</span>));
+wren<span style="color:#f92672">::</span>Method main <span style="color:#f92672">=</span> vm.find(<span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#e6db74">&#34;Main&#34;</span>).func(<span style="color:#e6db74">&#34;main(_)&#34;</span>);
+main(foo);
+</code></pre></div><h2 id="37-return-custom-types-from-wren">
+  3.7. Return custom types from Wren
+  <a class="anchor" href="#37-return-custom-types-from-wren">#</a>
+</h2>
+<p>Beware that returning C++ class instances from Wren contains same danger as returning instances from any other C++ function. Returning by a copy is safe, returning by a pointer or a reference is very dangerous, and finally returning by a shared pointer is the safest way to do it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">wren<span style="color:#f92672">::</span>Method method <span style="color:#f92672">=</span> klass.func(<span style="color:#e6db74">&#34;main()&#34;</span>);
+wren<span style="color:#f92672">::</span>Any result <span style="color:#f92672">=</span> method();
+
+Foo result.as<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(); <span style="color:#75715e">// As a copy
+</span><span style="color:#75715e"></span>
+Foo<span style="color:#f92672">&amp;</span> result.as<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&amp;&gt;</span>(); <span style="color:#75715e">// As a reference
+</span><span style="color:#75715e"></span>Foo<span style="color:#f92672">*</span> result.as<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">*&gt;</span>(); <span style="color:#75715e">// As a pointer
+</span><span style="color:#75715e"></span>
+std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span> result.shared<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(); <span style="color:#75715e">// As a shared pointer
+</span></code></pre></div><p>The Wren language is garbage collected. Therefore once the variable is out of the scope, it may or may not be destroyed. It depends on the implementation of the language. But! <strong>The wren::Any will extend the lifetime of the object</strong>, so you can use the &ldquo;pointer&rdquo; (or a reference that <code>.as&lt;T*&gt;()</code> returns) as long as the result is alive. Once the <code>wren::Any</code> falls out of the scope, the pointer or a reference may be invalid because the instance may have been garbage collected.</p>
+<h2 id="38-catch-wren-errors">
+  3.8. Catch Wren errors
+  <a class="anchor" href="#38-catch-wren-errors">#</a>
+</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;wrenbind17/wrenbind17.hpp&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">namespace</span> wren <span style="color:#f92672">=</span> wrenbind17; <span style="color:#75715e">// Alias
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(...) {
+    wren<span style="color:#f92672">::</span>VM vm;
+    ...
+
+    <span style="color:#66d9ef">try</span> {
+        wren<span style="color:#f92672">::</span>Method wrenMain <span style="color:#f92672">=</span> vm.find(<span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#e6db74">&#34;Main&#34;</span>).func(<span style="color:#e6db74">&#34;main()&#34;</span>);
+        wrenMain();
+    } <span style="color:#66d9ef">catch</span> (wren<span style="color:#f92672">::</span>NotFound<span style="color:#f92672">&amp;</span> e) {
+        <span style="color:#75715e">// Thows only if class &#34;Main&#34; has not been found
+</span><span style="color:#75715e"></span>        std<span style="color:#f92672">::</span>cerr <span style="color:#f92672">&lt;&lt;</span> e.what() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    } <span style="color:#66d9ef">catch</span> (wren<span style="color:#f92672">::</span>RuntimeError<span style="color:#f92672">&amp;</span> e) {
+        <span style="color:#75715e">// Throw when something went wrong when executing
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// the function. For example: a variable does not
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// exist, or bad method name.
+</span><span style="color:#75715e"></span>        std<span style="color:#f92672">::</span>cerr <span style="color:#f92672">&lt;&lt;</span> e.what() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    }
+
+    <span style="color:#75715e">// If you are lazy, just do the following:
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">try</span> {
+        wren<span style="color:#f92672">::</span>Method wrenMain <span style="color:#f92672">=</span> vm.find(<span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#e6db74">&#34;Main&#34;</span>).func(<span style="color:#e6db74">&#34;main()&#34;</span>);
+        wrenMain();
+    } <span style="color:#66d9ef">catch</span> (wren<span style="color:#f92672">::</span>Exception<span style="color:#f92672">&amp;</span> e) {
+        <span style="color:#75715e">// catch everything
+</span><span style="color:#75715e"></span>        std<span style="color:#f92672">::</span>cerr <span style="color:#f92672">&lt;&lt;</span> e.what() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    }
+}
+</code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/matusnovak/wrenbind17/tree/master/docs/content//Tutorial/call_wren.md" target="_blank" rel="noopener">
+      <img src="/wrenbind17/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#31-simple-call">3.1. Simple call</a></li>
+    <li><a href="#32-call-with-arguments">3.2. Call with arguments</a></li>
+    <li><a href="#33-return-values">3.3. Return values</a></li>
+    <li><a href="#34-lifetime-of-return-values">3.4. Lifetime of return values</a></li>
+    <li><a href="#35-call-non-static-methods">3.5. Call non-static methods</a></li>
+    <li><a href="#36-call-with-custom-types">3.6. Call with custom types</a>
+      <ul>
+        <li><a href="#361-pass-by-a-copyreference">3.6.1. Pass by a copy/reference</a></li>
+        <li><a href="#362-pass-by-a-move">3.6.2. Pass by a move</a></li>
+        <li><a href="#363-pass-by-a-pointer">3.6.3. Pass by a pointer</a></li>
+        <li><a href="#364-pass-as-a-shared-pointer">3.6.4. Pass as a shared pointer</a></li>
+      </ul>
+    </li>
+    <li><a href="#37-return-custom-types-from-wren">3.7. Return custom types from Wren</a></li>
+    <li><a href="#38-catch-wren-errors">3.8. Catch Wren errors</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

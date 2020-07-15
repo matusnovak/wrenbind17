@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="10. Fn.new and callbacks #  Let&rsquo;s say you have a GUI button widget and you want to have a specific action when a user clicks on it.
+class GuiButton { public: GuiButton(std::function&lt;bool(int)&gt; func) : func(std::move(func)) { } virtual ~GuiButton() { } bool event(int type) { return func(type); } private: std::function&lt;bool(int)&gt; func; }; And now you would like to create this class in Wren and add some custom Wren function as the callback.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="10. Fn.new and callbacks" />
+<meta property="og:description" content="10. Fn.new and callbacks #  Let&rsquo;s say you have a GUI button widget and you want to have a specific action when a user clicks on it.
+class GuiButton { public: GuiButton(std::function&lt;bool(int)&gt; func) : func(std::move(func)) { } virtual ~GuiButton() { } bool event(int type) { return func(type); } private: std::function&lt;bool(int)&gt; func; }; And now you would like to create this class in Wren and add some custom Wren function as the callback." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://matusnovak.github.io/wrenbind17/tutorial/fn/" />
+
+<title>10. Fn.new and callbacks | WrenBind17</title>
+<link rel="manifest" href="/wrenbind17/manifest.json">
+<link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
+<script defer src="/wrenbind17/en.search.min.4c4b9dc154e48a349cd075ed787ef435b66ace026b12dd7ff903db6321b02ad9.js" integrity="sha256-TEudwVTkijSc0HXteH70NbZqzgJrEt1/&#43;QPbYyGwKtk="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/wrenbind17"><span>WrenBind17</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><a href="/wrenbind17/">Home</a></li>
+<li><a href="/wrenbind17/tutorial/">Tutorial</a>
+<ul>
+<li><a href="/wrenbind17/tutorial/install/">1. Installation</a></li>
+<li><a href="/wrenbind17/tutorial/hello_world/">2. Hello World</a></li>
+<li><a href="/wrenbind17/tutorial/call_wren/">3. Call Wren function</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/types/">4. Supported types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/execute_code/">5. Executing from file</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/custom_types/">6. Custom types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/operators/">7. Class operators</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/modules/">8. Modules and files</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/customize/">9. Customize VM</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/fn/">10. Fn.new and callbacks</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/stl/">11. STL containers</a></li>
+</ul>
+</li>
+<li>Api Documentation
+<ul>
+<li><a href="/wrenbind17/classes/">Classes</a></li>
+<li><a href="/wrenbind17/namespaces/">Namespaces</a></li>
+<li><a href="/wrenbind17/modules/">Modules</a></li>
+<li><a href="/wrenbind17/files/">Files</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/wrenbind17/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>10. Fn.new and callbacks</strong>
+
+  <label for="toc-control">
+    
+    <img src="/wrenbind17/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents"></nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="10-fnnew-and-callbacks">
+  10. Fn.new and callbacks
+  <a class="anchor" href="#10-fnnew-and-callbacks">#</a>
+</h1>
+<p>Let&rsquo;s say you have a GUI button widget and you want to have a specific action when a user clicks on it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GuiButton</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    GuiButton(std<span style="color:#f92672">::</span>function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span>(<span style="color:#66d9ef">int</span>)<span style="color:#f92672">&gt;</span> func) <span style="color:#f92672">:</span> func(std<span style="color:#f92672">::</span>move(func)) {
+    }
+
+    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>GuiButton() {
+    }
+
+    <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">event</span>(<span style="color:#66d9ef">int</span> type) {
+        <span style="color:#66d9ef">return</span> func(type);
+    }
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    std<span style="color:#f92672">::</span>function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span>(<span style="color:#66d9ef">int</span>)<span style="color:#f92672">&gt;</span> func;
+};
+</code></pre></div><p>And now you would like to create this class in Wren and add some custom Wren function as the callback. What you can do is to create a Wren specific wrapper and accept a class instance (in this case, <code>Fn</code> class instance from Wren).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WrenGuiButton</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> GuiButton {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    WrenGuiButton(wren<span style="color:#f92672">::</span>Variable fn) 
+      <span style="color:#f92672">:</span> GuiButton(std<span style="color:#f92672">::</span>bind(<span style="color:#f92672">&amp;</span>WrenGuiButton<span style="color:#f92672">::</span>wrenEvent, <span style="color:#66d9ef">this</span>, std<span style="color:#f92672">::</span>placeholders<span style="color:#f92672">::</span>_1)) {
+        callback <span style="color:#f92672">=</span> fn.func(<span style="color:#e6db74">&#34;call(_)&#34;</span>);
+    }
+
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">bool</span> wrenEvent(<span style="color:#66d9ef">int</span> type) {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">callback</span>(type).as<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span>();
+    }
+
+    wren<span style="color:#f92672">::</span>Method callback;
+};
+</code></pre></div><p>Or using lambdas:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WrenGuiButton</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> GuiButton {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    WrenGuiButton(wren<span style="color:#f92672">::</span>Variable fn) 
+      <span style="color:#f92672">:</span> GuiButton([<span style="color:#66d9ef">this</span>](<span style="color:#66d9ef">int</span> type) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">bool</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">callback</span>(type).as<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span>(); }) {
+        callback <span style="color:#f92672">=</span> fn.func(<span style="color:#e6db74">&#34;call(_)&#34;</span>);
+    }
+
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    wren<span style="color:#f92672">::</span>Method callback;
+};
+</code></pre></div><p>Bind the class in the following way:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;test&#34;</span>);
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>WrenGuiButton<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;GuiButton&#34;</span>);
+cls.ctor<span style="color:#f92672">&lt;</span>wren<span style="color:#f92672">::</span>Variable<span style="color:#f92672">&gt;</span>();
+</code></pre></div><p>And finally the usage in Wren:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;test&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">GuiButton</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> {
+    <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">main</span>() {
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">btn</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">GuiButton</span>.<span style="color:#66d9ef">new</span>(<span style="color:#a6e22e">Fn</span>.<span style="color:#66d9ef">new</span> { <span style="color:#f92672">|</span><span style="color:#a6e22e">arg</span><span style="color:#f92672">|</span>
+            <span style="color:#75715e">// &#34;this&#34; is going to be &#34;Main&#34; class
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+        })
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">btn</span>
+    }
+}
+</code></pre></div><p>This works because Wren&rsquo;s <code>Fn.new{}</code> is actually an instance of a class, and executing the method is simple as calling <code>call(...)</code> of that instance.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/matusnovak/wrenbind17/tree/master/docs/content//Tutorial/fn.md" target="_blank" rel="noopener">
+      <img src="/wrenbind17/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents"></nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

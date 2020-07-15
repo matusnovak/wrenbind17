@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A return value when calling a Wren function (alias Any)">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="wrenbind17::ReturnValue" />
+<meta property="og:description" content="A return value when calling a Wren function (alias Any)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_return_value/" />
+
+<title>wrenbind17::ReturnValue | WrenBind17</title>
+<link rel="manifest" href="/wrenbind17/manifest.json">
+<link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
+<script defer src="/wrenbind17/en.search.min.4c4b9dc154e48a349cd075ed787ef435b66ace026b12dd7ff903db6321b02ad9.js" integrity="sha256-TEudwVTkijSc0HXteH70NbZqzgJrEt1/&#43;QPbYyGwKtk="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/wrenbind17"><span>WrenBind17</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><a href="/wrenbind17/">Home</a></li>
+<li><a href="/wrenbind17/tutorial/">Tutorial</a>
+<ul>
+<li><a href="/wrenbind17/tutorial/install/">1. Installation</a></li>
+<li><a href="/wrenbind17/tutorial/hello_world/">2. Hello World</a></li>
+<li><a href="/wrenbind17/tutorial/call_wren/">3. Call Wren function</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/types/">4. Supported types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/execute_code/">5. Executing from file</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/custom_types/">6. Custom types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/operators/">7. Class operators</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/modules/">8. Modules and files</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/customize/">9. Customize VM</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/fn/">10. Fn.new and callbacks</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/stl/">11. STL containers</a></li>
+</ul>
+</li>
+<li>Api Documentation
+<ul>
+<li><a href="/wrenbind17/classes/">Classes</a></li>
+<li><a href="/wrenbind17/namespaces/">Namespaces</a></li>
+<li><a href="/wrenbind17/modules/">Modules</a></li>
+<li><a href="/wrenbind17/files/">Files</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/wrenbind17/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>wrenbind17::ReturnValue</strong>
+
+  <label for="toc-control">
+    
+    <img src="/wrenbind17/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#public-functions">Public Functions</a></li>
+    <li><a href="#detailed-description">Detailed Description</a></li>
+    <li><a href="#public-functions-documentation">Public Functions Documentation</a>
+      <ul>
+        <li><a href="#function-shared">function shared</a></li>
+        <li><a href="#function-as">function as</a></li>
+        <li><a href="#function-islist">function isList</a></li>
+        <li><a href="#function-ismap">function isMap</a></li>
+        <li><a href="#function-is">function is</a></li>
+        <li><a href="#function-gettype">function getType</a></li>
+        <li><a href="#function-gethandle">function getHandle</a></li>
+        <li><a href="#function-gethandle-1">function getHandle</a></li>
+        <li><a href="#function-swap">function swap</a></li>
+        <li><a href="#function-operator">function operator=</a></li>
+        <li><a href="#function-operator-1">function operator=</a></li>
+        <li><a href="#function-returnvalue">function ReturnValue</a></li>
+        <li><a href="#function-returnvalue-1">function ReturnValue</a></li>
+        <li><a href="#function-returnvalue-2">function ~ReturnValue</a></li>
+        <li><a href="#function-returnvalue-3">function ReturnValue</a></li>
+        <li><a href="#function-returnvalue-4">function ReturnValue</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="wrenbind17returnvalue">
+  wrenbind17::ReturnValue
+  <a class="anchor" href="#wrenbind17returnvalue">#</a>
+</h1>
+<p><strong>Module:</strong> <strong><a href="/wrenbind17/modules/group__wrenbind17/">Wrenbind17</a></strong></p>
+<p>A return value when calling a Wren function (alias Any)  <a href="#detailed-description">More&hellip;</a></p>
+<p><code>#include &lt;any.hpp&gt;</code></p>
+<h2 id="public-functions">
+  Public Functions
+  <a class="anchor" href="#public-functions">#</a>
+</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>template &lt;class T &gt;<!-- raw HTML omitted -->std::shared_ptr&lt; T &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-shared">shared</a></strong>() <!-- raw HTML omitted -->Returns the value as a shared pointer.</td>
+</tr>
+<tr>
+<td>template &lt;class T &gt;<!-- raw HTML omitted -->T</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-as">as</a></strong>() <!-- raw HTML omitted -->Returns the value.</td>
+</tr>
+<tr>
+<td>bool</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-islist">isList</a></strong>() const</td>
+</tr>
+<tr>
+<td>bool</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-ismap">isMap</a></strong>() const</td>
+</tr>
+<tr>
+<td>template &lt;class T &gt;<!-- raw HTML omitted -->bool</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-is">is</a></strong>() const <!-- raw HTML omitted -->Check if the value held is some specific C++ type.</td>
+</tr>
+<tr>
+<td>WrenType</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-gettype">getType</a></strong>() const <!-- raw HTML omitted -->The raw wren type held by this instance.</td>
+</tr>
+<tr>
+<td><a href="/wrenbind17/classes/classwrenbind17_1_1_handle/">Handle</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-gethandle">getHandle</a></strong>()</td>
+</tr>
+<tr>
+<td>const <a href="/wrenbind17/classes/classwrenbind17_1_1_handle/">Handle</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-gethandle">getHandle</a></strong>() const</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-swap">swap</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/">ReturnValue</a> &amp; other)</td>
+</tr>
+<tr>
+<td><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/">ReturnValue</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-operator=">operator=</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/">ReturnValue</a> &amp;&amp; other)</td>
+</tr>
+<tr>
+<td><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/">ReturnValue</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-operator=">operator=</a></strong>(const <a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/">ReturnValue</a> &amp; other)</td>
+</tr>
+<tr>
+<td></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-returnvalue">ReturnValue</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/">ReturnValue</a> &amp;&amp; other)</td>
+</tr>
+<tr>
+<td></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-returnvalue">ReturnValue</a></strong>(const <a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/">ReturnValue</a> &amp; other)</td>
+</tr>
+<tr>
+<td></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-~returnvalue">~ReturnValue</a></strong>() =default</td>
+</tr>
+<tr>
+<td></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-returnvalue">ReturnValue</a></strong>(const WrenType type, <a href="/wrenbind17/classes/classwrenbind17_1_1_handle/">Handle</a> handle)</td>
+</tr>
+<tr>
+<td></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-returnvalue">ReturnValue</a></strong>() =default</td>
+</tr>
+</tbody>
+</table>
+<h2 id="detailed-description">
+  Detailed Description
+  <a class="anchor" href="#detailed-description">#</a>
+</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">wrenbind17</span><span style="color:#f92672">::</span>ReturnValue;
+</code></pre></div><p>A return value when calling a Wren function (alias Any)</p>
+<p><strong>See</strong>: <a href="/wrenbind17/namespaces/namespacewrenbind17/#using-any">Any</a></p>
+<p><strong>Note</strong>: This variable can safely outlive the <a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">wrenbind17::VM</a> class. If that happens then functions of this class will throw <a href="/wrenbind17/classes/classwrenbind17_1_1_runtime_error/">wrenbind17::RuntimeError</a> exception. This holder will not try to free the Wren variable if the <a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> has been terminated. You don&rsquo;t have to worry about the lifetime of this holder. (uses weak pointers).</p>
+<p>This extends the lifetime of the Wren object (handle). As long as this <a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/">ReturnValue</a> instance exists the Wren object will exist.</p>
+<h2 id="public-functions-documentation">
+  Public Functions Documentation
+  <a class="anchor" href="#public-functions-documentation">#</a>
+</h2>
+<h3 id="function-shared">
+  function shared
+  <a class="anchor" href="#function-shared">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">T</span> <span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> T <span style="color:#f92672">&gt;</span> shared()
+</code></pre></div><p>Returns the value as a shared pointer.</p>
+<p><strong>Exceptions</strong>:</p>
+<ul>
+<li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_runtime_error/">RuntimeError</a></strong> if this instance is invalid (constructed via the default constructor)</li>
+<li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_bad_cast/">BadCast</a></strong> if the type required by specifying the template argument does not match the type held</li>
+</ul>
+<p><strong>Template Parameters</strong>:</p>
+<ul>
+<li><strong>T</strong> the type of the std::shared_ptr you want to get</li>
+</ul>
+<p><strong>See</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-as">as()</a></p>
+<p><strong>Note</strong>: Only works for custom C++ classes (foreign classes) that have been bound to the <a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a>.</p>
+<h3 id="function-as">
+  function as
+  <a class="anchor" href="#function-as">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">T</span> <span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">inline</span> T as()
+</code></pre></div><p>Returns the value.</p>
+<p><strong>Exceptions</strong>:</p>
+<ul>
+<li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_runtime_error/">RuntimeError</a></strong> if this instance is invalid (constructed via the default constructor)</li>
+<li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_bad_cast/">BadCast</a></strong> if the type required by specifying the template argument does not match the type held</li>
+</ul>
+<p><strong>Template Parameters</strong>:</p>
+<ul>
+<li><strong>T</strong> the type you want to get</li>
+</ul>
+<p><strong>See</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/#function-shared">shared()</a></p>
+<p><strong>Note</strong>: If the value held is a Wren numeric type then getting for any C++ integral or floating type will result in a cast from a double to that type.</p>
+<h3 id="function-islist">
+  function isList
+  <a class="anchor" href="#function-islist">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> isList() <span style="color:#66d9ef">const</span>
+</code></pre></div><h3 id="function-ismap">
+  function isMap
+  <a class="anchor" href="#function-ismap">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> isMap() <span style="color:#66d9ef">const</span>
+</code></pre></div><h3 id="function-is">
+  function is
+  <a class="anchor" href="#function-is">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">T</span> <span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> is() <span style="color:#66d9ef">const</span>
+</code></pre></div><p>Check if the value held is some specific C++ type.</p>
+<p><strong>Note</strong>: If the value held is a Wren numeric type then checking for any C++ integral or floating type will return true.</p>
+<h3 id="function-gettype">
+  function getType
+  <a class="anchor" href="#function-gettype">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> WrenType getType() <span style="color:#66d9ef">const</span>
+</code></pre></div><p>The raw wren type held by this instance.</p>
+<h3 id="function-gethandle">
+  function getHandle
+  <a class="anchor" href="#function-gethandle">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> Handle <span style="color:#f92672">&amp;</span> getHandle()
+</code></pre></div><p>Returns the handle that this instance owns</p>
+<h3 id="function-gethandle-1">
+  function getHandle
+  <a class="anchor" href="#function-gethandle-1">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">const</span> Handle <span style="color:#f92672">&amp;</span> getHandle() <span style="color:#66d9ef">const</span>
+</code></pre></div><p>Returns the handle that this instance owns</p>
+<h3 id="function-swap">
+  function swap
+  <a class="anchor" href="#function-swap">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> swap(
+    ReturnValue <span style="color:#f92672">&amp;</span> other
+)
+</code></pre></div><h3 id="function-operator">
+  function operator=
+  <a class="anchor" href="#function-operator">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> ReturnValue <span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">=</span>(
+    ReturnValue <span style="color:#f92672">&amp;&amp;</span> other
+)
+</code></pre></div><h3 id="function-operator-1">
+  function operator=
+  <a class="anchor" href="#function-operator-1">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">ReturnValue <span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">=</span>(
+    <span style="color:#66d9ef">const</span> ReturnValue <span style="color:#f92672">&amp;</span> other
+)
+</code></pre></div><h3 id="function-returnvalue">
+  function ReturnValue
+  <a class="anchor" href="#function-returnvalue">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> ReturnValue(
+    ReturnValue <span style="color:#f92672">&amp;&amp;</span> other
+)
+</code></pre></div><h3 id="function-returnvalue-1">
+  function ReturnValue
+  <a class="anchor" href="#function-returnvalue-1">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">ReturnValue(
+    <span style="color:#66d9ef">const</span> ReturnValue <span style="color:#f92672">&amp;</span> other
+)
+</code></pre></div><h3 id="function-returnvalue-2">
+  function ~ReturnValue
+  <a class="anchor" href="#function-returnvalue-2">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#f92672">~</span>ReturnValue() <span style="color:#f92672">=</span><span style="color:#66d9ef">default</span>
+</code></pre></div><h3 id="function-returnvalue-3">
+  function ReturnValue
+  <a class="anchor" href="#function-returnvalue-3">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">explicit</span> ReturnValue(
+    <span style="color:#66d9ef">const</span> WrenType type,
+    Handle handle
+)
+</code></pre></div><h3 id="function-returnvalue-4">
+  function ReturnValue
+  <a class="anchor" href="#function-returnvalue-4">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">ReturnValue() <span style="color:#f92672">=</span><span style="color:#66d9ef">default</span>
+</code></pre></div><hr>
+<p>Updated on 15 July 2020 at 21:49:27 UTC</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/matusnovak/wrenbind17/tree/master/docs/content//Classes/classwrenbind17_1_1_return_value.md" target="_blank" rel="noopener">
+      <img src="/wrenbind17/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#public-functions">Public Functions</a></li>
+    <li><a href="#detailed-description">Detailed Description</a></li>
+    <li><a href="#public-functions-documentation">Public Functions Documentation</a>
+      <ul>
+        <li><a href="#function-shared">function shared</a></li>
+        <li><a href="#function-as">function as</a></li>
+        <li><a href="#function-islist">function isList</a></li>
+        <li><a href="#function-ismap">function isMap</a></li>
+        <li><a href="#function-is">function is</a></li>
+        <li><a href="#function-gettype">function getType</a></li>
+        <li><a href="#function-gethandle">function getHandle</a></li>
+        <li><a href="#function-gethandle-1">function getHandle</a></li>
+        <li><a href="#function-swap">function swap</a></li>
+        <li><a href="#function-operator">function operator=</a></li>
+        <li><a href="#function-operator-1">function operator=</a></li>
+        <li><a href="#function-returnvalue">function ReturnValue</a></li>
+        <li><a href="#function-returnvalue-1">function ReturnValue</a></li>
+        <li><a href="#function-returnvalue-2">function ~ReturnValue</a></li>
+        <li><a href="#function-returnvalue-3">function ReturnValue</a></li>
+        <li><a href="#function-returnvalue-4">function ReturnValue</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

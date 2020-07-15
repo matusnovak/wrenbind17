@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="include/wrenbind17/stdlist.hpp #  Namespaces #     Name     wrenbind17    Source code #  #pragma once  #include &#34;pop.hpp&#34;#include &#34;push.hpp&#34;#include &lt;list&gt; namespace wrenbind17 { #ifndef DOXYGEN_SHOULD_SKIP_THIS  namespace detail { template &lt;typename T&gt; struct PushHelper&lt;std::list&lt;T&gt;&gt; { static inline void f(WrenVM* vm, int idx, std::list&lt;T&gt; value) { if (isClassRegistered(vm, typeid(std::list&lt;T&gt;).hash_code())) { pushAsMove&lt;std::list&lt;T&gt;&gt;(vm, idx, std::move(value)); } else { loopAndPushIterable(vm, idx, value.begin(), value.end()); } } }; template &lt;typename T&gt; struct PushHelper&lt;std::list&lt;T&gt;*&gt; { static inline void f(WrenVM* vm, int idx, std::list&lt;T&gt;* value) { if (isClassRegistered(vm, typeid(std::list&lt;T&gt;).">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="include/wrenbind17/stdlist.hpp" />
+<meta property="og:description" content="include/wrenbind17/stdlist.hpp #  Namespaces #     Name     wrenbind17    Source code #  #pragma once  #include &#34;pop.hpp&#34;#include &#34;push.hpp&#34;#include &lt;list&gt; namespace wrenbind17 { #ifndef DOXYGEN_SHOULD_SKIP_THIS  namespace detail { template &lt;typename T&gt; struct PushHelper&lt;std::list&lt;T&gt;&gt; { static inline void f(WrenVM* vm, int idx, std::list&lt;T&gt; value) { if (isClassRegistered(vm, typeid(std::list&lt;T&gt;).hash_code())) { pushAsMove&lt;std::list&lt;T&gt;&gt;(vm, idx, std::move(value)); } else { loopAndPushIterable(vm, idx, value.begin(), value.end()); } } }; template &lt;typename T&gt; struct PushHelper&lt;std::list&lt;T&gt;*&gt; { static inline void f(WrenVM* vm, int idx, std::list&lt;T&gt;* value) { if (isClassRegistered(vm, typeid(std::list&lt;T&gt;)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://matusnovak.github.io/wrenbind17/files/stdlist_8hpp/" />
+
+<title>include/wrenbind17/stdlist.hpp | WrenBind17</title>
+<link rel="manifest" href="/wrenbind17/manifest.json">
+<link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
+<script defer src="/wrenbind17/en.search.min.4c4b9dc154e48a349cd075ed787ef435b66ace026b12dd7ff903db6321b02ad9.js" integrity="sha256-TEudwVTkijSc0HXteH70NbZqzgJrEt1/&#43;QPbYyGwKtk="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/wrenbind17"><span>WrenBind17</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><a href="/wrenbind17/">Home</a></li>
+<li><a href="/wrenbind17/tutorial/">Tutorial</a>
+<ul>
+<li><a href="/wrenbind17/tutorial/install/">1. Installation</a></li>
+<li><a href="/wrenbind17/tutorial/hello_world/">2. Hello World</a></li>
+<li><a href="/wrenbind17/tutorial/call_wren/">3. Call Wren function</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/types/">4. Supported types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/execute_code/">5. Executing from file</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/custom_types/">6. Custom types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/operators/">7. Class operators</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/modules/">8. Modules and files</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/customize/">9. Customize VM</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/fn/">10. Fn.new and callbacks</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/stl/">11. STL containers</a></li>
+</ul>
+</li>
+<li>Api Documentation
+<ul>
+<li><a href="/wrenbind17/classes/">Classes</a></li>
+<li><a href="/wrenbind17/namespaces/">Namespaces</a></li>
+<li><a href="/wrenbind17/modules/">Modules</a></li>
+<li><a href="/wrenbind17/files/">Files</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/wrenbind17/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>include/wrenbind17/stdlist.hpp</strong>
+
+  <label for="toc-control">
+    
+    <img src="/wrenbind17/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#namespaces">Namespaces</a></li>
+    <li><a href="#source-code">Source code</a></li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="includewrenbind17stdlisthpp">
+  include/wrenbind17/stdlist.hpp
+  <a class="anchor" href="#includewrenbind17stdlisthpp">#</a>
+</h1>
+<h2 id="namespaces">
+  Namespaces
+  <a class="anchor" href="#namespaces">#</a>
+</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/">wrenbind17</a></strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="source-code">
+  Source code
+  <a class="anchor" href="#source-code">#</a>
+</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#pragma once
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;pop.hpp&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;push.hpp&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">namespace</span> wrenbind17 {
+<span style="color:#75715e">#ifndef DOXYGEN_SHOULD_SKIP_THIS
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">namespace</span> detail {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PushHelper</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> value) {
+                <span style="color:#66d9ef">if</span> (isClassRegistered(vm, <span style="color:#66d9ef">typeid</span>(std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>).hash_code())) {
+                    pushAsMove<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx, std<span style="color:#f92672">::</span>move(value));
+                } <span style="color:#66d9ef">else</span> {
+                    loopAndPushIterable(vm, idx, value.begin(), value.end());
+                }
+            }
+        };
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PushHelper</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> value) {
+                <span style="color:#66d9ef">if</span> (isClassRegistered(vm, <span style="color:#66d9ef">typeid</span>(std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>).hash_code())) {
+                    pushAsPtr<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx, value);
+                } <span style="color:#66d9ef">else</span> {
+                    loopAndPushIterable(vm, idx, value<span style="color:#f92672">-&gt;</span>begin(), value<span style="color:#f92672">-&gt;</span>end());
+                }
+            }
+        };
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PushHelper</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">int</span> idx, <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;</span> value) {
+                <span style="color:#66d9ef">if</span> (isClassRegistered(vm, <span style="color:#66d9ef">typeid</span>(std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>).hash_code())) {
+                    pushAsConstRef<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx, value);
+                } <span style="color:#66d9ef">else</span> {
+                    loopAndPushIterable(vm, idx, value.begin(), value.end());
+                }
+            }
+        };
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PopHelper</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> f(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> idx) {
+                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span> type <span style="color:#f92672">=</span> wrenGetSlotType(vm, idx);
+                <span style="color:#66d9ef">if</span> (type <span style="color:#f92672">==</span> WrenType<span style="color:#f92672">::</span>WREN_TYPE_FOREIGN) {
+                    <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>getSlotForeign<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>(vm, idx).get();
+                }
+                <span style="color:#66d9ef">if</span> (type <span style="color:#f92672">!=</span> WrenType<span style="color:#f92672">::</span>WREN_TYPE_LIST)
+                    <span style="color:#66d9ef">throw</span> BadCast(<span style="color:#e6db74">&#34;Bad cast when getting value from Wren expected list&#34;</span>);
+
+                std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> res;
+                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span> size <span style="color:#f92672">=</span> wrenGetListCount(vm, idx);
+                wrenEnsureSlots(vm, <span style="color:#ae81ff">1</span>);
+                <span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> size; i<span style="color:#f92672">++</span>) {
+                    wrenGetListElement(vm, idx, <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(i), idx <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+                    res.push_back(PopHelper<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>f(vm, idx <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>));
+                }
+                <span style="color:#66d9ef">return</span> res;
+            }
+        };
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PopHelper</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span> {
+            <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> f(WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> idx) {
+                <span style="color:#66d9ef">return</span> PopHelper<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;&gt;::</span>f(vm, idx);
+            }
+        };
+    } <span style="color:#75715e">// namespace detail
+</span><span style="color:#75715e"></span><span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>} <span style="color:#75715e">// namespace wrenbind17
+</span></code></pre></div><hr>
+<p>Updated on 15 July 2020 at 21:49:27 UTC</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/matusnovak/wrenbind17/tree/master/docs/content//Files/stdlist_8hpp.md" target="_blank" rel="noopener">
+      <img src="/wrenbind17/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#namespaces">Namespaces</a></li>
+    <li><a href="#source-code">Source code</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

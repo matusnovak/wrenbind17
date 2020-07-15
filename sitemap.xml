@@ -3,71 +3,52 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/installation/</loc>
+    <loc>https://matusnovak.github.io/wrenbind17/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/hello-world/</loc>
+    <loc>https://matusnovak.github.io/wrenbind17/menu/</loc>
   </url>
   
   <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/executing-code/</loc>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/install/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/fn/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/stl/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/hello_world/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/call_wren/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/types/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/execute_code/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/custom_types/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/tutorial/operators/</loc>
   </url>
   
   <url>
     <loc>https://matusnovak.github.io/wrenbind17/tutorial/modules/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/exceptions/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/bind-cpp-class/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/abstract-classes/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/overload-operators/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/call-wren/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/call-cpp/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/raw-modules/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/inheritance/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/callbacks/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/upcasting/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/lists/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/maps/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/tutorial/variant/</loc>
   </url>
   
   <url>
@@ -123,6 +104,10 @@
   </url>
   
   <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/map_8hpp/</loc>
+  </url>
+  
+  <url>
     <loc>https://matusnovak.github.io/wrenbind17/files/method_8hpp/</loc>
   </url>
   
@@ -144,6 +129,34 @@
   
   <url>
     <loc>https://matusnovak.github.io/wrenbind17/files/std_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/stddeque_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/stdlist_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/stdmap_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/stdoptional_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/stdset_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/stdvariant_8hpp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/files/stdvector_8hpp/</loc>
   </url>
   
   <url>
@@ -175,10 +188,6 @@
   </url>
   
   <url>
-    <loc>https://matusnovak.github.io/wrenbind17/</loc>
-  </url>
-  
-  <url>
     <loc>https://matusnovak.github.io/wrenbind17/modules/group__wrenbind17/</loc>
   </url>
   
@@ -191,35 +200,11 @@
   </url>
   
   <url>
-    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_any/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_any_1_1_content/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_any_1_1_data/</loc>
-  </url>
-  
-  <url>
     <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_bad_cast/</loc>
   </url>
   
   <url>
     <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_compile_error/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/namespaces/namespacewrenbind17_1_1detail/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1detail_1_1is__equality__comparable/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/classes/structwrenbind17_1_1detail_1_1is__equality__comparable_3_01_t_00_01typename_01std_1_1enable__if_2ce5ce7a57e5adc17b49d2b5dc15e4c9/</loc>
   </url>
   
   <url>
@@ -259,11 +244,19 @@
   </url>
   
   <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_map/</loc>
+  </url>
+  
+  <url>
     <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_method/</loc>
   </url>
   
   <url>
     <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_not_found/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_return_value/</loc>
   </url>
   
   <url>
@@ -279,23 +272,15 @@
   </url>
   
   <url>
-    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_std_vector_helper/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_std_vector_helper_3_01_t_00_01typename_01std_1_1enable__if_3_01detail_1_1is_9ed14e99eb1e8a4cf5463842b9d26037/</loc>
-  </url>
-  
-  <url>
-    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_std_vector_helper_3_01_t_00_01typename_01std_1_1enable__if_3_9detail_1_1is__00e67679ae85136e10c5db88faa3df1f/</loc>
-  </url>
-  
-  <url>
     <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_variable/</loc>
   </url>
   
   <url>
     <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_v_m/</loc>
+  </url>
+  
+  <url>
+    <loc>https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/</loc>
   </url>
   
 </urlset>

@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="6. Custom types #  Wren supports adding custom types. See official documentation here. This is done via foregin classes that can have member of static functions and fields. All of foreign classes added via WrenBind17 are wrapped in a custom wrapper (wren::detail::ForeignObject&lt;T&gt;) that takes care of handling of instance of your custom C&#43;&#43; type.
+In order to use your custom types, you will have to register them as a foreign classes with foreign functions into the Wren VM.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="6. Custom types" />
+<meta property="og:description" content="6. Custom types #  Wren supports adding custom types. See official documentation here. This is done via foregin classes that can have member of static functions and fields. All of foreign classes added via WrenBind17 are wrapped in a custom wrapper (wren::detail::ForeignObject&lt;T&gt;) that takes care of handling of instance of your custom C&#43;&#43; type.
+In order to use your custom types, you will have to register them as a foreign classes with foreign functions into the Wren VM." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://matusnovak.github.io/wrenbind17/tutorial/custom_types/" />
+
+<title>6. Custom types | WrenBind17</title>
+<link rel="manifest" href="/wrenbind17/manifest.json">
+<link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
+<script defer src="/wrenbind17/en.search.min.4c4b9dc154e48a349cd075ed787ef435b66ace026b12dd7ff903db6321b02ad9.js" integrity="sha256-TEudwVTkijSc0HXteH70NbZqzgJrEt1/&#43;QPbYyGwKtk="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/wrenbind17"><span>WrenBind17</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><a href="/wrenbind17/">Home</a></li>
+<li><a href="/wrenbind17/tutorial/">Tutorial</a>
+<ul>
+<li><a href="/wrenbind17/tutorial/install/">1. Installation</a></li>
+<li><a href="/wrenbind17/tutorial/hello_world/">2. Hello World</a></li>
+<li><a href="/wrenbind17/tutorial/call_wren/">3. Call Wren function</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/types/">4. Supported types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/execute_code/">5. Executing from file</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/custom_types/">6. Custom types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/operators/">7. Class operators</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/modules/">8. Modules and files</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/customize/">9. Customize VM</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/fn/">10. Fn.new and callbacks</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/stl/">11. STL containers</a></li>
+</ul>
+</li>
+<li>Api Documentation
+<ul>
+<li><a href="/wrenbind17/classes/">Classes</a></li>
+<li><a href="/wrenbind17/namespaces/">Namespaces</a></li>
+<li><a href="/wrenbind17/modules/">Modules</a></li>
+<li><a href="/wrenbind17/files/">Files</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/wrenbind17/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>6. Custom types</strong>
+
+  <label for="toc-control">
+    
+    <img src="/wrenbind17/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#61-type-safety-and-shared_ptr">6.1. Type safety and shared_ptr</a></li>
+    <li><a href="#62-passing-values-into-wren">6.2 Passing values into Wren</a></li>
+    <li><a href="#63-adding-custom-modules">6.3 Adding custom modules</a></li>
+    <li><a href="#63-adding-custom-classes">6.3 Adding custom classes</a>
+      <ul>
+        <li><a href="#631-handling-function-pointer-ambiguity">6.3.1 Handling function pointer ambiguity</a></li>
+        <li><a href="#632-static-functions">6.3.2 Static functions</a></li>
+        <li><a href="#633-functions-via-external-functions">6.3.3 Functions via external functions</a></li>
+      </ul>
+    </li>
+    <li><a href="#64-abstract-classes">6.4 Abstract classes</a></li>
+    <li><a href="#65-adding-class-varialbles">6.5 Adding class varialbles</a>
+      <ul>
+        <li><a href="#651-class-variables-as-fields">6.5.1 Class variables as fields</a></li>
+        <li><a href="#652-class-variables-as-properties">6.5.2 Class variables as properties</a></li>
+        <li><a href="#653-read-only-class-variables">6.5.3 Read-only class variables</a></li>
+        <li><a href="#654-class-variables-via-external-properties">6.5.4 Class variables via external properties</a></li>
+        <li><a href="#655-class-static-variables">6.5.5 Class static variables</a></li>
+      </ul>
+    </li>
+    <li><a href="#66-upcasting">6.6. Upcasting</a></li>
+    <li><a href="#67-class-methods-that-throw">6.7. Class methods that throw</a></li>
+    <li><a href="#68-inheritance">6.8. Inheritance</a></li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="6-custom-types">
+  6. Custom types
+  <a class="anchor" href="#6-custom-types">#</a>
+</h1>
+<p>Wren supports adding custom types. See <a href="https://wren.io/embedding/calling-c-from-wren.html">official documentation here</a>. This is done via foregin classes that can have member of static functions and fields. All of foreign classes added via WrenBind17 are wrapped in a custom wrapper (<code>wren::detail::ForeignObject&lt;T&gt;</code>) that takes care of handling of instance of your custom C++ type.</p>
+<p>In order to use your custom types, you will have to register them as a foreign classes with foreign functions into the Wren VM. This is not done globally, therefore <strong>you will have to do this for each of your Wren VM instances</strong>. Wren VMs do not share their data between instances, nor the data about foreign classes.</p>
+<h2 id="61-type-safety-and-shared_ptr">
+  6.1. Type safety and shared_ptr
+  <a class="anchor" href="#61-type-safety-and-shared_ptr">#</a>
+</h2>
+<p><strong>All custom types are handled as a <code>std::shared_ptr&lt;T&gt;</code>.</strong> Even if you pass your custom type into Wren as a copy, it will be moved into a shared pointer. Passing shared pointers into Wren has no extra mechanism and simply the shared pointer is kept inside of the wrapper. <strong>This also ensures strong type safety. It is not possible to pass a C++ class instance of one type and get that variable back from Wren as a C++ class instance of an another type.</strong> Doing so will throw the <code>wren::BadCast</code> exception.</p>
+<h2 id="62-passing-values-into-wren">
+  6.2 Passing values into Wren
+  <a class="anchor" href="#62-passing-values-into-wren">#</a>
+</h2>
+<p>Passing values into Wren can be done in multiple ways, but they always end up as a shared pointer. Passing values happens when you call a Wren function from C++ and you pass some arguments, or when Wren calls a C++ foreign function that returns a type.</p>
+<p><strong>Returning a value from a C++ function or passing into a Wren function is done by the same mechanism</strong>, therefore there are no differences.</p>
+<ul>
+<li>Pass/return as a copy -&gt; Moved into <code>std::shared_ptr&lt;T&gt;</code></li>
+<li>Pass/return as a pointer -&gt; Pointer moved into <code>std::shared_ptr&lt;T&gt;</code> with no deleter (won&rsquo;t free).</li>
+<li>Pass/return as a reference -&gt; Handled as a pointer and pointer moved into <code>std::shared_ptr&lt;T&gt;</code> with no deleter (won&rsquo;t free).</li>
+<li>Pass/return as a const pointer -&gt; Pointer moved into <code>std::shared_ptr&lt;T&gt;</code> with no deleter (won&rsquo;t free).</li>
+<li>Pass/return as a const reference -&gt; Handled as copy and the instance is copied (duplicated) via it&rsquo;s copy constructor.</li>
+</ul>
+<p>TL;DR: Everything is a shared pointer.</p>
+<h2 id="63-adding-custom-modules">
+  6.3 Adding custom modules
+  <a class="anchor" href="#63-adding-custom-modules">#</a>
+</h2>
+<p>To bind a C++ class, you will first need to create a new module. Creating a new module is done per VM instance. If you have multiple VMs in your application, they won&rsquo;t share the same modules. You would have to create the module for each of your VM instances. Copying modules between instances is not possible.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">namespace</span> wren <span style="color:#f92672">=</span> wrenbind17; <span style="color:#75715e">// Alias
+</span><span style="color:#75715e"></span>
+wren<span style="color:#f92672">::</span>VM vm;
+
+<span style="color:#75715e">// Create module called &#34;mymodule&#34;
+</span><span style="color:#75715e"></span>wren<span style="color:#f92672">::</span>ForeignModule<span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+</code></pre></div><p>You can create as many modules as you want. Additionally, calling the method <code>module(...)</code> multiple times with the same name won&rsquo;t create duplicates. For example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">wren<span style="color:#f92672">::</span>VM vm;
+
+wren<span style="color:#f92672">::</span>ForeignModule<span style="color:#f92672">&amp;</span> m0 <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+wren<span style="color:#f92672">::</span>ForeignModule<span style="color:#f92672">&amp;</span> m1 <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+<span style="color:#75715e">// m0 and m1 now point to the exact same module
+</span></code></pre></div><blockquote class="book-hint info">
+  <p><strong>Note</strong></p>
+<p>Modules must be used via a reference <code>wren::ForeignModule&amp; m = ...</code>. Copying modules is not allowed and causes compilation error.</p>
+
+</blockquote>
+
+<h2 id="63-adding-custom-classes">
+  6.3 Adding custom classes
+  <a class="anchor" href="#63-adding-custom-classes">#</a>
+</h2>
+<p>Once you have a custom module, you can add classes to it, any classes. Your class does not have to have any specific functions, there are no requirements. Your class does not have to have a default constructor too, you can add anything.</p>
+<p>Let&rsquo;s assume this is your C++ class:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {
+        ...
+    }
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bar</span>() {
+
+    }
+
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">baz</span>() <span style="color:#66d9ef">const</span> {
+
+    }
+};
+</code></pre></div><p>You can add it in the following way:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+<span style="color:#75715e">// Add class &#34;Foo&#34;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
+
+<span style="color:#75715e">// Define constructor (you can only specify one constructor)
+</span><span style="color:#75715e"></span>cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
+
+<span style="color:#75715e">// Add some methods
+</span><span style="color:#75715e"></span>cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>bar<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;bar&#34;</span>);
+cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>baz<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;baz&#34;</span>);
+</code></pre></div><p><strong>The class functions (methods) are added as a template argument, not as the function argument.</strong> This is due to the how Wren is built. Because of this implementation, you will also get extra performance -&gt; the pointers to the class functions are optimized at compile time -&gt; there are no lookup maps.</p>
+<p>And this is how you can use it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;mymodule&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">Foo</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Foo</span>.<span style="color:#66d9ef">new</span>(<span style="color:#e6db74">&#34;Message&#34;</span>)
+<span style="color:#a6e22e">foo</span>.<span style="color:#a6e22e">bar</span>();
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">foo</span>.<span style="color:#a6e22e">baz</span>();
+</code></pre></div><p>Please note that <strong>you don&rsquo;t have to manually create file &ldquo;mymodule.wren&rdquo;</strong> and add all of your C++ foreign classes into it manually. Everything is automatically generated by the <code>wren::VM</code>. You can get the &ldquo;raw&rdquo; contents of the module that will be put into Wren by simply calling <code>.str()</code> on the module (e.g. <code>vm.module(&quot;mymodule&quot;).str();</code>). This will print the contents of that module as a Wren code with foreign classes.</p>
+<h3 id="631-handling-function-pointer-ambiguity">
+  6.3.1 Handling function pointer ambiguity
+  <a class="anchor" href="#631-handling-function-pointer-ambiguity">#</a>
+</h3>
+<p>In case you have multiple functions with the same name, you will have to use <code>static_cast</code> to explicitly tell the compiler which function you want. For example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> getMsg() <span style="color:#66d9ef">const</span>;
+    std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> getMsg();
+};
+
+wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> vm.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
+cls.func<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> (<span style="color:#f92672">*</span>)(<span style="color:#66d9ef">void</span>) <span style="color:#66d9ef">const</span><span style="color:#f92672">&gt;</span>(<span style="color:#f92672">&amp;</span>Foo<span style="color:#f92672">::</span>getMsg)<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;getMsg&#34;</span>);
+</code></pre></div><h3 id="632-static-functions">
+  6.3.2 Static functions
+  <a class="anchor" href="#632-static-functions">#</a>
+</h3>
+<p>To add a static function, simply call the <code>funcStatic</code> instead of <code>func</code> as shown below:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Log</span> {
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">debug</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> text);
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">error</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> text);
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">info</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> text);
+};
+
+wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Log<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Log&#34;</span>);
+cls.funcStatic<span style="color:#f92672">&lt;&amp;</span>Log<span style="color:#f92672">::</span>debug<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;debug&#34;</span>);
+cls.funcStatic<span style="color:#f92672">&lt;&amp;</span>Log<span style="color:#f92672">::</span>error<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;error&#34;</span>);
+cls.funcStatic<span style="color:#f92672">&lt;&amp;</span>Log<span style="color:#f92672">::</span>info<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;info&#34;</span>);
+</code></pre></div><h3 id="633-functions-via-external-functions">
+  6.3.3 Functions via external functions
+  <a class="anchor" href="#633-functions-via-external-functions">#</a>
+</h3>
+<p>Suppose you have some C++ class that you want to add to Wren, but you can&rsquo;t modify this class because it is from some other library. For example this C++ class can be from STL, or you want to add some custom behavior that does not exist in the class. In this case you can create a new function that accepts the class instance as the first parameter.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// Custom member function with &#34;self&#34; as this pointer
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">bool</span> vectorContains(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;</span> self, <span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> value) {
+    <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>find(self.begin(), self.end(), value) <span style="color:#f92672">!=</span> self.end();
+}
+
+<span style="color:#75715e">// Custom static function without any &#34;self&#34;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">bool</span> vectorFactory(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> value) {
+    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> vec;
+    vec.push_back(value);
+    <span style="color:#66d9ef">return</span> vec;
+}
+
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span>(<span style="color:#e6db74">&#34;VectorInt&#34;</span>);
+cls.ctor<span style="color:#f92672">&lt;&gt;</span>();
+cls.funcExt<span style="color:#f92672">&lt;&amp;</span>vectorContains<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span>(<span style="color:#e6db74">&#34;contains&#34;</span>);
+cls.funcStaticExt<span style="color:#f92672">&lt;&amp;</span>vectorFactory<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span>(<span style="color:#e6db74">&#34;factory&#34;</span>);
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;mymodule&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">VectorInt</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">VectorInt</span>.<span style="color:#66d9ef">new</span>()
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">VectorInt</span>.<span style="color:#a6e22e">factory</span>(<span style="color:#ae81ff">456</span>) <span style="color:#75715e">// Calls vectorFactory&lt;T&gt;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">contains</span>(<span style="color:#ae81ff">123</span>) <span style="color:#75715e">// returns bool
+</span></code></pre></div><p>&ldquo;Ext&rdquo; simply means that this is an external function and the first parameter <strong>must</strong> accept a reference to the class you are adding (unless it is a static function). <strong>Do not mistake this with &ldquo;extern&rdquo; C++ keyword.</strong> It has nothing to do with that. (Maybe there is a better word for it?)</p>
+<p>Additionally, if you look at the <code>vectorContains</code> function from above, there is no &ldquo;this&rdquo; pointer because this is not a member function. Instead, the &ldquo;this&rdquo; is provided as a custom parameter in the first position. This also works with <code>propExt</code> and <code>propReadonlyExt</code>.</p>
+<p>External functions added as <code>funcStaticExt</code> will be treated as static functions and do not accept the first parameter as &ldquo;this&rdquo;.</p>
+<h2 id="64-abstract-classes">
+  6.4 Abstract classes
+  <a class="anchor" href="#64-abstract-classes">#</a>
+</h2>
+<p>What if you want to pass an abstract class to Wren? You can&rsquo;t allocate it, but you can only pass it around as a reference or a pointer? Imagine a specific derived &ldquo;Entity&rdquo; class that has a common abstract/interface class?</p>
+<p>The only thing you have to do is to NOT to add constructor by not calling the <code>ctor</code> function.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+<span style="color:#75715e">// Add class &#34;Vec3&#34;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Entity<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Entity&#34;</span>);
+<span style="color:#75715e">// cls.ctor&lt;&gt;(); Do not add constructor!
+</span><span style="color:#75715e"></span>cls.func<span style="color:#f92672">&lt;&amp;</span>Entity<span style="color:#f92672">::</span>foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;foo&#34;</span>);
+</code></pre></div><h2 id="65-adding-class-varialbles">
+  6.5 Adding class varialbles
+  <a class="anchor" href="#65-adding-class-varialbles">#</a>
+</h2>
+<p>There are two ways how to add C++ class variables to Wren. One is as a simple field and the other way is as a property. Adding as a field is done by accessing the pointer to that field (which is just a relative offset to &ldquo;this&rdquo;). Adding as a property is done via getters and setters (the setters are optional). To Wren, there is no difference between those two and are treated equally.</p>
+<h3 id="651-class-variables-as-fields">
+  6.5.1 Class variables as fields
+  <a class="anchor" href="#651-class-variables-as-fields">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Vec3</span> {
+    <span style="color:#66d9ef">float</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">float</span> y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">float</span> z <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+};
+
+wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+<span style="color:#75715e">// Add class &#34;Vec3&#34;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Vec3<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Vec3&#34;</span>);
+cls.ctor<span style="color:#f92672">&lt;&gt;</span>();
+cls.var<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>x<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;x&#34;</span>);
+cls.var<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>y<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;y&#34;</span>);
+cls.var<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>z<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;z&#34;</span>);
+</code></pre></div><h3 id="652-class-variables-as-properties">
+  6.5.2 Class variables as properties
+  <a class="anchor" href="#652-class-variables-as-properties">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vec3</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">float</span> getX() <span style="color:#66d9ef">const</span>     { <span style="color:#66d9ef">return</span> x; }
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setX</span>(<span style="color:#66d9ef">float</span> value) { x <span style="color:#f92672">=</span> value; }
+    <span style="color:#66d9ef">float</span> <span style="color:#a6e22e">getY</span>() <span style="color:#66d9ef">const</span>     { <span style="color:#66d9ef">return</span> y; }
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setY</span>(<span style="color:#66d9ef">float</span> value) { y <span style="color:#f92672">=</span> value; }
+    <span style="color:#66d9ef">float</span> <span style="color:#a6e22e">getZ</span>() <span style="color:#66d9ef">const</span>     { <span style="color:#66d9ef">return</span> z; }
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setZ</span>(<span style="color:#66d9ef">float</span> value) { z <span style="color:#f92672">=</span> value; }
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">float</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">float</span> y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">float</span> z <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+};
+
+wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+<span style="color:#75715e">// Add class &#34;Vec3&#34;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Vec3<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Vec3&#34;</span>);
+cls.ctor<span style="color:#f92672">&lt;&gt;</span>();
+cls.prop<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>getX, <span style="color:#f92672">&amp;</span>Vec3<span style="color:#f92672">::</span>setX<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;x&#34;</span>);
+cls.prop<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>getY, <span style="color:#f92672">&amp;</span>Vec3<span style="color:#f92672">::</span>setY<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;y&#34;</span>);
+cls.prop<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>getZ, <span style="color:#f92672">&amp;</span>Vec3<span style="color:#f92672">::</span>setZ<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;z&#34;</span>);
+</code></pre></div><p><strong>The result from above:</strong></p>
+<p>Equivalent Wren code for both using <code>.var&lt;&amp;field&gt;(&quot;name&quot;)</code> or <code>.prop&lt;&amp;getter, &amp;setter&gt;(&quot;name&quot;)</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// Autogenerated
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">foreign</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vec3</span> {
+    <span style="color:#a6e22e">construct</span> <span style="color:#66d9ef">new</span> () {}
+    
+    <span style="color:#a6e22e">foreign</span> <span style="color:#a6e22e">x</span>
+    <span style="color:#a6e22e">foreign</span> <span style="color:#a6e22e">x</span><span style="color:#f92672">=</span>(<span style="color:#a6e22e">rhs</span>)
+
+    <span style="color:#a6e22e">foreign</span> <span style="color:#a6e22e">y</span>
+    <span style="color:#a6e22e">foreign</span> <span style="color:#a6e22e">y</span><span style="color:#f92672">=</span>(<span style="color:#a6e22e">rhs</span>)
+
+    <span style="color:#a6e22e">foreign</span> <span style="color:#a6e22e">z</span>
+    <span style="color:#a6e22e">foreign</span> <span style="color:#a6e22e">z</span><span style="color:#f92672">=</span>(<span style="color:#a6e22e">rhs</span>)
+}
+</code></pre></div><p>And then simply use it in Wren as:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;mymodule&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">Vec3</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vec3</span>.<span style="color:#66d9ef">new</span>()
+<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.23</span>
+<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
+<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">z</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">42.42</span>
+</code></pre></div><h3 id="653-read-only-class-variables">
+  6.5.3 Read-only class variables
+  <a class="anchor" href="#653-read-only-class-variables">#</a>
+</h3>
+<p>To bind read-only variables you can use <code>varReadonly</code> function. This won&rsquo;t define a Wren setter and therefore the variable can be only read.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vec3</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Vec3(<span style="color:#66d9ef">float</span> x, <span style="color:#66d9ef">float</span> y, <span style="color:#66d9ef">float</span> z) {...}
+
+    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> x;
+    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> y;
+    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> z;
+};
+
+wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+<span style="color:#75715e">// Add class &#34;Vec3&#34;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Vec3<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Vec3&#34;</span>);
+cls.ctor<span style="color:#f92672">&lt;&gt;</span>();
+cls.varReadonly<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>x<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;x&#34;</span>);
+cls.varReadonly<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>y<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;y&#34;</span>);
+cls.varReadonly<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>z<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;z&#34;</span>);
+</code></pre></div><p>Equivalent Wren code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// Autogenerated
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">foreign</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vec3</span> {
+    <span style="color:#a6e22e">construct</span> <span style="color:#66d9ef">new</span> () {}
+    
+    <span style="color:#a6e22e">foreign</span> <span style="color:#a6e22e">x</span>
+
+    <span style="color:#a6e22e">foreign</span> <span style="color:#a6e22e">y</span>
+
+    <span style="color:#a6e22e">foreign</span> <span style="color:#a6e22e">z</span>
+}
+</code></pre></div><p>And then simply use it in Wren as:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;mymodule&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">Vec3</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vec3</span>.<span style="color:#66d9ef">new</span>(<span style="color:#ae81ff">1.1</span>, <span style="color:#ae81ff">2.3</span>, <span style="color:#ae81ff">3.3</span>)
+<span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;X value is: %(v.x)&#34;</span>) <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.23</span> <span style="color:#75715e">// error
+</span></code></pre></div><p>For read-only properties, you can use <code>propReadonly</code> as shown below:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// Add class &#34;Vec3&#34;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Vec3<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Vec3&#34;</span>);
+cls.ctor<span style="color:#f92672">&lt;&gt;</span>();
+cls.propReadonly<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>getX<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;x&#34;</span>);
+cls.propReadonly<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>getY<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;y&#34;</span>);
+cls.propReadonly<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>getZ<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;z&#34;</span>);
+</code></pre></div><h3 id="654-class-variables-via-external-properties">
+  6.5.4 Class variables via external properties
+  <a class="anchor" href="#654-class-variables-via-external-properties">#</a>
+</h3>
+<p>Sometimes the property simply does not exist in the C++ class you want to use. So, you somehow need to add this into Wren without changing the original class code. One way to do it is through &ldquo;external&rdquo; functions. This is simply a function that is static and <strong>must</strong> accept the first parameter as a reference to the class instance.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">float</span> <span style="color:#a6e22e">getVec3X</span>(Vec3<span style="color:#f92672">&amp;</span> self) {
+    <span style="color:#66d9ef">return</span> self.x;
+}
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">float</span> <span style="color:#a6e22e">getVec3Y</span>(Vec3<span style="color:#f92672">&amp;</span> self) { ... }
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">float</span> <span style="color:#a6e22e">getVec3Z</span>(Vec3<span style="color:#f92672">&amp;</span> self) { ... }
+
+<span style="color:#75715e">// Add class &#34;Vec3&#34;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Vec3<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Vec3&#34;</span>);
+cls.ctor<span style="color:#f92672">&lt;&gt;</span>();
+cls.propExtReadonly<span style="color:#f92672">&lt;&amp;</span>getVec3X<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;x&#34;</span>);
+cls.propExtReadonly<span style="color:#f92672">&lt;&amp;</span>getVec3Y<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;y&#34;</span>);
+cls.propExtReadonly<span style="color:#f92672">&lt;&amp;</span>getVec3Z<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;z&#34;</span>);
+</code></pre></div><h3 id="655-class-static-variables">
+  6.5.5 Class static variables
+  <a class="anchor" href="#655-class-static-variables">#</a>
+</h3>
+<p>Static variables in Wren are not supported. However, you could cheat a bit with the following code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ApplicationGlobals</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    std<span style="color:#f92672">::</span>string APP_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Lorem Ipsum Donor&#34;</span>;
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    ...
+
+    wren<span style="color:#f92672">::</span>VM vm(...);
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>ApplicationGlobals<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;ApplicationGlobals&#34;</span>);
+    cls.var<span style="color:#f92672">&lt;&amp;</span>ApplicationGlobals<span style="color:#f92672">::</span>APP_NAME<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;APP_NAME&#34;</span>);
+    m.append(<span style="color:#e6db74">&#34;var Globals = ApplicationGlobals.new()</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>Wren code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;mymodule&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">Globals</span>
+
+<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;Name: %(Globals.APP_NAME)&#34;</span>)
+</code></pre></div><p>What does <code>m.append</code> do? It allows you to add arbitraty Wren code into the auto generated Wren code from your C++ classes. Anything you will put into the append function will appear at the bottom of the autogenerated code. Calling the append function multiple times is allowed, it will <strong>not</strong> override previous append call. In this case above, the ApplicationGlobals is created as an instance named Globals. So, from the user&rsquo;s perspective in the Wren code, it appears as a static member variable. The name <strong>must start with a capital letter</strong>, otherwise Wren will not allow you to import that variable.</p>
+<h2 id="66-upcasting">
+  6.6. Upcasting
+  <a class="anchor" href="#66-upcasting">#</a>
+</h2>
+<p>Upcasting is when you have a derived class <code>Enemy</code> and you would like to upcast it to <code>Entity</code>. An <code>Enemy</code> class is an <code>Entity</code>, but not the other way around. Remember, upcasting is getting the base class!</p>
+<p>This might be a problem when, for example, you have created a derived class inside of the Wren and you are passing it into some C++ function that accepts the base class. What you have to do is to tell the Wren what base classes it can be upcasted to. Consider the following example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Entity</span> {
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span>();
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Enemy</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Entity {
+    ...
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EntityManager</span> {
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span>(std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>Entity<span style="color:#f92672">&gt;</span> entity) {
+        entities.push_back(entity);
+    }
+};
+
+Wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;game&#34;</span>);
+
+<span style="color:#75715e">// Class Entity
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> entityCls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Entity<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Entity&#34;</span>);
+entityCls.func<span style="color:#f92672">&lt;&amp;</span>Entity<span style="color:#f92672">::</span>update<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;update&#34;</span>);
+
+<span style="color:#75715e">// Class Enemy
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> enemyCls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Enemy, Entity<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Enemy&#34;</span>);
+<span style="color:#75715e">// Classes won&#39;t automatically inherit functions and properties
+</span><span style="color:#75715e">// therefore you will have to explicitly add them for each
+</span><span style="color:#75715e">// derived class!
+</span><span style="color:#75715e"></span>enemyCls.func<span style="color:#f92672">&lt;&amp;</span>Enemy<span style="color:#f92672">::</span>update<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;update&#34;</span>);
+
+<span style="color:#75715e">// Class EntityManager
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> mngClass <span style="color:#f92672">=</span>m.klass<span style="color:#f92672">&lt;</span>EntityManager<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;EntityManager&#34;</span>);
+mngClass.func<span style="color:#f92672">&lt;&amp;</span>EntityManager<span style="color:#f92672">::</span>add<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;add&#34;</span>);
+</code></pre></div><p>Notice how we are adding two classes here as template parameters (<code>m.klass&lt;Enemy, Entity&gt;</code>). The first template parameter is the class you are binding, the second (and the next after that) template parameters are the classes for upcasting. You can use multiple classes as the base classes (<code>m.klass&lt;Enemy, Entity, Object&gt;</code>), but that is only recommended if you know what you are doing. Make sure that you will also bind any inherited member functions to the derived class because this is not done automatically.</p>
+<p>And the Wren code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;game&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">EntityManager</span>, <span style="color:#a6e22e">Enemy</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">manager</span> <span style="color:#f92672">=</span> ...
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enemy</span>.<span style="color:#66d9ef">new</span>()
+<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">update</span>()
+<span style="color:#a6e22e">manager</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">e</span>) <span style="color:#75715e">// ok
+</span></code></pre></div><blockquote class="book-hint info">
+  <p><strong>Note</strong></p>
+<p>Upcasting such as this only works when you want to accept a reference, pointer, or a shared_ptr of the base class. This won&rsquo;t work with plain value types.</p>
+
+</blockquote>
+
+<h2 id="67-class-methods-that-throw">
+  6.7. Class methods that throw
+  <a class="anchor" href="#67-class-methods-that-throw">#</a>
+</h2>
+<p>You can catch the exception (and the exception message) inside of your Wren code. Consider the following C++ class that throws:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyCppClass</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    ...
+    <span style="color:#66d9ef">void</span> someMethod() {
+        <span style="color:#66d9ef">throw</span> std<span style="color:#f92672">::</span>runtime_error(<span style="color:#e6db74">&#34;hello&#34;</span>);
+    }
+};
+</code></pre></div><p>And this is how you catch that exception in Wren:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">fiber</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Fiber</span>.<span style="color:#66d9ef">new</span> { 
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">MyCppClass</span>.<span style="color:#66d9ef">new</span>()
+    <span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">someMethod</span>() <span style="color:#75715e">// C++ throws &#34;hello&#34;
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">error</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fiber</span>.<span style="color:#66d9ef">try</span>()
+<span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;Caught error: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">error</span>) <span style="color:#75715e">// Prints &#34;Caught error: hello&#34;
+</span></code></pre></div><h2 id="68-inheritance">
+  6.8. Inheritance
+  <a class="anchor" href="#68-inheritance">#</a>
+</h2>
+<p>Wren does not support inheritacne of foreign classes, but there is a workaround. Consider the following C++ class:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Entity</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Entity() { ... }
+    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>Entity() { ... }
+
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span>() <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+};
+</code></pre></div><p>Now we want to have our own class in Wren:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;game&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">Entity</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Enemy</span> <span style="color:#a6e22e">is</span> <span style="color:#a6e22e">Entity</span> { <span style="color:#75715e">// Not allowed by Wren :(
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">construct</span> <span style="color:#66d9ef">new</span> (...) {
+
+    }
+
+    <span style="color:#a6e22e">update</span>() {
+        <span style="color:#75715e">// Do something specific for Entity class
+</span><span style="color:#75715e"></span>    }
+}
+</code></pre></div><p><strong>This does not work.</strong> You can&rsquo;t inherit from a foreign class. But, don&rsquo;t lose hope yet, there is a workaround. First, we need to create a C++ derived class of the base abstract class that overrides the update method. This is necessary so that we can call the proper Wren functions.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WrenEntity</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Entity {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#75715e">// Pass the Wren class to the constructor
+</span><span style="color:#75715e"></span>    WrenEntity(wren<span style="color:#f92672">::</span>Variable derived) {
+        <span style="color:#75715e">// Find all of the methods you want to &#34;override&#34;
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// The number of arguments (_) or (_, _) does matter!
+</span><span style="color:#75715e"></span>        updateFn <span style="color:#f92672">=</span> derived.func(<span style="color:#e6db74">&#34;update(_)&#34;</span>);
+    }
+
+    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>WrenEntity() {
+
+    }
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span>() <span style="color:#66d9ef">override</span> {
+        <span style="color:#75715e">// Call the overriden Wren methods from
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// the Wren class whenever you need to.
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// Pass this class as the base class
+</span><span style="color:#75715e"></span>        updateFn(<span style="color:#66d9ef">this</span>);
+    }
+
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#75715e">// Store the Wren methods as class fields
+</span><span style="color:#75715e"></span>    wren<span style="color:#f92672">::</span>Method updateFn;
+};
+
+wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;game&#34;</span>);
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>WrenEntity<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Entity&#34;</span>);
+cls.ctor<span style="color:#f92672">&lt;</span>wren<span style="color:#f92672">::</span>Variable<span style="color:#f92672">&gt;</span>();
+
+vm.runFromSource(<span style="color:#e6db74">&#34;main&#34;</span>, ...);
+
+<span style="color:#75715e">// Call the main function (see Wren code below)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">auto</span> res <span style="color:#f92672">=</span> vm.find(<span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#e6db74">&#34;Main&#34;</span>).func(<span style="color:#e6db74">&#34;main()&#34;</span>);
+
+<span style="color:#75715e">// Get the instance with Wren&#39;s specific functions
+</span><span style="color:#75715e"></span>std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>WrenEntity<span style="color:#f92672">&gt;</span> enemy <span style="color:#f92672">=</span> res.shared<span style="color:#f92672">&lt;</span>WrenEntity<span style="color:#f92672">&gt;</span>();
+</code></pre></div><p>And the following Wren code to be used with the code above:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;game&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">Entity</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Enemy</span> {
+    <span style="color:#a6e22e">update</span> (<span style="color:#a6e22e">self</span>) {
+        <span style="color:#75715e">// self points to the base class!
+</span><span style="color:#75715e"></span>    }
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> {
+    <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">main</span> () {
+        <span style="color:#75715e">// Pass our custom Enemy class
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// to the base Entity class into the constructor.
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// The base class will call the necessary functions.
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Entity</span>.<span style="color:#66d9ef">new</span>(<span style="color:#a6e22e">Enemy</span>.<span style="color:#66d9ef">new</span>())
+    }
+}
+</code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/matusnovak/wrenbind17/tree/master/docs/content//Tutorial/custom_types.md" target="_blank" rel="noopener">
+      <img src="/wrenbind17/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#61-type-safety-and-shared_ptr">6.1. Type safety and shared_ptr</a></li>
+    <li><a href="#62-passing-values-into-wren">6.2 Passing values into Wren</a></li>
+    <li><a href="#63-adding-custom-modules">6.3 Adding custom modules</a></li>
+    <li><a href="#63-adding-custom-classes">6.3 Adding custom classes</a>
+      <ul>
+        <li><a href="#631-handling-function-pointer-ambiguity">6.3.1 Handling function pointer ambiguity</a></li>
+        <li><a href="#632-static-functions">6.3.2 Static functions</a></li>
+        <li><a href="#633-functions-via-external-functions">6.3.3 Functions via external functions</a></li>
+      </ul>
+    </li>
+    <li><a href="#64-abstract-classes">6.4 Abstract classes</a></li>
+    <li><a href="#65-adding-class-varialbles">6.5 Adding class varialbles</a>
+      <ul>
+        <li><a href="#651-class-variables-as-fields">6.5.1 Class variables as fields</a></li>
+        <li><a href="#652-class-variables-as-properties">6.5.2 Class variables as properties</a></li>
+        <li><a href="#653-read-only-class-variables">6.5.3 Read-only class variables</a></li>
+        <li><a href="#654-class-variables-via-external-properties">6.5.4 Class variables via external properties</a></li>
+        <li><a href="#655-class-static-variables">6.5.5 Class static variables</a></li>
+      </ul>
+    </li>
+    <li><a href="#66-upcasting">6.6. Upcasting</a></li>
+    <li><a href="#67-class-methods-that-throw">6.7. Class methods that throw</a></li>
+    <li><a href="#68-inheritance">6.8. Inheritance</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

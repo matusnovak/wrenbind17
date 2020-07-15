@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="2. Hello World #  First, create a wren::VM instance, run the source code, find the method you want to run, and execute the method. In the example below, we are printing out a simple &ldquo;Hello World&rdquo; to the console. It is recommended that you create an alias from wrenbind17 to wren so you don&rsquo;t have to type that many characters every time. I highly encourage you to NOT to use using namespace wrenbind17;!">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="2. Hello World" />
+<meta property="og:description" content="2. Hello World #  First, create a wren::VM instance, run the source code, find the method you want to run, and execute the method. In the example below, we are printing out a simple &ldquo;Hello World&rdquo; to the console. It is recommended that you create an alias from wrenbind17 to wren so you don&rsquo;t have to type that many characters every time. I highly encourage you to NOT to use using namespace wrenbind17;!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://matusnovak.github.io/wrenbind17/tutorial/hello_world/" />
+
+<title>2. Hello World | WrenBind17</title>
+<link rel="manifest" href="/wrenbind17/manifest.json">
+<link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
+<script defer src="/wrenbind17/en.search.min.4c4b9dc154e48a349cd075ed787ef435b66ace026b12dd7ff903db6321b02ad9.js" integrity="sha256-TEudwVTkijSc0HXteH70NbZqzgJrEt1/&#43;QPbYyGwKtk="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/wrenbind17"><span>WrenBind17</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><a href="/wrenbind17/">Home</a></li>
+<li><a href="/wrenbind17/tutorial/">Tutorial</a>
+<ul>
+<li><a href="/wrenbind17/tutorial/install/">1. Installation</a></li>
+<li><a href="/wrenbind17/tutorial/hello_world/"class=active>2. Hello World</a></li>
+<li><a href="/wrenbind17/tutorial/call_wren/">3. Call Wren function</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/types/">4. Supported types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/execute_code/">5. Executing from file</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/custom_types/">6. Custom types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/operators/">7. Class operators</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/modules/">8. Modules and files</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/customize/">9. Customize VM</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/fn/">10. Fn.new and callbacks</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/stl/">11. STL containers</a></li>
+</ul>
+</li>
+<li>Api Documentation
+<ul>
+<li><a href="/wrenbind17/classes/">Classes</a></li>
+<li><a href="/wrenbind17/namespaces/">Namespaces</a></li>
+<li><a href="/wrenbind17/modules/">Modules</a></li>
+<li><a href="/wrenbind17/files/">Files</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/wrenbind17/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>2. Hello World</strong>
+
+  <label for="toc-control">
+    
+    <img src="/wrenbind17/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents"></nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="2-hello-world">
+  2. Hello World
+  <a class="anchor" href="#2-hello-world">#</a>
+</h1>
+<p>First, create a <code>wren::VM</code> instance, run the source code, find the method you want to run, and execute the method. In the example below, we are printing out a simple &ldquo;Hello World&rdquo; to the console. It is recommended that you create an alias from <code>wrenbind17</code> to <code>wren</code> so you don&rsquo;t have to type that many characters every time. I highly encourage you to <strong>NOT</strong> to use <code>using namespace wrenbind17;</code>!</p>
+<p>This is the most simple hello world program. The only thing code does is to parse and run a Wren code (a simple print statement) from a simple string. This is not limited to only a single line of code, you can put in an entire contents of some Wren file.</p>
+<blockquote class="book-hint info">
+  <p><strong>Note</strong></p>
+<p>Calling <code>wren::VM::runFromSource(std::string, std::string)</code> will parse and run the code at the same time.</p>
+
+</blockquote>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;wrenbind17/wrenbind17.hpp&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">namespace</span> wren <span style="color:#f92672">=</span> wrenbind17; <span style="color:#75715e">// Alias
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>argv[]) {
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string code <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;System.print(</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Hello World!</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">)&#34;</span>;
+
+    <span style="color:#75715e">// Create new VM
+</span><span style="color:#75715e"></span>    wren<span style="color:#f92672">::</span>VM vm;
+
+    <span style="color:#75715e">// Runs the code from the std::string as a &#34;main&#34; module
+</span><span style="color:#75715e"></span>    vm.runFromSource(<span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#e6db74">&#34;System.print(&#34;</span>Hello World<span style="color:#f92672">!</span><span style="color:#e6db74">&#34;)&#34;</span>);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/matusnovak/wrenbind17/tree/master/docs/content//Tutorial/hello_world.md" target="_blank" rel="noopener">
+      <img src="/wrenbind17/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents"></nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

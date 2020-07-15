@@ -1,0 +1,15 @@
+{
+  "name": "WrenBind17",
+  "short_name": "WrenBind17",
+  "start_url": "/wrenbind17/",
+  "scope": "/wrenbind17/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/wrenbind17/favicon.svg",
+      "sizes": "512x512"
+    }
+  ]
+}

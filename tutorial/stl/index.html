@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="11. STL Containers #  11.1. Optionals #  The std::optional&lt;T&gt; will be converted into a null or the type that it can hold. This also works when you call C&#43;&#43; function from Wren that accepts std::optional&lt;T&gt;. You can either call that function with null or with the type T.
+11.1.1. Limitations #  Passing std::optional via non-const reference is not allowed. Also passing as a pointer or a shared pointer does not work either.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="11. STL Containers" />
+<meta property="og:description" content="11. STL Containers #  11.1. Optionals #  The std::optional&lt;T&gt; will be converted into a null or the type that it can hold. This also works when you call C&#43;&#43; function from Wren that accepts std::optional&lt;T&gt;. You can either call that function with null or with the type T.
+11.1.1. Limitations #  Passing std::optional via non-const reference is not allowed. Also passing as a pointer or a shared pointer does not work either." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://matusnovak.github.io/wrenbind17/tutorial/stl/" />
+
+<title>11. STL Containers | WrenBind17</title>
+<link rel="manifest" href="/wrenbind17/manifest.json">
+<link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
+<script defer src="/wrenbind17/en.search.min.4c4b9dc154e48a349cd075ed787ef435b66ace026b12dd7ff903db6321b02ad9.js" integrity="sha256-TEudwVTkijSc0HXteH70NbZqzgJrEt1/&#43;QPbYyGwKtk="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/wrenbind17"><span>WrenBind17</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><a href="/wrenbind17/">Home</a></li>
+<li><a href="/wrenbind17/tutorial/">Tutorial</a>
+<ul>
+<li><a href="/wrenbind17/tutorial/install/">1. Installation</a></li>
+<li><a href="/wrenbind17/tutorial/hello_world/">2. Hello World</a></li>
+<li><a href="/wrenbind17/tutorial/call_wren/">3. Call Wren function</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/types/">4. Supported types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/execute_code/">5. Executing from file</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/custom_types/">6. Custom types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/operators/">7. Class operators</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/modules/">8. Modules and files</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/customize/">9. Customize VM</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/fn/">10. Fn.new and callbacks</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/stl/">11. STL containers</a></li>
+</ul>
+</li>
+<li>Api Documentation
+<ul>
+<li><a href="/wrenbind17/classes/">Classes</a></li>
+<li><a href="/wrenbind17/namespaces/">Namespaces</a></li>
+<li><a href="/wrenbind17/modules/">Modules</a></li>
+<li><a href="/wrenbind17/files/">Files</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/wrenbind17/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>11. STL Containers</strong>
+
+  <label for="toc-control">
+    
+    <img src="/wrenbind17/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#111-optionals">11.1. Optionals</a>
+      <ul>
+        <li><a href="#1111-limitations">11.1.1. Limitations</a></li>
+      </ul>
+    </li>
+    <li><a href="#112-variants">11.2. Variants</a>
+      <ul>
+        <li><a href="#1121-limitations">11.2.1. Limitations</a></li>
+      </ul>
+    </li>
+    <li><a href="#113-sequences">11.3. Sequences</a>
+      <ul>
+        <li><a href="#1131-native-lists">11.3.1. Native lists</a></li>
+        <li><a href="#1132-lists-as-foreign-classes">11.3.2. Lists as foreign classes</a></li>
+        <li><a href="#1133-custom-list-from-scratch">11.3.3. Custom list from scratch</a></li>
+        <li><a href="#1134-custom-lists-and-operator-">11.3.4. Custom lists and operator []</a></li>
+      </ul>
+    </li>
+    <li><a href="#114-maps">11.4. Maps</a>
+      <ul>
+        <li><a href="#1141-native-maps">11.4.1. Native maps</a></li>
+        <li><a href="#1142-maps-as-foreign-classes">11.4.2. Maps as foreign classes</a></li>
+        <li><a href="#1143-maps-with-variant-value-type">11.4.3. Maps with variant value type</a></li>
+        <li><a href="#1144-custom-maps">11.4.4. Custom maps</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="11-stl-containers">
+  11. STL Containers
+  <a class="anchor" href="#11-stl-containers">#</a>
+</h1>
+<h2 id="111-optionals">
+  11.1. Optionals
+  <a class="anchor" href="#111-optionals">#</a>
+</h2>
+<p>The <code>std::optional&lt;T&gt;</code> will be converted into a null or the type that it can hold. This also works when you call C++ function from Wren that accepts <code>std::optional&lt;T&gt;</code>. You can either call that function with <code>null</code> or with the type <code>T</code>.</p>
+<h3 id="1111-limitations">
+  11.1.1. Limitations
+  <a class="anchor" href="#1111-limitations">#</a>
+</h3>
+<p>Passing <code>std::optional</code> via non-const reference is not allowed. Also passing as a pointer or a shared pointer does not work either. Only passing as a plain type (copy) or a const reference is allowed.</p>
+<h2 id="112-variants">
+  11.2. Variants
+  <a class="anchor" href="#112-variants">#</a>
+</h2>
+<p>Using <code>std::variant</code> is nothing special. When you pass it into Wren, what happens is that this library will check what type is being held by the variant, and then it will pass it into the Wren code. The Wren will not get the variant instace, but the value it holds! For example, passing <code>std::variant&lt;bool, int&gt;</code> will push either bool or int into Wren.</p>
+<p>The same goes for getting values from Wren as variant. Suppose you have a C++ member function that accepts the variant of <code>std::variant&lt;bool, int&gt;</code> then when you call this member function in Wren as <code>foo.baz(true)</code> or <code>foo.baz(42)</code> it will work, but <code>foo.baz(&quot;Hello&quot;)</code> won&rsquo;t work because the variant does not accept the string!</p>
+<p>Consider the following example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Foo() {
+        ...
+    }
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">baz</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span>, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;&amp;</span> value) {
+        <span style="color:#66d9ef">switch</span> (value.index()) {
+            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span> {
+                <span style="color:#75715e">// Is bool!
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span> std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span>(value);
+            }
+            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span> {
+                <span style="color:#75715e">// Is string!
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span> std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;</span>(value);
+            }
+            <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> {
+                <span style="color:#75715e">// This should never happen.
+</span><span style="color:#75715e"></span>            }
+        }
+    }
+}
+
+wren<span style="color:#f92672">::</span>VM vm <span style="color:#f92672">=</span> ...;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(...);
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
+cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>baz<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;baz&#34;</span>); <span style="color:#75715e">// Nothing special, just like any other functions
+</span></code></pre></div><p>And the Wren code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;test&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">Foo</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Foo</span>.<span style="color:#66d9ef">new</span>()
+<span style="color:#a6e22e">foo</span>.<span style="color:#a6e22e">baz</span>(<span style="color:#66d9ef">false</span>) <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">foo</span>.<span style="color:#a6e22e">baz</span>(<span style="color:#e6db74">&#34;Hello World&#34;</span>) <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">foo</span>.<span style="color:#a6e22e">baz</span>(<span style="color:#ae81ff">123.456</span>) <span style="color:#75715e">// error
+</span></code></pre></div><h3 id="1121-limitations">
+  11.2.1. Limitations
+  <a class="anchor" href="#1121-limitations">#</a>
+</h3>
+<p>Passing <code>std::variant</code> via non-const reference is not allowed. The following code will not work. Also passing as a pointer or a shared pointer does not work either. Only passing as a plain type (copy) or a const reference is allowed.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Foo() {
+        ...
+    }
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">baz</span>(std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span>, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;&amp;</span> value) {
+        ...
+    }
+}
+
+wren<span style="color:#f92672">::</span>VM vm <span style="color:#f92672">=</span> ...;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(...);
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
+cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>baz<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;baz&#34;</span>); <span style="color:#75715e">// Will not work
+</span></code></pre></div><h2 id="113-sequences">
+  11.3. Sequences
+  <a class="anchor" href="#113-sequences">#</a>
+</h2>
+<p>WrenBind17 supports the following sequence containers: <code>std::vector</code>, <code>std::list</code>, <code>std::deque</code>, and <code>std::set</code>. By default all of them are converted into native Wren lists. This means that when you pass (or some C++ function returns) any of these containers, <strong>they are converted into Wren lists.</strong> <strong>Any modification to that list in Wren has no effect on the C++ container</strong> passed/returned. Wren lists are not the same object as the STL containers.</p>
+<p>However, you can add this container to Wren VM as a foreign class. In that case the instance of the C++ container you pass into Wren will become a foreign class, therefore modifying the &ldquo;list&rdquo; (a class in reality) will also modify the C++ container -&gt; they are the same object.</p>
+<p>This only works if you pass the container (or return from a C++ function) via a non-cost reference, pointer, or a shared pointer. Passing (or returning) via copy will create a copy of that C++ container. This check (whether to convert it to a native list or as a foreign class instance) happens at the runtime.</p>
+<p>Consider this following table.</p>
+<table>
+<thead>
+<tr>
+<th>Pass/return type</th>
+<th>Added as a foreign class</th>
+<th>Not added as a foreign class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pass by a copy</td>
+<td>Copy of the container and pushed to Wren as a foreign class</td>
+<td>Converted to native list</td>
+</tr>
+<tr>
+<td>Pass by a reference</td>
+<td>Pushed to Wren as a foreign class with no copy</td>
+<td>BadCast exception</td>
+</tr>
+<tr>
+<td>Pass by a const reference</td>
+<td>Copy of the container and pushed to Wren as a foreign class</td>
+<td>Converted to native list</td>
+</tr>
+<tr>
+<td>Pass by a (const) pointer</td>
+<td>Pushed to Wren as a foreign class with no copy</td>
+<td>BadCast exception</td>
+</tr>
+<tr>
+<td>Pass by a shared pointer</td>
+<td>Pushed to Wren as a foreign class with no copy</td>
+<td>BadCast exception</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1131-native-lists">
+  11.3.1. Native lists
+  <a class="anchor" href="#1131-native-lists">#</a>
+</h3>
+<p>By default all of <code>std::vector</code>, <code>std::list</code>, <code>std::deque</code>, and <code>std::set</code> are converted to Wren lists. This also works the other way around -&gt; getting a list either by calling a C++ function that accepts a list or returning a list by calling a Wren function.</p>
+<p>For example, you can return this native list into a <code>std::vector</code> of <code>std::variant</code> type.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> {
+    <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">main</span>() {
+        <span style="color:#66d9ef">return</span> [<span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">123</span>, <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#34;Hello World&#34;</span>]
+    }
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">wren<span style="color:#f92672">::</span>VM vm;
+
+vm.runFromSource(<span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#75715e">/* code from above */</span>);
+<span style="color:#66d9ef">auto</span> func <span style="color:#f92672">=</span> vm.find(<span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#e6db74">&#34;Main&#34;</span>).func(<span style="color:#e6db74">&#34;main()&#34;</span>);
+
+<span style="color:#66d9ef">auto</span> res <span style="color:#f92672">=</span> func();
+assert(res.isList());
+<span style="color:#66d9ef">auto</span> vec <span style="color:#f92672">=</span> res.as<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>nullptr_t, <span style="color:#66d9ef">double</span>, <span style="color:#66d9ef">bool</span>, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;&gt;&gt;</span>();
+
+assert(vec.size() <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span>);
+assert(std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>nullptr_t<span style="color:#f92672">&gt;</span>(vec[<span style="color:#ae81ff">0</span>]) <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>);
+assert(std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span>(vec[<span style="color:#ae81ff">1</span>]) <span style="color:#f92672">==</span> <span style="color:#ae81ff">123.0</span>);
+assert(std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span>(vec[<span style="color:#ae81ff">2</span>]) <span style="color:#f92672">==</span> true);
+assert(std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;</span>(vec[<span style="color:#ae81ff">3</span>]) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Hello World&#34;</span>);
+</code></pre></div><blockquote class="book-hint info">
+  <p><strong>Note</strong></p>
+<p>In the above example we are getting <code>std::vector&lt;std::variant&lt;...&gt;&gt;</code>. If you add this type as a foreign class, the above example would run in the same way. This is because if you add this type as a foreign class, that only affects pushing that type to Wren. To not to use native lists, you will have to do something like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">list</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">VectorOfVariant</span>.<span style="color:#66d9ef">new</span>()
+<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">push</span>(<span style="color:#66d9ef">null</span>)
+<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">push</span>(<span style="color:#ae81ff">123</span>)
+<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">push</span>(<span style="color:#66d9ef">true</span>)
+<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">push</span>(<span style="color:#e6db74">&#34;Hello World&#34;</span>)
+<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">list</span>
+</code></pre></div>
+</blockquote>
+
+<h3 id="1132-lists-as-foreign-classes">
+  11.3.2. Lists as foreign classes
+  <a class="anchor" href="#1132-lists-as-foreign-classes">#</a>
+</h3>
+<p>If you wish to add the container of some specific type as a foreign class, you can use the following method to do so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;std&#34;</span>);
+wren<span style="color:#f92672">::</span>StdVectorBindings<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>bind(m, <span style="color:#e6db74">&#34;VectorInt&#34;</span>);
+</code></pre></div><p>The <code>wren::StdVectorBindings</code> is just a fancy wrapper that adds functions into the class. I highly recommend going through the <code>wrenbind17/include/wrenbind17/std.hpp</code> file to see how exactly this works.</p>
+<p>And the usage of that in Wren:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;std&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">VectorInt</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">VectorInt</span>.<span style="color:#66d9ef">new</span>()
+<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">42</span>) <span style="color:#75715e">// Push new value
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">insert</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">20</span>) <span style="color:#75715e">// Insert at the end
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">contains</span>(<span style="color:#ae81ff">42</span>) <span style="color:#75715e">// returns true
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">pop</span>() <span style="color:#75715e">// Remove last element and returns it
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">count</span> <span style="color:#75715e">// Returns the length/size
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">size</span>() <span style="color:#75715e">// Same as the count
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">clear</span>() <span style="color:#75715e">// Removes everything
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">removeAt</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>) <span style="color:#75715e">// Removes the 2nd element from back and returns it
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">v</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">43</span> <span style="color:#75715e">// Set specific index (negative indexes not supported!)
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;Second: %(v[1])&#34;</span>) <span style="color:#75715e">// Get specific index (no negative indexes!)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">item</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">v</span>) { <span style="color:#75715e">// Supports iteration
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;Item: %(item)&#34;</span>) <span style="color:#75715e">// Prints individual elements
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="1133-custom-list-from-scratch">
+  11.3.3. Custom list from scratch
+  <a class="anchor" href="#1133-custom-list-from-scratch">#</a>
+</h3>
+<p>If you read through the <a href="http://wren.io/control-flow.html#the-iterator-protocol">Iterator Protocol</a> section on official Wren documentation, then you know that you need to implement at least 2 functions:</p>
+<ul>
+<li><code>iterate(_)</code></li>
+<li><code>iteratorValue(_)</code></li>
+</ul>
+<p>Let&rsquo;s implement all of them for <code>std::vector&lt;int&gt;</code>! First we need the <code>iterate()</code> function. This function must accept already existing iterator or a null. To do this, we will use <code>std::variant</code> and an external function that will be bind to Wren via <code>funcExt</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>iterator Iterator;
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> Vector;
+
+<span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span>, Iterator<span style="color:#f92672">&gt;</span> iterate(
+        Vector<span style="color:#f92672">&amp;</span> self, <span style="color:#75715e">// this
+</span><span style="color:#75715e"></span>        std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>nullptr_t, Iterator<span style="color:#f92672">&gt;</span> other
+    ) {
+
+    <span style="color:#75715e">// Check if &#34;other&#34; variant is NOT nullptr
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (other.index() <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+        <span style="color:#75715e">// Get the 2nd template, the iterator
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span>Iterator<span style="color:#f92672">&gt;</span>(other);
+        <span style="color:#f92672">++</span>it;
+        <span style="color:#66d9ef">if</span> (it <span style="color:#f92672">!=</span> self.end()) {
+            <span style="color:#75715e">// Return the next position
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">return</span> {it};
+        }
+
+        <span style="color:#75715e">// Once we reach the end, we must return false
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> {false};
+    } <span style="color:#66d9ef">else</span> {
+        <span style="color:#75715e">// No iterator supplied, the variant is null,
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// then return the start of the vector
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> {self.begin()};
+    }
+}
+</code></pre></div><p>Next, we need the <code>iteratorValue()</code> function. This one is very simple:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">iteratorValue</span>(Vector<span style="color:#f92672">&amp;</span> self, std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>Iterator<span style="color:#f92672">&gt;</span> other) {
+    <span style="color:#75715e">// You could replace the shared_ptr with a simple copy value.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// But that depends on you.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> it <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>other;
+    <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>it;
+}
+</code></pre></div><p>And then bind it!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;std&#34;</span>);
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Vector<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;VectorInt&#34;</span>);
+cls.ctor<span style="color:#f92672">&lt;&gt;</span>();
+cls.funcExt<span style="color:#f92672">&lt;&amp;</span>iterate<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;iterate&#34;</span>);
+cls.funcExt<span style="color:#f92672">&lt;&amp;</span>iteratorValue<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;iteratorValue&#34;</span>);
+</code></pre></div><p>That&rsquo;s all you need to implement your custom list and use it inside of a for loop!</p>
+<h3 id="1134-custom-lists-and-operator-">
+  11.3.4. Custom lists and operator []
+  <a class="anchor" href="#1134-custom-lists-and-operator-">#</a>
+</h3>
+<p>To get the operator [] working, you need two functions to set and to get the index.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>iterator Iterator;
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> Vector;
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setIndex</span>(Vector<span style="color:#f92672">&amp;</span> self, size_t index, <span style="color:#66d9ef">int</span> value) {
+    self[index] <span style="color:#f92672">=</span> value;
+}
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getIndex</span>(Vector<span style="color:#f92672">&amp;</span> self, size_t index) {
+    <span style="color:#66d9ef">return</span> self[index];
+}
+</code></pre></div><p>And then bind it!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;std&#34;</span>);
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Vector<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;VectorInt&#34;</span>);
+cls.ctor<span style="color:#f92672">&lt;&gt;</span>();
+cls.funcExt<span style="color:#f92672">&lt;&amp;</span>getIndex<span style="color:#f92672">&gt;</span>(wren<span style="color:#f92672">::</span>OPERATOR_GET_INDEX);
+cls.funcExt<span style="color:#f92672">&lt;&amp;</span>setIndex<span style="color:#f92672">&gt;</span>(wren<span style="color:#f92672">::</span>OPERATOR_SET_INDEX);
+</code></pre></div><p>The enum values you supply instead of function names will create special bindings for overloading operators. Wren will see the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// Autogenerated
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">VectorInt</span> {
+    ...
+    <span style="color:#a6e22e">foreign</span> [<span style="color:#a6e22e">index</span>]         <span style="color:#75715e">// Get
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">foreign</span> [<span style="color:#a6e22e">index</span>]<span style="color:#f92672">=</span>(<span style="color:#a6e22e">other</span>) <span style="color:#75715e">// Set
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h2 id="114-maps">
+  11.4. Maps
+  <a class="anchor" href="#114-maps">#</a>
+</h2>
+<p>WrenBind17 supports the following key-value containers: <code>std::map</code> and <code>std::unordered_map</code>. By default all of them are converted into native Wren maps. This means that when you pass any of these containers, <strong>they are converted into Wren maps.</strong> <strong>Any modification to that map in Wren has no effect on the C++ container</strong> passed. Wren maps are not the same object as the STL containers.</p>
+<blockquote class="book-hint danger">
+  <strong>It is not possible to convert a native Wren map into a C++ map.</strong> This is a limitation of the Wren language. However, you can use <code>wren::Map</code> that will hold a reference to the Wren native map. You can use this class to retrieve values, remove keys, check if key exists, or get the size of the map.
+</blockquote>
+
+<p>You can add the C++ map container to Wren VM as a foreign class. In that case the instance of the C++ container you pass into Wren will become a foreign class, therefore modifying the &ldquo;map&rdquo; (a class in reality) will also modify the C++ container -&gt; they are the same object.</p>
+<p>This only works if you pass the container via a non-cost reference, pointer, or a shared pointer. Passing (or returning) via copy will create a copy of that C++ container. This check (whether to convert it to a native map or as a foreign class instance) happens at the runtime.</p>
+<p>Consider this following table.</p>
+<table>
+<thead>
+<tr>
+<th>Pass/return type</th>
+<th>Added as a foreign class</th>
+<th>Not added as a foreign class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pass by a copy</td>
+<td>Copy of the container and pushed to Wren as a foreign class</td>
+<td>Converted to native map</td>
+</tr>
+<tr>
+<td>Pass by a reference</td>
+<td>Pushed to Wren as a foreign class with no copy</td>
+<td>BadCast exception</td>
+</tr>
+<tr>
+<td>Pass by a const reference</td>
+<td>Copy of the container and pushed to Wren as a foreign class</td>
+<td>Converted to native map</td>
+</tr>
+<tr>
+<td>Pass by a (const) pointer</td>
+<td>Pushed to Wren as a foreign class with no copy</td>
+<td>BadCast exception</td>
+</tr>
+<tr>
+<td>Pass by a shared pointer</td>
+<td>Pushed to Wren as a foreign class with no copy</td>
+<td>BadCast exception</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1141-native-maps">
+  11.4.1. Native maps
+  <a class="anchor" href="#1141-native-maps">#</a>
+</h3>
+<p>As mentioned above, it is not possible to get a native map from Wren and convert it into STL container. This is because the Wren low level API does not allow iterating over the map. Therefore, WrenBind17 provides <code>wren::Map</code> container that works on top of <code>wren::Handle</code> (it is a reference and affects the garbage collector).</p>
+<p>You can use <code>wren::Map</code> to get values via key, remove keys, check if key exists, or get the size of the entire map. Example code below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> {
+    <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">main</span>() {
+        <span style="color:#66d9ef">return</span> {
+            <span style="color:#e6db74">&#34;first&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">42</span>,
+            <span style="color:#e6db74">&#34;second&#34;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+            <span style="color:#e6db74">&#34;third&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Hello World&#34;</span>,
+            <span style="color:#e6db74">&#34;fourth&#34;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>
+        }
+    }
+
+    <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">other</span>(<span style="color:#a6e22e">map</span>) {
+        <span style="color:#75715e">// Do something with the map
+</span><span style="color:#75715e"></span>	}
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">wren<span style="color:#f92672">::</span>VM vm;
+
+vm.runFromSource(<span style="color:#e6db74">&#34;main&#34;</span>, code);
+<span style="color:#66d9ef">auto</span> func <span style="color:#f92672">=</span> vm.find(<span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#e6db74">&#34;Main&#34;</span>).func(<span style="color:#e6db74">&#34;main()&#34;</span>);
+
+<span style="color:#66d9ef">auto</span> res <span style="color:#f92672">=</span> func();
+res.is<span style="color:#f92672">&lt;</span>wren<span style="color:#f92672">::</span>Map<span style="color:#f92672">&gt;</span>(); <span style="color:#75715e">// Returns true
+</span><span style="color:#75715e"></span>res.isMap(); <span style="color:#75715e">// Returns true
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">auto</span> map <span style="color:#f92672">=</span> res.as<span style="color:#f92672">&lt;</span>wren<span style="color:#f92672">::</span>Map<span style="color:#f92672">&gt;</span>();
+
+map.count(); <span style="color:#75715e">// Returns 4
+</span><span style="color:#75715e"></span>
+map.contains(std<span style="color:#f92672">::</span>string(<span style="color:#e6db74">&#34;first&#34;</span>)); <span style="color:#75715e">// Returns true
+</span><span style="color:#75715e"></span>map.contains(std<span style="color:#f92672">::</span>string(<span style="color:#e6db74">&#34;fifth&#34;</span>)); <span style="color:#75715e">// Returns false
+</span><span style="color:#75715e"></span>
+map.get<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>string(<span style="color:#e6db74">&#34;first&#34;</span>)); <span style="color:#75715e">// Returns 42
+</span><span style="color:#75715e"></span>map.get<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>string(<span style="color:#e6db74">&#34;second&#34;</span>)); <span style="color:#75715e">// Returns true
+</span><span style="color:#75715e"></span>map.get<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>string(<span style="color:#e6db74">&#34;third&#34;</span>)); <span style="color:#75715e">// Returns &#34;Hello World&#34;
+</span><span style="color:#75715e"></span>map.get<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>nullptr_t<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>string(<span style="color:#e6db74">&#34;fourth&#34;</span>)); <span style="color:#75715e">// Returns nullptr
+</span><span style="color:#75715e"></span>map.get<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>string(<span style="color:#e6db74">&#34;fourth&#34;</span>)); <span style="color:#75715e">// Throws wren::BadCast
+</span><span style="color:#75715e"></span>
+map.erase(std<span style="color:#f92672">::</span>string(<span style="color:#e6db74">&#34;first&#34;</span>)); <span style="color:#75715e">// Returns true
+</span><span style="color:#75715e"></span>map.erase(std<span style="color:#f92672">::</span>string(<span style="color:#e6db74">&#34;fifth&#34;</span>)); <span style="color:#75715e">// Returns false
+</span><span style="color:#75715e"></span>map.count(); <span style="color:#75715e">// 3
+</span><span style="color:#75715e"></span>
+map.get<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>string(<span style="color:#e6db74">&#34;first&#34;</span>)); <span style="color:#75715e">// Throws wren::NotFound
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">auto</span> other <span style="color:#f92672">=</span> vm.find(<span style="color:#e6db74">&#34;main&#34;</span>, <span style="color:#e6db74">&#34;Main&#34;</span>).func(<span style="color:#e6db74">&#34;other(_)&#34;</span>);
+
+other(map); <span style="color:#75715e">// Pass the map to some other function
+</span></code></pre></div><h3 id="1142-maps-as-foreign-classes">
+  11.4.2. Maps as foreign classes
+  <a class="anchor" href="#1142-maps-as-foreign-classes">#</a>
+</h3>
+<p>If you wish to add the container of some specific type as a foreign class, you can use the following method to do so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;std&#34;</span>);
+wren<span style="color:#f92672">::</span>StdUnorderedMapBindings<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;::</span>bind(m, <span style="color:#e6db74">&#34;MapOfStrings&#34;</span>);
+</code></pre></div><p>And the usage of that in Wren:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;std&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">MapOfStrings</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">map</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">MapOfStrings</span>.<span style="color:#66d9ef">new</span>()
+
+<span style="color:#75715e">// Set the value using [] operator
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;hello&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;world&#34;</span> 
+
+<span style="color:#75715e">// Access the value
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;hello&#34;</span>]
+
+<span style="color:#75715e">// Exactly same as in std::map::operator[]
+</span><span style="color:#75715e">// If the key does not exist, then it is created
+</span><span style="color:#75715e">// using the default value.
+</span><span style="color:#75715e">// So &#34;value2&#34; becomes empty string!
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">value2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;nonexisting_key&#34;</span>]
+
+<span style="color:#75715e">// Removes value by key and returns the value removed.
+</span><span style="color:#75715e">// If the key does not exist, the returned value is null.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">removed</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">remove</span>(<span style="color:#e6db74">&#34;hello&#34;</span>)  
+
+<span style="color:#75715e">// Check if the key exists
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">containsKey</span>(<span style="color:#e6db74">&#34;hello&#34;</span>)) {
+    <span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;Key exists&#34;</span>)
+}
+
+<span style="color:#75715e">// Clears the map, removing all elements.
+</span><span style="color:#75715e">// Same as std::map::clear()
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">clear</span>()
+
+<span style="color:#75715e">// Get the number of elements in the map.
+</span><span style="color:#75715e">// Both the function size() and the property count do the same thing.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">total</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">size</span>()
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">total</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">count</span>
+
+<span style="color:#75715e">// Check if the map is empty
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">empty</span>()) {
+    <span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;There is nothing in the map!&#34;</span>)
+}
+
+<span style="color:#75715e">// Iterate over the map.
+</span><span style="color:#75715e">// The map has an iterator of std::map&lt;K, T&gt;::iterator which
+</span><span style="color:#75715e">// returns std::pair&lt;K, T&gt; pairs.
+</span><span style="color:#75715e">// So to access the key you have to use the key property of the pair.
+</span><span style="color:#75715e">// And the same goes for the value.
+</span><span style="color:#75715e">// This is exactly the same behavior as iterating over the map in C++
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">pair</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">map</span>) {
+    <span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;Key: %(pair.key) value: %(pair.value)&#34;</span>)
+</code></pre></div><h3 id="1143-maps-with-variant-value-type">
+  11.4.3. Maps with variant value type
+  <a class="anchor" href="#1143-maps-with-variant-value-type">#</a>
+</h3>
+<p>Sometimes you need more than one type inside of the map, something like a Json. To do that, you can use the <code>std::variant</code> as the map mapped type. An example below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">bool</span>, std<span style="color:#f92672">::</span>string, std<span style="color:#f92672">::</span>nullptr_t<span style="color:#f92672">&gt;</span> Multitype;
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FooClass</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    ...
+
+    <span style="color:#66d9ef">void</span> useMap(std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, Multitype<span style="color:#f92672">&gt;&amp;</span> map) {
+        <span style="color:#75715e">// Get the Multitype value by the key
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> multitype <span style="color:#f92672">=</span> map[<span style="color:#e6db74">&#34;string&#34;</span>]
+
+         <span style="color:#75715e">// Get std::string from the variant.
+</span><span style="color:#75715e"></span>         <span style="color:#75715e">// Because std::string is the 3rd template argument
+</span><span style="color:#75715e"></span>         <span style="color:#75715e">// of the std::variant Multitype, then we 
+</span><span style="color:#75715e"></span>         <span style="color:#75715e">// need to use std::get&lt;index&gt; to access the type!
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> str <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">2</span><span style="color:#f92672">&gt;</span>(multitype);
+    }
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    Wren<span style="color:#f92672">::</span>VM vm;
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;std&#34;</span>);
+    wren<span style="color:#f92672">::</span>StdUnorderedMapBindings<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, Multitype<span style="color:#f92672">&gt;::</span>bind(m, <span style="color:#e6db74">&#34;MapOfMultitypes&#34;</span>);
+
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>FooClass<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;FooClass&#34;</span>);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>FooClass<span style="color:#f92672">::</span>useMap<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;useMap&#34;</span>);
+
+    vm.runFromSource(...);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+</code></pre></div><p>And the Wren code for the above map of variants:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;std&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">MapOfMultitypes</span>, <span style="color:#a6e22e">FooClass</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">map</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">MapOfMultitypes</span>.<span style="color:#66d9ef">new</span>()
+<span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;string&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;world&#34;</span>
+<span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;int&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">123456</span>
+<span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;null&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span> <span style="color:#75715e">// Will become std::nullptr_t
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;boolean&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+
+<span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">pair</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">map</span>) {
+    <span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;Key: %(pair.key) value: %(pair.value)&#34;</span>)
+}
+
+<span style="color:#75715e">// Pass the foo to some custom class
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">FooClass</span>.<span style="color:#66d9ef">new</span>()
+<span style="color:#a6e22e">foo</span>.<span style="color:#a6e22e">useMap</span>(<span style="color:#a6e22e">map</span>)
+</code></pre></div><h3 id="1144-custom-maps">
+  11.4.4. Custom maps
+  <a class="anchor" href="#1144-custom-maps">#</a>
+</h3>
+<p>To create a custom map you will need to implement the <a href="http://wren.io/control-flow.html#the-iterator-protocol">Iterator Protocol</a> and the <code>[]</code> operator.</p>
+<p>Let&rsquo;s start with the basics, create a wren VM and bind the map (with the key and value types defined!) to the Wren. You can&rsquo;t create a generic map, Wren does not support that. If you want to have different map types with different key types or value types, you will need to do this multiple times. That&rsquo;s what <code>StdMapBindings&lt;K, T&gt;</code> and <code>StdUnorderedMapBindings&lt;K, T&gt;</code> are designed for.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> MapOfInts;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    wren<span style="color:#f92672">::</span>VM vm;
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>MapOfInts<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;MapOfInts&#34;</span>);
+    cls.ctor(); <span style="color:#75715e">// Empty default constructor
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>Now, the iterator and iterator value. This is based on the Wren requirements to implement a class that can be iterated. See <a href="http://wren.io/control-flow.html#the-iterator-protocol">Iterator Protocol</a> for more information.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span>, MapOfInts<span style="color:#f92672">::</span>iterator<span style="color:#f92672">&gt;</span> iterate(
+        MapOfInts<span style="color:#f92672">&amp;</span> self, 
+        std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>nullptr_t, MapOfInts<span style="color:#f92672">::</span>iterator<span style="color:#f92672">&gt;</span> other) {
+
+    <span style="color:#75715e">// If the variant holds &#34;1&#34; then the value being hold is a MapOfInts::iterator
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (other.index() <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+        <span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span>MapOfInts<span style="color:#f92672">::</span>iterator<span style="color:#f92672">&gt;</span>(other);
+        <span style="color:#f92672">++</span>it;
+        <span style="color:#66d9ef">if</span> (it <span style="color:#f92672">!=</span> self.end()) {
+            <span style="color:#66d9ef">return</span> {it};
+        }
+
+        <span style="color:#66d9ef">return</span> {false};
+    } 
+    <span style="color:#75715e">// Otherwise the variant holds &#34;0&#34; therfore a null
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">else</span> {
+        <span style="color:#66d9ef">return</span> {self.begin()};
+    }
+}
+
+<span style="color:#75715e">// The &#34;value_type&#34; is the std::pair&lt;K, T&gt; of the MapOfInts
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> MapOfInts<span style="color:#f92672">::</span>value_type iteratorValue(
+        MapOfInts<span style="color:#f92672">&amp;</span> self, 
+        std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>MapOfInts<span style="color:#f92672">::</span>iterator<span style="color:#f92672">&gt;</span> other) {
+
+    <span style="color:#75715e">// This simply returns the iterator value which is the std::pair
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> it <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>other;
+    <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>it;
+}
+</code></pre></div><p>You will also need these two functions to access the key and the value type of the pairs during iteration.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// The &#34;key_type&#34; is the std::string and &#34;mapped_type&#34; is the int
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> MapOfInts<span style="color:#f92672">::</span>key_type<span style="color:#f92672">&amp;</span> pairKey(MapOfInts<span style="color:#f92672">::</span>value_type<span style="color:#f92672">&amp;</span> pair) {
+    <span style="color:#66d9ef">return</span> pair.first;
+}
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> MapOfInts<span style="color:#f92672">::</span>mapped_type<span style="color:#f92672">&amp;</span> pairValue(MapOfInts<span style="color:#f92672">::</span>value_type<span style="color:#f92672">&amp;</span> pair) {
+    <span style="color:#66d9ef">return</span> pair.second;
+}
+</code></pre></div><p>Furthemore accessing or setting the values by key using the operator <code>[]</code> can be done as the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setIndex</span>(MapOfInts<span style="color:#f92672">&amp;</span> self, <span style="color:#66d9ef">const</span> MapOfInts<span style="color:#f92672">::</span>key_type<span style="color:#f92672">&amp;</span> key, MapOfInts<span style="color:#f92672">::</span>mapped_type value) {
+    self[key] <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>move(value);
+}
+
+<span style="color:#66d9ef">static</span> MapOfInts<span style="color:#f92672">::</span>mapped_type<span style="color:#f92672">&amp;</span> getIndex(MapOfInts<span style="color:#f92672">&amp;</span> self, <span style="color:#66d9ef">const</span> MapOfInts<span style="color:#f92672">::</span>key_type<span style="color:#f92672">&amp;</span> key) {
+    <span style="color:#66d9ef">return</span> self[key];
+}
+</code></pre></div><p>You will have to then bind these functions above to the MapOfInts class.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> MapOfInts;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    wren<span style="color:#f92672">::</span>VM vm;
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>MapOfInts<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;MapOfInts&#34;</span>);
+    cls.ctor(); <span style="color:#75715e">// Empty default constructor
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// These two functions must be named exactly like this, Wren requires these names.
+</span><span style="color:#75715e"></span>    cls.funcExt<span style="color:#f92672">&lt;&amp;</span>iterate<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;iterate&#34;</span>);
+    cls.funcExt<span style="color:#f92672">&lt;&amp;</span>iteratorValue<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;iteratorValue&#34;</span>);
+
+    <span style="color:#75715e">// These two functions add the operator [] functionality.
+</span><span style="color:#75715e"></span>    cls.funcExt<span style="color:#f92672">&lt;&amp;</span>getIndex<span style="color:#f92672">&gt;</span>(wren<span style="color:#f92672">::</span>ForeignMethodOperator<span style="color:#f92672">::</span>OPERATOR_GET_INDEX);
+    cls.funcExt<span style="color:#f92672">&lt;&amp;</span>setIndex<span style="color:#f92672">&gt;</span>(wren<span style="color:#f92672">::</span>ForeignMethodOperator<span style="color:#f92672">::</span>OPERATOR_SET_INDEX);
+
+    <span style="color:#75715e">// Bind the iterator of this map, without this
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// you cannot pass the iterator between Wren and C++
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> iter <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>MapOfInts<span style="color:#f92672">::</span>iterator<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;MapOfIntsIter&#34;</span>);
+    iter.ctor();
+
+    <span style="color:#75715e">// Bind the pair of this map too. You need this
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// so you can access the keys and values during iteration.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> pair <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>MapOfInts<span style="color:#f92672">::</span>value_type<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;MapOfIntsPair&#34;</span>);
+    pair.propReadonlyExt<span style="color:#f92672">&lt;&amp;</span>pairKey<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;key&#34;</span>);
+    pair.propReadonlyExt<span style="color:#f92672">&lt;&amp;</span>pairValue<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;value&#34;</span>);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>Sample Wren usage:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;mymodule&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">MapOfInts</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">map</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">MapOfInts</span>.<span style="color:#66d9ef">new</span>()
+
+<span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;first&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">123</span>
+<span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;second&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">456</span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">map</span>[<span style="color:#e6db74">&#34;second&#34;</span>]
+
+
+<span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">pair</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">map</span>) {
+    <span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;Key: %(pair.key) value: %(pair.value)&#34;</span>)
+}
+</code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/matusnovak/wrenbind17/tree/master/docs/content//Tutorial/stl.md" target="_blank" rel="noopener">
+      <img src="/wrenbind17/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#111-optionals">11.1. Optionals</a>
+      <ul>
+        <li><a href="#1111-limitations">11.1.1. Limitations</a></li>
+      </ul>
+    </li>
+    <li><a href="#112-variants">11.2. Variants</a>
+      <ul>
+        <li><a href="#1121-limitations">11.2.1. Limitations</a></li>
+      </ul>
+    </li>
+    <li><a href="#113-sequences">11.3. Sequences</a>
+      <ul>
+        <li><a href="#1131-native-lists">11.3.1. Native lists</a></li>
+        <li><a href="#1132-lists-as-foreign-classes">11.3.2. Lists as foreign classes</a></li>
+        <li><a href="#1133-custom-list-from-scratch">11.3.3. Custom list from scratch</a></li>
+        <li><a href="#1134-custom-lists-and-operator-">11.3.4. Custom lists and operator []</a></li>
+      </ul>
+    </li>
+    <li><a href="#114-maps">11.4. Maps</a>
+      <ul>
+        <li><a href="#1141-native-maps">11.4.1. Native maps</a></li>
+        <li><a href="#1142-maps-as-foreign-classes">11.4.2. Maps as foreign classes</a></li>
+        <li><a href="#1143-maps-with-variant-value-type">11.4.3. Maps with variant value type</a></li>
+        <li><a href="#1144-custom-maps">11.4.4. Custom maps</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="7. Class operators #  Operators can be added to your custom types, this is done via the wren::ForeignMethodOperator enumeration.
+This is a list of all supported operators by WrenBind17:
+   Operator Enum Value     Add (&#43;) OPERATOR_ADD   Subtract (-) OPERATOR_SUB   Multiply (*) OPERATOR_MUL   Divide (/) OPERATOR_DIV   Unary negative (-) OPERATOR_NEG   Modulo (%) OPERATOR_MOD   Equal to (==) OPERATOR_EQUAL   Not equal to (!">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="7. Class operators" />
+<meta property="og:description" content="7. Class operators #  Operators can be added to your custom types, this is done via the wren::ForeignMethodOperator enumeration.
+This is a list of all supported operators by WrenBind17:
+   Operator Enum Value     Add (&#43;) OPERATOR_ADD   Subtract (-) OPERATOR_SUB   Multiply (*) OPERATOR_MUL   Divide (/) OPERATOR_DIV   Unary negative (-) OPERATOR_NEG   Modulo (%) OPERATOR_MOD   Equal to (==) OPERATOR_EQUAL   Not equal to (!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://matusnovak.github.io/wrenbind17/tutorial/operators/" />
+
+<title>7. Class operators | WrenBind17</title>
+<link rel="manifest" href="/wrenbind17/manifest.json">
+<link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
+<script defer src="/wrenbind17/en.search.min.4c4b9dc154e48a349cd075ed787ef435b66ace026b12dd7ff903db6321b02ad9.js" integrity="sha256-TEudwVTkijSc0HXteH70NbZqzgJrEt1/&#43;QPbYyGwKtk="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/wrenbind17"><span>WrenBind17</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><a href="/wrenbind17/">Home</a></li>
+<li><a href="/wrenbind17/tutorial/">Tutorial</a>
+<ul>
+<li><a href="/wrenbind17/tutorial/install/">1. Installation</a></li>
+<li><a href="/wrenbind17/tutorial/hello_world/">2. Hello World</a></li>
+<li><a href="/wrenbind17/tutorial/call_wren/">3. Call Wren function</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/types/">4. Supported types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/execute_code/">5. Executing from file</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/custom_types/">6. Custom types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/operators/">7. Class operators</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/modules/">8. Modules and files</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/customize/">9. Customize VM</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/fn/">10. Fn.new and callbacks</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/stl/">11. STL containers</a></li>
+</ul>
+</li>
+<li>Api Documentation
+<ul>
+<li><a href="/wrenbind17/classes/">Classes</a></li>
+<li><a href="/wrenbind17/namespaces/">Namespaces</a></li>
+<li><a href="/wrenbind17/modules/">Modules</a></li>
+<li><a href="/wrenbind17/files/">Files</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/wrenbind17/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>7. Class operators</strong>
+
+  <label for="toc-control">
+    
+    <img src="/wrenbind17/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#71-basic-usage">7.1. Basic usage</a></li>
+    <li><a href="#72-operator-with-multiple-types">7.2. Operator with multiple types</a></li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="7-class-operators">
+  7. Class operators
+  <a class="anchor" href="#7-class-operators">#</a>
+</h1>
+<p>Operators can be added to your custom types, this is done via the <code>wren::ForeignMethodOperator</code> enumeration.</p>
+<p>This is a list of all supported operators by WrenBind17:</p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Enum Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Add (+)</td>
+<td>OPERATOR_ADD</td>
+</tr>
+<tr>
+<td>Subtract (-)</td>
+<td>OPERATOR_SUB</td>
+</tr>
+<tr>
+<td>Multiply (*)</td>
+<td>OPERATOR_MUL</td>
+</tr>
+<tr>
+<td>Divide (/)</td>
+<td>OPERATOR_DIV</td>
+</tr>
+<tr>
+<td>Unary negative (-)</td>
+<td>OPERATOR_NEG</td>
+</tr>
+<tr>
+<td>Modulo (%)</td>
+<td>OPERATOR_MOD</td>
+</tr>
+<tr>
+<td>Equal to (==)</td>
+<td>OPERATOR_EQUAL</td>
+</tr>
+<tr>
+<td>Not equal to (!=)</td>
+<td>OPERATOR_NOT_EQUAL</td>
+</tr>
+<tr>
+<td>Greater than (&gt;)</td>
+<td>OPERATOR_GT</td>
+</tr>
+<tr>
+<td>Less than (&lt;)</td>
+<td>OPERATOR_LT</td>
+</tr>
+<tr>
+<td>Greather than or equal (&gt;=)</td>
+<td>OPERATOR_GT_EQUAL</td>
+</tr>
+<tr>
+<td>Less than or equal (&lt;=)</td>
+<td>OPERATOR_LT_EQUAL</td>
+</tr>
+<tr>
+<td>Shift left (&laquo;)</td>
+<td>OPERATOR_SHIFT_LEFT</td>
+</tr>
+<tr>
+<td>Shift right (&raquo;)</td>
+<td>OPERATOR_SHIFT_RIGHT</td>
+</tr>
+<tr>
+<td>Binary and (&amp;)</td>
+<td>OPERATOR_AND</td>
+</tr>
+<tr>
+<td>Binary xor (^)</td>
+<td>OPERATOR_XOR</td>
+</tr>
+<tr>
+<td>Binary or (|)</td>
+<td>OPERATOR_OR</td>
+</tr>
+<tr>
+<td>Get by index []</td>
+<td>OPERATOR_GET_INDEX</td>
+</tr>
+<tr>
+<td>Set by index []</td>
+<td>OPERATOR_SET_INDEX</td>
+</tr>
+</tbody>
+</table>
+<h2 id="71-basic-usage">
+  7.1. Basic usage
+  <a class="anchor" href="#71-basic-usage">#</a>
+</h2>
+<p>Adding arithemtic or comparison operators can be done in the following way.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vec3</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Vec3(<span style="color:#66d9ef">float</span> x, <span style="color:#66d9ef">float</span> y, <span style="color:#66d9ef">float</span> z) <span style="color:#f92672">:</span> x(x), y(y), z(z) {
+    }
+
+    Vec3 <span style="color:#66d9ef">operator</span> <span style="color:#f92672">-</span> () <span style="color:#66d9ef">const</span> { <span style="color:#75715e">// Unary negation operator
+</span><span style="color:#75715e"></span>        ...
+    }
+
+    Vec3 <span style="color:#66d9ef">operator</span> <span style="color:#f92672">+</span> (<span style="color:#66d9ef">const</span> Vec3<span style="color:#f92672">&amp;</span> other) <span style="color:#66d9ef">const</span> {
+        ...
+    }
+
+    Vec3 <span style="color:#66d9ef">operator</span> <span style="color:#f92672">-</span> (<span style="color:#66d9ef">const</span> Vec3<span style="color:#f92672">&amp;</span> other) <span style="color:#66d9ef">const</span> {
+        ...
+    }
+
+    Vec3 <span style="color:#66d9ef">operator</span> <span style="color:#f92672">*</span> (<span style="color:#66d9ef">const</span> Vec3<span style="color:#f92672">&amp;</span> other) <span style="color:#66d9ef">const</span> {
+        ...
+    }
+
+    Vec3 <span style="color:#66d9ef">operator</span> <span style="color:#f92672">/</span> (<span style="color:#66d9ef">const</span> Vec3<span style="color:#f92672">&amp;</span> other) <span style="color:#66d9ef">const</span> {
+        ...
+    }
+
+    <span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">operator</span> <span style="color:#f92672">==</span> (<span style="color:#66d9ef">const</span> Vec3<span style="color:#f92672">&amp;</span> other) <span style="color:#66d9ef">const</span> {
+        ...
+    }
+
+    <span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">operator</span> <span style="color:#f92672">!=</span> (<span style="color:#66d9ef">const</span> Vec3<span style="color:#f92672">&amp;</span> other) <span style="color:#66d9ef">const</span> {
+        ...
+    }
+
+    <span style="color:#66d9ef">float</span> x;
+    <span style="color:#66d9ef">float</span> y;
+    <span style="color:#66d9ef">float</span> z;
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(...) {
+    wren<span style="color:#f92672">::</span>VM vm;
+    ...
+
+    <span style="color:#75715e">// If you don&#39;t do this, the compiler will have no idea
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// which operator to use when binding OPERATOR_SUB and OPERATOR_NEG.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// With this and static_cast you will explicitly tell the compiler
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// which exact function to use.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">typedef</span> Vec3 (Vec3<span style="color:#f92672">::*</span>Vec3Sub)(<span style="color:#66d9ef">const</span> Vec3<span style="color:#f92672">&amp;</span>) <span style="color:#66d9ef">const</span>;
+    <span style="color:#66d9ef">typedef</span> Vec3 (Vec3<span style="color:#f92672">::*</span>Vec3Neg)() <span style="color:#66d9ef">const</span>;
+
+    <span style="color:#75715e">// Bind the class and some basic functions/vars
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Vec3<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Vec3&#34;</span>);
+    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span>, <span style="color:#66d9ef">float</span>, <span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;</span>(); <span style="color:#75715e">// Constructor
+</span><span style="color:#75715e"></span>    cls.var<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>x<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;x&#34;</span>);
+    cls.var<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>y<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;y&#34;</span>);
+    cls.var<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>z<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;z&#34;</span>);
+
+    <span style="color:#75715e">// Bind the operators
+</span><span style="color:#75715e"></span>    cls.func<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span><span style="color:#f92672">+</span> <span style="color:#f92672">&gt;</span>(wren<span style="color:#f92672">::</span>OPERATOR_ADD);
+    cls.func<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span>Vec3Sub<span style="color:#f92672">&gt;</span>(<span style="color:#f92672">&amp;</span>Vec3<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span><span style="color:#f92672">-</span>)<span style="color:#f92672">&gt;</span>(wren<span style="color:#f92672">::</span>OPERATOR_SUB);
+    cls.func<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span>Vec3Neg<span style="color:#f92672">&gt;</span>(<span style="color:#f92672">&amp;</span>Vec3<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span><span style="color:#f92672">-</span>)<span style="color:#f92672">&gt;</span>(wren<span style="color:#f92672">::</span>OPERATOR_NEG);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span><span style="color:#f92672">*</span> <span style="color:#f92672">&gt;</span>(wren<span style="color:#f92672">::</span>OPERATOR_MUL);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span><span style="color:#f92672">/</span> <span style="color:#f92672">&gt;</span>(wren<span style="color:#f92672">::</span>OPERATOR_DIV);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span><span style="color:#f92672">==</span> <span style="color:#f92672">&gt;</span>(wren<span style="color:#f92672">::</span>OPERATOR_EQUAL);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span><span style="color:#f92672">!=</span> <span style="color:#f92672">&gt;</span>(wren<span style="color:#f92672">::</span>OPERATOR_NOT_EQUAL);
+}
+</code></pre></div><p>Afterwards you can use it in the following way:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;test&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">Vec3</span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vec3</span>.<span style="color:#66d9ef">new</span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2.0</span>, <span style="color:#ae81ff">3.0</span>)
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vec3</span>.<span style="color:#66d9ef">new</span>(<span style="color:#ae81ff">4.0</span>, <span style="color:#ae81ff">5.0</span>, <span style="color:#ae81ff">6.0</span>)
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span>
+</code></pre></div><blockquote class="book-hint info">
+  <p><strong>Note</strong></p>
+<p>If you are using Visual Studio and trying to bind operator <code>&lt;</code> then you might get an error: <code>error C2833: 'operator &gt;' is not a recognized operator or type</code>. This happens because the compiler is unable to understand <code>cls.func&lt;&amp;Vec3::operator&gt;&gt;(wren::OPERATOR_GT)</code>. Simply, put <code>( )</code> around the operator like this: <code>cls.func&lt;(&amp;Vec3::operator&gt;)&gt;(...)</code>.</p>
+
+</blockquote>
+
+<blockquote class="book-hint info">
+  <p><strong>Note</strong></p>
+<p>Using <code>*=</code>, <code>-=</code>, <code>+=</code>, or <code>/=</code> is not allowed. Wren does not support these assignment operators and results in Wren compilation error.</p>
+
+</blockquote>
+
+<h2 id="72-operator-with-multiple-types">
+  7.2. Operator with multiple types
+  <a class="anchor" href="#72-operator-with-multiple-types">#</a>
+</h2>
+<p>Consider the following C++ class:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vec3</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Vec3 <span style="color:#66d9ef">operator</span> <span style="color:#f92672">*</span> (<span style="color:#66d9ef">const</span> Vec3<span style="color:#f92672">&amp;</span> other) <span style="color:#66d9ef">const</span> {
+        ...
+    }
+
+    Vec3 <span style="color:#66d9ef">operator</span> <span style="color:#f92672">*</span> (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> value) <span style="color:#66d9ef">const</span> {
+        ...
+    }
+};
+</code></pre></div><p>You have two operators but the second one only accepts a single value. This can be useful when you want to, for example, multiply a 3D vector with a constant value. This can be a problem when binding these two operators to Wren. You can&rsquo;t bind them both, but you can use <code>std::variant&lt;&gt;</code> instead.</p>
+<p>Create a new function in the following way:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Vec3 <span style="color:#66d9ef">operator</span> <span style="color:#f92672">*</span> (<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Vec3, <span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;&amp;</span> var) <span style="color:#66d9ef">const</span> {
+    <span style="color:#66d9ef">if</span> (var.index() <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+        Vec3 other <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span>Vec3<span style="color:#f92672">&gt;</span>(var);
+        <span style="color:#75715e">// Multiply by other vector
+</span><span style="color:#75715e"></span>    } <span style="color:#66d9ef">else</span> {
+        <span style="color:#66d9ef">float</span> other <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;</span>(var);
+        <span style="color:#75715e">// Multiply by constant value
+</span><span style="color:#75715e"></span>    }
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(...) {
+    wren<span style="color:#f92672">::</span>VM vm;
+    ...
+
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Vec3<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Vec3&#34;</span>);
+    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span>, <span style="color:#66d9ef">float</span>, <span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;</span>();
+    cls.var<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>x<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;x&#34;</span>);
+    cls.var<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>y<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;y&#34;</span>);
+    cls.var<span style="color:#f92672">&lt;&amp;</span>Vec3<span style="color:#f92672">::</span>z<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;z&#34;</span>);
+
+    <span style="color:#75715e">// Optional typedef to explicitly select the correct 
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// operator with the std::variant
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">typedef</span> Vec3 (Vec3<span style="color:#f92672">::*</span>Vec3Mul)(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Vec3, <span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;&amp;</span>) <span style="color:#66d9ef">const</span>;
+    <span style="color:#75715e">// Bind the function
+</span><span style="color:#75715e"></span>    cls.func<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span>Vec3Mul<span style="color:#f92672">&gt;</span>(<span style="color:#f92672">&amp;</span>Vec3<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span><span style="color:#f92672">*</span>)<span style="color:#f92672">&gt;</span>(wren<span style="color:#f92672">::</span>OPERATOR_MUL);
+}
+</code></pre></div><p>Then, insie of Wren, you can do the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;test&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">Vec3</span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vec3</span>.<span style="color:#66d9ef">new</span>(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">2.0</span>, <span style="color:#ae81ff">3.0</span>)
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Vec3</span>.<span style="color:#66d9ef">new</span>(<span style="color:#ae81ff">4.0</span>, <span style="color:#ae81ff">5.0</span>, <span style="color:#ae81ff">6.0</span>)
+
+<span style="color:#75715e">// Multiply by the other vector
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span>
+
+<span style="color:#75715e">// Or multiply by a constant value
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1.5</span>
+</code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/matusnovak/wrenbind17/tree/master/docs/content//Tutorial/operators.md" target="_blank" rel="noopener">
+      <img src="/wrenbind17/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#71-basic-usage">7.1. Basic usage</a></li>
+    <li><a href="#72-operator-with-multiple-types">7.2. Operator with multiple types</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

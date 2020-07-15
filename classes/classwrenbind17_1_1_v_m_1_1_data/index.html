@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="wrenbind17::VM::Data #  #include &lt;vm.hpp&gt;
+Public Functions #      Name     void setNextError(std::string str)   std::string getLastError()   detail::ForeignPtrConvertor * getClassCast(const size_t hash, const size_t other)   void addClassCast(std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other)   bool isClassRegistered(const size_t hash) const   void getClassType(std::string &amp; module, std::string &amp; name, const size_t hash)   void addClassType(const std::string &amp; module, const std::string &amp; name, const size_t hash)    Public Attributes #      Name     LoadFileFn loadFileFn   PrintFn printFn   std::string nextError   std::string lastError   std::unordered_map&lt; std::pair&lt; size_t, size_t &gt;, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; &gt; classCasting   std::unordered_map&lt; size_t, std::string &gt; classToName   std::unordered_map&lt; size_t, std::string &gt; classToModule   std::unordered_map&lt; std::string, ForeignModule &gt; modules   std::vector&lt; std::string &gt; paths   WrenConfiguration config   std::shared_ptr&lt; WrenVM &gt; vm    Public Functions Documentation #  function setNextError #  inline void setNextError( std::string str ) function getLastError #  inline std::string getLastError() function getClassCast #  inline detail::ForeignPtrConvertor * getClassCast( const size_t hash, const size_t other ) function addClassCast #  inline void addClassCast( std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other ) function isClassRegistered #  inline bool isClassRegistered( const size_t hash ) const function getClassType #  inline void getClassType( std::string &amp; module, std::string &amp; name, const size_t hash ) function addClassType #  inline void addClassType( const std::string &amp; module, const std::string &amp; name, const size_t hash ) Public Attributes Documentation #  variable loadFileFn #  LoadFileFn loadFileFn; variable printFn #  PrintFn printFn; variable nextError #  std::string nextError; variable lastError #  std::string lastError; variable classCasting #  std::unordered_map&lt; std::pair&lt; size_t, size_t &gt;, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; &gt; classCasting; variable classToName #  std::unordered_map&lt; size_t, std::string &gt; classToName; variable classToModule #  std::unordered_map&lt; size_t, std::string &gt; classToModule; variable modules #  std::unordered_map&lt; std::string, ForeignModule &gt; modules; variable paths #  std::vector&lt; std::string &gt; paths; variable config #  WrenConfiguration config; variable vm #  std::shared_ptr&lt; WrenVM &gt; vm;  Updated on 15 July 2020 at 21:49:27 UTC">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="wrenbind17::VM::Data" />
+<meta property="og:description" content="wrenbind17::VM::Data #  #include &lt;vm.hpp&gt;
+Public Functions #      Name     void setNextError(std::string str)   std::string getLastError()   detail::ForeignPtrConvertor * getClassCast(const size_t hash, const size_t other)   void addClassCast(std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other)   bool isClassRegistered(const size_t hash) const   void getClassType(std::string &amp; module, std::string &amp; name, const size_t hash)   void addClassType(const std::string &amp; module, const std::string &amp; name, const size_t hash)    Public Attributes #      Name     LoadFileFn loadFileFn   PrintFn printFn   std::string nextError   std::string lastError   std::unordered_map&lt; std::pair&lt; size_t, size_t &gt;, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; &gt; classCasting   std::unordered_map&lt; size_t, std::string &gt; classToName   std::unordered_map&lt; size_t, std::string &gt; classToModule   std::unordered_map&lt; std::string, ForeignModule &gt; modules   std::vector&lt; std::string &gt; paths   WrenConfiguration config   std::shared_ptr&lt; WrenVM &gt; vm    Public Functions Documentation #  function setNextError #  inline void setNextError( std::string str ) function getLastError #  inline std::string getLastError() function getClassCast #  inline detail::ForeignPtrConvertor * getClassCast( const size_t hash, const size_t other ) function addClassCast #  inline void addClassCast( std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other ) function isClassRegistered #  inline bool isClassRegistered( const size_t hash ) const function getClassType #  inline void getClassType( std::string &amp; module, std::string &amp; name, const size_t hash ) function addClassType #  inline void addClassType( const std::string &amp; module, const std::string &amp; name, const size_t hash ) Public Attributes Documentation #  variable loadFileFn #  LoadFileFn loadFileFn; variable printFn #  PrintFn printFn; variable nextError #  std::string nextError; variable lastError #  std::string lastError; variable classCasting #  std::unordered_map&lt; std::pair&lt; size_t, size_t &gt;, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; &gt; classCasting; variable classToName #  std::unordered_map&lt; size_t, std::string &gt; classToName; variable classToModule #  std::unordered_map&lt; size_t, std::string &gt; classToModule; variable modules #  std::unordered_map&lt; std::string, ForeignModule &gt; modules; variable paths #  std::vector&lt; std::string &gt; paths; variable config #  WrenConfiguration config; variable vm #  std::shared_ptr&lt; WrenVM &gt; vm;  Updated on 15 July 2020 at 21:49:27 UTC" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/" />
+
+<title>wrenbind17::VM::Data | WrenBind17</title>
+<link rel="manifest" href="/wrenbind17/manifest.json">
+<link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
+<script defer src="/wrenbind17/en.search.min.4c4b9dc154e48a349cd075ed787ef435b66ace026b12dd7ff903db6321b02ad9.js" integrity="sha256-TEudwVTkijSc0HXteH70NbZqzgJrEt1/&#43;QPbYyGwKtk="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/wrenbind17"><span>WrenBind17</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><a href="/wrenbind17/">Home</a></li>
+<li><a href="/wrenbind17/tutorial/">Tutorial</a>
+<ul>
+<li><a href="/wrenbind17/tutorial/install/">1. Installation</a></li>
+<li><a href="/wrenbind17/tutorial/hello_world/">2. Hello World</a></li>
+<li><a href="/wrenbind17/tutorial/call_wren/">3. Call Wren function</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/types/">4. Supported types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/execute_code/">5. Executing from file</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/custom_types/">6. Custom types</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/operators/">7. Class operators</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/modules/">8. Modules and files</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/customize/">9. Customize VM</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/fn/">10. Fn.new and callbacks</a></li>
+<li><a href="https://matusnovak.github.io/wrenbind17/tutorial/stl/">11. STL containers</a></li>
+</ul>
+</li>
+<li>Api Documentation
+<ul>
+<li><a href="/wrenbind17/classes/">Classes</a></li>
+<li><a href="/wrenbind17/namespaces/">Namespaces</a></li>
+<li><a href="/wrenbind17/modules/">Modules</a></li>
+<li><a href="/wrenbind17/files/">Files</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/wrenbind17/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>wrenbind17::VM::Data</strong>
+
+  <label for="toc-control">
+    
+    <img src="/wrenbind17/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#public-functions">Public Functions</a></li>
+    <li><a href="#public-attributes">Public Attributes</a></li>
+    <li><a href="#public-functions-documentation">Public Functions Documentation</a>
+      <ul>
+        <li><a href="#function-setnexterror">function setNextError</a></li>
+        <li><a href="#function-getlasterror">function getLastError</a></li>
+        <li><a href="#function-getclasscast">function getClassCast</a></li>
+        <li><a href="#function-addclasscast">function addClassCast</a></li>
+        <li><a href="#function-isclassregistered">function isClassRegistered</a></li>
+        <li><a href="#function-getclasstype">function getClassType</a></li>
+        <li><a href="#function-addclasstype">function addClassType</a></li>
+      </ul>
+    </li>
+    <li><a href="#public-attributes-documentation">Public Attributes Documentation</a>
+      <ul>
+        <li><a href="#variable-loadfilefn">variable loadFileFn</a></li>
+        <li><a href="#variable-printfn">variable printFn</a></li>
+        <li><a href="#variable-nexterror">variable nextError</a></li>
+        <li><a href="#variable-lasterror">variable lastError</a></li>
+        <li><a href="#variable-classcasting">variable classCasting</a></li>
+        <li><a href="#variable-classtoname">variable classToName</a></li>
+        <li><a href="#variable-classtomodule">variable classToModule</a></li>
+        <li><a href="#variable-modules">variable modules</a></li>
+        <li><a href="#variable-paths">variable paths</a></li>
+        <li><a href="#variable-config">variable config</a></li>
+        <li><a href="#variable-vm">variable vm</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="wrenbind17vmdata">
+  wrenbind17::VM::Data
+  <a class="anchor" href="#wrenbind17vmdata">#</a>
+</h1>
+<p><code>#include &lt;vm.hpp&gt;</code></p>
+<h2 id="public-functions">
+  Public Functions
+  <a class="anchor" href="#public-functions">#</a>
+</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-setnexterror">setNextError</a></strong>(std::string str)</td>
+</tr>
+<tr>
+<td>std::string</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-getlasterror">getLastError</a></strong>()</td>
+</tr>
+<tr>
+<td>detail::ForeignPtrConvertor *</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-getclasscast">getClassCast</a></strong>(const size_t hash, const size_t other)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-addclasscast">addClassCast</a></strong>(std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other)</td>
+</tr>
+<tr>
+<td>bool</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-isclassregistered">isClassRegistered</a></strong>(const size_t hash) const</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-getclasstype">getClassType</a></strong>(std::string &amp; module, std::string &amp; name, const size_t hash)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-addclasstype">addClassType</a></strong>(const std::string &amp; module, const std::string &amp; name, const size_t hash)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-attributes">
+  Public Attributes
+  <a class="anchor" href="#public-attributes">#</a>
+</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/wrenbind17/namespaces/namespacewrenbind17/#typedef-loadfilefn">LoadFileFn</a></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-loadfilefn">loadFileFn</a></strong></td>
+</tr>
+<tr>
+<td><a href="/wrenbind17/namespaces/namespacewrenbind17/#typedef-printfn">PrintFn</a></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-printfn">printFn</a></strong></td>
+</tr>
+<tr>
+<td>std::string</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-nexterror">nextError</a></strong></td>
+</tr>
+<tr>
+<td>std::string</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-lasterror">lastError</a></strong></td>
+</tr>
+<tr>
+<td>std::unordered_map&lt; std::pair&lt; size_t, size_t &gt;, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-classcasting">classCasting</a></strong></td>
+</tr>
+<tr>
+<td>std::unordered_map&lt; size_t, std::string &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-classtoname">classToName</a></strong></td>
+</tr>
+<tr>
+<td>std::unordered_map&lt; size_t, std::string &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-classtomodule">classToModule</a></strong></td>
+</tr>
+<tr>
+<td>std::unordered_map&lt; std::string, <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_module/">ForeignModule</a> &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-modules">modules</a></strong></td>
+</tr>
+<tr>
+<td>std::vector&lt; std::string &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-paths">paths</a></strong></td>
+</tr>
+<tr>
+<td>WrenConfiguration</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-config">config</a></strong></td>
+</tr>
+<tr>
+<td>std::shared_ptr&lt; WrenVM &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-vm">vm</a></strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-functions-documentation">
+  Public Functions Documentation
+  <a class="anchor" href="#public-functions-documentation">#</a>
+</h2>
+<h3 id="function-setnexterror">
+  function setNextError
+  <a class="anchor" href="#function-setnexterror">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> setNextError(
+    std<span style="color:#f92672">::</span>string str
+)
+</code></pre></div><h3 id="function-getlasterror">
+  function getLastError
+  <a class="anchor" href="#function-getlasterror">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>string getLastError()
+</code></pre></div><h3 id="function-getclasscast">
+  function getClassCast
+  <a class="anchor" href="#function-getclasscast">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">*</span> getClassCast(
+    <span style="color:#66d9ef">const</span> size_t hash,
+    <span style="color:#66d9ef">const</span> size_t other
+)
+</code></pre></div><h3 id="function-addclasscast">
+  function addClassCast
+  <a class="anchor" href="#function-addclasscast">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> addClassCast(
+    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">&gt;</span> convertor,
+    <span style="color:#66d9ef">const</span> size_t hash,
+    <span style="color:#66d9ef">const</span> size_t other
+)
+</code></pre></div><h3 id="function-isclassregistered">
+  function isClassRegistered
+  <a class="anchor" href="#function-isclassregistered">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> isClassRegistered(
+    <span style="color:#66d9ef">const</span> size_t hash
+) <span style="color:#66d9ef">const</span>
+</code></pre></div><h3 id="function-getclasstype">
+  function getClassType
+  <a class="anchor" href="#function-getclasstype">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> getClassType(
+    std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> module,
+    std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name,
+    <span style="color:#66d9ef">const</span> size_t hash
+)
+</code></pre></div><h3 id="function-addclasstype">
+  function addClassType
+  <a class="anchor" href="#function-addclasstype">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> addClassType(
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> module,
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name,
+    <span style="color:#66d9ef">const</span> size_t hash
+)
+</code></pre></div><h2 id="public-attributes-documentation">
+  Public Attributes Documentation
+  <a class="anchor" href="#public-attributes-documentation">#</a>
+</h2>
+<h3 id="variable-loadfilefn">
+  variable loadFileFn
+  <a class="anchor" href="#variable-loadfilefn">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">LoadFileFn loadFileFn;
+</code></pre></div><h3 id="variable-printfn">
+  variable printFn
+  <a class="anchor" href="#variable-printfn">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">PrintFn printFn;
+</code></pre></div><h3 id="variable-nexterror">
+  variable nextError
+  <a class="anchor" href="#variable-nexterror">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>string nextError;
+</code></pre></div><h3 id="variable-lasterror">
+  variable lastError
+  <a class="anchor" href="#variable-lasterror">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>string lastError;
+</code></pre></div><h3 id="variable-classcasting">
+  variable classCasting
+  <a class="anchor" href="#variable-classcasting">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>pair<span style="color:#f92672">&lt;</span> size_t, size_t <span style="color:#f92672">&gt;</span>, std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> classCasting;
+</code></pre></div><h3 id="variable-classtoname">
+  variable classToName
+  <a class="anchor" href="#variable-classtoname">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span> size_t, std<span style="color:#f92672">::</span>string <span style="color:#f92672">&gt;</span> classToName;
+</code></pre></div><h3 id="variable-classtomodule">
+  variable classToModule
+  <a class="anchor" href="#variable-classtomodule">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span> size_t, std<span style="color:#f92672">::</span>string <span style="color:#f92672">&gt;</span> classToModule;
+</code></pre></div><h3 id="variable-modules">
+  variable modules
+  <a class="anchor" href="#variable-modules">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>string, ForeignModule <span style="color:#f92672">&gt;</span> modules;
+</code></pre></div><h3 id="variable-paths">
+  variable paths
+  <a class="anchor" href="#variable-paths">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&gt;</span> paths;
+</code></pre></div><h3 id="variable-config">
+  variable config
+  <a class="anchor" href="#variable-config">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">WrenConfiguration config;
+</code></pre></div><h3 id="variable-vm">
+  variable vm
+  <a class="anchor" href="#variable-vm">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> WrenVM <span style="color:#f92672">&gt;</span> vm;
+</code></pre></div><hr>
+<p>Updated on 15 July 2020 at 21:49:27 UTC</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/matusnovak/wrenbind17/tree/master/docs/content//Classes/classwrenbind17_1_1_v_m_1_1_data.md" target="_blank" rel="noopener">
+      <img src="/wrenbind17/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#public-functions">Public Functions</a></li>
+    <li><a href="#public-attributes">Public Attributes</a></li>
+    <li><a href="#public-functions-documentation">Public Functions Documentation</a>
+      <ul>
+        <li><a href="#function-setnexterror">function setNextError</a></li>
+        <li><a href="#function-getlasterror">function getLastError</a></li>
+        <li><a href="#function-getclasscast">function getClassCast</a></li>
+        <li><a href="#function-addclasscast">function addClassCast</a></li>
+        <li><a href="#function-isclassregistered">function isClassRegistered</a></li>
+        <li><a href="#function-getclasstype">function getClassType</a></li>
+        <li><a href="#function-addclasstype">function addClassType</a></li>
+      </ul>
+    </li>
+    <li><a href="#public-attributes-documentation">Public Attributes Documentation</a>
+      <ul>
+        <li><a href="#variable-loadfilefn">variable loadFileFn</a></li>
+        <li><a href="#variable-printfn">variable printFn</a></li>
+        <li><a href="#variable-nexterror">variable nextError</a></li>
+        <li><a href="#variable-lasterror">variable lastError</a></li>
+        <li><a href="#variable-classcasting">variable classCasting</a></li>
+        <li><a href="#variable-classtoname">variable classToName</a></li>
+        <li><a href="#variable-classtomodule">variable classToModule</a></li>
+        <li><a href="#variable-modules">variable modules</a></li>
+        <li><a href="#variable-paths">variable paths</a></li>
+        <li><a href="#variable-config">variable config</a></li>
+        <li><a href="#variable-vm">variable vm</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
