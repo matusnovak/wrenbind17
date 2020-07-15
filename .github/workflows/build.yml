@@ -66,8 +66,8 @@ jobs:
               .
           else
             if [ "$RUNNER_OS" == "Linux" ]; then
-              export CC=/usr/bin/gcc-8
-              export CXX=/usr/bin/g++-8
+              export CC=/usr/bin/gcc-9
+              export CXX=/usr/bin/g++-9
             fi
             cmake \
               -B ./build \
@@ -96,17 +96,6 @@ jobs:
       - name: Tests
         shell: bash
         run: cd build && ctest -C Debug --verbose
-
-      - name: Coverage
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        shell: bash
-        run: |
-          cd build
-          ls /usr/bin | grep gcov
-          lcov --directory . --capture --output-file coverage.info --gcov-tool /usr/bin/x86_64-linux-gnu-gcov-8
-          lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' '*tests*' '*catch2*' '*vm*' --output-file coverage.info
-          lcov --list coverage.info
-          bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
 
       - name: Create Changelog
         id: create_changelog
