@@ -154,7 +154,6 @@ jobs:
               --config docs/.doxybook/config.json
           rm -rf docs/content/Examples
           rm -rf docs/content/Pages
-          cp README.md ./docs/content/_index.md
       
       - name: Build static pages
         shell: bash
