@@ -1,0 +1,132 @@
+name: build
+on:
+  push:
+    branches:
+      - '*'
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: 'Windows x64'
+            os: windows-latest
+            triplet: x64-windows
+            vcpkg_dir: 'C:\vcpkg'
+            suffix: 'windows-win32'
+            generator: 'Visual Studio 16 2019'
+            arch: '-A x64'
+          - name: 'Windows x86'
+            os: windows-latest
+            triplet: x86-windows
+            vcpkg_dir: 'C:\vcpkg'
+            suffix: 'windows-win64'
+            generator: 'Visual Studio 16 2019'
+            arch: '-A Win32'
+          - name: 'Linux x64'
+            os: ubuntu-latest
+            triplet: x64-linux
+            suffix: 'linux-x86_64'
+            vcpkg_dir: '/usr/local/share/vcpkg'
+            generator: 'Unix Makefiles'
+            arch: ''
+          - name: 'Mac OSX x64'
+            os: macos-latest
+            triplet: x64-osx
+            suffix: 'osx-x86_64'
+            vcpkg_dir: '/usr/local/share/vcpkg'
+            generator: 'Unix Makefiles'
+            arch: ''
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          submodules: true
+
+      - name: Configure
+        shell: bash
+        run: |
+          mkdir build
+          mkdir install
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            cmake \
+              -B ./build \
+              -G "${{ matrix.generator }}" ${{ matrix.arch }} \
+              -DCMAKE_BUILD_TYPE=Debug \
+              -DWRENBIND17_BUILD_TESTS=ON \
+              .
+          else
+            if [ "$RUNNER_OS" == "Linux" ]; then
+              export CC=/usr/bin/gcc-9
+              export CXX=/usr/bin/g++-9
+            fi
+            cmake \
+              -B ./build \
+              -G "${{ matrix.generator }}" \
+              -DCMAKE_BUILD_TYPE=Debug \
+              -DWRENBIND17_BUILD_TESTS=ON \
+              .
+          fi
+
+      - name: Compile
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            cmake --build ./build --target ALL_BUILD --config Debug
+          else
+            cmake --build ./build --target all --config Debug
+          fi
+
+      - name: Tests
+        shell: bash
+        run: cd build && ctest -C Debug --verbose
+
+      - name: Valgrind
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        shell: bash
+        run: |
+          valgrind --suppressions=./wren.supp ./build/WrenBind17_tests
+
+      - name: Coverage
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        shell: bash
+        run: |
+          lcov --directory ./build --capture --output-file coverage.info;
+          lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' '*tests*' '*catch2*' '*vm*' --output-file coverage.info;
+          lcov --list coverage.info;
+          bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports";
+
+      - name: Create Changelog
+        id: create_changelog
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        run: |
+          last_tag=$(git describe --tags --abbrev=0 @^ || true)
+          if [ -z "$last_tag" ]; then
+            git log --oneline --format="%C(auto) %h %s" > changelog.txt
+          else
+            git log --oneline --format="%C(auto) %h %s" ${last_tag}..@ > changelog.txt
+          fi
+          cat changelog.txt
+
+      - name: Release
+        uses: ncipollo/release-action@v1
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          allowUpdates: true
+          artifactContentType: application/zip
+          bodyFile: changelog.txt
+          draft: false
+          omitBodyDuringUpdate: true
+          omitNameDuringUpdate: true
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
