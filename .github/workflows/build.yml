@@ -94,6 +94,7 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         shell: bash
         run: |
+          sudo apt-get install -y lcov valgrind
           valgrind --suppressions=./wren.supp ./build/WrenBind17_tests
 
       - name: Coverage
@@ -130,3 +131,47 @@ jobs:
           omitNameDuringUpdate: true
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
+  
+  docs:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          submodules: true
+
+      - name: Dependencies
+        shell: bash
+        run: |
+          sudo apt-get install doxygen zip unzip -y
+          wget https://github.com/gohugoio/hugo/releases/download/v0.59.1/hugo_extended_0.59.1_Linux-64bit.deb
+          sudo dpkg -i hugo_extended_0.59.1_Linux-64bit.deb
+          wget https://github.com/matusnovak/doxybook2/releases/download/v1.1.6/doxybook2-linux-amd64-v1.1.6.zip
+          unzip doxybook2-linux-amd64-v1.1.6.zip
+          sudo cp bin/doxybook2 /usr/local/bin/doxybook2
+          sudo chmod +x /usr/local/bin/doxybook2
+      
+      - name: Generate documentation
+        shell: bash
+        run: |
+          doxygen
+          doxybook2 \
+              --input temp/xml \
+              --output docs/content \
+              --config docs/.doxybook/config.json
+          rm -rf docs/content/Examples
+          rm -rf docs/content/Pages
+          cp README.md ./docs/content/_index.md
+      
+      - name: Build static pages
+        shell: bash
+        run: |
+          cd docs
+          hugo
+      
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/public
