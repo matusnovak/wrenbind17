@@ -4,6 +4,6 @@
 [submodule "libs/Catch2"]
 	path = libs/Catch2
 	url = https://github.com/catchorg/Catch2.git
-[submodule "docs/themes/hugo-theme-learn"]
-	path = docs/themes/hugo-theme-learn
-	url = https://github.com/matcornic/hugo-theme-learn
+[submodule "docs/themes/hugo-book"]
+	path = docs/themes/hugo-book
+	url = https://github.com/alex-shpak/hugo-book

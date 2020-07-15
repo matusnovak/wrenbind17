@@ -285,3 +285,179 @@ TEST_CASE("Pass std map to Wren with variant") {
         REQUIRE(std::get<3>(map.at("eighth")) == nullptr);
     }
 }
+
+TEST_CASE("Pass std map to Wren as native") {
+    const std::string code = R"(
+        class Main {
+            static main(map, key) {
+                return map[key]
+            }
+        }
+    )";
+
+    wren::VM vm;
+
+    vm.runFromSource("main", code);
+    auto func = vm.find("main", "Main").func("main(_,_)");
+
+    typedef std::variant<int, bool, std::string, std::nullptr_t> Multivalue;
+    std::map<std::string, Multivalue> map;
+    map["first"] = 42;
+    map["second"] = true;
+    map["third"] = std::string("Hello World");
+    map["fourth"] = nullptr;
+
+    auto res = func(map, std::string("first"));
+    REQUIRE(res.is<int>());
+    REQUIRE(res.as<int>() == 42);
+
+    res = func(map, std::string("second"));
+    REQUIRE(res.is<bool>());
+    REQUIRE(res.as<bool>() == true);
+
+    res = func(map, std::string("third"));
+    REQUIRE(res.is<std::string>());
+    REQUIRE(res.as<std::string>() == std::string("Hello World"));
+
+    res = func(map, std::string("fourth"));
+    REQUIRE(res.is<std::nullptr_t>());
+}
+
+TEST_CASE("Pass std unordered map to Wren as native") {
+    const std::string code = R"(
+        class Main {
+            static main(map, key) {
+                return map[key]
+            }
+        }
+    )";
+
+    wren::VM vm;
+
+    vm.runFromSource("main", code);
+    auto func = vm.find("main", "Main").func("main(_,_)");
+
+    typedef std::variant<int, bool, std::string, std::nullptr_t> Multivalue;
+    std::unordered_map<std::string, Multivalue> map;
+    map["first"] = 42;
+    map["second"] = true;
+    map["third"] = std::string("Hello World");
+    map["fourth"] = nullptr;
+
+    auto res = func(map, std::string("first"));
+    REQUIRE(res.is<int>());
+    REQUIRE(res.as<int>() == 42);
+
+    res = func(map, std::string("second"));
+    REQUIRE(res.is<bool>());
+    REQUIRE(res.as<bool>() == true);
+
+    res = func(map, std::string("third"));
+    REQUIRE(res.is<std::string>());
+    REQUIRE(res.as<std::string>() == std::string("Hello World"));
+
+    res = func(map, std::string("fourth"));
+    REQUIRE(res.is<std::nullptr_t>());
+}
+
+TEST_CASE("Get map to Wren as native") {
+    const std::string code = R"(
+        class Main {
+            static main() {
+                return {
+                    "first": 42,
+                    "second": true,
+                    "third": "Hello World",
+                    "fourth": null
+                }
+            }
+            static other(map) {
+                return map["third"]
+            }
+        }
+    )";
+
+    wren::VM vm;
+
+    vm.runFromSource("main", code);
+    auto func = vm.find("main", "Main").func("main()");
+
+    auto res = func();
+    REQUIRE(res.is<wren::Map>());
+    auto map = res.as<wren::Map>();
+
+    REQUIRE(map.count() == 4);
+
+    REQUIRE(map.contains(std::string("first")) == true);
+    REQUIRE(map.contains(std::string("second")) == true);
+    REQUIRE(map.contains(std::string("third")) == true);
+    REQUIRE(map.contains(std::string("fourth")) == true);
+    REQUIRE(map.contains(std::string("fifth")) == false);
+
+    REQUIRE(map.get<int>(std::string("first")) == 42);
+    REQUIRE(map.get<bool>(std::string("second")) == true);
+    REQUIRE(map.get<std::string>(std::string("third")) == std::string("Hello World"));
+    REQUIRE(map.get<std::nullptr_t>(std::string("fourth")) == nullptr);
+
+    REQUIRE(map.erase(std::string("first")) == true);
+    REQUIRE(map.erase(std::string("fifth")) == false);
+    REQUIRE(map.count() == 3);
+
+    REQUIRE_THROWS(map.get<int>(std::string("first")));
+
+    auto other = vm.find("main", "Main").func("other(_)");
+    res = other(map);
+
+    REQUIRE(res.is<std::string>());
+}
+
+TEST_CASE("Get map of ints to Wren as native") {
+    const std::string code = R"(
+        class Main {
+            static main() {
+                return {
+                    0: 42,
+                    1: true,
+                    2: "Hello World",
+                    3: null
+                }
+            }
+            static other(map) {
+                return map[2]
+            }
+        }
+    )";
+
+    wren::VM vm;
+
+    vm.runFromSource("main", code);
+    auto func = vm.find("main", "Main").func("main()");
+
+    auto res = func();
+    REQUIRE(res.is<wren::Map>());
+    auto map = res.as<wren::Map>();
+
+    REQUIRE(map.count() == 4);
+
+    REQUIRE(map.contains(0) == true);
+    REQUIRE(map.contains(1) == true);
+    REQUIRE(map.contains(2) == true);
+    REQUIRE(map.contains(3) == true);
+    REQUIRE(map.contains(4) == false);
+
+    REQUIRE(map.get<int>(0) == 42);
+    REQUIRE(map.get<bool>(1) == true);
+    REQUIRE(map.get<std::string>(2) == std::string("Hello World"));
+    REQUIRE(map.get<std::nullptr_t>(3) == nullptr);
+
+    REQUIRE(map.erase(0) == true);
+    REQUIRE(map.erase(4) == false);
+    REQUIRE(map.count() == 3);
+
+    REQUIRE_THROWS(map.get<int>(1));
+
+    auto other = vm.find("main", "Main").func("other(_)");
+    res = other(map);
+
+    REQUIRE(res.is<std::string>());
+}

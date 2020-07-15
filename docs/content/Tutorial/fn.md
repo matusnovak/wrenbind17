@@ -1,7 +1,9 @@
 ---
-title: Callbacks via Fn.new
-weight: 130
+title: 10. Fn.new and callbacks
 ---
+
+# 10. Fn.new and callbacks
+
 
 Let's say you have a GUI button widget and you want to have a specific action when a user clicks on it.
 
@@ -56,7 +58,7 @@ private:
 };
 ```
 
-And then bind the class in the following way:
+Bind the class in the following way:
 
 ```cpp
 wren::VM vm;
@@ -65,7 +67,7 @@ auto& cls = m.klass<WrenGuiButton>("GuiButton");
 cls.ctor<wren::Variable>();
 ```
 
-And you can use it in the following way:
+And finally the usage in Wren:
 
 ```js
 import "test" for GuiButton

@@ -1,15 +1,12 @@
 ---
-title: 'Executing code'
-weight: 30
+title: 5. Executing from file
 ---
 
-Executing Wren code can be done in the following ways:
+# 5. Executing from file
+
+Executing Wren code can also be done in the following ways:
 
 ```cpp
-// Execute from raw std::string and specify the module name manually.
-// Can be any module name you want!
-vm.runFromSource("main", "var i = 42");
-
 // Same as above, specify the module name but instead
 // of the source code you tell it where the file is located.
 vm.runFromFile("main", "path/to/some/main.wren");
@@ -19,6 +16,8 @@ vm.runFromFile("main", "path/to/some/main.wren");
 vm.runFromModule("utils/libB");
 ```
 
-{{% notice note %}}
+{{< hint info >}}
+**Note**
+
 The `runFromModule` depends on the lookup paths you pass into the `wren::VM` constructor. The name of the module you want to run depends on these paths. Read the [Modules]({{< ref "modules.md" >}}) tutorial first.
-{{% /notice %}}
+{{% /hint %}}

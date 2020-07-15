@@ -25,70 +25,70 @@ TEST_CASE("Set slot and return by calling Wren") {
     vm.runFromSource("main", code);
     auto baz = vm.find("main", "Foo").func("baz(_)");
 
-    SECTION("char"){
+    SECTION("char") {
         sendAndCheck<char>(baz, 42);
     }
-    SECTION("short"){
+    SECTION("short") {
         sendAndCheck<short>(baz, 42);
     }
-    SECTION("int"){
+    SECTION("int") {
         sendAndCheck<int>(baz, 42);
     }
-    SECTION("long"){
+    SECTION("long") {
         sendAndCheck<long>(baz, 42);
     }
-    SECTION("long long"){
+    SECTION("long long") {
         sendAndCheck<long long>(baz, 42);
     }
-    SECTION("unsigned char"){
+    SECTION("unsigned char") {
         sendAndCheck<unsigned char>(baz, 42);
     }
-    SECTION("unsigned short"){
+    SECTION("unsigned short") {
         sendAndCheck<unsigned short>(baz, 42);
     }
-    SECTION("unsigned int"){
+    SECTION("unsigned int") {
         sendAndCheck<unsigned int>(baz, 42);
     }
-    SECTION("unsigned long"){
+    SECTION("unsigned long") {
         sendAndCheck<unsigned long>(baz, 42);
     }
-    SECTION("unsigned long long>"){
+    SECTION("unsigned long long>") {
         sendAndCheck<unsigned long long>(baz, 42);
     }
-    SECTION("unsigned"){
+    SECTION("unsigned") {
         sendAndCheck<unsigned>(baz, 42);
     }
-    SECTION("float"){
+    SECTION("float") {
         sendAndCheck<float>(baz, 42.0f);
     }
-    SECTION("double"){
+    SECTION("double") {
         sendAndCheck<double>(baz, 42.0);
     }
-    SECTION("bool"){
+    SECTION("bool") {
         sendAndCheck<bool>(baz, true);
     }
-    SECTION("int8_t"){
+    SECTION("int8_t") {
         sendAndCheck<int8_t>(baz, 42);
     }
-    SECTION("int16_t"){
+    SECTION("int16_t") {
         sendAndCheck<int16_t>(baz, 42);
     }
-    SECTION("int32_t"){
+    SECTION("int32_t") {
         sendAndCheck<int32_t>(baz, 42);
     }
-    SECTION("int64_t"){
+    SECTION("int64_t") {
         sendAndCheck<int64_t>(baz, 42);
     }
-    SECTION("uint32_t"){
+    SECTION("uint32_t") {
         sendAndCheck<uint32_t>(baz, 42);
     }
-    SECTION("uint64_t"){
+    SECTION("uint64_t") {
         sendAndCheck<uint64_t>(baz, 42);
     }
-    SECTION("string"){
+    SECTION("string") {
         sendAndCheck<std::string>(baz, std::string("Hello World"));
     }
-    SECTION("nullptr_t"){
+    SECTION("nullptr_t") {
         sendAndCheck<std::nullptr_t>(baz, nullptr);
     }
 }
@@ -146,58 +146,58 @@ void testCaseGetSlotByCallingCpp(const std::string& initStr, T init, const std::
 }
 
 TEST_CASE("Get slot by calling C++") {
-    SECTION("char"){
+    SECTION("char") {
         testCaseGetSlotByCallingCpp<char>("42", 42, "123", 123);
     }
-    SECTION("short"){
+    SECTION("short") {
         testCaseGetSlotByCallingCpp<short>("42", 42, "123", 123);
     }
-    SECTION("int"){
+    SECTION("int") {
         testCaseGetSlotByCallingCpp<int>("42", 42, "123", 123);
     }
-    SECTION("long"){
+    SECTION("long") {
         testCaseGetSlotByCallingCpp<long>("42", 42, "123", 123);
     }
-    SECTION("long long"){
+    SECTION("long long") {
         testCaseGetSlotByCallingCpp<long long>("42", 42, "123", 123);
     }
-    SECTION("unsigned int"){
+    SECTION("unsigned int") {
         testCaseGetSlotByCallingCpp<unsigned int>("42", 42, "123", 123);
     }
-    SECTION("unsigned long"){
+    SECTION("unsigned long") {
         testCaseGetSlotByCallingCpp<unsigned long>("42", 42, "123", 123);
     }
-    SECTION("unsigned long long"){
+    SECTION("unsigned long long") {
         testCaseGetSlotByCallingCpp<unsigned long long>("42", 42, "123", 123);
     }
-    SECTION("bool"){
+    SECTION("bool") {
         testCaseGetSlotByCallingCpp<bool>("false", false, "true", true);
     }
-    SECTION("string"){
+    SECTION("string") {
         testCaseGetSlotByCallingCpp<std::string>("\"Hello\"", "Hello", "\"World\"", "World");
     }
-    SECTION("float"){
+    SECTION("float") {
         testCaseGetSlotByCallingCpp<float>("42.1", 42.1f, "123.3", 123.3f);
     }
-    SECTION("double"){
+    SECTION("double") {
         testCaseGetSlotByCallingCpp<double>("42.1", 42.1, "123.3", 123.3);
     }
-    SECTION("int8_t"){
+    SECTION("int8_t") {
         testCaseGetSlotByCallingCpp<int8_t>("42", 42, "123", 123);
     }
-    SECTION("int16_t"){
+    SECTION("int16_t") {
         testCaseGetSlotByCallingCpp<int16_t>("42", 42, "123", 123);
     }
-    SECTION("int32_t"){
+    SECTION("int32_t") {
         testCaseGetSlotByCallingCpp<int32_t>("42", 42, "123", 123);
     }
-    SECTION("int64_t"){
+    SECTION("int64_t") {
         testCaseGetSlotByCallingCpp<int64_t>("42", 42, "123", 123);
     }
-    SECTION("uint32_t"){
+    SECTION("uint32_t") {
         testCaseGetSlotByCallingCpp<uint32_t>("42", 42, "123", 123);
     }
-    SECTION("uint64_t"){
+    SECTION("uint64_t") {
         testCaseGetSlotByCallingCpp<uint64_t>("42", 42, "123", 123);
     }
 }

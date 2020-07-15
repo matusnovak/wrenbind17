@@ -1,9 +1,9 @@
 #pragma once
 
-#include <typeinfo>
 #include "handle.hpp"
-#include "push.hpp"
 #include "pop.hpp"
+#include "push.hpp"
+#include <typeinfo>
 
 /**
  * @ingroup wrenbind17
@@ -11,288 +11,214 @@
 namespace wrenbind17 {
     /**
      * @ingroup wrenbind17
+     * @brief A return value when calling a Wren function (alias Any)
+     * @see Any
+     * @details This extends the lifetime of the Wren object (handle). As long as
+     * this ReturnValue instance exists the Wren object will exist.
+     * @note This variable can safely outlive the wrenbind17::VM class. If that happens
+     * then functions of this class will throw wrenbind17::RuntimeError exception. This
+     * holder will not try to free the Wren variable if the VM has been terminated. You
+     * don't have to worry about the lifetime of this holder. (uses weak pointers).
      */
-    class Any {
+    class ReturnValue {
     public:
-        class Content {
-        public:
-            virtual ~Content() {
-            }
-            virtual const std::type_info& getTypeid() const = 0;
-        };
-
-        template <typename T> class Data : public Content {
-        public:
-            template <typename Arg> Data(Arg arg) : value(std::move(arg)) {
-            }
-            virtual ~Data() = default;
-            const std::type_info& getTypeid() const override {
-                return typeid(T);
-            }
-            T& get() {
-                return value;
-            }
-            const T& get() const {
-                return value;
-            }
-
-        private:
-            T value;
-        };
-
-        inline Any()
-            : content(nullptr) {
+        ReturnValue() = default;
+        explicit ReturnValue(const WrenType type, Handle handle) : type(type), handle(std::move(handle)) {
         }
+        ~ReturnValue() = default;
 
-        inline explicit Any(WrenVM* vm, const bool value)
-            : vm(vm),
-              type(WrenType::WREN_TYPE_BOOL),
-              content(new Data<bool>(value)) {
-        }
-
-        inline explicit Any(WrenVM* vm, const double value)
-            : vm(vm),
-              type(WrenType::WREN_TYPE_NUM),
-              content(new Data<double>(value)) {
-        }
-
-        inline explicit Any(WrenVM* vm, std::string value)
-            : vm(vm),
-              type(WrenType::WREN_TYPE_STRING),
-              content(new Data<std::string>(std::move(value))) {
-        }
-
-        inline explicit Any(WrenVM* vm, std::nullptr_t value)
-            : vm(vm),
-              type(WrenType::WREN_TYPE_NULL),
-              content(nullptr) {
-        }
-
-        inline explicit Any(WrenVM* vm, void* value)
-            : vm(vm),
-              type(WrenType::WREN_TYPE_FOREIGN),
-              content(new Data<void*>(value)) {
-        }
-
-        inline Any(const Any& other) = delete;
-        inline Any(Any&& other) noexcept {
+        ReturnValue(const ReturnValue& other) = delete;
+        ReturnValue(ReturnValue&& other) noexcept {
             swap(other);
         }
-        inline Any& operator=(const Any& other) = delete;
-        inline Any& operator=(Any&& other) noexcept {
+
+        ReturnValue& operator=(const ReturnValue& other) = delete;
+        ReturnValue& operator=(ReturnValue&& other) noexcept {
             if (this != &other) {
                 swap(other);
             }
             return *this;
         }
-        inline void swap(Any& other) noexcept {
-            std::swap(vm, other.vm);
+
+        void swap(ReturnValue& other) noexcept {
             std::swap(type, other.type);
-            std::swap(content, other.content);
+            std::swap(handle, other.handle);
         }
 
-        inline virtual ~Any() = default;
-
-        template <typename T> inline typename std::enable_if<!std::is_pointer<T>::value, T>::type as() const {
-            if (empty() || type != WREN_TYPE_FOREIGN)
-                throw BadCast("Bad cast when getting value from Wren expected instance");
-            using Type = typename std::remove_const<typename std::remove_reference<T>::type>::type;
-            return *detail::getSlotForeign<Type>(vm, contentCast<void*>().get()).get();
+        /*!
+         * Returns the handle that this instance owns
+         */
+        const Handle& getHandle() const {
+            return handle;
         }
 
-        template <typename T> inline typename std::enable_if<std::is_pointer<T>::value, T>::type as() const {
-            if (empty()|| type != WREN_TYPE_FOREIGN)
-                throw BadCast("Bad cast when getting value from Wren expected instance");
-            using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
-            return detail::getSlotForeign<Type>(vm, contentCast<void*>().get()).get();
+        /*!
+         * Returns the handle that this instance owns
+         */
+        Handle& getHandle() {
+            return handle;
         }
 
-        template <typename T> inline typename std::enable_if<detail::is_shared_ptr<T>::value, T>::type as() const {
-            if (empty() || type != WREN_TYPE_FOREIGN)
-                throw BadCast("Bad cast when getting value from Wren expected instance");
-            using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
-            return detail::getSlotForeign<Type>(vm, contentCast<void*>().get());
+        /*!
+         * @brief The raw wren type held by this instance
+         */
+        WrenType getType() const {
+            return type;
         }
 
-        template <typename T> inline std::shared_ptr<T> shared() const {
-            if (empty() || type != WREN_TYPE_FOREIGN)
-                throw BadCast("Bad cast when getting value from Wren expected instance");
-            using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
-            return detail::getSlotForeign<Type>(vm, contentCast<void*>().get());
-        }
-
-        template <class T> inline bool is() const {
-            if (empty())
+        /*!
+         * @brief Check if the value held is some specific C++ type
+         * @note If the value held is a Wren numeric type then checking for any
+         * C++ integral or floating type will return true.
+         */
+        template <class T> bool is() const {
+            if (type == WREN_TYPE_NULL) {
                 return false;
-            if (type != WREN_TYPE_FOREIGN)
-                return false;
-            using Type = typename std::remove_const<typename std::remove_pointer<T>::type>::type;
-            const auto foreign = reinterpret_cast<detail::Foreign*>(contentCast<void*>().get());
-            return foreign->hash() == typeid(Type).hash_code();
+            }
+            if (const auto vm = handle.getVmWeak().lock()) {
+                wrenEnsureSlots(vm.get(), 1);
+                wrenSetSlotHandle(vm.get(), 0, handle.getHandle());
+                using Type = typename std::remove_reference<typename std::remove_pointer<T>::type>::type;
+                return detail::is<Type>(vm.get(), 0);
+            } else {
+                throw RuntimeError("Invalid handle");
+            }
         }
 
-        inline bool empty() const {
-            return content == nullptr;
+        bool isMap() const {
+            return type == WREN_TYPE_MAP;
+        }
+
+        bool isList() const {
+            return type == WREN_TYPE_LIST;
+        }
+
+        /*!
+         * @brief Returns the value
+         * @note If the value held is a Wren numeric type then getting for any
+         * C++ integral or floating type will result in a cast from a double to that type.
+         * @throws RuntimeError if this instance is invalid (constructed via the default constructor)
+         * @throws BadCast if the type required by specifying the template argument does not match the type held
+         * @tparam T the type you want to get
+         * @see shared()
+         */
+        template <class T> T as() {
+            if (type == WREN_TYPE_NULL) {
+                throw BadCast("Bad cast when getting value from Wren");
+            }
+            if (const auto vm = handle.getVmWeak().lock()) {
+                wrenEnsureSlots(vm.get(), 1);
+                wrenSetSlotHandle(vm.get(), 0, handle.getHandle());
+                return detail::PopHelper<T>::f(vm.get(), 0);
+            } else {
+                throw RuntimeError("Invalid handle");
+            }
+        }
+
+        /*!
+         * @brief Returns the value as a shared pointer
+         * @note Only works for custom C++ classes (foreign classes) that have been bound to the VM.
+         * @throws RuntimeError if this instance is invalid (constructed via the default constructor)
+         * @throws BadCast if the type required by specifying the template argument does not match the type held
+         * @tparam T the type of the std::shared_ptr you want to get
+         * @see as()
+         */
+        template <class T> std::shared_ptr<T> shared() {
+            return as<std::shared_ptr<T>>();
         }
 
     private:
-        template <typename T>
-        const Data<T>& contentCast() const {
-            if (content == nullptr || content->getTypeid() != typeid(T)) {
-                throw BadCast("Bad cast when getting value from Wren");
-            }
-            return *static_cast<const Data<T>*>(content.get());
-        }
-
-        WrenVM* vm = nullptr;
         WrenType type = WrenType::WREN_TYPE_NULL;
-        std::unique_ptr<Content> content;
+        Handle handle;
     };
 
-    template <> inline bool Any::is<int8_t>() const {
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+    template <> inline bool ReturnValue::is<int8_t>() const {
         return type == WREN_TYPE_NUM;
     }
 
-    template <> inline bool Any::is<char>() const {
+    template <> inline bool ReturnValue::is<char>() const {
         return type == WREN_TYPE_NUM;
     }
 
-    template <> inline bool Any::is<short>() const {
+    template <> inline bool ReturnValue::is<short>() const {
         return type == WREN_TYPE_NUM;
     }
 
-    template <> inline bool Any::is<int>() const {
+    template <> inline bool ReturnValue::is<int>() const {
         return type == WREN_TYPE_NUM;
     }
 
-    template <> inline bool Any::is<long>() const {
+    template <> inline bool ReturnValue::is<long>() const {
         return type == WREN_TYPE_NUM;
     }
 
-    template <> inline bool Any::is<long long>() const {
+    template <> inline bool ReturnValue::is<long long>() const {
         return type == WREN_TYPE_NUM;
     }
 
-    template <> inline bool Any::is<unsigned char>() const {
+    template <> inline bool ReturnValue::is<unsigned char>() const {
         return type == WREN_TYPE_NUM;
     }
 
-    template <> inline bool Any::is<unsigned short>() const {
+    template <> inline bool ReturnValue::is<unsigned short>() const {
         return type == WREN_TYPE_NUM;
     }
 
-    template <> inline bool Any::is<unsigned int>() const {
+    template <> inline bool ReturnValue::is<unsigned int>() const {
         return type == WREN_TYPE_NUM;
     }
 
-    template <> inline bool Any::is<unsigned long>() const {
+    template <> inline bool ReturnValue::is<unsigned long>() const {
         return type == WREN_TYPE_NUM;
     }
 
-    template <> inline bool Any::is<unsigned long long>() const {
+    template <> inline bool ReturnValue::is<unsigned long long>() const {
         return type == WREN_TYPE_NUM;
     }
 
-    template <> inline bool Any::is<float>() const {
+    template <> inline bool ReturnValue::is<float>() const {
         return type == WREN_TYPE_NUM;
     }
 
-    template <> inline bool Any::is<double>() const {
+    template <> inline bool ReturnValue::is<double>() const {
         return type == WREN_TYPE_NUM;
     }
 
-    template <> inline bool Any::is<bool>() const {
+    template <> inline bool ReturnValue::is<bool>() const {
         return type == WREN_TYPE_BOOL;
     }
 
-    template <> inline bool Any::is<std::nullptr_t>() const {
+    template <> inline bool ReturnValue::is<std::nullptr_t>() const {
         return type == WREN_TYPE_NULL;
     }
 
-    template <> inline bool Any::is<std::string>() const {
+    template <> inline bool ReturnValue::is<std::string>() const {
         return type == WREN_TYPE_STRING;
     }
 
-    template <> inline std::nullptr_t Any::as<std::nullptr_t>() const {
-        if (!empty()) {
-            throw BadCast("Return value is not null");
+    template <> inline std::nullptr_t ReturnValue::as<std::nullptr_t>() {
+        if (!is<std::nullptr_t>()) {
+            throw BadCast("Return value is not a null");
         }
         return nullptr;
     }
+#endif
 
-    template <> inline int8_t Any::as<int8_t>() const {
-        return static_cast<int8_t>(contentCast<double>().get());
-    }
+    /**
+     * @ingroup wrenbind17
+     * @see ReturnValue
+     * @brief An alias of ReturnValue class
+     */
+    using Any = ReturnValue;
 
-    template <> inline char Any::as<char>() const {
-        return static_cast<char>(contentCast<double>().get());
-    }
-
-    template <> inline short Any::as<short>() const {
-        return static_cast<short>(contentCast<double>().get());
-    }
-
-    template <> inline int Any::as<int>() const {
-        return static_cast<int>(contentCast<double>().get());
-    }
-
-    template <> inline long Any::as<long>() const {
-        return static_cast<long>(contentCast<double>().get());
-    }
-
-    template <> inline long long Any::as<long long>() const {
-        return static_cast<long long>(contentCast<double>().get());
-    }
-
-    template <> inline unsigned char Any::as<unsigned char>() const {
-        return static_cast<char>(contentCast<double>().get());
-    }
-
-    template <> inline unsigned short Any::as<unsigned short>() const {
-        return static_cast<short>(contentCast<double>().get());
-    }
-
-    template <> inline unsigned int Any::as<unsigned int>() const {
-        return static_cast<int>(contentCast<double>().get());
-    }
-
-    template <> inline unsigned long Any::as<unsigned long>() const {
-        return static_cast<long>(contentCast<double>().get());
-    }
-
-    template <> inline unsigned long long Any::as<unsigned long long>() const {
-        return static_cast<unsigned long long>(contentCast<double>().get());
-    }
-
-    template <> inline float Any::as<float>() const {
-        return static_cast<float>(contentCast<double>().get());
-    }
-
-    template <> inline double Any::as<double>() const {
-        return contentCast<double>().get();
-    }
-
-    template <> inline bool Any::as<bool>() const {
-        return contentCast<bool>().get();
-    }
-
-    template <> inline std::string Any::as<std::string>() const {
-        return contentCast<std::string>().get();
-    }
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
     template <> inline Any detail::getSlot(WrenVM* vm, const int idx) {
         const auto type = wrenGetSlotType(vm, 0);
-        switch (type) {
-            case WrenType::WREN_TYPE_BOOL:
-                return Any(vm, wrenGetSlotBool(vm, 0));
-            case WrenType::WREN_TYPE_NUM:
-                return Any(vm, wrenGetSlotDouble(vm, 0));
-            case WrenType::WREN_TYPE_STRING:
-                return Any(vm, std::string(wrenGetSlotString(vm, 0)));
-            case WrenType::WREN_TYPE_FOREIGN:
-                return Any(vm, wrenGetSlotForeign(vm, 0));
-            default:
-                return Any(vm, nullptr);
+        if (type == WREN_TYPE_NULL) {
+            return Any();
         }
+        return Any(type, Handle(getSharedVm(vm), wrenGetSlotHandle(vm, idx)));
     }
+#endif
 } // namespace wrenbind17

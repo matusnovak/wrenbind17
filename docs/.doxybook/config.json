@@ -8,5 +8,7 @@
   "indexGroupsName": "_index",
   "indexNamespacesName": "_index",
   "indexRelatedPagesName": "_index",
-  "indexExamplesName": "_index"
+  "indexExamplesName": "_index",
+  "mainPageInRoot": true,
+  "mainPageName": "_index"
 }

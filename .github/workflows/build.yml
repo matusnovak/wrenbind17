@@ -81,33 +81,23 @@ jobs:
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-            cmake --build ./build --target ALL_BUILD --config Debug
+            cmake --build ./build --config Debug
           else
-            cmake --build ./build --target all --config Debug
+            cmake --build ./build --config Debug
           fi
-
-      - name: Tests
-        shell: bash
-        run: cd build && ctest -C Debug --verbose
 
       - name: Valgrind
         if: ${{ matrix.os == 'ubuntu-latest' }}
         shell: bash
         run: |
-          valgrind --suppressions=./wren.supp ./build/WrenBind17_tests
+          sudo apt-get install -y lcov valgrind
+          valgrind --suppressions=./wren.supp ./build/WrenBind17_Tests
 
-      - name: Coverage
-        if: ${{ matrix.os == 'ubuntu-latest' }}
+      - name: Tests
         shell: bash
-        run: |
-          lcov --directory ./build --capture --output-file coverage.info;
-          lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' '*tests*' '*catch2*' '*vm*' --output-file coverage.info;
-          lcov --list coverage.info;
-          bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports";
+        run: cd build && ctest -C Debug --verbose
 
-      - name: Create Changelog
-        id: create_changelog
-        if: startsWith(github.ref, 'refs/tags/v')
+      - name: Changelog
         shell: bash
         run: |
           last_tag=$(git describe --tags --abbrev=0 @^ || true)
@@ -130,3 +120,50 @@ jobs:
           omitNameDuringUpdate: true
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
+  
+  docs:
+    name: Documentation
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          submodules: true
+
+      - name: Dependencies
+        shell: bash
+        run: |
+          sudo apt-get install doxygen zip unzip -y
+          wget https://github.com/gohugoio/hugo/releases/download/v0.74.1/hugo_extended_0.74.1_Linux-64bit.tar.gz
+          tar xvf hugo_extended_0.74.1_Linux-64bit.tar.gz
+          sudo chmod +x ./hugo
+          ./hugo version
+          wget https://github.com/matusnovak/doxybook2/releases/download/v1.1.6/doxybook2-linux-amd64-v1.1.6.zip
+          unzip doxybook2-linux-amd64-v1.1.6.zip
+          sudo cp bin/doxybook2 /usr/local/bin/doxybook2
+          sudo chmod +x /usr/local/bin/doxybook2
+      
+      - name: Generate documentation
+        shell: bash
+        run: |
+          doxygen
+          doxybook2 \
+              --input temp/xml \
+              --output docs/content \
+              --config docs/.doxybook/config.json
+          rm -rf docs/content/Examples
+          rm -rf docs/content/Pages
+      
+      - name: Build static pages
+        shell: bash
+        run: |
+          cd docs
+          ../hugo
+      
+      - name: Deploy
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/public
