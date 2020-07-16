@@ -7,7 +7,7 @@ WrenBind17 is a C++17 wrapper for [Wren programming language](http://wren.io/). 
 ## Features
 
 * Header only.
-* Works with Visual Studio 2017, MinGW-w64, Linux GCC, and Apple Clang on Mac OSX.
+* Works with Visual Studio 2017/2019 (x64 or x86), MinGW-w64 (x64 or x86), Linux GCC (x64 or arm64), and Apple Clang on Mac OSX (x64).
 * C++17 so you don't need to use `decltype()` on class methods to bind them to Wren.
 * Foreign modules are automatically generated for you. You don't need to write the extra foreign classes in separate file.
 * **Supports strict type safety.** You won't be able to pass just any variable from Wren back to the C++, preventing you getting segmentation faults.

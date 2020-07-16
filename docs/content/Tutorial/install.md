@@ -16,3 +16,42 @@ mkdir build
 cmake -B ./build -DWRENBIND17_BUILD_WREN=ON .
 cmake --build ./build
 ```
+
+## 1.1. Usage with CMake
+
+You can use CMake to add WrenBind17 to your project via [add_subdirectory](https://cmake.org/cmake/help/v3.0/command/add_subdirectory.html). You will need to include WrenBind17 in your project locally (maybe a [git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules)?) Include directories will be handled automatically by [target_link_libraries](https://cmake.org/cmake/help/latest/command/target_link_libraries.html).
+
+```cmake
+cmake_minimum_required(VERSION 3.14)
+project(Example)
+
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/wrenbind17)
+
+add_executable(${PROJECT_NAME} main.cpp)
+target_link_libraries(${PROJECT_NAME} PUBLIC WrenBind17)
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF) #c++17
+```
+
+{{< hint note >}}
+**Note**
+
+You will need to link Wren library too!
+{{< /hint >}}
+
+
+### 1.2. Build with Wren in CMake project
+
+If you wish to build Wren with WrenBind17 (as shown above with `-DWRENBIND17_BUILD_WREN=ON` added to the command line), you can do the following as shown below. Otherwise you will have to build Wren yourself and add it to your CMake project yourself. Setting `WRENBIND17_BUILD_WREN` to `ON` will add `Wren` CMake target which you can use in your own target. Include directories will be handled automatically by [target_link_libraries](https://cmake.org/cmake/help/latest/command/target_link_libraries.html).
+
+```cmake
+cmake_minimum_required(VERSION 3.14)
+project(Example)
+
+set(WRENBIND17_BUILD_WREN ON CACHE BOOL "" FORCE)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/wrenbind17) # Will add Wren target
+
+add_executable(${PROJECT_NAME} main.cpp)
+target_link_libraries(${PROJECT_NAME} PUBLIC WrenBind17 Wren)
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF) #c++17
+
+```
