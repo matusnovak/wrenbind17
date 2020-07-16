@@ -1,8 +1,10 @@
 # WrenBind17
 
-[![build](https://github.com/matusnovak/wrenbind17/workflows/build/badge.svg?branch=master)](https://github.com/matusnovak/wrenbind17/actions)
+[![build](https://github.com/matusnovak/wrenbind17/workflows/build/badge.svg?branch=master)](https://github.com/matusnovak/wrenbind17/actions) [![release](https://img.shields.io/github/v/release/matusnovak/wrenbind17)](https://github.com/matusnovak/wrenbind17/releases)
 
 WrenBind17 is a C++17 wrapper for [Wren programming language](http://wren.io/). This project was heavily inspired by [pybind11](https://github.com/pybind/pybind11) and by [Wren++](https://github.com/Nelarius/wrenpp). This library is header only and does not need any compilation steps. Simply include the WrenBind17 header `<wrenbind17/wrenbind17.hpp>`, link the Wren library, and you are good to go.
+
+[**https://matusnovak.github.io/wrenbind17**](https://matusnovak.github.io/wrenbind17)
 
 ## Features
 
