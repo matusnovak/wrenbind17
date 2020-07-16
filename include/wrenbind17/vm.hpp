@@ -3,6 +3,7 @@
 #include "map.hpp"
 #include "module.hpp"
 #include "variable.hpp"
+#include <cassert>
 #include <cstdlib>
 #include <cstring>
 #include <fstream>
