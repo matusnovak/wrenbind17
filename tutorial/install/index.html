@@ -14,7 +14,7 @@
 <link rel="manifest" href="/wrenbind17/manifest.json">
 <link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
-<script defer src="/wrenbind17/en.search.min.ac4c7935c74ca57019625665f34ce3f63baab2bd358ea4f00f5105d9a9163a5c.js" integrity="sha256-rEx5NcdMpXAZYlZl80zj9juqsr01jqTwD1EF2akWOlw="></script>
+<script defer src="/wrenbind17/en.search.min.311c7ad72a98b714a4deab316878c951b8d2fb56011aa53e4fa3c81cc7707759.js" integrity="sha256-MRx61yqYtxSk3qsxaHjJUbjS&#43;1YBGqU&#43;T6PIHMdwd1k="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -120,7 +120,15 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents"></nav>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-usage-with-cmake">1.1. Usage with CMake</a>
+      <ul>
+        <li><a href="#12-build-with-wren-in-cmake-project">1.2. Build with Wren in CMake project</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
 
   </aside>
@@ -142,7 +150,41 @@ mkdir build
 
 cmake -B ./build -DWRENBIND17_BUILD_WREN<span style="color:#f92672">=</span>ON .
 cmake --build ./build
-</code></pre></div></article>
+</code></pre></div><h2 id="11-usage-with-cmake">
+  1.1. Usage with CMake
+  <a class="anchor" href="#11-usage-with-cmake">#</a>
+</h2>
+<p>You can use CMake to add WrenBind17 to your project via <a href="https://cmake.org/cmake/help/v3.0/command/add_subdirectory.html">add_subdirectory</a>. You will need to include WrenBind17 in your project locally (maybe a <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">git submodule</a>?) Include directories will be handled automatically by <a href="https://cmake.org/cmake/help/latest/command/target_link_libraries.html">target_link_libraries</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">cmake_minimum_required(<span style="color:#e6db74">VERSION</span> <span style="color:#e6db74">3.14</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>project(<span style="color:#e6db74">Example</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>add_subdirectory(<span style="color:#f92672">${</span>CMAKE_CURRENT_LIST_DIR<span style="color:#f92672">}</span><span style="color:#e6db74">/libs/wrenbind17</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>add_executable(<span style="color:#f92672">${</span>PROJECT_NAME<span style="color:#f92672">}</span> <span style="color:#e6db74">main.cpp</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>target_link_libraries(<span style="color:#f92672">${</span>PROJECT_NAME<span style="color:#f92672">}</span> <span style="color:#e6db74">PUBLIC</span> <span style="color:#e6db74">WrenBind17</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>set_target_properties(<span style="color:#f92672">${</span>PROJECT_NAME<span style="color:#f92672">}</span> <span style="color:#e6db74">PROPERTIES</span> <span style="color:#e6db74">CXX_STANDARD</span> <span style="color:#e6db74">17</span> <span style="color:#e6db74">CXX_EXTENSIONS</span> <span style="color:#e6db74">OFF</span>) <span style="color:#75715e">#c++17
+</span></code></pre></div><blockquote class="book-hint note">
+  <p><strong>Note</strong></p>
+<p>You will need to link Wren library too!</p>
+
+</blockquote>
+
+<h3 id="12-build-with-wren-in-cmake-project">
+  1.2. Build with Wren in CMake project
+  <a class="anchor" href="#12-build-with-wren-in-cmake-project">#</a>
+</h3>
+<p>If you wish to build Wren with WrenBind17 (as shown above with <code>-DWRENBIND17_BUILD_WREN=ON</code> added to the command line), you can do the following as shown below. Otherwise you will have to build Wren yourself and add it to your CMake project yourself. Setting <code>WRENBIND17_BUILD_WREN</code> to <code>ON</code> will add <code>Wren</code> CMake target which you can use in your own target. Include directories will be handled automatically by <a href="https://cmake.org/cmake/help/latest/command/target_link_libraries.html">target_link_libraries</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">cmake_minimum_required(<span style="color:#e6db74">VERSION</span> <span style="color:#e6db74">3.14</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>project(<span style="color:#e6db74">Example</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>set(<span style="color:#e6db74">WRENBIND17_BUILD_WREN</span> <span style="color:#e6db74">ON</span> <span style="color:#e6db74">CACHE</span> <span style="color:#e6db74">BOOL</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#e6db74">FORCE</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>add_subdirectory(<span style="color:#f92672">${</span>CMAKE_CURRENT_LIST_DIR<span style="color:#f92672">}</span><span style="color:#e6db74">/libs/wrenbind17</span>) <span style="color:#75715e"># Will add Wren target
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>add_executable(<span style="color:#f92672">${</span>PROJECT_NAME<span style="color:#f92672">}</span> <span style="color:#e6db74">main.cpp</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>target_link_libraries(<span style="color:#f92672">${</span>PROJECT_NAME<span style="color:#f92672">}</span> <span style="color:#e6db74">PUBLIC</span> <span style="color:#e6db74">WrenBind17</span> <span style="color:#e6db74">Wren</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>set_target_properties(<span style="color:#f92672">${</span>PROJECT_NAME<span style="color:#f92672">}</span> <span style="color:#e6db74">PROPERTIES</span> <span style="color:#e6db74">CXX_STANDARD</span> <span style="color:#e6db74">17</span> <span style="color:#e6db74">CXX_EXTENSIONS</span> <span style="color:#e6db74">OFF</span>) <span style="color:#75715e">#c++17
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div></article>
  
       
 
@@ -181,7 +223,15 @@ cmake --build ./build
     
     <aside class="book-toc">
       
-  <nav id="TableOfContents"></nav>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-usage-with-cmake">1.1. Usage with CMake</a>
+      <ul>
+        <li><a href="#12-build-with-wren-in-cmake-project">1.2. Build with Wren in CMake project</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
  
     </aside>

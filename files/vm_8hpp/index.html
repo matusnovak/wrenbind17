@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="include/wrenbind17/vm.hpp #  Namespaces #     Name     wrenbind17    Classes #      Name     class wrenbind17::VM::Data   class wrenbind17::VM Holds the entire Wren VM from which all of the magic happens.    Source code #  #pragma once  #include &#34;map.hpp&#34;#include &#34;module.hpp&#34;#include &#34;variable.hpp&#34;#include &lt;cstdlib&gt;#include &lt;cstring&gt;#include &lt;fstream&gt;#include &lt;functional&gt;#include &lt;unordered_map&gt;#include &lt;vector&gt; #ifndef DOXYGEN_SHOULD_SKIP_THIS namespace std { template &lt;&gt; struct hash&lt;std::pair&lt;size_t, size_t&gt;&gt; { inline size_t operator()(const std::pair&lt;size_t, size_t&gt;&amp; v) const { const std::hash&lt;size_t&gt; hasher; return hasher(v.">
+<meta name="description" content="include/wrenbind17/vm.hpp #  Namespaces #     Name     wrenbind17    Classes #      Name     class wrenbind17::VM::Data   class wrenbind17::VM Holds the entire Wren VM from which all of the magic happens.    Source code #  #pragma once  #include &#34;map.hpp&#34;#include &#34;module.hpp&#34;#include &#34;variable.hpp&#34;#include &lt;cassert&gt;#include &lt;cstdlib&gt;#include &lt;cstring&gt;#include &lt;fstream&gt;#include &lt;functional&gt;#include &lt;unordered_map&gt;#include &lt;vector&gt; #ifndef DOXYGEN_SHOULD_SKIP_THIS namespace std { template &lt;&gt; struct hash&lt;std::pair&lt;size_t, size_t&gt;&gt; { inline size_t operator()(const std::pair&lt;size_t, size_t&gt;&amp; v) const { const std::hash&lt;size_t&gt; hasher; return hasher(v.">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="include/wrenbind17/vm.hpp" />
-<meta property="og:description" content="include/wrenbind17/vm.hpp #  Namespaces #     Name     wrenbind17    Classes #      Name     class wrenbind17::VM::Data   class wrenbind17::VM Holds the entire Wren VM from which all of the magic happens.    Source code #  #pragma once  #include &#34;map.hpp&#34;#include &#34;module.hpp&#34;#include &#34;variable.hpp&#34;#include &lt;cstdlib&gt;#include &lt;cstring&gt;#include &lt;fstream&gt;#include &lt;functional&gt;#include &lt;unordered_map&gt;#include &lt;vector&gt; #ifndef DOXYGEN_SHOULD_SKIP_THIS namespace std { template &lt;&gt; struct hash&lt;std::pair&lt;size_t, size_t&gt;&gt; { inline size_t operator()(const std::pair&lt;size_t, size_t&gt;&amp; v) const { const std::hash&lt;size_t&gt; hasher; return hasher(v." />
+<meta property="og:description" content="include/wrenbind17/vm.hpp #  Namespaces #     Name     wrenbind17    Classes #      Name     class wrenbind17::VM::Data   class wrenbind17::VM Holds the entire Wren VM from which all of the magic happens.    Source code #  #pragma once  #include &#34;map.hpp&#34;#include &#34;module.hpp&#34;#include &#34;variable.hpp&#34;#include &lt;cassert&gt;#include &lt;cstdlib&gt;#include &lt;cstring&gt;#include &lt;fstream&gt;#include &lt;functional&gt;#include &lt;unordered_map&gt;#include &lt;vector&gt; #ifndef DOXYGEN_SHOULD_SKIP_THIS namespace std { template &lt;&gt; struct hash&lt;std::pair&lt;size_t, size_t&gt;&gt; { inline size_t operator()(const std::pair&lt;size_t, size_t&gt;&amp; v) const { const std::hash&lt;size_t&gt; hasher; return hasher(v." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://matusnovak.github.io/wrenbind17/files/vm_8hpp/" />
 
@@ -14,7 +14,7 @@
 <link rel="manifest" href="/wrenbind17/manifest.json">
 <link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
-<script defer src="/wrenbind17/en.search.min.ac4c7935c74ca57019625665f34ce3f63baab2bd358ea4f00f5105d9a9163a5c.js" integrity="sha256-rEx5NcdMpXAZYlZl80zj9juqsr01jqTwD1EF2akWOlw="></script>
+<script defer src="/wrenbind17/en.search.min.311c7ad72a98b714a4deab316878c951b8d2fb56011aa53e4fa3c81cc7707759.js" integrity="sha256-MRx61yqYtxSk3qsxaHjJUbjS&#43;1YBGqU&#43;T6PIHMdwd1k="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -187,6 +187,7 @@ https://github.com/alex-shpak/hugo-book
 <span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;map.hpp&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;module.hpp&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;variable.hpp&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cassert&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdlib&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;fstream&gt;</span><span style="color:#75715e">
@@ -515,7 +516,7 @@ https://github.com/alex-shpak/hugo-book
 <span style="color:#75715e">#endif
 </span><span style="color:#75715e"></span>} <span style="color:#75715e">// namespace wrenbind17
 </span></code></pre></div><hr>
-<p>Updated on 15 July 2020 at 22:04:10 UTC</p>
+<p>Updated on 16 July 2020 at 18:57:39 UTC</p>
 </article>
  
       
