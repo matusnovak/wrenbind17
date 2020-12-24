@@ -75,27 +75,29 @@ namespace wrenbind17 {
             data->config.minHeapSize = minHeap;
             data->config.heapGrowthPercent = heapGrowth;
             data->config.userData = data.get();
-            data->config.reallocateFn = std::realloc;
-            data->config.loadModuleFn = [](WrenVM* vm, const char* name) -> char* {
+            data->config.reallocateFn = [](void* memory, size_t newSize, void* userData) -> void* { return std::realloc(memory, newSize); };
+            data->config.loadModuleFn = [](WrenVM* vm, const char* name) -> WrenLoadModuleResult {
+                auto res = WrenLoadModuleResult();
                 auto& self = *reinterpret_cast<VM::Data*>(wrenGetUserData(vm));
 
                 const auto mod = self.modules.find(name);
                 if (mod != self.modules.end()) {
                     auto source = mod->second.str();
-                    auto buffer = new char[source.size() + 1];
-                    std::memcpy(buffer, &source[0], source.size() + 1);
-                    return buffer;
+                    char* buffer = new char[source.size() + 1];
+                    std::memcpy(static_cast<void*>(buffer), &source[0], source.size() + 1);
+                    res.source = buffer;
+                    return res;
                 }
 
                 try {
                     auto source = self.loadFileFn(self.paths, std::string(name));
-                    auto buffer = new char[source.size() + 1];
-                    std::memcpy(buffer, &source[0], source.size() + 1);
-                    return buffer;
+                    char* buffer = new char[source.size() + 1];
+                    std::memcpy(static_cast<void*>(buffer), &source[0], source.size() + 1);
+                    res.source = buffer;
                 } catch (std::exception& e) {
                     (void)e;
-                    return nullptr;
                 }
+                return res;
             };
             data->config.bindForeignMethodFn = [](WrenVM* vm, const char* module, const char* className,
                                                   const bool isStatic, const char* signature) -> WrenForeignMethodFn {
