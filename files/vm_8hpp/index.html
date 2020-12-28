@@ -14,7 +14,7 @@
 <link rel="manifest" href="/wrenbind17/manifest.json">
 <link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
-<script defer src="/wrenbind17/en.search.min.311c7ad72a98b714a4deab316878c951b8d2fb56011aa53e4fa3c81cc7707759.js" integrity="sha256-MRx61yqYtxSk3qsxaHjJUbjS&#43;1YBGqU&#43;T6PIHMdwd1k="></script>
+<script defer src="/wrenbind17/en.search.min.fb6c94a8bafbbce8462efda517ac26e7e51ef11540811e551c383e49d4235e1e.js" integrity="sha256-&#43;2yUqLr7vOhGLv2lF6wm5&#43;Ue8RVAgR5VHDg&#43;SdQjXh4="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -239,7 +239,33 @@ https://github.com/alex-shpak/hugo-book
             data<span style="color:#f92672">-&gt;</span>config.minHeapSize <span style="color:#f92672">=</span> minHeap;
             data<span style="color:#f92672">-&gt;</span>config.heapGrowthPercent <span style="color:#f92672">=</span> heapGrowth;
             data<span style="color:#f92672">-&gt;</span>config.userData <span style="color:#f92672">=</span> data.get();
-            data<span style="color:#f92672">-&gt;</span>config.reallocateFn <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>realloc;
+<span style="color:#75715e">#if WREN_VERSION_NUMBER &gt;= 4000 </span><span style="color:#75715e">// &gt;= 0.4.0
+</span><span style="color:#75715e"></span>            data<span style="color:#f92672">-&gt;</span>config.reallocateFn <span style="color:#f92672">=</span> [](<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> memory, size_t newSize, <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> userData) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> { <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>realloc(memory, newSize); };
+            data<span style="color:#f92672">-&gt;</span>config.loadModuleFn <span style="color:#f92672">=</span> [](WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> name) <span style="color:#f92672">-&gt;</span> WrenLoadModuleResult {
+                <span style="color:#66d9ef">auto</span> res <span style="color:#f92672">=</span> WrenLoadModuleResult();
+                <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> self <span style="color:#f92672">=</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">reinterpret_cast</span><span style="color:#f92672">&lt;</span>VM<span style="color:#f92672">::</span>Data<span style="color:#f92672">*&gt;</span>(wrenGetUserData(vm));
+
+                <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span> mod <span style="color:#f92672">=</span> self.modules.find(name);
+                <span style="color:#66d9ef">if</span> (mod <span style="color:#f92672">!=</span> self.modules.end()) {
+                    <span style="color:#66d9ef">auto</span> source <span style="color:#f92672">=</span> mod<span style="color:#f92672">-&gt;</span>second.str();
+                    <span style="color:#66d9ef">auto</span> buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">char</span>[source.size() <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+                    std<span style="color:#f92672">::</span>memcpy(buffer, <span style="color:#f92672">&amp;</span>source[<span style="color:#ae81ff">0</span>], source.size() <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+                    res.source <span style="color:#f92672">=</span> buffer;
+                    <span style="color:#66d9ef">return</span> res;
+                }
+
+                <span style="color:#66d9ef">try</span> {
+                    <span style="color:#66d9ef">auto</span> source <span style="color:#f92672">=</span> self.loadFileFn(self.paths, std<span style="color:#f92672">::</span>string(name));
+                    <span style="color:#66d9ef">auto</span> buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">char</span>[source.size() <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+                    std<span style="color:#f92672">::</span>memcpy(buffer, <span style="color:#f92672">&amp;</span>source[<span style="color:#ae81ff">0</span>], source.size() <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+                    res.source <span style="color:#f92672">=</span> buffer;
+                } <span style="color:#66d9ef">catch</span> (std<span style="color:#f92672">::</span>exception<span style="color:#f92672">&amp;</span> e) {
+                    (<span style="color:#66d9ef">void</span>)e;
+                }
+                <span style="color:#66d9ef">return</span> res;
+            };
+<span style="color:#75715e">#else </span><span style="color:#75715e">// &lt; 0.4.0
+</span><span style="color:#75715e"></span>            data<span style="color:#f92672">-&gt;</span>config.reallocateFn <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>realloc;
             data<span style="color:#f92672">-&gt;</span>config.loadModuleFn <span style="color:#f92672">=</span> [](WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> name) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> {
                 <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> self <span style="color:#f92672">=</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">reinterpret_cast</span><span style="color:#f92672">&lt;</span>VM<span style="color:#f92672">::</span>Data<span style="color:#f92672">*&gt;</span>(wrenGetUserData(vm));
 
@@ -261,7 +287,8 @@ https://github.com/alex-shpak/hugo-book
                     <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nullptr</span>;
                 }
             };
-            data<span style="color:#f92672">-&gt;</span>config.bindForeignMethodFn <span style="color:#f92672">=</span> [](WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> module, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> className,
+<span style="color:#75715e">#endif </span><span style="color:#75715e">// WREN_VERSION_NUMBER &gt;= 4000
+</span><span style="color:#75715e"></span>            data<span style="color:#f92672">-&gt;</span>config.bindForeignMethodFn <span style="color:#f92672">=</span> [](WrenVM<span style="color:#f92672">*</span> vm, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> module, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> className,
                                                   <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> isStatic, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> signature) <span style="color:#f92672">-&gt;</span> WrenForeignMethodFn {
                 <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> self <span style="color:#f92672">=</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">reinterpret_cast</span><span style="color:#f92672">&lt;</span>VM<span style="color:#f92672">::</span>Data<span style="color:#f92672">*&gt;</span>(wrenGetUserData(vm));
                 <span style="color:#66d9ef">try</span> {
@@ -516,7 +543,7 @@ https://github.com/alex-shpak/hugo-book
 <span style="color:#75715e">#endif
 </span><span style="color:#75715e"></span>} <span style="color:#75715e">// namespace wrenbind17
 </span></code></pre></div><hr>
-<p>Updated on 16 July 2020 at 18:57:39 UTC</p>
+<p>Updated on 28 December 2020 at 15:45:23 UTC</p>
 </article>
  
       
