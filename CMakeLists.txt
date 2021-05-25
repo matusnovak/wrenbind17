@@ -58,6 +58,6 @@ if(WRENBIND17_BUILD_TESTS)
   add_test(NAME ${PROJECT_NAME}_Tests COMMAND ${PROJECT_NAME}_Tests)
 
   if(WRENBIND17_COVERAGE)
-    target_link_libraries(${PROJECT_NAME} PUBLIC ${PROJECT_NAME}_Coverage)
+    target_link_libraries(${PROJECT_NAME}_Tests PUBLIC ${PROJECT_NAME}_Coverage)
   endif()
 endif()
