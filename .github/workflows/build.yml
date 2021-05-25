@@ -126,7 +126,7 @@ jobs:
 
   docs:
     name: Documentation
-    needs: [build, coverage]
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
