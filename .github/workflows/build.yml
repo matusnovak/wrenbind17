@@ -52,11 +52,17 @@ jobs:
               -DCMAKE_BUILD_TYPE=Debug \
               -DWRENBIND17_BUILD_TESTS=ON \
               .
+          elif [ "$RUNNER_OS" == "Linux" ]; then
+            export CC=/usr/bin/gcc-9
+            export CXX=/usr/bin/g++-9
+            cmake \
+              -B ./build \
+              -G "${{ matrix.generator }}" \
+              -DCMAKE_BUILD_TYPE=Debug \
+              -DWRENBIND17_BUILD_TESTS=ON \
+              -DWRENBIND17_COVERAGE=ON \
+              .
           else
-            if [ "$RUNNER_OS" == "Linux" ]; then
-              export CC=/usr/bin/gcc-9
-              export CXX=/usr/bin/g++-9
-            fi
             cmake \
               -B ./build \
               -G "${{ matrix.generator }}" \
@@ -68,11 +74,7 @@ jobs:
       - name: Compile
         shell: bash
         run: |
-          if [ "$RUNNER_OS" == "Windows" ]; then
-            cmake --build ./build --config Debug
-          else
-            cmake --build ./build --config Debug
-          fi
+          cmake --build ./build --config Debug
 
       - name: Valgrind
         if: ${{ matrix.os == 'ubuntu-latest' }}
@@ -85,6 +87,18 @@ jobs:
       - name: Tests
         shell: bash
         run: cd build && ctest -C Debug --verbose
+
+      - name: Create coverage report
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        shell: bash
+        run: |
+          ./coverage.sh
+
+      - name: Upload coverage
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        shell: bash
+        run: |
+          bash <(curl -s https://codecov.io/bash) -f ./build/coverage.info || echo "Codecov did not collect coverage reports"
 
       - name: Changelog
         shell: bash
@@ -109,7 +123,7 @@ jobs:
           omitNameDuringUpdate: true
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
-  
+
   docs:
     name: Documentation
     needs: [build]
@@ -128,8 +142,8 @@ jobs:
           tar xvf hugo_extended_0.74.1_Linux-64bit.tar.gz
           sudo chmod +x ./hugo
           ./hugo version
-          wget https://github.com/matusnovak/doxybook2/releases/download/v1.1.6/doxybook2-linux-amd64-v1.1.6.zip
-          unzip doxybook2-linux-amd64-v1.1.6.zip
+          wget https://github.com/matusnovak/doxybook2/releases/download/v1.3.4/doxybook2-linux-amd64-v1.3.4.zip
+          unzip doxybook2-linux-amd64-v1.3.4.zip
           sudo cp bin/doxybook2 /usr/local/bin/doxybook2
           sudo chmod +x /usr/local/bin/doxybook2
       

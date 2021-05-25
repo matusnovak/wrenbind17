@@ -5,6 +5,7 @@ project(WrenBind17)
 
 option(WRENBIND17_BUILD_TESTS "Build with tests" OFF)
 option(WRENBIND17_BUILD_WREN "Build Wren library too" OFF)
+option(WRENBIND17_COVERAGE "Enable coverage reporting" OFF)
 
 # Add WrenBind17 header only library
 add_library(${PROJECT_NAME} INTERFACE)
@@ -14,6 +15,23 @@ target_include_directories(${PROJECT_NAME} INTERFACE ${WRENBIND17_INCLUDE_DIR})
 if(WRENBIND17_BUILD_TESTS OR WRENBIND17_BUILD_WREN)
   # Find Wren library
   find_package(Wren REQUIRED)
+endif()
+
+if(WRENBIND17_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+  # Code Coverage Configuration
+  add_library(${PROJECT_NAME}_Coverage INTERFACE)
+
+  # Add required flags (GCC & LLVM/Clang)
+  target_compile_options(${PROJECT_NAME}_Coverage INTERFACE
+    -O0        # no optimization
+    -g         # generate debug info
+    --coverage # sets all required flags
+  )
+  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.13)
+    target_link_options(${PROJECT_NAME}_Coverage INTERFACE --coverage)
+  else()
+    target_link_libraries(${PROJECT_NAME}_Coverage INTERFACE --coverage)
+  endif()
 endif()
 
 if(WRENBIND17_BUILD_TESTS)
@@ -38,5 +56,8 @@ if(WRENBIND17_BUILD_TESTS)
     target_compile_options(${PROJECT_NAME}_Tests PRIVATE -Wa,-mbig-obj)
   endif()
   add_test(NAME ${PROJECT_NAME}_Tests COMMAND ${PROJECT_NAME}_Tests)
-endif()
 
+  if(WRENBIND17_COVERAGE)
+    target_link_libraries(${PROJECT_NAME}_Tests PUBLIC ${PROJECT_NAME}_Coverage)
+  endif()
+endif()
