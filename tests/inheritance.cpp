@@ -90,3 +90,65 @@ TEST_CASE("Inheritance with shared_ptr") {
     auto ptr = res.shared<BaseClass>();
     REQUIRE(ptr->getStuff() == "Hello World!");
 }
+
+class SomeBaseClass {
+public:
+    virtual ~SomeBaseClass() = default;
+
+    virtual void derivedMethod() = 0;
+};
+
+class SomeDerivedClass : public SomeBaseClass {
+public:
+    void derivedMethod() override {
+        std::cout << "SomeDerivedClass::derivedMethod() called!" << std::endl;
+    }
+};
+
+class SomeBaseFactory {
+public:
+    std::shared_ptr<SomeBaseClass> factory(const std::string& name) {
+        if (name == "SomeDerivedClass") {
+            return std::make_shared<SomeDerivedClass>();
+        }
+        throw std::runtime_error("No such class");
+    }
+};
+
+TEST_CASE("Derived method with shared_ptr") {
+    wren::VM vm;
+    auto& m = vm.module("test");
+
+    { // Register the base class first
+        auto& cls = m.klass<SomeBaseClass>("SomeBaseClass");
+        cls.func<&SomeBaseClass::derivedMethod>("derivedMethod");
+    }
+
+    { // Register the derived class second, you must register the base methods as well!
+        auto& cls = m.klass<SomeDerivedClass, SomeBaseClass>("SomeDerivedClass");
+        cls.ctor<>(); // Optional
+        cls.func<&SomeDerivedClass::derivedMethod>("derivedMethod");
+    }
+
+    { // Factory
+        auto& cls = m.klass<SomeBaseFactory>("SomeBaseFactory");
+        cls.ctor<>();
+        cls.func<&SomeBaseFactory::factory>("factory");
+    }
+
+    const std::string code = R"(
+        import "test" for SomeBaseFactory
+
+        class Main {
+            static main() {
+                var factory = SomeBaseFactory.new()
+                var instance = factory.factory("SomeDerivedClass")
+                instance.derivedMethod()
+            }
+        }
+    )";
+
+    vm.runFromSource("main", code);
+    auto main = vm.find("main", "Main").func("main()");
+    REQUIRE_NOTHROW(main());
+}
