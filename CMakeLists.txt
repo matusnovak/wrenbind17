@@ -61,3 +61,12 @@ if(WRENBIND17_BUILD_TESTS)
     target_link_libraries(${PROJECT_NAME}_Tests PUBLIC ${PROJECT_NAME}_Coverage)
   endif()
 endif()
+
+# install headers
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/wrenbind17"
+  DESTINATION include
+  FILES_MATCHING
+  PATTERN "*.hxx"
+  PATTERN "*.hpp"
+  PATTERN "*.h"
+)
