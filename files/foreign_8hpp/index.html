@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="include/wrenbind17/foreign.hpp #  Namespaces #     Name     wrenbind17    Classes #      Name     class wrenbind17::ForeignKlassImpl   class wrenbind17::ForeignPropImpl   class wrenbind17::ForeignMethodImpl Type specific implementation of foreign method.   class wrenbind17::ForeignKlass A foreign class.   class wrenbind17::ForeignProp Holds information about a foreign property of a foreign class.   class wrenbind17::ForeignMethod Holds information about a foreign function of a foreign class.">
+<meta name="description" content="include/wrenbind17/foreign.hpp #  Namespaces #     Name     wrenbind17    Classes #      Name     class wrenbind17::ForeignMethod Holds information about a foreign function of a foreign class.   class wrenbind17::ForeignProp Holds information about a foreign property of a foreign class.   class wrenbind17::ForeignKlass A foreign class.   class wrenbind17::ForeignMethodImpl Type specific implementation of foreign method.">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="include/wrenbind17/foreign.hpp" />
-<meta property="og:description" content="include/wrenbind17/foreign.hpp #  Namespaces #     Name     wrenbind17    Classes #      Name     class wrenbind17::ForeignKlassImpl   class wrenbind17::ForeignPropImpl   class wrenbind17::ForeignMethodImpl Type specific implementation of foreign method.   class wrenbind17::ForeignKlass A foreign class.   class wrenbind17::ForeignProp Holds information about a foreign property of a foreign class.   class wrenbind17::ForeignMethod Holds information about a foreign function of a foreign class." />
+<meta property="og:description" content="include/wrenbind17/foreign.hpp #  Namespaces #     Name     wrenbind17    Classes #      Name     class wrenbind17::ForeignMethod Holds information about a foreign function of a foreign class.   class wrenbind17::ForeignProp Holds information about a foreign property of a foreign class.   class wrenbind17::ForeignKlass A foreign class.   class wrenbind17::ForeignMethodImpl Type specific implementation of foreign method." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://matusnovak.github.io/wrenbind17/files/foreign_8hpp/" />
 
@@ -14,7 +14,7 @@
 <link rel="manifest" href="/wrenbind17/manifest.json">
 <link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
-<script defer src="/wrenbind17/en.search.min.fb6c94a8bafbbce8462efda517ac26e7e51ef11540811e551c383e49d4235e1e.js" integrity="sha256-&#43;2yUqLr7vOhGLv2lF6wm5&#43;Ue8RVAgR5VHDg&#43;SdQjXh4="></script>
+<script defer src="/wrenbind17/en.search.min.d821bc4671e09f70c11205fdbb12a428d1e7a206559339bc157cbdc6081e40ca.js" integrity="sha256-2CG8RnHgn3DBEgX9uxKkKNHnogZVkzm8FXy9xggeQMo="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -170,19 +170,7 @@ https://github.com/alex-shpak/hugo-book
 <tbody>
 <tr>
 <td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/">wrenbind17::ForeignKlassImpl</a></strong></td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop_impl/">wrenbind17::ForeignPropImpl</a></strong></td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/">wrenbind17::ForeignMethodImpl</a></strong> <!-- raw HTML omitted -->Type specific implementation of foreign method.</td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/">wrenbind17::ForeignKlass</a></strong> <!-- raw HTML omitted -->A foreign class.</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">wrenbind17::ForeignMethod</a></strong> <!-- raw HTML omitted -->Holds information about a foreign function of a foreign class.</td>
 </tr>
 <tr>
 <td>class</td>
@@ -190,7 +178,19 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 <tr>
 <td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">wrenbind17::ForeignMethod</a></strong> <!-- raw HTML omitted -->Holds information about a foreign function of a foreign class.</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/">wrenbind17::ForeignKlass</a></strong> <!-- raw HTML omitted -->A foreign class.</td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/">wrenbind17::ForeignMethodImpl</a></strong> <!-- raw HTML omitted -->Type specific implementation of foreign method.</td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop_impl/">wrenbind17::ForeignPropImpl</a></strong></td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/">wrenbind17::ForeignKlassImpl</a></strong></td>
 </tr>
 </tbody>
 </table>
@@ -545,6 +545,13 @@ https://github.com/alex-shpak/hugo-book
 
             <span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">decltype</span>(getType(<span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span>M<span style="color:#f92672">&gt;</span>(<span style="color:#66d9ef">nullptr</span>))) type;
         };
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Var, Var var<span style="color:#f92672">&gt;</span>
+        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">GetVarTraits</span>;
+
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> C, <span style="color:#66d9ef">typename</span> T, T C<span style="color:#f92672">::*</span>Var<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">GetVarTraits</span><span style="color:#f92672">&lt;</span>T C<span style="color:#f92672">::*</span>, Var<span style="color:#f92672">&gt;</span> {
+            <span style="color:#66d9ef">using</span> klass <span style="color:#f92672">=</span> C;
+        };
     } <span style="color:#75715e">// namespace detail
 </span><span style="color:#75715e"></span><span style="color:#75715e">#endif
 </span><span style="color:#75715e"></span>
@@ -597,13 +604,15 @@ https://github.com/alex-shpak/hugo-book
 <span style="color:#75715e">#ifndef DOXYGEN_SHOULD_SKIP_THIS
 </span><span style="color:#75715e"></span>        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignMethodDetails</span>;
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, <span style="color:#66d9ef">typename</span>... Args, R (T<span style="color:#f92672">::*</span>Fn)(Args...)<span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignMethodDetails</span><span style="color:#f92672">&lt;</span>R (T<span style="color:#f92672">::*</span>)(Args...), Fn<span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, <span style="color:#66d9ef">typename</span> C, <span style="color:#66d9ef">typename</span>... Args, R (C<span style="color:#f92672">::*</span>Fn)(Args...)<span style="color:#f92672">&gt;</span>
+        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignMethodDetails</span><span style="color:#f92672">&lt;</span>R (C<span style="color:#f92672">::*</span>)(Args...), Fn<span style="color:#f92672">&gt;</span> {
+            <span style="color:#66d9ef">static_assert</span>(std<span style="color:#f92672">::</span>is_base_of<span style="color:#f92672">&lt;</span>C, T<span style="color:#f92672">&gt;::</span>value, <span style="color:#e6db74">&#34;The method belong to its own class or a base class&#34;</span>);
+
             <span style="color:#66d9ef">typedef</span> ForeignMethodImpl<span style="color:#f92672">&lt;</span>Args...<span style="color:#f92672">&gt;</span> ForeignMethodImplType;
 
             <span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>ForeignMethodImplType<span style="color:#f92672">&gt;</span> make(std<span style="color:#f92672">::</span>string name) {
                 <span style="color:#66d9ef">auto</span> signature <span style="color:#f92672">=</span> ForeignMethodImplType<span style="color:#f92672">::</span>generateSignature(name);
-                <span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span>R, T, Args...<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
+                <span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span>R, C, Args...<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
                 name <span style="color:#f92672">=</span> name <span style="color:#f92672">+</span> detail<span style="color:#f92672">::</span>generateNameArgs<span style="color:#f92672">&lt;</span>Args...<span style="color:#f92672">&gt;</span>();
                 <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>ForeignMethodImplType<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>move(name), std<span style="color:#f92672">::</span>move(signature), p, false);
             }
@@ -611,18 +620,20 @@ https://github.com/alex-shpak/hugo-book
             <span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>ForeignMethodImplType<span style="color:#f92672">&gt;</span> make(<span style="color:#66d9ef">const</span> ForeignMethodOperator op) {
                 <span style="color:#66d9ef">auto</span> signature <span style="color:#f92672">=</span> ForeignMethodImplType<span style="color:#f92672">::</span>generateSignature(op);
                 <span style="color:#66d9ef">auto</span> name <span style="color:#f92672">=</span> ForeignMethodImplType<span style="color:#f92672">::</span>generateName(op);
-                <span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span>R, T, Args...<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
+                <span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span>R, C, Args...<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
                 <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>ForeignMethodImplType<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>move(name), std<span style="color:#f92672">::</span>move(signature), p, false);
             }
         };
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, <span style="color:#66d9ef">typename</span>... Args, R (T<span style="color:#f92672">::*</span>Fn)(Args...) <span style="color:#66d9ef">const</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignMethodDetails</span><span style="color:#f92672">&lt;</span>R (T<span style="color:#f92672">::*</span>)(Args...) <span style="color:#66d9ef">const</span>, Fn<span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, <span style="color:#66d9ef">typename</span> C, <span style="color:#66d9ef">typename</span>... Args, R (C<span style="color:#f92672">::*</span>Fn)(Args...) <span style="color:#66d9ef">const</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignMethodDetails</span><span style="color:#f92672">&lt;</span>R (C<span style="color:#f92672">::*</span>)(Args...) <span style="color:#66d9ef">const</span>, Fn<span style="color:#f92672">&gt;</span> {
+            <span style="color:#66d9ef">static_assert</span>(std<span style="color:#f92672">::</span>is_base_of<span style="color:#f92672">&lt;</span>C, T<span style="color:#f92672">&gt;::</span>value, <span style="color:#e6db74">&#34;The method belong to its own class or a base class&#34;</span>);
+
             <span style="color:#66d9ef">typedef</span> ForeignMethodImpl<span style="color:#f92672">&lt;</span>Args...<span style="color:#f92672">&gt;</span> ForeignMethodImplType;
 
             <span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>ForeignMethodImplType<span style="color:#f92672">&gt;</span> make(std<span style="color:#f92672">::</span>string name) {
                 <span style="color:#66d9ef">auto</span> signature <span style="color:#f92672">=</span> ForeignMethodImplType<span style="color:#f92672">::</span>generateSignature(name);
-                <span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span>R, T, Args...<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
+                <span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span>R, C, Args...<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
                 name <span style="color:#f92672">=</span> name <span style="color:#f92672">+</span> detail<span style="color:#f92672">::</span>generateNameArgs<span style="color:#f92672">&lt;</span>Args...<span style="color:#f92672">&gt;</span>();
                 <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>ForeignMethodImplType<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>move(name), std<span style="color:#f92672">::</span>move(signature), p, false);
             }
@@ -630,7 +641,7 @@ https://github.com/alex-shpak/hugo-book
             <span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>ForeignMethodImplType<span style="color:#f92672">&gt;</span> make(<span style="color:#66d9ef">const</span> ForeignMethodOperator op) {
                 <span style="color:#66d9ef">auto</span> signature <span style="color:#f92672">=</span> ForeignMethodImplType<span style="color:#f92672">::</span>generateSignature(op);
                 <span style="color:#66d9ef">auto</span> name <span style="color:#f92672">=</span> ForeignMethodImplType<span style="color:#f92672">::</span>generateName(op);
-                <span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span>R, T, Args...<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
+                <span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span>R, C, Args...<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
                 <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>ForeignMethodImplType<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>move(name), std<span style="color:#f92672">::</span>move(signature), p, false);
             }
         };
@@ -656,26 +667,32 @@ https://github.com/alex-shpak/hugo-book
             }
         };
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, V T<span style="color:#f92672">::*</span>Ptr<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignVarDetails</span> {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, <span style="color:#66d9ef">typename</span> C, V C<span style="color:#f92672">::*</span>Ptr<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignVarDetails</span> {
+            <span style="color:#66d9ef">static_assert</span>(std<span style="color:#f92672">::</span>is_base_of<span style="color:#f92672">&lt;</span>C, T<span style="color:#f92672">&gt;::</span>value, <span style="color:#e6db74">&#34;The variable belong to its own class or a base class&#34;</span>);
+
             <span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>ForeignProp<span style="color:#f92672">&gt;</span> make(std<span style="color:#f92672">::</span>string name, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> readonly) {
-                <span style="color:#66d9ef">auto</span> s <span style="color:#f92672">=</span> readonly <span style="color:#f92672">?</span> <span style="color:#66d9ef">nullptr</span> <span style="color:#f92672">:</span> detail<span style="color:#f92672">::</span>ForeignPropCaller<span style="color:#f92672">&lt;</span>T, V, Ptr<span style="color:#f92672">&gt;::</span>setter;
-                <span style="color:#66d9ef">auto</span> g <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignPropCaller<span style="color:#f92672">&lt;</span>T, V, Ptr<span style="color:#f92672">&gt;::</span>getter;
+                <span style="color:#66d9ef">auto</span> s <span style="color:#f92672">=</span> readonly <span style="color:#f92672">?</span> <span style="color:#66d9ef">nullptr</span> <span style="color:#f92672">:</span> detail<span style="color:#f92672">::</span>ForeignPropCaller<span style="color:#f92672">&lt;</span>C, V, Ptr<span style="color:#f92672">&gt;::</span>setter;
+                <span style="color:#66d9ef">auto</span> g <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignPropCaller<span style="color:#f92672">&lt;</span>C, V, Ptr<span style="color:#f92672">&gt;::</span>getter;
                 <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>ForeignProp<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>move(name), g, s, false);
             }
         };
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, V T<span style="color:#f92672">::*</span>Ptr<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignVarReadonlyDetails</span> {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, <span style="color:#66d9ef">typename</span> C, V C<span style="color:#f92672">::*</span>Ptr<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignVarReadonlyDetails</span> {
+            <span style="color:#66d9ef">static_assert</span>(std<span style="color:#f92672">::</span>is_base_of<span style="color:#f92672">&lt;</span>C, T<span style="color:#f92672">&gt;::</span>value, <span style="color:#e6db74">&#34;The variable belong to its own class or a base class&#34;</span>);
+
             <span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>ForeignProp<span style="color:#f92672">&gt;</span> make(std<span style="color:#f92672">::</span>string name, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> readonly) {
-                <span style="color:#66d9ef">auto</span> g <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignPropCaller<span style="color:#f92672">&lt;</span>T, V, Ptr<span style="color:#f92672">&gt;::</span>getter;
+                <span style="color:#66d9ef">auto</span> g <span style="color:#f92672">=</span> detail<span style="color:#f92672">::</span>ForeignPropCaller<span style="color:#f92672">&lt;</span>C, V, Ptr<span style="color:#f92672">&gt;::</span>getter;
                 <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>ForeignProp<span style="color:#f92672">&gt;</span>(std<span style="color:#f92672">::</span>move(name), g, <span style="color:#66d9ef">nullptr</span>, false);
             }
         };
 
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignSetterDetails</span>;
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, <span style="color:#66d9ef">void</span> (T<span style="color:#f92672">::*</span>Fn)(V)<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignSetterDetails</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span> (T<span style="color:#f92672">::*</span>)(V), Fn<span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> V, <span style="color:#66d9ef">typename</span> C, <span style="color:#66d9ef">void</span> (C<span style="color:#f92672">::*</span>Fn)(V)<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignSetterDetails</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span> (C<span style="color:#f92672">::*</span>)(V), Fn<span style="color:#f92672">&gt;</span> {
+            <span style="color:#66d9ef">static_assert</span>(std<span style="color:#f92672">::</span>is_base_of<span style="color:#f92672">&lt;</span>C, T<span style="color:#f92672">&gt;::</span>value, <span style="color:#e6db74">&#34;The setter must belong to its own class or a base class&#34;</span>);
+
             <span style="color:#66d9ef">static</span> WrenForeignMethodFn <span style="color:#a6e22e">method</span>() {
-                <span style="color:#66d9ef">return</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span>, T, V<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
+                <span style="color:#66d9ef">return</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span>, C, V<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
             }
         };
 
@@ -689,15 +706,19 @@ https://github.com/alex-shpak/hugo-book
 
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Signature, Signature signature<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignGetterDetails</span>;
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, R (T<span style="color:#f92672">::*</span>Fn)()<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignGetterDetails</span><span style="color:#f92672">&lt;</span>R (T<span style="color:#f92672">::*</span>)(), Fn<span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, <span style="color:#66d9ef">typename</span> C, R (C<span style="color:#f92672">::*</span>Fn)()<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignGetterDetails</span><span style="color:#f92672">&lt;</span>R (C<span style="color:#f92672">::*</span>)(), Fn<span style="color:#f92672">&gt;</span> {
+            <span style="color:#66d9ef">static_assert</span>(std<span style="color:#f92672">::</span>is_base_of<span style="color:#f92672">&lt;</span>C, T<span style="color:#f92672">&gt;::</span>value, <span style="color:#e6db74">&#34;The getter must belong to its own class or a base class&#34;</span>);
+
             <span style="color:#66d9ef">static</span> WrenForeignMethodFn <span style="color:#a6e22e">method</span>() {
-                <span style="color:#66d9ef">return</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span>R, T<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
+                <span style="color:#66d9ef">return</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span>R, C<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
             }
         };
 
-        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, R (T<span style="color:#f92672">::*</span>Fn)() <span style="color:#66d9ef">const</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignGetterDetails</span><span style="color:#f92672">&lt;</span>R (T<span style="color:#f92672">::*</span>)() <span style="color:#66d9ef">const</span>, Fn<span style="color:#f92672">&gt;</span> {
+        <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R, <span style="color:#66d9ef">typename</span> C, R (C<span style="color:#f92672">::*</span>Fn)() <span style="color:#66d9ef">const</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ForeignGetterDetails</span><span style="color:#f92672">&lt;</span>R (C<span style="color:#f92672">::*</span>)() <span style="color:#66d9ef">const</span>, Fn<span style="color:#f92672">&gt;</span> {
+            <span style="color:#66d9ef">static_assert</span>(std<span style="color:#f92672">::</span>is_base_of<span style="color:#f92672">&lt;</span>C, T<span style="color:#f92672">&gt;::</span>value, <span style="color:#e6db74">&#34;The getter must belong to its own class or a base class&#34;</span>);
+
             <span style="color:#66d9ef">static</span> WrenForeignMethodFn <span style="color:#a6e22e">method</span>() {
-                <span style="color:#66d9ef">return</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span>R, T<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
+                <span style="color:#66d9ef">return</span> detail<span style="color:#f92672">::</span>ForeignMethodCaller<span style="color:#f92672">&lt;</span>R, C<span style="color:#f92672">&gt;::</span><span style="color:#66d9ef">template</span> call<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>;
             }
         };
 
@@ -744,13 +765,15 @@ https://github.com/alex-shpak/hugo-book
 
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Var<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> var(std<span style="color:#f92672">::</span>string name) {
             <span style="color:#66d9ef">using</span> R <span style="color:#f92672">=</span> <span style="color:#66d9ef">typename</span> detail<span style="color:#f92672">::</span>GetPointerType<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Var)<span style="color:#f92672">&gt;::</span>type;
-            <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> ForeignVarDetails<span style="color:#f92672">&lt;</span>R, Var<span style="color:#f92672">&gt;::</span>make(std<span style="color:#f92672">::</span>move(name), false);
+            <span style="color:#66d9ef">using</span> C <span style="color:#f92672">=</span> <span style="color:#66d9ef">typename</span> detail<span style="color:#f92672">::</span>GetVarTraits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Var), Var<span style="color:#f92672">&gt;::</span>klass;
+            <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> ForeignVarDetails<span style="color:#f92672">&lt;</span>R, C, Var<span style="color:#f92672">&gt;::</span>make(std<span style="color:#f92672">::</span>move(name), false);
             props.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
         }
 
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Var<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> varReadonly(std<span style="color:#f92672">::</span>string name) {
             <span style="color:#66d9ef">using</span> R <span style="color:#f92672">=</span> <span style="color:#66d9ef">typename</span> detail<span style="color:#f92672">::</span>GetPointerType<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Var)<span style="color:#f92672">&gt;::</span>type;
-            <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> ForeignVarReadonlyDetails<span style="color:#f92672">&lt;</span>R, Var<span style="color:#f92672">&gt;::</span>make(std<span style="color:#f92672">::</span>move(name), true);
+            <span style="color:#66d9ef">using</span> C <span style="color:#f92672">=</span> <span style="color:#66d9ef">typename</span> detail<span style="color:#f92672">::</span>GetVarTraits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(Var), Var<span style="color:#f92672">&gt;::</span>klass;
+            <span style="color:#66d9ef">auto</span> ptr <span style="color:#f92672">=</span> ForeignVarReadonlyDetails<span style="color:#f92672">&lt;</span>R, C, Var<span style="color:#f92672">&gt;::</span>make(std<span style="color:#f92672">::</span>move(name), true);
             props.insert(std<span style="color:#f92672">::</span>make_pair(ptr<span style="color:#f92672">-&gt;</span>getName(), std<span style="color:#f92672">::</span>move(ptr)));
         }
 
@@ -782,7 +805,7 @@ https://github.com/alex-shpak/hugo-book
     };
 } <span style="color:#75715e">// namespace wrenbind17
 </span></code></pre></div><hr>
-<p>Updated on 28 December 2020 at 15:45:23 UTC</p>
+<p>Updated on 28 February 2022 at 21:40:10 UTC</p>
 </article>
  
       

@@ -8,13 +8,13 @@
 More&hellip;
 #include &lt;foreign.hpp&gt;
 Inherits from wrenbind17::ForeignKlass
-Public Functions #      Name     template &lt;auto Getter&gt;void propReadonlyExt(std::string name) Add a read-only property to this class via a getter.   template &lt;auto Getter,auto Setter&gt;void propExt(std::string name) Add a read-write property to this class via a getter and a setter.   template &lt;auto Getter&gt;void propReadonly(std::string name) Add a read-onlu property to this class via a getter.">
+Public Functions #      Name      ForeignKlassImpl(std::string name)    ~ForeignKlassImpl() =default    ForeignKlassImpl(const ForeignKlassImpl&lt; T &gt; &amp; other)   virtual void generate(std::ostream &amp; os) const overrideGenerate Wren code for this class.   template &lt;typename&hellip; Args&gt; void ctor(const std::string &amp; name =&quot;new&rdquo;)Add a constructor to this class.">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="wrenbind17::ForeignKlassImpl" />
 <meta property="og:description" content="wrenbind17::ForeignKlassImpl #  Module: Wrenbind17
 More&hellip;
 #include &lt;foreign.hpp&gt;
 Inherits from wrenbind17::ForeignKlass
-Public Functions #      Name     template &lt;auto Getter&gt;void propReadonlyExt(std::string name) Add a read-only property to this class via a getter.   template &lt;auto Getter,auto Setter&gt;void propExt(std::string name) Add a read-write property to this class via a getter and a setter.   template &lt;auto Getter&gt;void propReadonly(std::string name) Add a read-onlu property to this class via a getter." />
+Public Functions #      Name      ForeignKlassImpl(std::string name)    ~ForeignKlassImpl() =default    ForeignKlassImpl(const ForeignKlassImpl&lt; T &gt; &amp; other)   virtual void generate(std::ostream &amp; os) const overrideGenerate Wren code for this class.   template &lt;typename&hellip; Args&gt; void ctor(const std::string &amp; name =&quot;new&rdquo;)Add a constructor to this class." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/" />
 
@@ -22,7 +22,7 @@ Public Functions #      Name     template &lt;auto Getter&gt;void propReadonlyEx
 <link rel="manifest" href="/wrenbind17/manifest.json">
 <link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
-<script defer src="/wrenbind17/en.search.min.fb6c94a8bafbbce8462efda517ac26e7e51ef11540811e551c383e49d4235e1e.js" integrity="sha256-&#43;2yUqLr7vOhGLv2lF6wm5&#43;Ue8RVAgR5VHDg&#43;SdQjXh4="></script>
+<script defer src="/wrenbind17/en.search.min.d821bc4671e09f70c11205fdbb12a428d1e7a206559339bc157cbdc6081e40ca.js" integrity="sha256-2CG8RnHgn3DBEgX9uxKkKNHnogZVkzm8FXy9xggeQMo="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -135,23 +135,23 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#detailed-description">Detailed Description</a></li>
     <li><a href="#public-functions-documentation">Public Functions Documentation</a>
       <ul>
-        <li><a href="#function-propreadonlyext">function propReadonlyExt</a></li>
-        <li><a href="#function-propext">function propExt</a></li>
-        <li><a href="#function-propreadonly">function propReadonly</a></li>
-        <li><a href="#function-prop">function prop</a></li>
-        <li><a href="#function-varreadonly">function varReadonly</a></li>
-        <li><a href="#function-var">function var</a></li>
-        <li><a href="#function-funcstaticext">function funcStaticExt</a></li>
-        <li><a href="#function-funcstatic">function funcStatic</a></li>
-        <li><a href="#function-funcext">function funcExt</a></li>
-        <li><a href="#function-funcext-1">function funcExt</a></li>
-        <li><a href="#function-func">function func</a></li>
-        <li><a href="#function-func-1">function func</a></li>
-        <li><a href="#function-ctor">function ctor</a></li>
-        <li><a href="#function-generate">function generate</a></li>
         <li><a href="#function-foreignklassimpl">function ForeignKlassImpl</a></li>
         <li><a href="#function-foreignklassimpl-1">function ~ForeignKlassImpl</a></li>
         <li><a href="#function-foreignklassimpl-2">function ForeignKlassImpl</a></li>
+        <li><a href="#function-generate">function generate</a></li>
+        <li><a href="#function-ctor">function ctor</a></li>
+        <li><a href="#function-func">function func</a></li>
+        <li><a href="#function-func-1">function func</a></li>
+        <li><a href="#function-funcext">function funcExt</a></li>
+        <li><a href="#function-funcext-1">function funcExt</a></li>
+        <li><a href="#function-funcstatic">function funcStatic</a></li>
+        <li><a href="#function-funcstaticext">function funcStaticExt</a></li>
+        <li><a href="#function-var">function var</a></li>
+        <li><a href="#function-varreadonly">function varReadonly</a></li>
+        <li><a href="#function-prop">function prop</a></li>
+        <li><a href="#function-propreadonly">function propReadonly</a></li>
+        <li><a href="#function-propext">function propExt</a></li>
+        <li><a href="#function-propreadonlyext">function propReadonlyExt</a></li>
       </ul>
     </li>
   </ul>
@@ -186,64 +186,8 @@ https://github.com/alex-shpak/hugo-book
 </thead>
 <tbody>
 <tr>
-<td>template &lt;auto Getter&gt;<!-- raw HTML omitted -->void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-propreadonlyext">propReadonlyExt</a></strong>(std::string name) <!-- raw HTML omitted -->Add a read-only property to this class via a getter.</td>
-</tr>
-<tr>
-<td>template &lt;auto Getter,auto Setter&gt;<!-- raw HTML omitted -->void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-propext">propExt</a></strong>(std::string name) <!-- raw HTML omitted -->Add a read-write property to this class via a getter and a setter.</td>
-</tr>
-<tr>
-<td>template &lt;auto Getter&gt;<!-- raw HTML omitted -->void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-propreadonly">propReadonly</a></strong>(std::string name) <!-- raw HTML omitted -->Add a read-onlu property to this class via a getter.</td>
-</tr>
-<tr>
-<td>template &lt;auto Getter,auto Setter&gt;<!-- raw HTML omitted -->void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-prop">prop</a></strong>(std::string name) <!-- raw HTML omitted -->Add a read-write property to this class via a getter and a setter.</td>
-</tr>
-<tr>
-<td>template &lt;auto Var&gt;<!-- raw HTML omitted -->void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-varreadonly">varReadonly</a></strong>(std::string name) <!-- raw HTML omitted -->Add a read-only variable to this class.</td>
-</tr>
-<tr>
-<td>template &lt;auto Var&gt;<!-- raw HTML omitted -->void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-var">var</a></strong>(std::string name) <!-- raw HTML omitted -->Add a read-write variable to this class.</td>
-</tr>
-<tr>
-<td>template &lt;auto Fn&gt;<!-- raw HTML omitted -->void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-funcstaticext">funcStaticExt</a></strong>(std::string name) <!-- raw HTML omitted -->Add a static function to this class that exists outside of the class.</td>
-</tr>
-<tr>
-<td>template &lt;auto Fn&gt;<!-- raw HTML omitted -->void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-funcstatic">funcStatic</a></strong>(std::string name) <!-- raw HTML omitted -->Add a static function to this class.</td>
-</tr>
-<tr>
-<td>template &lt;auto Fn&gt;<!-- raw HTML omitted -->void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-funcext">funcExt</a></strong>(const <a href="/wrenbind17/namespaces/namespacewrenbind17/#enum-foreignmethodoperator">ForeignMethodOperator</a> name) <!-- raw HTML omitted -->Add a member operator via a static function that exists outside of the class.</td>
-</tr>
-<tr>
-<td>template &lt;auto Fn&gt;<!-- raw HTML omitted -->void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-funcext">funcExt</a></strong>(std::string name) <!-- raw HTML omitted -->Add a member function via a static function.</td>
-</tr>
-<tr>
-<td>template &lt;auto Fn&gt;<!-- raw HTML omitted -->void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-func">func</a></strong>(const <a href="/wrenbind17/namespaces/namespacewrenbind17/#enum-foreignmethodoperator">ForeignMethodOperator</a> name) <!-- raw HTML omitted -->Add a member operator function to this class that exists outside of the class.</td>
-</tr>
-<tr>
-<td>template &lt;auto Fn&gt;<!-- raw HTML omitted -->void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-func">func</a></strong>(std::string name) <!-- raw HTML omitted -->Add a member function to this class.</td>
-</tr>
-<tr>
-<td>template &lt;typename&hellip; Args&gt;<!-- raw HTML omitted -->void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-ctor">ctor</a></strong>(const std::string &amp; name =&quot;new&rdquo;) <!-- raw HTML omitted -->Add a constructor to this class.</td>
-</tr>
-<tr>
-<td>virtual void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-generate">generate</a></strong>(std::ostream &amp; os) const override <!-- raw HTML omitted -->Generate Wren code for this class.</td>
-</tr>
-<tr>
 <td></td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-foreignklassimpl">ForeignKlassImpl</a></strong>(const <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/">ForeignKlassImpl</a>&lt; T &gt; &amp; other)</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-foreignklassimpl">ForeignKlassImpl</a></strong>(std::string name)</td>
 </tr>
 <tr>
 <td></td>
@@ -251,7 +195,63 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 <tr>
 <td></td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-foreignklassimpl">ForeignKlassImpl</a></strong>(std::string name)</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-foreignklassimpl">ForeignKlassImpl</a></strong>(const <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/">ForeignKlassImpl</a>&lt; T &gt; &amp; other)</td>
+</tr>
+<tr>
+<td>virtual void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-generate">generate</a></strong>(std::ostream &amp; os) const override<!-- raw HTML omitted -->Generate Wren code for this class.</td>
+</tr>
+<tr>
+<td>template &lt;typename&hellip; Args&gt; <!-- raw HTML omitted -->void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-ctor">ctor</a></strong>(const std::string &amp; name =&quot;new&rdquo;)<!-- raw HTML omitted -->Add a constructor to this class.</td>
+</tr>
+<tr>
+<td>template &lt;auto Fn&gt; <!-- raw HTML omitted -->void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-func">func</a></strong>(std::string name)<!-- raw HTML omitted -->Add a member function to this class.</td>
+</tr>
+<tr>
+<td>template &lt;auto Fn&gt; <!-- raw HTML omitted -->void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-func">func</a></strong>(const <a href="/wrenbind17/modules/group__wrenbind17/#enum-foreignmethodoperator">ForeignMethodOperator</a> name)<!-- raw HTML omitted -->Add a member operator function to this class that exists outside of the class.</td>
+</tr>
+<tr>
+<td>template &lt;auto Fn&gt; <!-- raw HTML omitted -->void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-funcext">funcExt</a></strong>(std::string name)<!-- raw HTML omitted -->Add a member function via a static function.</td>
+</tr>
+<tr>
+<td>template &lt;auto Fn&gt; <!-- raw HTML omitted -->void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-funcext">funcExt</a></strong>(const <a href="/wrenbind17/modules/group__wrenbind17/#enum-foreignmethodoperator">ForeignMethodOperator</a> name)<!-- raw HTML omitted -->Add a member operator via a static function that exists outside of the class.</td>
+</tr>
+<tr>
+<td>template &lt;auto Fn&gt; <!-- raw HTML omitted -->void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-funcstatic">funcStatic</a></strong>(std::string name)<!-- raw HTML omitted -->Add a static function to this class.</td>
+</tr>
+<tr>
+<td>template &lt;auto Fn&gt; <!-- raw HTML omitted -->void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-funcstaticext">funcStaticExt</a></strong>(std::string name)<!-- raw HTML omitted -->Add a static function to this class that exists outside of the class.</td>
+</tr>
+<tr>
+<td>template &lt;auto Var&gt; <!-- raw HTML omitted -->void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-var">var</a></strong>(std::string name)<!-- raw HTML omitted -->Add a read-write variable to this class.</td>
+</tr>
+<tr>
+<td>template &lt;auto Var&gt; <!-- raw HTML omitted -->void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-varreadonly">varReadonly</a></strong>(std::string name)<!-- raw HTML omitted -->Add a read-only variable to this class.</td>
+</tr>
+<tr>
+<td>template &lt;auto Getter,auto Setter&gt; <!-- raw HTML omitted -->void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-prop">prop</a></strong>(std::string name)<!-- raw HTML omitted -->Add a read-write property to this class via a getter and a setter.</td>
+</tr>
+<tr>
+<td>template &lt;auto Getter&gt; <!-- raw HTML omitted -->void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-propreadonly">propReadonly</a></strong>(std::string name)<!-- raw HTML omitted -->Add a read-onlu property to this class via a getter.</td>
+</tr>
+<tr>
+<td>template &lt;auto Getter,auto Setter&gt; <!-- raw HTML omitted -->void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-propext">propExt</a></strong>(std::string name)<!-- raw HTML omitted -->Add a read-write property to this class via a getter and a setter.</td>
+</tr>
+<tr>
+<td>template &lt;auto Getter&gt; <!-- raw HTML omitted -->void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-propreadonlyext">propReadonlyExt</a></strong>(std::string name)<!-- raw HTML omitted -->Add a read-only property to this class via a getter.</td>
 </tr>
 </tbody>
 </table>
@@ -269,28 +269,8 @@ https://github.com/alex-shpak/hugo-book
 </thead>
 <tbody>
 <tr>
-<td>WrenForeignClassMethods &amp;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-getallocators">getAllocators</a></strong>() <!-- raw HTML omitted -->Returns a struct with pointers to the allocator and deallocator.</td>
-</tr>
-<tr>
-<td>const std::string &amp;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-getname">getName</a></strong>() const <!-- raw HTML omitted -->Returns the name of this foreign class.</td>
-</tr>
-<tr>
-<td>WrenForeignMethodFn</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-findsignature">findSignature</a></strong>(const std::string &amp; signature, const bool isStatic) <!-- raw HTML omitted -->Finds a function based on the signature.</td>
-</tr>
-<tr>
-<td><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop/">ForeignProp</a> &amp;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-findprop">findProp</a></strong>(const std::string &amp; name, const bool isStatic) <!-- raw HTML omitted -->Looks up a foreign property that belongs to this class.</td>
-</tr>
-<tr>
-<td><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">ForeignMethod</a> &amp;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-findfunc">findFunc</a></strong>(const std::string &amp; name, const bool isStatic) <!-- raw HTML omitted -->Looks up a foreign function that belongs to this class.</td>
-</tr>
-<tr>
 <td></td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-foreignklass">ForeignKlass</a></strong>(const <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/">ForeignKlass</a> &amp; other)</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-foreignklass">ForeignKlass</a></strong>(std::string name)</td>
 </tr>
 <tr>
 <td>virtual</td>
@@ -298,7 +278,27 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 <tr>
 <td></td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-foreignklass">ForeignKlass</a></strong>(std::string name)</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-foreignklass">ForeignKlass</a></strong>(const <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/">ForeignKlass</a> &amp; other)</td>
+</tr>
+<tr>
+<td><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">ForeignMethod</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-findfunc">findFunc</a></strong>(const std::string &amp; name, const bool isStatic)<!-- raw HTML omitted -->Looks up a foreign function that belongs to this class.</td>
+</tr>
+<tr>
+<td><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop/">ForeignProp</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-findprop">findProp</a></strong>(const std::string &amp; name, const bool isStatic)<!-- raw HTML omitted -->Looks up a foreign property that belongs to this class.</td>
+</tr>
+<tr>
+<td>WrenForeignMethodFn</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-findsignature">findSignature</a></strong>(const std::string &amp; signature, const bool isStatic)<!-- raw HTML omitted -->Finds a function based on the signature.</td>
+</tr>
+<tr>
+<td>const std::string &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-getname">getName</a></strong>() const<!-- raw HTML omitted -->Returns the name of this foreign class.</td>
+</tr>
+<tr>
+<td>WrenForeignClassMethods &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-getallocators">getAllocators</a></strong>()<!-- raw HTML omitted -->Returns a struct with pointers to the allocator and deallocator.</td>
 </tr>
 </tbody>
 </table>
@@ -312,24 +312,24 @@ https://github.com/alex-shpak/hugo-book
 </thead>
 <tbody>
 <tr>
-<td>WrenForeignClassMethods</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#variable-allocators">allocators</a></strong></td>
-</tr>
-<tr>
-<td>std::unordered_map&lt; std::string, std::unique_ptr&lt; <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop/">ForeignProp</a> &gt; &gt;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#variable-props">props</a></strong></td>
-</tr>
-<tr>
-<td>std::unordered_map&lt; std::string, std::unique_ptr&lt; <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">ForeignMethod</a> &gt; &gt;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#variable-methods">methods</a></strong></td>
+<td>std::string</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#variable-name">name</a></strong></td>
 </tr>
 <tr>
 <td>std::string</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#variable-ctordef">ctorDef</a></strong></td>
 </tr>
 <tr>
-<td>std::string</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#variable-name">name</a></strong></td>
+<td>std::unordered_map&lt; std::string, std::unique_ptr&lt; <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">ForeignMethod</a> &gt; &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#variable-methods">methods</a></strong></td>
+</tr>
+<tr>
+<td>std::unordered_map&lt; std::string, std::unique_ptr&lt; <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop/">ForeignProp</a> &gt; &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#variable-props">props</a></strong></td>
+</tr>
+<tr>
+<td>WrenForeignClassMethods</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#variable-allocators">allocators</a></strong></td>
 </tr>
 </tbody>
 </table>
@@ -337,32 +337,136 @@ https://github.com/alex-shpak/hugo-book
   Detailed Description
   <a class="anchor" href="#detailed-description">#</a>
 </h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T <span style="color:#f92672">&gt;</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">wrenbind17</span><span style="color:#f92672">::</span>ForeignKlassImpl;
-</code></pre></div><p>Type specific implementation of foreign class</p>
+</code></pre></div><p>@brtief Type specific implementation of foreign class</p>
 <h2 id="public-functions-documentation">
   Public Functions Documentation
   <a class="anchor" href="#public-functions-documentation">#</a>
 </h2>
-<h3 id="function-propreadonlyext">
-  function propReadonlyExt
-  <a class="anchor" href="#function-propreadonlyext">#</a>
+<h3 id="function-foreignklassimpl">
+  function ForeignKlassImpl
+  <a class="anchor" href="#function-foreignklassimpl">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Getter<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> propReadonlyExt(
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> ForeignKlassImpl(
     std<span style="color:#f92672">::</span>string name
 )
-</code></pre></div><p>Add a read-only property to this class via a getter.</p>
-<p><strong>See</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-propreadonly">propReadonly</a></p>
-<p>This essentially creates the same thing as <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-varreadonly">varReadonly()</a> but instead of using pointer to the class field, it uses a static getter. The setter and does not have to belong to the class itself, but must be static function, and must accept the class as a reference as a first parameter.</p>
+</code></pre></div><h3 id="function-foreignklassimpl-1">
+  function ~ForeignKlassImpl
+  <a class="anchor" href="#function-foreignklassimpl-1">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#f92672">~</span>ForeignKlassImpl() <span style="color:#f92672">=</span><span style="color:#66d9ef">default</span>
+</code></pre></div><h3 id="function-foreignklassimpl-2">
+  function ForeignKlassImpl
+  <a class="anchor" href="#function-foreignklassimpl-2">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">ForeignKlassImpl(
+    <span style="color:#66d9ef">const</span> ForeignKlassImpl<span style="color:#f92672">&lt;</span> T <span style="color:#f92672">&gt;</span> <span style="color:#f92672">&amp;</span> other
+)
+</code></pre></div><h3 id="function-generate">
+  function generate
+  <a class="anchor" href="#function-generate">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> generate(
+    std<span style="color:#f92672">::</span>ostream <span style="color:#f92672">&amp;</span> os
+) <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">override</span>
+</code></pre></div><p>Generate Wren code for this class.</p>
+<p><strong>Reimplements</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-generate">wrenbind17::ForeignKlass::generate</a></p>
+<h3 id="function-ctor">
+  function ctor
+  <a class="anchor" href="#function-ctor">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span>... Args<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> ctor(
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;new&#34;</span>
+)
+</code></pre></div><p>Add a constructor to this class.</p>
+<h3 id="function-func">
+  function func
+  <a class="anchor" href="#function-func">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> func(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div><p>Add a member function to this class.</p>
+<p>The number of arguments and what type of arguments this class needs is handled at compile time with metaprogramming. When this C++ function you are adding is called from Wren, it will check the types passed and will match the C++ signature. If the types do not match an exception is thrown that can be handled by Wren as a fiber.</p>
+<p>Example:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
 <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
     Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
-    std<span style="color:#f92672">::</span>string msg;
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bar</span>() {...}
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">baz</span>() <span style="color:#66d9ef">const</span> {...}
 };
 
-<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg fooGetMsg(Foo<span style="color:#f92672">&amp;</span> self) {
-    <span style="color:#66d9ef">return</span> self.msg;
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    ...
+    wren<span style="color:#f92672">::</span>VM vm;
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+    <span style="color:#75715e">// Add class &#34;Foo&#34;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
+
+    <span style="color:#75715e">// Define constructor (you can only specify one constructor)
+</span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
+
+    <span style="color:#75715e">// Add some methods
+</span><span style="color:#75715e"></span>    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>bar<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;bar&#34;</span>);
+    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>baz<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;baz&#34;</span>);
+}
+</code></pre></div><h3 id="function-func-1">
+  function func
+  <a class="anchor" href="#function-func-1">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> func(
+    <span style="color:#66d9ef">const</span> ForeignMethodOperator name
+)
+</code></pre></div><p>Add a member operator function to this class that exists outside of the class.</p>
+<p><strong>See</strong>: <a href="/wrenbind17/modules/group__wrenbind17/#enum-foreignmethodoperator">ForeignMethodOperator</a></p>
+<p>The number of arguments and what type of arguments this class needs is handled at compile time with metaprogramming. When this C++ function you are adding is called from Wren, it will check the types passed and will match the C++ signature. If the types do not match an exception is thrown that can be handled by Wren as a fiber.</p>
+<p>Example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
+    Foo<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">+</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> other) {...}
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    ...
+    wren<span style="color:#f92672">::</span>VM vm;
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+    <span style="color:#75715e">// Add class &#34;Foo&#34;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
+
+    <span style="color:#75715e">// Define constructor (you can only specify one constructor)
+</span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
+
+    <span style="color:#75715e">// Add some methods
+</span><span style="color:#75715e"></span>    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span><span style="color:#f92672">+&gt;</span>(wren<span style="color:#f92672">::</span>ForeignMethodOperator<span style="color:#f92672">::</span>OPERATOR_ADD);
+}
+</code></pre></div><h3 id="function-funcext">
+  function funcExt
+  <a class="anchor" href="#function-funcext">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> funcExt(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div><p>Add a member function via a static function.</p>
+<p>The number of arguments and what type of arguments this class needs is handled at compile time with metaprogramming. When this C++ function you are adding is called from Wren, it will check the types passed and will match the C++ signature. If the types do not match an exception is thrown that can be handled by Wren as a fiber.</p>
+<p>This function does not accept class methods, but instead it uses regular functions that have first parameter as &ldquo;this&rdquo; which is a reference to the class you are adding.</p>
+<p>Example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
+
+    std<span style="color:#f92672">::</span>string message;
+};
+
+<span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>string fooBaz(Foo<span style="color:#f92672">&amp;</span> self, <span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {
+    <span style="color:#66d9ef">return</span> self.message;
 }
 
 <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
@@ -376,8 +480,198 @@ https://github.com/alex-shpak/hugo-book
     <span style="color:#75715e">// Define constructor (you can only specify one constructor)
 </span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
 
+    <span style="color:#75715e">// Add some methods
+</span><span style="color:#75715e"></span>    cls.funcExt<span style="color:#f92672">&lt;&amp;</span>fooBaz<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;bar&#34;</span>);
+}
+</code></pre></div><h3 id="function-funcext-1">
+  function funcExt
+  <a class="anchor" href="#function-funcext-1">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> funcExt(
+    <span style="color:#66d9ef">const</span> ForeignMethodOperator name
+)
+</code></pre></div><p>Add a member operator via a static function that exists outside of the class.</p>
+<p><strong>See</strong>: <a href="/wrenbind17/modules/group__wrenbind17/#enum-foreignmethodoperator">ForeignMethodOperator</a></p>
+<p>Same as funcExt but instead it can accept an operator enumeration.</p>
+<h3 id="function-funcstatic">
+  function funcStatic
+  <a class="anchor" href="#function-funcstatic">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> funcStatic(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div><p>Add a static function to this class.</p>
+<p><strong>See</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-func">func</a></p>
+<p>The number of arguments and what type of arguments this class needs is handled at compile time with metaprogramming. When this C++ function you are adding is called from Wren, it will check the types passed and will match the C++ signature. If the types do not match an exception is thrown that can be handled by Wren as a fiber.</p>
+<p>This only works if the function you are adding is static.</p>
+<p>Example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bar</span>() {...}
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">baz</span>() <span style="color:#66d9ef">const</span> {...}
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    ...
+    wren<span style="color:#f92672">::</span>VM vm;
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+    <span style="color:#75715e">// Add class &#34;Foo&#34;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
+
+    <span style="color:#75715e">// Define constructor (you can only specify one constructor)
+</span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
+
+    <span style="color:#75715e">// Add some methods
+</span><span style="color:#75715e"></span>    cls.funcStatic<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>bar<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;bar&#34;</span>);
+    cls.funcStatic<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>baz<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;baz&#34;</span>);
+}
+</code></pre></div><h3 id="function-funcstaticext">
+  function funcStaticExt
+  <a class="anchor" href="#function-funcstaticext">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> funcStaticExt(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div><p>Add a static function to this class that exists outside of the class.</p>
+<p><strong>See</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-funcstatic">funcStatic</a></p>
+<p>The number of arguments and what type of arguments this class needs is handled at compile time with metaprogramming. When this C++ function you are adding is called from Wren, it will check the types passed and will match the C++ signature. If the types do not match an exception is thrown that can be handled by Wren as a fiber.</p>
+<p>This only works if the function you are adding is static.</p>
+<p>Example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
+};
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fooBar</span>() { ... }
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fooBaz</span>() { ... }
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    ...
+    wren<span style="color:#f92672">::</span>VM vm;
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+    <span style="color:#75715e">// Add class &#34;Foo&#34;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
+
+    <span style="color:#75715e">// Define constructor (you can only specify one constructor)
+</span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
+
+    <span style="color:#75715e">// Add some methods
+</span><span style="color:#75715e"></span>    cls.funcStatic<span style="color:#f92672">&lt;&amp;</span>fooBar<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;bar&#34;</span>);
+    cls.funcStatic<span style="color:#f92672">&lt;&amp;</span>fooBaz<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;baz&#34;</span>);
+}
+</code></pre></div><h3 id="function-var">
+  function var
+  <a class="anchor" href="#function-var">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Var<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> var(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div><p>Add a read-write variable to this class.</p>
+<p>Example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
+
+    std<span style="color:#f92672">::</span>string msg;
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    ...
+    wren<span style="color:#f92672">::</span>VM vm;
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+    <span style="color:#75715e">// Add class &#34;Foo&#34;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
+
+    <span style="color:#75715e">// Define constructor (you can only specify one constructor)
+</span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
+
+    <span style="color:#75715e">// Add class variable as a read write Wren class property
+</span><span style="color:#75715e"></span>    cls.var<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>msg<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;msg&#34;</span>);
+}
+</code></pre></div><h3 id="function-varreadonly">
+  function varReadonly
+  <a class="anchor" href="#function-varreadonly">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Var<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> varReadonly(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div><p>Add a read-only variable to this class.</p>
+<p>This is exactly the same as <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-var">var()</a> but the variable can be only read from Wren. It cannot be reassigned.</p>
+<h3 id="function-prop">
+  function prop
+  <a class="anchor" href="#function-prop">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Getter,
+<span style="color:#66d9ef">auto</span> Setter<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> prop(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div><p>Add a read-write property to this class via a getter and a setter.</p>
+<p>This essentially creates the same thing as <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-var">var()</a> but instead of using pointer to the class field, it uses getter and setter functions.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setMsg</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> getMsg() <span style="color:#66d9ef">const</span> {...}
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    std<span style="color:#f92672">::</span>string msg;
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    ...
+    wren<span style="color:#f92672">::</span>VM vm;
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+    <span style="color:#75715e">// Add class &#34;Foo&#34;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
+
+    <span style="color:#75715e">// Define constructor (you can only specify one constructor)
+</span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
+
+    <span style="color:#75715e">// Add class variable as a read write Wren class property
+</span><span style="color:#75715e"></span>    cls.prop<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>getMsg, <span style="color:#f92672">&amp;</span>Foo<span style="color:#f92672">::</span>setMsg<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;msg&#34;</span>);
+}
+</code></pre></div><h3 id="function-propreadonly">
+  function propReadonly
+  <a class="anchor" href="#function-propreadonly">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Getter<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> propReadonly(
+    std<span style="color:#f92672">::</span>string name
+)
+</code></pre></div><p>Add a read-onlu property to this class via a getter.</p>
+<p>This essentially creates the same thing as <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-varreadonly">varReadonly()</a> but instead of using pointer to the class field, it uses a getter. This property will be read only and cannot be reassigned from Wren.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setMsg</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> getMsg() <span style="color:#66d9ef">const</span> {...}
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    std<span style="color:#f92672">::</span>string msg;
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    ...
+    wren<span style="color:#f92672">::</span>VM vm;
+    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+    <span style="color:#75715e">// Add class &#34;Foo&#34;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
+
+    <span style="color:#75715e">// Define constructor (you can only specify one constructor)
+</span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
+
     <span style="color:#75715e">// Add class variable as a read only Wren class property
-</span><span style="color:#75715e"></span>    cls.propReadonlyExt<span style="color:#f92672">&lt;&amp;</span>fooGetMsg<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;msg&#34;</span>);
+</span><span style="color:#75715e"></span>    cls.propReadonly<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>getMsg<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;msg&#34;</span>);
 }
 </code></pre></div><h3 id="function-propext">
   function propExt
@@ -419,24 +713,26 @@ https://github.com/alex-shpak/hugo-book
     <span style="color:#75715e">// Add class variable as a read write Wren class property
 </span><span style="color:#75715e"></span>    cls.propExt<span style="color:#f92672">&lt;&amp;</span>fooGetMsg, <span style="color:#f92672">&amp;</span>fooSetMsg<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;msg&#34;</span>);
 }
-</code></pre></div><h3 id="function-propreadonly">
-  function propReadonly
-  <a class="anchor" href="#function-propreadonly">#</a>
+</code></pre></div><h3 id="function-propreadonlyext">
+  function propReadonlyExt
+  <a class="anchor" href="#function-propreadonlyext">#</a>
 </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Getter<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> propReadonly(
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> propReadonlyExt(
     std<span style="color:#f92672">::</span>string name
 )
-</code></pre></div><p>Add a read-onlu property to this class via a getter.</p>
-<p>This essentially creates the same thing as <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-varreadonly">varReadonly()</a> but instead of using pointer to the class field, it uses a getter. This property will be read only and cannot be reassigned from Wren.</p>
+</code></pre></div><p>Add a read-only property to this class via a getter.</p>
+<p><strong>See</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-propreadonly">propReadonly</a></p>
+<p>This essentially creates the same thing as <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-varreadonly">varReadonly()</a> but instead of using pointer to the class field, it uses a static getter. The setter and does not have to belong to the class itself, but must be static function, and must accept the class as a reference as a first parameter.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
 <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
     Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
-    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setMsg</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> getMsg() <span style="color:#66d9ef">const</span> {...}
-<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
     std<span style="color:#f92672">::</span>string msg;
 };
+
+<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg fooGetMsg(Foo<span style="color:#f92672">&amp;</span> self) {
+    <span style="color:#66d9ef">return</span> self.msg;
+}
 
 <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
     ...
@@ -450,306 +746,10 @@ https://github.com/alex-shpak/hugo-book
 </span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
 
     <span style="color:#75715e">// Add class variable as a read only Wren class property
-</span><span style="color:#75715e"></span>    cls.propReadonly<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>getMsg<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;msg&#34;</span>);
+</span><span style="color:#75715e"></span>    cls.propReadonlyExt<span style="color:#f92672">&lt;&amp;</span>fooGetMsg<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;msg&#34;</span>);
 }
-</code></pre></div><h3 id="function-prop">
-  function prop
-  <a class="anchor" href="#function-prop">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Getter,
-<span style="color:#66d9ef">auto</span> Setter<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> prop(
-    std<span style="color:#f92672">::</span>string name
-)
-</code></pre></div><p>Add a read-write property to this class via a getter and a setter.</p>
-<p>This essentially creates the same thing as <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-var">var()</a> but instead of using pointer to the class field, it uses getter and setter functions.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-    Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
-    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setMsg</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> getMsg() <span style="color:#66d9ef">const</span> {...}
-<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
-    std<span style="color:#f92672">::</span>string msg;
-};
-
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-    ...
-    wren<span style="color:#f92672">::</span>VM vm;
-    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
-
-    <span style="color:#75715e">// Add class &#34;Foo&#34;
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
-
-    <span style="color:#75715e">// Define constructor (you can only specify one constructor)
-</span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
-
-    <span style="color:#75715e">// Add class variable as a read write Wren class property
-</span><span style="color:#75715e"></span>    cls.prop<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>getMsg, <span style="color:#f92672">&amp;</span>Foo<span style="color:#f92672">::</span>setMsg<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;msg&#34;</span>);
-}
-</code></pre></div><h3 id="function-varreadonly">
-  function varReadonly
-  <a class="anchor" href="#function-varreadonly">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Var<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> varReadonly(
-    std<span style="color:#f92672">::</span>string name
-)
-</code></pre></div><p>Add a read-only variable to this class.</p>
-<p>This is exactly the same as <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-var">var()</a> but the variable can be only read from Wren. It cannot be reassigned.</p>
-<h3 id="function-var">
-  function var
-  <a class="anchor" href="#function-var">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Var<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> var(
-    std<span style="color:#f92672">::</span>string name
-)
-</code></pre></div><p>Add a read-write variable to this class.</p>
-<p>Example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-    Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
-
-    std<span style="color:#f92672">::</span>string msg;
-};
-
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-    ...
-    wren<span style="color:#f92672">::</span>VM vm;
-    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
-
-    <span style="color:#75715e">// Add class &#34;Foo&#34;
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
-
-    <span style="color:#75715e">// Define constructor (you can only specify one constructor)
-</span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
-
-    <span style="color:#75715e">// Add class variable as a read write Wren class property
-</span><span style="color:#75715e"></span>    cls.var<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>msg<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;msg&#34;</span>);
-}
-</code></pre></div><h3 id="function-funcstaticext">
-  function funcStaticExt
-  <a class="anchor" href="#function-funcstaticext">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> funcStaticExt(
-    std<span style="color:#f92672">::</span>string name
-)
-</code></pre></div><p>Add a static function to this class that exists outside of the class.</p>
-<p><strong>See</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-funcstatic">funcStatic</a></p>
-<p>The number of arguments and what type of arguments this class needs is handled at compile time with metaprogramming. When this C++ function you are adding is called from Wren, it will check the types passed and will match the C++ signature. If the types do not match an exception is thrown that can be handled by Wren as a fiber.</p>
-<p>This only works if the function you are adding is static.</p>
-<p>Example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-    Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
-};
-
-<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fooBar</span>() { ... }
-<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fooBaz</span>() { ... }
-
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-    ...
-    wren<span style="color:#f92672">::</span>VM vm;
-    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
-
-    <span style="color:#75715e">// Add class &#34;Foo&#34;
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
-
-    <span style="color:#75715e">// Define constructor (you can only specify one constructor)
-</span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
-
-    <span style="color:#75715e">// Add some methods
-</span><span style="color:#75715e"></span>    cls.funcStatic<span style="color:#f92672">&lt;&amp;</span>fooBar<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;bar&#34;</span>);
-    cls.funcStatic<span style="color:#f92672">&lt;&amp;</span>fooBaz<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;baz&#34;</span>);
-}
-</code></pre></div><h3 id="function-funcstatic">
-  function funcStatic
-  <a class="anchor" href="#function-funcstatic">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> funcStatic(
-    std<span style="color:#f92672">::</span>string name
-)
-</code></pre></div><p>Add a static function to this class.</p>
-<p><strong>See</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/#function-func">func</a></p>
-<p>The number of arguments and what type of arguments this class needs is handled at compile time with metaprogramming. When this C++ function you are adding is called from Wren, it will check the types passed and will match the C++ signature. If the types do not match an exception is thrown that can be handled by Wren as a fiber.</p>
-<p>This only works if the function you are adding is static.</p>
-<p>Example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-    Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
-    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bar</span>() {...}
-    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">baz</span>() <span style="color:#66d9ef">const</span> {...}
-};
-
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-    ...
-    wren<span style="color:#f92672">::</span>VM vm;
-    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
-
-    <span style="color:#75715e">// Add class &#34;Foo&#34;
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
-
-    <span style="color:#75715e">// Define constructor (you can only specify one constructor)
-</span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
-
-    <span style="color:#75715e">// Add some methods
-</span><span style="color:#75715e"></span>    cls.funcStatic<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>bar<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;bar&#34;</span>);
-    cls.funcStatic<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>baz<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;baz&#34;</span>);
-}
-</code></pre></div><h3 id="function-funcext">
-  function funcExt
-  <a class="anchor" href="#function-funcext">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> funcExt(
-    <span style="color:#66d9ef">const</span> ForeignMethodOperator name
-)
-</code></pre></div><p>Add a member operator via a static function that exists outside of the class.</p>
-<p><strong>See</strong>: <a href="/wrenbind17/namespaces/namespacewrenbind17/#enum-foreignmethodoperator">ForeignMethodOperator</a></p>
-<p>Same as funcExt but instead it can accept an operator enumeration.</p>
-<h3 id="function-funcext-1">
-  function funcExt
-  <a class="anchor" href="#function-funcext-1">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> funcExt(
-    std<span style="color:#f92672">::</span>string name
-)
-</code></pre></div><p>Add a member function via a static function.</p>
-<p>The number of arguments and what type of arguments this class needs is handled at compile time with metaprogramming. When this C++ function you are adding is called from Wren, it will check the types passed and will match the C++ signature. If the types do not match an exception is thrown that can be handled by Wren as a fiber.</p>
-<p>This function does not accept class methods, but instead it uses regular functions that have first parameter as &ldquo;this&rdquo; which is a reference to the class you are adding.</p>
-<p>Example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-    Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
-
-    std<span style="color:#f92672">::</span>string message;
-};
-
-<span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>string fooBaz(Foo<span style="color:#f92672">&amp;</span> self, <span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {
-    <span style="color:#66d9ef">return</span> self.message;
-}
-
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-    ...
-    wren<span style="color:#f92672">::</span>VM vm;
-    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
-
-    <span style="color:#75715e">// Add class &#34;Foo&#34;
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
-
-    <span style="color:#75715e">// Define constructor (you can only specify one constructor)
-</span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
-
-    <span style="color:#75715e">// Add some methods
-</span><span style="color:#75715e"></span>    cls.funcExt<span style="color:#f92672">&lt;&amp;</span>fooBaz<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;bar&#34;</span>);
-}
-</code></pre></div><h3 id="function-func">
-  function func
-  <a class="anchor" href="#function-func">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> func(
-    <span style="color:#66d9ef">const</span> ForeignMethodOperator name
-)
-</code></pre></div><p>Add a member operator function to this class that exists outside of the class.</p>
-<p><strong>See</strong>: <a href="/wrenbind17/namespaces/namespacewrenbind17/#enum-foreignmethodoperator">ForeignMethodOperator</a></p>
-<p>The number of arguments and what type of arguments this class needs is handled at compile time with metaprogramming. When this C++ function you are adding is called from Wren, it will check the types passed and will match the C++ signature. If the types do not match an exception is thrown that can be handled by Wren as a fiber.</p>
-<p>Example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-    Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
-    Foo<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">+</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> other) {...}
-};
-
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-    ...
-    wren<span style="color:#f92672">::</span>VM vm;
-    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
-
-    <span style="color:#75715e">// Add class &#34;Foo&#34;
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
-
-    <span style="color:#75715e">// Define constructor (you can only specify one constructor)
-</span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
-
-    <span style="color:#75715e">// Add some methods
-</span><span style="color:#75715e"></span>    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span><span style="color:#f92672">+&gt;</span>(wren<span style="color:#f92672">::</span>ForeignMethodOperator<span style="color:#f92672">::</span>OPERATOR_ADD);
-}
-</code></pre></div><h3 id="function-func-1">
-  function func
-  <a class="anchor" href="#function-func-1">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> Fn<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> func(
-    std<span style="color:#f92672">::</span>string name
-)
-</code></pre></div><p>Add a member function to this class.</p>
-<p>The number of arguments and what type of arguments this class needs is handled at compile time with metaprogramming. When this C++ function you are adding is called from Wren, it will check the types passed and will match the C++ signature. If the types do not match an exception is thrown that can be handled by Wren as a fiber.</p>
-<p>Example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-    Foo(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> msg) {...}
-    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bar</span>() {...}
-    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">baz</span>() <span style="color:#66d9ef">const</span> {...}
-};
-
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-    ...
-    wren<span style="color:#f92672">::</span>VM vm;
-    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
-
-    <span style="color:#75715e">// Add class &#34;Foo&#34;
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>Foo<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;Foo&#34;</span>);
-
-    <span style="color:#75715e">// Define constructor (you can only specify one constructor)
-</span><span style="color:#75715e"></span>    cls.ctor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&gt;</span>();
-
-    <span style="color:#75715e">// Add some methods
-</span><span style="color:#75715e"></span>    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>bar<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;bar&#34;</span>);
-    cls.func<span style="color:#f92672">&lt;&amp;</span>Foo<span style="color:#f92672">::</span>baz<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;baz&#34;</span>);
-}
-</code></pre></div><h3 id="function-ctor">
-  function ctor
-  <a class="anchor" href="#function-ctor">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span>... Args<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> ctor(
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;new&#34;</span>
-)
-</code></pre></div><p>Add a constructor to this class.</p>
-<h3 id="function-generate">
-  function generate
-  <a class="anchor" href="#function-generate">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> generate(
-    std<span style="color:#f92672">::</span>ostream <span style="color:#f92672">&amp;</span> os
-) <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">override</span>
-</code></pre></div><p>Generate Wren code for this class.</p>
-<p><strong>Reimplements</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/#function-generate">wrenbind17::ForeignKlass::generate</a></p>
-<h3 id="function-foreignklassimpl">
-  function ForeignKlassImpl
-  <a class="anchor" href="#function-foreignklassimpl">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">ForeignKlassImpl(
-    <span style="color:#66d9ef">const</span> ForeignKlassImpl<span style="color:#f92672">&lt;</span> T <span style="color:#f92672">&gt;</span> <span style="color:#f92672">&amp;</span> other
-)
-</code></pre></div><h3 id="function-foreignklassimpl-1">
-  function ~ForeignKlassImpl
-  <a class="anchor" href="#function-foreignklassimpl-1">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#f92672">~</span>ForeignKlassImpl() <span style="color:#f92672">=</span><span style="color:#66d9ef">default</span>
-</code></pre></div><h3 id="function-foreignklassimpl-2">
-  function ForeignKlassImpl
-  <a class="anchor" href="#function-foreignklassimpl-2">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> ForeignKlassImpl(
-    std<span style="color:#f92672">::</span>string name
-)
 </code></pre></div><hr>
-<p>Updated on 28 December 2020 at 15:45:23 UTC</p>
+<p>Updated on 28 February 2022 at 21:40:10 UTC</p>
 </article>
  
       
@@ -796,23 +796,23 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#detailed-description">Detailed Description</a></li>
     <li><a href="#public-functions-documentation">Public Functions Documentation</a>
       <ul>
-        <li><a href="#function-propreadonlyext">function propReadonlyExt</a></li>
-        <li><a href="#function-propext">function propExt</a></li>
-        <li><a href="#function-propreadonly">function propReadonly</a></li>
-        <li><a href="#function-prop">function prop</a></li>
-        <li><a href="#function-varreadonly">function varReadonly</a></li>
-        <li><a href="#function-var">function var</a></li>
-        <li><a href="#function-funcstaticext">function funcStaticExt</a></li>
-        <li><a href="#function-funcstatic">function funcStatic</a></li>
-        <li><a href="#function-funcext">function funcExt</a></li>
-        <li><a href="#function-funcext-1">function funcExt</a></li>
-        <li><a href="#function-func">function func</a></li>
-        <li><a href="#function-func-1">function func</a></li>
-        <li><a href="#function-ctor">function ctor</a></li>
-        <li><a href="#function-generate">function generate</a></li>
         <li><a href="#function-foreignklassimpl">function ForeignKlassImpl</a></li>
         <li><a href="#function-foreignklassimpl-1">function ~ForeignKlassImpl</a></li>
         <li><a href="#function-foreignklassimpl-2">function ForeignKlassImpl</a></li>
+        <li><a href="#function-generate">function generate</a></li>
+        <li><a href="#function-ctor">function ctor</a></li>
+        <li><a href="#function-func">function func</a></li>
+        <li><a href="#function-func-1">function func</a></li>
+        <li><a href="#function-funcext">function funcExt</a></li>
+        <li><a href="#function-funcext-1">function funcExt</a></li>
+        <li><a href="#function-funcstatic">function funcStatic</a></li>
+        <li><a href="#function-funcstaticext">function funcStaticExt</a></li>
+        <li><a href="#function-var">function var</a></li>
+        <li><a href="#function-varreadonly">function varReadonly</a></li>
+        <li><a href="#function-prop">function prop</a></li>
+        <li><a href="#function-propreadonly">function propReadonly</a></li>
+        <li><a href="#function-propext">function propExt</a></li>
+        <li><a href="#function-propreadonlyext">function propReadonlyExt</a></li>
       </ul>
     </li>
   </ul>

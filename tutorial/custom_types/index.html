@@ -16,7 +16,7 @@ In order to use your custom types, you will have to register them as a foreign c
 <link rel="manifest" href="/wrenbind17/manifest.json">
 <link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
-<script defer src="/wrenbind17/en.search.min.fb6c94a8bafbbce8462efda517ac26e7e51ef11540811e551c383e49d4235e1e.js" integrity="sha256-&#43;2yUqLr7vOhGLv2lF6wm5&#43;Ue8RVAgR5VHDg&#43;SdQjXh4="></script>
+<script defer src="/wrenbind17/en.search.min.d821bc4671e09f70c11205fdbb12a428d1e7a206559339bc157cbdc6081e40ca.js" integrity="sha256-2CG8RnHgn3DBEgX9uxKkKNHnogZVkzm8FXy9xggeQMo="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -131,7 +131,8 @@ https://github.com/alex-shpak/hugo-book
       <ul>
         <li><a href="#631-handling-function-pointer-ambiguity">6.3.1 Handling function pointer ambiguity</a></li>
         <li><a href="#632-static-functions">6.3.2 Static functions</a></li>
-        <li><a href="#633-functions-via-external-functions">6.3.3 Functions via external functions</a></li>
+        <li><a href="#633-function-from-base-classes">6.3.3 Function from base classes</a></li>
+        <li><a href="#634-functions-via-external-functions">6.3.4 Functions via external functions</a></li>
       </ul>
     </li>
     <li><a href="#64-abstract-classes">6.4 Abstract classes</a></li>
@@ -141,7 +142,8 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#652-class-variables-as-properties">6.5.2 Class variables as properties</a></li>
         <li><a href="#653-read-only-class-variables">6.5.3 Read-only class variables</a></li>
         <li><a href="#654-class-variables-via-external-properties">6.5.4 Class variables via external properties</a></li>
-        <li><a href="#655-class-static-variables">6.5.5 Class static variables</a></li>
+        <li><a href="#655-class-variables-from-base-class">6.5.5 Class variables from base class</a></li>
+        <li><a href="#656-class-static-variables">6.5.6 Class static variables</a></li>
       </ul>
     </li>
     <li><a href="#66-upcasting">6.6. Upcasting</a></li>
@@ -279,9 +281,30 @@ wren<span style="color:#f92672">::</span>VM vm;
 cls.funcStatic<span style="color:#f92672">&lt;&amp;</span>Log<span style="color:#f92672">::</span>debug<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;debug&#34;</span>);
 cls.funcStatic<span style="color:#f92672">&lt;&amp;</span>Log<span style="color:#f92672">::</span>error<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;error&#34;</span>);
 cls.funcStatic<span style="color:#f92672">&lt;&amp;</span>Log<span style="color:#f92672">::</span>info<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;info&#34;</span>);
-</code></pre></div><h3 id="633-functions-via-external-functions">
-  6.3.3 Functions via external functions
-  <a class="anchor" href="#633-functions-via-external-functions">#</a>
+</code></pre></div><h3 id="633-function-from-base-classes">
+  6.3.3 Function from base classes
+  <a class="anchor" href="#633-function-from-base-classes">#</a>
+</h3>
+<p>To add a function that belongs to the base class, simply use a pointer to the base class, example as shown below:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Asset</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    std<span style="color:#f92672">::</span>string getName();    
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AssetModel</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Asset {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    std<span style="color:#f92672">::</span>string getModelPath();    
+};
+
+wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>AssetModel<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;AssetModel&#34;</span>);
+cls.func<span style="color:#f92672">&lt;&amp;</span>Asset<span style="color:#f92672">::</span>getName<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;getName&#34;</span>);
+cls.func<span style="color:#f92672">&lt;&amp;</span>AssetModel<span style="color:#f92672">::</span>getModelPath<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;getModelPath&#34;</span>);
+</code></pre></div><p>This works as long as <code>Asset</code> is a base class of <code>AssetModel</code>. This does not work with <code>cls.funcExt&lt;&gt;()</code>, in that case your external function first argument must be the derived class.</p>
+<h3 id="634-functions-via-external-functions">
+  6.3.4 Functions via external functions
+  <a class="anchor" href="#634-functions-via-external-functions">#</a>
 </h3>
 <p>Suppose you have some C++ class that you want to add to Wren, but you can&rsquo;t modify this class because it is from some other library. For example this C++ class can be from STL, or you want to add some custom behavior that does not exist in the class. In this case you can create a new function that accepts the class instance as the first parameter.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// Custom member function with &#34;self&#34; as this pointer
@@ -461,9 +484,35 @@ cls.ctor<span style="color:#f92672">&lt;&gt;</span>();
 cls.propExtReadonly<span style="color:#f92672">&lt;&amp;</span>getVec3X<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;x&#34;</span>);
 cls.propExtReadonly<span style="color:#f92672">&lt;&amp;</span>getVec3Y<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;y&#34;</span>);
 cls.propExtReadonly<span style="color:#f92672">&lt;&amp;</span>getVec3Z<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;z&#34;</span>);
-</code></pre></div><h3 id="655-class-static-variables">
-  6.5.5 Class static variables
-  <a class="anchor" href="#655-class-static-variables">#</a>
+</code></pre></div><h3 id="655-class-variables-from-base-class">
+  6.5.5 Class variables from base class
+  <a class="anchor" href="#655-class-variables-from-base-class">#</a>
+</h3>
+<p>You can bind class variables that belong to the base class, example below:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Message</span> {
+    <span style="color:#66d9ef">uint64_t</span> id <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+};
+
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MessageText</span> <span style="color:#f92672">:</span> Message {
+    std<span style="color:#f92672">::</span>string text;
+};
+
+wren<span style="color:#f92672">::</span>VM vm;
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> m <span style="color:#f92672">=</span> vm.module(<span style="color:#e6db74">&#34;mymodule&#34;</span>);
+
+<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> cls <span style="color:#f92672">=</span> m.klass<span style="color:#f92672">&lt;</span>MessageText<span style="color:#f92672">&gt;</span>();
+cls.ctor<span style="color:#f92672">&lt;&gt;</span>();
+cls.var<span style="color:#f92672">&lt;&amp;</span>Message<span style="color:#f92672">::</span>id<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;id&#34;</span>);
+cls.var<span style="color:#f92672">&lt;&amp;</span>MessageText<span style="color:#f92672">::</span>id<span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#34;text&#34;</span>);
+</code></pre></div><p>You do not need to bind the base class in order to use its fields in the derived class. <strong>This also works with properties <code>cls.prop&lt;&gt;()</code> and <code>cls.propReadonly&lt;&gt;()</code> but does not work with <code>cls.propExt&lt;&gt;()</code> and <code>cls.propReadonlyExt&lt;&gt;()</code>.</strong> You can then access both base class and derived class variables in Wren:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;mymodule&#34;</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">MessageText</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">msg</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">MessageText</span>.<span style="color:#66d9ef">new</span>()
+<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">123</span>
+<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">text</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello World&#34;</span>
+</code></pre></div><h3 id="656-class-static-variables">
+  6.5.6 Class static variables
+  <a class="anchor" href="#656-class-static-variables">#</a>
 </h3>
 <p>Static variables in Wren are not supported. However, you could cheat a bit with the following code:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ApplicationGlobals</span> {
@@ -687,7 +736,8 @@ vm.runFromSource(<span style="color:#e6db74">&#34;main&#34;</span>, ...);
       <ul>
         <li><a href="#631-handling-function-pointer-ambiguity">6.3.1 Handling function pointer ambiguity</a></li>
         <li><a href="#632-static-functions">6.3.2 Static functions</a></li>
-        <li><a href="#633-functions-via-external-functions">6.3.3 Functions via external functions</a></li>
+        <li><a href="#633-function-from-base-classes">6.3.3 Function from base classes</a></li>
+        <li><a href="#634-functions-via-external-functions">6.3.4 Functions via external functions</a></li>
       </ul>
     </li>
     <li><a href="#64-abstract-classes">6.4 Abstract classes</a></li>
@@ -697,7 +747,8 @@ vm.runFromSource(<span style="color:#e6db74">&#34;main&#34;</span>, ...);
         <li><a href="#652-class-variables-as-properties">6.5.2 Class variables as properties</a></li>
         <li><a href="#653-read-only-class-variables">6.5.3 Read-only class variables</a></li>
         <li><a href="#654-class-variables-via-external-properties">6.5.4 Class variables via external properties</a></li>
-        <li><a href="#655-class-static-variables">6.5.5 Class static variables</a></li>
+        <li><a href="#655-class-variables-from-base-class">6.5.5 Class variables from base class</a></li>
+        <li><a href="#656-class-static-variables">6.5.6 Class static variables</a></li>
       </ul>
     </li>
     <li><a href="#66-upcasting">6.6. Upcasting</a></li>

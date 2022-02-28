@@ -14,7 +14,7 @@
 <link rel="manifest" href="/wrenbind17/manifest.json">
 <link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
-<script defer src="/wrenbind17/en.search.min.fb6c94a8bafbbce8462efda517ac26e7e51ef11540811e551c383e49d4235e1e.js" integrity="sha256-&#43;2yUqLr7vOhGLv2lF6wm5&#43;Ue8RVAgR5VHDg&#43;SdQjXh4="></script>
+<script defer src="/wrenbind17/en.search.min.d821bc4671e09f70c11205fdbb12a428d1e7a206559339bc157cbdc6081e40ca.js" integrity="sha256-2CG8RnHgn3DBEgX9uxKkKNHnogZVkzm8FXy9xggeQMo="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -126,28 +126,28 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#public-functions">Public Functions</a></li>
     <li><a href="#public-functions-documentation">Public Functions Documentation</a>
       <ul>
-        <li><a href="#function-gc">function gc</a></li>
-        <li><a href="#function-setloadfilefunc">function setLoadFileFunc</a></li>
-        <li><a href="#function-setprintfunc">function setPrintFunc</a></li>
-        <li><a href="#function-setnexterror">function setNextError</a></li>
-        <li><a href="#function-getlasterror">function getLastError</a></li>
-        <li><a href="#function-getclasscast">function getClassCast</a></li>
-        <li><a href="#function-addclasscast">function addClassCast</a></li>
-        <li><a href="#function-isclassregistered">function isClassRegistered</a></li>
-        <li><a href="#function-getclasstype">function getClassType</a></li>
-        <li><a href="#function-addclasstype">function addClassType</a></li>
-        <li><a href="#function-module">function module</a></li>
-        <li><a href="#function-find">function find</a></li>
-        <li><a href="#function-runfrommodule">function runFromModule</a></li>
-        <li><a href="#function-runfromfile">function runFromFile</a></li>
-        <li><a href="#function-runfromsource">function runFromSource</a></li>
-        <li><a href="#function-swap">function swap</a></li>
-        <li><a href="#function-operator">function operator=</a></li>
-        <li><a href="#function-operator-1">function operator=</a></li>
-        <li><a href="#function-vm">function ~VM</a></li>
+        <li><a href="#function-vm">function VM</a></li>
         <li><a href="#function-vm-1">function VM</a></li>
         <li><a href="#function-vm-2">function VM</a></li>
-        <li><a href="#function-vm-3">function VM</a></li>
+        <li><a href="#function-vm-3">function ~VM</a></li>
+        <li><a href="#function-operator">function operator=</a></li>
+        <li><a href="#function-operator-1">function operator=</a></li>
+        <li><a href="#function-swap">function swap</a></li>
+        <li><a href="#function-runfromsource">function runFromSource</a></li>
+        <li><a href="#function-runfromfile">function runFromFile</a></li>
+        <li><a href="#function-runfrommodule">function runFromModule</a></li>
+        <li><a href="#function-find">function find</a></li>
+        <li><a href="#function-module">function module</a></li>
+        <li><a href="#function-addclasstype">function addClassType</a></li>
+        <li><a href="#function-getclasstype">function getClassType</a></li>
+        <li><a href="#function-isclassregistered">function isClassRegistered</a></li>
+        <li><a href="#function-addclasscast">function addClassCast</a></li>
+        <li><a href="#function-getclasscast">function getClassCast</a></li>
+        <li><a href="#function-getlasterror">function getLastError</a></li>
+        <li><a href="#function-setnexterror">function setNextError</a></li>
+        <li><a href="#function-setprintfunc">function setPrintFunc</a></li>
+        <li><a href="#function-setloadfilefunc">function setLoadFileFunc</a></li>
+        <li><a href="#function-gc">function gc</a></li>
       </ul>
     </li>
   </ul>
@@ -166,8 +166,8 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#wrenbind17vm">#</a>
 </h1>
 <p><strong>Module:</strong> <strong><a href="/wrenbind17/modules/group__wrenbind17/">Wrenbind17</a></strong></p>
-<p>Holds the entire Wren <a href="">VM</a> from which all of the magic happens.</p>
-<p><code>#include &lt;vm.hpp&gt;</code></p>
+<p>Holds the entire Wren <a href="">VM</a> from which all of the magic happens.
+<code>#include &lt;vm.hpp&gt;</code></p>
 <h2 id="public-classes">
   Public Classes
   <a class="anchor" href="#public-classes">#</a>
@@ -199,84 +199,8 @@ https://github.com/alex-shpak/hugo-book
 </thead>
 <tbody>
 <tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-gc">gc</a></strong>() <!-- raw HTML omitted -->Runs the garbage collector.</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-setloadfilefunc">setLoadFileFunc</a></strong>(const <a href="/wrenbind17/namespaces/namespacewrenbind17/#typedef-loadfilefn">LoadFileFn</a> &amp; fn) <!-- raw HTML omitted -->Set a custom loader function for imports.</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-setprintfunc">setPrintFunc</a></strong>(const <a href="/wrenbind17/namespaces/namespacewrenbind17/#typedef-printfn">PrintFn</a> &amp; fn) <!-- raw HTML omitted -->Set a custom print function that is used by the System.print()</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-setnexterror">setNextError</a></strong>(std::string str)</td>
-</tr>
-<tr>
-<td>std::string</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-getlasterror">getLastError</a></strong>()</td>
-</tr>
-<tr>
-<td>detail::ForeignPtrConvertor *</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-getclasscast">getClassCast</a></strong>(const size_t hash, const size_t other)</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-addclasscast">addClassCast</a></strong>(std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other)</td>
-</tr>
-<tr>
-<td>bool</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-isclassregistered">isClassRegistered</a></strong>(const size_t hash) const</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-getclasstype">getClassType</a></strong>(std::string &amp; module, std::string &amp; name, const size_t hash)</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-addclasstype">addClassType</a></strong>(const std::string &amp; module, const std::string &amp; name, const size_t hash)</td>
-</tr>
-<tr>
-<td><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_module/">ForeignModule</a> &amp;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-module">module</a></strong>(const std::string &amp; name) <!-- raw HTML omitted -->Creates a new custom module.</td>
-</tr>
-<tr>
-<td><a href="/wrenbind17/classes/classwrenbind17_1_1_variable/">Variable</a></td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-find">find</a></strong>(const std::string &amp; module, const std::string &amp; name) <!-- raw HTML omitted -->Looks up a variable from a module.</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-runfrommodule">runFromModule</a></strong>(const std::string &amp; name) <!-- raw HTML omitted -->Runs a Wren source code by passing it as a string.</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-runfromfile">runFromFile</a></strong>(const std::string &amp; name, const std::string &amp; path) <!-- raw HTML omitted -->Runs a Wren source code directly from a file.</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-runfromsource">runFromSource</a></strong>(const std::string &amp; name, const std::string &amp; code) <!-- raw HTML omitted -->Runs a Wren source code by passing it as a string.</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-swap">swap</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> &amp; other)</td>
-</tr>
-<tr>
-<td><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> &amp;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-operator=">operator=</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> &amp;&amp; other)</td>
-</tr>
-<tr>
-<td><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> &amp;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-operator=">operator=</a></strong>(const <a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> &amp; other)</td>
-</tr>
-<tr>
 <td></td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-~vm">~VM</a></strong>() =default</td>
-</tr>
-<tr>
-<td></td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-vm">VM</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> &amp;&amp; other)</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-vm">VM</a></strong>(std::vector&lt; std::string &gt; paths ={&rdquo;./&quot;}, const size_t initHeap =1024 *1024, const size_t minHeap =1024 *1024 *10, const int heapGrowth =50)<!-- raw HTML omitted -->The only constructor available.</td>
 </tr>
 <tr>
 <td></td>
@@ -284,7 +208,83 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 <tr>
 <td></td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-vm">VM</a></strong>(std::vector&lt; std::string &gt; paths ={&rdquo;./&quot;}, const size_t initHeap =1024 *1024, const size_t minHeap =1024 *1024 *10, const int heapGrowth =50) <!-- raw HTML omitted -->The only constructor available.</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-vm">VM</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> &amp;&amp; other)</td>
+</tr>
+<tr>
+<td></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-~vm">~VM</a></strong>() =default</td>
+</tr>
+<tr>
+<td><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-operator=">operator=</a></strong>(const <a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> &amp; other)</td>
+</tr>
+<tr>
+<td><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-operator=">operator=</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> &amp;&amp; other)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-swap">swap</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> &amp; other)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-runfromsource">runFromSource</a></strong>(const std::string &amp; name, const std::string &amp; code)<!-- raw HTML omitted -->Runs a Wren source code by passing it as a string.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-runfromfile">runFromFile</a></strong>(const std::string &amp; name, const std::string &amp; path)<!-- raw HTML omitted -->Runs a Wren source code directly from a file.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-runfrommodule">runFromModule</a></strong>(const std::string &amp; name)<!-- raw HTML omitted -->Runs a Wren source code by passing it as a string.</td>
+</tr>
+<tr>
+<td><a href="/wrenbind17/classes/classwrenbind17_1_1_variable/">Variable</a></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-find">find</a></strong>(const std::string &amp; module, const std::string &amp; name)<!-- raw HTML omitted -->Looks up a variable from a module.</td>
+</tr>
+<tr>
+<td><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_module/">ForeignModule</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-module">module</a></strong>(const std::string &amp; name)<!-- raw HTML omitted -->Creates a new custom module.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-addclasstype">addClassType</a></strong>(const std::string &amp; module, const std::string &amp; name, const size_t hash)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-getclasstype">getClassType</a></strong>(std::string &amp; module, std::string &amp; name, const size_t hash)</td>
+</tr>
+<tr>
+<td>bool</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-isclassregistered">isClassRegistered</a></strong>(const size_t hash) const</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-addclasscast">addClassCast</a></strong>(std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other)</td>
+</tr>
+<tr>
+<td>detail::ForeignPtrConvertor *</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-getclasscast">getClassCast</a></strong>(const size_t hash, const size_t other)</td>
+</tr>
+<tr>
+<td>std::string</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-getlasterror">getLastError</a></strong>()</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-setnexterror">setNextError</a></strong>(std::string str)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-setprintfunc">setPrintFunc</a></strong>(const <a href="/wrenbind17/modules/group__wrenbind17/#typedef-printfn">PrintFn</a> &amp; fn)<!-- raw HTML omitted -->Set a custom print function that is used by the System.print()</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-setloadfilefunc">setLoadFileFunc</a></strong>(const <a href="/wrenbind17/modules/group__wrenbind17/#typedef-loadfilefn">LoadFileFn</a> &amp; fn)<!-- raw HTML omitted -->Set a custom loader function for imports.</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-gc">gc</a></strong>()<!-- raw HTML omitted -->Runs the garbage collector.</td>
 </tr>
 </tbody>
 </table>
@@ -292,129 +292,82 @@ https://github.com/alex-shpak/hugo-book
   Public Functions Documentation
   <a class="anchor" href="#public-functions-documentation">#</a>
 </h2>
-<h3 id="function-gc">
-  function gc
-  <a class="anchor" href="#function-gc">#</a>
+<h3 id="function-vm">
+  function VM
+  <a class="anchor" href="#function-vm">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> gc()
-</code></pre></div><p>Runs the garbage collector.</p>
-<h3 id="function-setloadfilefunc">
-  function setLoadFileFunc
-  <a class="anchor" href="#function-setloadfilefunc">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> setLoadFileFunc(
-    <span style="color:#66d9ef">const</span> LoadFileFn <span style="color:#f92672">&amp;</span> fn
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">explicit</span> VM(
+    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&gt;</span> paths <span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;./&#34;</span>},
+    <span style="color:#66d9ef">const</span> size_t initHeap <span style="color:#f92672">=</span><span style="color:#ae81ff">1024</span> <span style="color:#f92672">*</span><span style="color:#ae81ff">1024</span>,
+    <span style="color:#66d9ef">const</span> size_t minHeap <span style="color:#f92672">=</span><span style="color:#ae81ff">1024</span> <span style="color:#f92672">*</span><span style="color:#ae81ff">1024</span> <span style="color:#f92672">*</span><span style="color:#ae81ff">10</span>,
+    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> heapGrowth <span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>
 )
-</code></pre></div><p>Set a custom loader function for imports.</p>
-<p><strong>See</strong>: <a href="/wrenbind17/namespaces/namespacewrenbind17/#typedef-loadfilefn">LoadFileFn</a></p>
-<p>This must be a function that accepts a std::vector of strings (which are the lookup paths from the constructor) and the name of the import as the second parameter. You must return the source code from this custom function. If you want to cancel the import, simply throw an exception.</p>
-<h3 id="function-setprintfunc">
-  function setPrintFunc
-  <a class="anchor" href="#function-setprintfunc">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> setPrintFunc(
-    <span style="color:#66d9ef">const</span> PrintFn <span style="color:#f92672">&amp;</span> fn
-)
-</code></pre></div><p>Set a custom print function that is used by the System.print()</p>
-<p><strong>See</strong>: <a href="/wrenbind17/namespaces/namespacewrenbind17/#typedef-printfn">PrintFn</a></p>
-<h3 id="function-setnexterror">
-  function setNextError
-  <a class="anchor" href="#function-setnexterror">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> setNextError(
-    std<span style="color:#f92672">::</span>string str
-)
-</code></pre></div><h3 id="function-getlasterror">
-  function getLastError
-  <a class="anchor" href="#function-getlasterror">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>string getLastError()
-</code></pre></div><h3 id="function-getclasscast">
-  function getClassCast
-  <a class="anchor" href="#function-getclasscast">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">*</span> getClassCast(
-    <span style="color:#66d9ef">const</span> size_t hash,
-    <span style="color:#66d9ef">const</span> size_t other
-)
-</code></pre></div><h3 id="function-addclasscast">
-  function addClassCast
-  <a class="anchor" href="#function-addclasscast">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> addClassCast(
-    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">&gt;</span> convertor,
-    <span style="color:#66d9ef">const</span> size_t hash,
-    <span style="color:#66d9ef">const</span> size_t other
-)
-</code></pre></div><h3 id="function-isclassregistered">
-  function isClassRegistered
-  <a class="anchor" href="#function-isclassregistered">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> isClassRegistered(
-    <span style="color:#66d9ef">const</span> size_t hash
-) <span style="color:#66d9ef">const</span>
-</code></pre></div><h3 id="function-getclasstype">
-  function getClassType
-  <a class="anchor" href="#function-getclasstype">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> getClassType(
-    std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> module,
-    std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name,
-    <span style="color:#66d9ef">const</span> size_t hash
-)
-</code></pre></div><h3 id="function-addclasstype">
-  function addClassType
-  <a class="anchor" href="#function-addclasstype">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> addClassType(
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> module,
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name,
-    <span style="color:#66d9ef">const</span> size_t hash
-)
-</code></pre></div><h3 id="function-module">
-  function module
-  <a class="anchor" href="#function-module">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> ForeignModule <span style="color:#f92672">&amp;</span> module(
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name
-)
-</code></pre></div><p>Creates a new custom module.</p>
-<p><strong>Note</strong>: Calling this function multiple times with the same name does not create a new module, but instead it returns the same module.</p>
-<h3 id="function-find">
-  function find
-  <a class="anchor" href="#function-find">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> Variable find(
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> module,
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name
-)
-</code></pre></div><p>Looks up a variable from a module.</p>
+</code></pre></div><p>The only constructor available.</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
-<li><strong>module</strong> The name of the module to look for the variable in</li>
-<li><strong>name</strong> The name of the variable or a class itself that must start with a capital letter</li>
+<li><strong>paths</strong> The lookup paths used by the import loader function</li>
+<li><strong>initHeap</strong> The size of the heap at the beginning</li>
+<li><strong>minHeap</strong> The minimum size of the heap</li>
+<li><strong>heapGrowth</strong> How the heap should grow</li>
 </ul>
-<p><strong>Exceptions</strong>:</p>
-<ul>
-<li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_not_found/">NotFound</a></strong> if the variable has not been found</li>
-</ul>
-<h3 id="function-runfrommodule">
-  function runFromModule
-  <a class="anchor" href="#function-runfrommodule">#</a>
+<h3 id="function-vm-1">
+  function VM
+  <a class="anchor" href="#function-vm-1">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> runFromModule(
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> VM(
+    <span style="color:#66d9ef">const</span> VM <span style="color:#f92672">&amp;</span> other
+)
+</code></pre></div><h3 id="function-vm-2">
+  function VM
+  <a class="anchor" href="#function-vm-2">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> VM(
+    VM <span style="color:#f92672">&amp;&amp;</span> other
+)
+</code></pre></div><h3 id="function-vm-3">
+  function ~VM
+  <a class="anchor" href="#function-vm-3">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#f92672">~</span>VM() <span style="color:#f92672">=</span><span style="color:#66d9ef">default</span>
+</code></pre></div><h3 id="function-operator">
+  function operator=
+  <a class="anchor" href="#function-operator">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> VM <span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">=</span>(
+    <span style="color:#66d9ef">const</span> VM <span style="color:#f92672">&amp;</span> other
+)
+</code></pre></div><h3 id="function-operator-1">
+  function operator=
+  <a class="anchor" href="#function-operator-1">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> VM <span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">=</span>(
+    VM <span style="color:#f92672">&amp;&amp;</span> other
+)
+</code></pre></div><h3 id="function-swap">
+  function swap
+  <a class="anchor" href="#function-swap">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> swap(
+    VM <span style="color:#f92672">&amp;</span> other
+)
+</code></pre></div><h3 id="function-runfromsource">
+  function runFromSource
+  <a class="anchor" href="#function-runfromsource">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> runFromSource(
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name,
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> code
 )
 </code></pre></div><p>Runs a Wren source code by passing it as a string.</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
-<li><strong>name</strong> The module name to load, this will use the loader function to load the file from</li>
+<li><strong>name</strong> The module name to assign this code into, this module name can be then used to import this code in some other place</li>
+<li><strong>code</strong> Your raw multiline Wren code</li>
 </ul>
 <p><strong>Exceptions</strong>:</p>
 <ul>
 <li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_compile_error/">CompileError</a></strong> if the compilation has failed</li>
 </ul>
-<p><strong>See</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-setloadfilefunc">setLoadFileFunc</a></p>
 <h3 id="function-runfromfile">
   function runFromFile
   <a class="anchor" href="#function-runfromfile">#</a>
@@ -434,84 +387,131 @@ https://github.com/alex-shpak/hugo-book
 <li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_exception/">Exception</a></strong> if the file has not been found or the file cannot be read</li>
 <li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_compile_error/">CompileError</a></strong> if the compilation has failed</li>
 </ul>
-<h3 id="function-runfromsource">
-  function runFromSource
-  <a class="anchor" href="#function-runfromsource">#</a>
+<h3 id="function-runfrommodule">
+  function runFromModule
+  <a class="anchor" href="#function-runfrommodule">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> runFromSource(
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name,
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> code
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> runFromModule(
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name
 )
 </code></pre></div><p>Runs a Wren source code by passing it as a string.</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
-<li><strong>name</strong> The module name to assign this code into, this module name can be then used to import this code in some other place</li>
-<li><strong>code</strong> Your raw multiline Wren code</li>
+<li><strong>name</strong> The module name to load, this will use the loader function to load the file from</li>
 </ul>
 <p><strong>Exceptions</strong>:</p>
 <ul>
 <li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_compile_error/">CompileError</a></strong> if the compilation has failed</li>
 </ul>
-<h3 id="function-swap">
-  function swap
-  <a class="anchor" href="#function-swap">#</a>
+<p><strong>See</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/#function-setloadfilefunc">setLoadFileFunc</a></p>
+<h3 id="function-find">
+  function find
+  <a class="anchor" href="#function-find">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> swap(
-    VM <span style="color:#f92672">&amp;</span> other
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> Variable find(
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> module,
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name
 )
-</code></pre></div><h3 id="function-operator">
-  function operator=
-  <a class="anchor" href="#function-operator">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> VM <span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">=</span>(
-    VM <span style="color:#f92672">&amp;&amp;</span> other
-)
-</code></pre></div><h3 id="function-operator-1">
-  function operator=
-  <a class="anchor" href="#function-operator-1">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> VM <span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">=</span>(
-    <span style="color:#66d9ef">const</span> VM <span style="color:#f92672">&amp;</span> other
-)
-</code></pre></div><h3 id="function-vm">
-  function ~VM
-  <a class="anchor" href="#function-vm">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#f92672">~</span>VM() <span style="color:#f92672">=</span><span style="color:#66d9ef">default</span>
-</code></pre></div><h3 id="function-vm-1">
-  function VM
-  <a class="anchor" href="#function-vm-1">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> VM(
-    VM <span style="color:#f92672">&amp;&amp;</span> other
-)
-</code></pre></div><h3 id="function-vm-2">
-  function VM
-  <a class="anchor" href="#function-vm-2">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> VM(
-    <span style="color:#66d9ef">const</span> VM <span style="color:#f92672">&amp;</span> other
-)
-</code></pre></div><h3 id="function-vm-3">
-  function VM
-  <a class="anchor" href="#function-vm-3">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">explicit</span> VM(
-    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&gt;</span> paths <span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;./&#34;</span>},
-    <span style="color:#66d9ef">const</span> size_t initHeap <span style="color:#f92672">=</span><span style="color:#ae81ff">1024</span> <span style="color:#f92672">*</span><span style="color:#ae81ff">1024</span>,
-    <span style="color:#66d9ef">const</span> size_t minHeap <span style="color:#f92672">=</span><span style="color:#ae81ff">1024</span> <span style="color:#f92672">*</span><span style="color:#ae81ff">1024</span> <span style="color:#f92672">*</span><span style="color:#ae81ff">10</span>,
-    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> heapGrowth <span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>
-)
-</code></pre></div><p>The only constructor available.</p>
+</code></pre></div><p>Looks up a variable from a module.</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
-<li><strong>paths</strong> The lookup paths used by the import loader function</li>
-<li><strong>initHeap</strong> The size of the heap at the beginning</li>
-<li><strong>minHeap</strong> The minimum size of the heap</li>
-<li><strong>heapGrowth</strong> How the heap should grow</li>
+<li><strong>module</strong> The name of the module to look for the variable in</li>
+<li><strong>name</strong> The name of the variable or a class itself that must start with a capital letter</li>
 </ul>
+<p><strong>Exceptions</strong>:</p>
+<ul>
+<li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_not_found/">NotFound</a></strong> if the variable has not been found</li>
+</ul>
+<h3 id="function-module">
+  function module
+  <a class="anchor" href="#function-module">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> ForeignModule <span style="color:#f92672">&amp;</span> module(
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name
+)
+</code></pre></div><p>Creates a new custom module.</p>
+<p><strong>Note</strong>: Calling this function multiple times with the same name does not create a new module, but instead it returns the same module.</p>
+<h3 id="function-addclasstype">
+  function addClassType
+  <a class="anchor" href="#function-addclasstype">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> addClassType(
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> module,
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name,
+    <span style="color:#66d9ef">const</span> size_t hash
+)
+</code></pre></div><h3 id="function-getclasstype">
+  function getClassType
+  <a class="anchor" href="#function-getclasstype">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> getClassType(
+    std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> module,
+    std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name,
+    <span style="color:#66d9ef">const</span> size_t hash
+)
+</code></pre></div><h3 id="function-isclassregistered">
+  function isClassRegistered
+  <a class="anchor" href="#function-isclassregistered">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> isClassRegistered(
+    <span style="color:#66d9ef">const</span> size_t hash
+) <span style="color:#66d9ef">const</span>
+</code></pre></div><h3 id="function-addclasscast">
+  function addClassCast
+  <a class="anchor" href="#function-addclasscast">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> addClassCast(
+    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">&gt;</span> convertor,
+    <span style="color:#66d9ef">const</span> size_t hash,
+    <span style="color:#66d9ef">const</span> size_t other
+)
+</code></pre></div><h3 id="function-getclasscast">
+  function getClassCast
+  <a class="anchor" href="#function-getclasscast">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">*</span> getClassCast(
+    <span style="color:#66d9ef">const</span> size_t hash,
+    <span style="color:#66d9ef">const</span> size_t other
+)
+</code></pre></div><h3 id="function-getlasterror">
+  function getLastError
+  <a class="anchor" href="#function-getlasterror">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>string getLastError()
+</code></pre></div><h3 id="function-setnexterror">
+  function setNextError
+  <a class="anchor" href="#function-setnexterror">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> setNextError(
+    std<span style="color:#f92672">::</span>string str
+)
+</code></pre></div><h3 id="function-setprintfunc">
+  function setPrintFunc
+  <a class="anchor" href="#function-setprintfunc">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> setPrintFunc(
+    <span style="color:#66d9ef">const</span> PrintFn <span style="color:#f92672">&amp;</span> fn
+)
+</code></pre></div><p>Set a custom print function that is used by the System.print()</p>
+<p><strong>See</strong>: <a href="/wrenbind17/modules/group__wrenbind17/#typedef-printfn">PrintFn</a></p>
+<h3 id="function-setloadfilefunc">
+  function setLoadFileFunc
+  <a class="anchor" href="#function-setloadfilefunc">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> setLoadFileFunc(
+    <span style="color:#66d9ef">const</span> LoadFileFn <span style="color:#f92672">&amp;</span> fn
+)
+</code></pre></div><p>Set a custom loader function for imports.</p>
+<p><strong>See</strong>: <a href="/wrenbind17/modules/group__wrenbind17/#typedef-loadfilefn">LoadFileFn</a></p>
+<p>This must be a function that accepts a std::vector of strings (which are the lookup paths from the constructor) and the name of the import as the second parameter. You must return the source code from this custom function. If you want to cancel the import, simply throw an exception.</p>
+<h3 id="function-gc">
+  function gc
+  <a class="anchor" href="#function-gc">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> gc()
+</code></pre></div><p>Runs the garbage collector.</p>
 <hr>
-<p>Updated on 28 December 2020 at 15:45:23 UTC</p>
+<p>Updated on 28 February 2022 at 21:40:10 UTC</p>
 </article>
  
       
@@ -557,28 +557,28 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#public-functions">Public Functions</a></li>
     <li><a href="#public-functions-documentation">Public Functions Documentation</a>
       <ul>
-        <li><a href="#function-gc">function gc</a></li>
-        <li><a href="#function-setloadfilefunc">function setLoadFileFunc</a></li>
-        <li><a href="#function-setprintfunc">function setPrintFunc</a></li>
-        <li><a href="#function-setnexterror">function setNextError</a></li>
-        <li><a href="#function-getlasterror">function getLastError</a></li>
-        <li><a href="#function-getclasscast">function getClassCast</a></li>
-        <li><a href="#function-addclasscast">function addClassCast</a></li>
-        <li><a href="#function-isclassregistered">function isClassRegistered</a></li>
-        <li><a href="#function-getclasstype">function getClassType</a></li>
-        <li><a href="#function-addclasstype">function addClassType</a></li>
-        <li><a href="#function-module">function module</a></li>
-        <li><a href="#function-find">function find</a></li>
-        <li><a href="#function-runfrommodule">function runFromModule</a></li>
-        <li><a href="#function-runfromfile">function runFromFile</a></li>
-        <li><a href="#function-runfromsource">function runFromSource</a></li>
-        <li><a href="#function-swap">function swap</a></li>
-        <li><a href="#function-operator">function operator=</a></li>
-        <li><a href="#function-operator-1">function operator=</a></li>
-        <li><a href="#function-vm">function ~VM</a></li>
+        <li><a href="#function-vm">function VM</a></li>
         <li><a href="#function-vm-1">function VM</a></li>
         <li><a href="#function-vm-2">function VM</a></li>
-        <li><a href="#function-vm-3">function VM</a></li>
+        <li><a href="#function-vm-3">function ~VM</a></li>
+        <li><a href="#function-operator">function operator=</a></li>
+        <li><a href="#function-operator-1">function operator=</a></li>
+        <li><a href="#function-swap">function swap</a></li>
+        <li><a href="#function-runfromsource">function runFromSource</a></li>
+        <li><a href="#function-runfromfile">function runFromFile</a></li>
+        <li><a href="#function-runfrommodule">function runFromModule</a></li>
+        <li><a href="#function-find">function find</a></li>
+        <li><a href="#function-module">function module</a></li>
+        <li><a href="#function-addclasstype">function addClassType</a></li>
+        <li><a href="#function-getclasstype">function getClassType</a></li>
+        <li><a href="#function-isclassregistered">function isClassRegistered</a></li>
+        <li><a href="#function-addclasscast">function addClassCast</a></li>
+        <li><a href="#function-getclasscast">function getClassCast</a></li>
+        <li><a href="#function-getlasterror">function getLastError</a></li>
+        <li><a href="#function-setnexterror">function setNextError</a></li>
+        <li><a href="#function-setprintfunc">function setPrintFunc</a></li>
+        <li><a href="#function-setloadfilefunc">function setLoadFileFunc</a></li>
+        <li><a href="#function-gc">function gc</a></li>
       </ul>
     </li>
   </ul>

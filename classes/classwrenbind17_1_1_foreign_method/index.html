@@ -14,7 +14,7 @@
 <link rel="manifest" href="/wrenbind17/manifest.json">
 <link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
-<script defer src="/wrenbind17/en.search.min.fb6c94a8bafbbce8462efda517ac26e7e51ef11540811e551c383e49d4235e1e.js" integrity="sha256-&#43;2yUqLr7vOhGLv2lF6wm5&#43;Ue8RVAgR5VHDg&#43;SdQjXh4="></script>
+<script defer src="/wrenbind17/en.search.min.d821bc4671e09f70c11205fdbb12a428d1e7a206559339bc157cbdc6081e40ca.js" integrity="sha256-2CG8RnHgn3DBEgX9uxKkKNHnogZVkzm8FXy9xggeQMo="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -126,20 +126,20 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#protected-attributes">Protected Attributes</a></li>
     <li><a href="#public-functions-documentation">Public Functions Documentation</a>
       <ul>
-        <li><a href="#function-getstatic">function getStatic</a></li>
-        <li><a href="#function-getmethod">function getMethod</a></li>
-        <li><a href="#function-getname">function getName</a></li>
-        <li><a href="#function-generate">function generate</a></li>
         <li><a href="#function-foreignmethod">function ForeignMethod</a></li>
         <li><a href="#function-foreignmethod-1">function ~ForeignMethod</a></li>
         <li><a href="#function-foreignmethod-2">function ForeignMethod</a></li>
+        <li><a href="#function-generate">function generate</a></li>
+        <li><a href="#function-getname">function getName</a></li>
+        <li><a href="#function-getmethod">function getMethod</a></li>
+        <li><a href="#function-getstatic">function getStatic</a></li>
       </ul>
     </li>
     <li><a href="#protected-attributes-documentation">Protected Attributes Documentation</a>
       <ul>
-        <li><a href="#variable-isstatic">variable isStatic</a></li>
-        <li><a href="#variable-method">variable method</a></li>
         <li><a href="#variable-name">variable name</a></li>
+        <li><a href="#variable-method">variable method</a></li>
+        <li><a href="#variable-isstatic">variable isStatic</a></li>
       </ul>
     </li>
   </ul>
@@ -158,8 +158,8 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#wrenbind17foreignmethod">#</a>
 </h1>
 <p><strong>Module:</strong> <strong><a href="/wrenbind17/modules/group__wrenbind17/">Wrenbind17</a></strong></p>
-<p>Holds information about a foreign function of a foreign class.</p>
-<p><code>#include &lt;foreign.hpp&gt;</code></p>
+<p>Holds information about a foreign function of a foreign class.
+<code>#include &lt;foreign.hpp&gt;</code></p>
 <p>Inherited by <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/">wrenbind17::ForeignMethodImpl&lt; Args &gt;</a></p>
 <h2 id="public-functions">
   Public Functions
@@ -174,24 +174,8 @@ https://github.com/alex-shpak/hugo-book
 </thead>
 <tbody>
 <tr>
-<td>bool</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-getstatic">getStatic</a></strong>() const <!-- raw HTML omitted -->Returns true if this method is marked as static.</td>
-</tr>
-<tr>
-<td>WrenForeignMethodFn</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-getmethod">getMethod</a></strong>() const <!-- raw HTML omitted -->Returns the raw pointer of this method.</td>
-</tr>
-<tr>
-<td>const std::string &amp;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-getname">getName</a></strong>() const <!-- raw HTML omitted -->Returns the name of the method.</td>
-</tr>
-<tr>
-<td>virtual void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-generate">generate</a></strong>(std::ostream &amp; os) const =0</td>
-</tr>
-<tr>
 <td></td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-foreignmethod">ForeignMethod</a></strong>(const <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">ForeignMethod</a> &amp; other)</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-foreignmethod">ForeignMethod</a></strong>(std::string name, WrenForeignMethodFn method, const bool isStatic)</td>
 </tr>
 <tr>
 <td>virtual</td>
@@ -199,7 +183,23 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 <tr>
 <td></td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-foreignmethod">ForeignMethod</a></strong>(std::string name, WrenForeignMethodFn method, const bool isStatic)</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-foreignmethod">ForeignMethod</a></strong>(const <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">ForeignMethod</a> &amp; other)</td>
+</tr>
+<tr>
+<td>virtual void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-generate">generate</a></strong>(std::ostream &amp; os) const =0</td>
+</tr>
+<tr>
+<td>const std::string &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-getname">getName</a></strong>() const<!-- raw HTML omitted -->Returns the name of the method.</td>
+</tr>
+<tr>
+<td>WrenForeignMethodFn</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-getmethod">getMethod</a></strong>() const<!-- raw HTML omitted -->Returns the raw pointer of this method.</td>
+</tr>
+<tr>
+<td>bool</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#function-getstatic">getStatic</a></strong>() const<!-- raw HTML omitted -->Returns true if this method is marked as static.</td>
 </tr>
 </tbody>
 </table>
@@ -216,16 +216,16 @@ https://github.com/alex-shpak/hugo-book
 </thead>
 <tbody>
 <tr>
-<td>bool</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#variable-isstatic">isStatic</a></strong></td>
+<td>std::string</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#variable-name">name</a></strong></td>
 </tr>
 <tr>
 <td>WrenForeignMethodFn</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#variable-method">method</a></strong></td>
 </tr>
 <tr>
-<td>std::string</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#variable-name">name</a></strong></td>
+<td>bool</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/#variable-isstatic">isStatic</a></strong></td>
 </tr>
 </tbody>
 </table>
@@ -233,38 +233,14 @@ https://github.com/alex-shpak/hugo-book
   Public Functions Documentation
   <a class="anchor" href="#public-functions-documentation">#</a>
 </h2>
-<h3 id="function-getstatic">
-  function getStatic
-  <a class="anchor" href="#function-getstatic">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> getStatic() <span style="color:#66d9ef">const</span>
-</code></pre></div><p>Returns true if this method is marked as static.</p>
-<h3 id="function-getmethod">
-  function getMethod
-  <a class="anchor" href="#function-getmethod">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> WrenForeignMethodFn getMethod() <span style="color:#66d9ef">const</span>
-</code></pre></div><p>Returns the raw pointer of this method.</p>
-<h3 id="function-getname">
-  function getName
-  <a class="anchor" href="#function-getname">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> getName() <span style="color:#66d9ef">const</span>
-</code></pre></div><p>Returns the name of the method.</p>
-<h3 id="function-generate">
-  function generate
-  <a class="anchor" href="#function-generate">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> generate(
-    std<span style="color:#f92672">::</span>ostream <span style="color:#f92672">&amp;</span> os
-) <span style="color:#66d9ef">const</span> <span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
-</code></pre></div><p><strong>Reimplemented by</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/#function-generate">wrenbind17::ForeignMethodImpl::generate</a></p>
 <h3 id="function-foreignmethod">
   function ForeignMethod
   <a class="anchor" href="#function-foreignmethod">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">ForeignMethod(
-    <span style="color:#66d9ef">const</span> ForeignMethod <span style="color:#f92672">&amp;</span> other
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> ForeignMethod(
+    std<span style="color:#f92672">::</span>string name,
+    WrenForeignMethodFn method,
+    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> isStatic
 )
 </code></pre></div><h3 id="function-foreignmethod-1">
   function ~ForeignMethod
@@ -275,32 +251,56 @@ https://github.com/alex-shpak/hugo-book
   function ForeignMethod
   <a class="anchor" href="#function-foreignmethod-2">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> ForeignMethod(
-    std<span style="color:#f92672">::</span>string name,
-    WrenForeignMethodFn method,
-    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">bool</span> isStatic
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">ForeignMethod(
+    <span style="color:#66d9ef">const</span> ForeignMethod <span style="color:#f92672">&amp;</span> other
 )
-</code></pre></div><h2 id="protected-attributes-documentation">
+</code></pre></div><h3 id="function-generate">
+  function generate
+  <a class="anchor" href="#function-generate">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> generate(
+    std<span style="color:#f92672">::</span>ostream <span style="color:#f92672">&amp;</span> os
+) <span style="color:#66d9ef">const</span> <span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</code></pre></div><p><strong>Reimplemented by</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/#function-generate">wrenbind17::ForeignMethodImpl::generate</a></p>
+<h3 id="function-getname">
+  function getName
+  <a class="anchor" href="#function-getname">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> getName() <span style="color:#66d9ef">const</span>
+</code></pre></div><p>Returns the name of the method.</p>
+<h3 id="function-getmethod">
+  function getMethod
+  <a class="anchor" href="#function-getmethod">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> WrenForeignMethodFn getMethod() <span style="color:#66d9ef">const</span>
+</code></pre></div><p>Returns the raw pointer of this method.</p>
+<h3 id="function-getstatic">
+  function getStatic
+  <a class="anchor" href="#function-getstatic">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> getStatic() <span style="color:#66d9ef">const</span>
+</code></pre></div><p>Returns true if this method is marked as static.</p>
+<h2 id="protected-attributes-documentation">
   Protected Attributes Documentation
   <a class="anchor" href="#protected-attributes-documentation">#</a>
 </h2>
-<h3 id="variable-isstatic">
-  variable isStatic
-  <a class="anchor" href="#variable-isstatic">#</a>
+<h3 id="variable-name">
+  variable name
+  <a class="anchor" href="#variable-name">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">bool</span> isStatic;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>string name;
 </code></pre></div><h3 id="variable-method">
   variable method
   <a class="anchor" href="#variable-method">#</a>
 </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">WrenForeignMethodFn method;
-</code></pre></div><h3 id="variable-name">
-  variable name
-  <a class="anchor" href="#variable-name">#</a>
+</code></pre></div><h3 id="variable-isstatic">
+  variable isStatic
+  <a class="anchor" href="#variable-isstatic">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>string name;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">bool</span> isStatic;
 </code></pre></div><hr>
-<p>Updated on 28 December 2020 at 15:45:23 UTC</p>
+<p>Updated on 28 February 2022 at 21:40:10 UTC</p>
 </article>
  
       
@@ -346,20 +346,20 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#protected-attributes">Protected Attributes</a></li>
     <li><a href="#public-functions-documentation">Public Functions Documentation</a>
       <ul>
-        <li><a href="#function-getstatic">function getStatic</a></li>
-        <li><a href="#function-getmethod">function getMethod</a></li>
-        <li><a href="#function-getname">function getName</a></li>
-        <li><a href="#function-generate">function generate</a></li>
         <li><a href="#function-foreignmethod">function ForeignMethod</a></li>
         <li><a href="#function-foreignmethod-1">function ~ForeignMethod</a></li>
         <li><a href="#function-foreignmethod-2">function ForeignMethod</a></li>
+        <li><a href="#function-generate">function generate</a></li>
+        <li><a href="#function-getname">function getName</a></li>
+        <li><a href="#function-getmethod">function getMethod</a></li>
+        <li><a href="#function-getstatic">function getStatic</a></li>
       </ul>
     </li>
     <li><a href="#protected-attributes-documentation">Protected Attributes Documentation</a>
       <ul>
-        <li><a href="#variable-isstatic">variable isStatic</a></li>
-        <li><a href="#variable-method">variable method</a></li>
         <li><a href="#variable-name">variable name</a></li>
+        <li><a href="#variable-method">variable method</a></li>
+        <li><a href="#variable-isstatic">variable isStatic</a></li>
       </ul>
     </li>
   </ul>

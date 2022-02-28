@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="include/wrenbind17/exception.hpp #  Namespaces #     Name     wrenbind17    Classes #      Name     class wrenbind17::CompileError   class wrenbind17::RuntimeError   class wrenbind17::BadCast   class wrenbind17::NotFound   class wrenbind17::Exception    Source code #  #pragma once  #include &lt;stdexcept&gt; namespace wrenbind17 { class Exception : public std::exception { public: Exception() = default; explicit Exception(std::string msg) : msg(std::move(msg)) { } const char* what() const throw() override { return msg.">
+<meta name="description" content="include/wrenbind17/exception.hpp #  Namespaces #     Name     wrenbind17    Classes #      Name     class wrenbind17::Exception   class wrenbind17::NotFound   class wrenbind17::BadCast   class wrenbind17::RuntimeError   class wrenbind17::CompileError    Source code #  #pragma once  #include &lt;stdexcept&gt; namespace wrenbind17 { class Exception : public std::exception { public: Exception() = default; explicit Exception(std::string msg) : msg(std::move(msg)) { } const char* what() const throw() override { return msg.">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="include/wrenbind17/exception.hpp" />
-<meta property="og:description" content="include/wrenbind17/exception.hpp #  Namespaces #     Name     wrenbind17    Classes #      Name     class wrenbind17::CompileError   class wrenbind17::RuntimeError   class wrenbind17::BadCast   class wrenbind17::NotFound   class wrenbind17::Exception    Source code #  #pragma once  #include &lt;stdexcept&gt; namespace wrenbind17 { class Exception : public std::exception { public: Exception() = default; explicit Exception(std::string msg) : msg(std::move(msg)) { } const char* what() const throw() override { return msg." />
+<meta property="og:description" content="include/wrenbind17/exception.hpp #  Namespaces #     Name     wrenbind17    Classes #      Name     class wrenbind17::Exception   class wrenbind17::NotFound   class wrenbind17::BadCast   class wrenbind17::RuntimeError   class wrenbind17::CompileError    Source code #  #pragma once  #include &lt;stdexcept&gt; namespace wrenbind17 { class Exception : public std::exception { public: Exception() = default; explicit Exception(std::string msg) : msg(std::move(msg)) { } const char* what() const throw() override { return msg." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://matusnovak.github.io/wrenbind17/files/exception_8hpp/" />
 
@@ -14,7 +14,7 @@
 <link rel="manifest" href="/wrenbind17/manifest.json">
 <link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
-<script defer src="/wrenbind17/en.search.min.fb6c94a8bafbbce8462efda517ac26e7e51ef11540811e551c383e49d4235e1e.js" integrity="sha256-&#43;2yUqLr7vOhGLv2lF6wm5&#43;Ue8RVAgR5VHDg&#43;SdQjXh4="></script>
+<script defer src="/wrenbind17/en.search.min.d821bc4671e09f70c11205fdbb12a428d1e7a206559339bc157cbdc6081e40ca.js" integrity="sha256-2CG8RnHgn3DBEgX9uxKkKNHnogZVkzm8FXy9xggeQMo="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -170,15 +170,7 @@ https://github.com/alex-shpak/hugo-book
 <tbody>
 <tr>
 <td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_compile_error/">wrenbind17::CompileError</a></strong></td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_runtime_error/">wrenbind17::RuntimeError</a></strong></td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_bad_cast/">wrenbind17::BadCast</a></strong></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_exception/">wrenbind17::Exception</a></strong></td>
 </tr>
 <tr>
 <td>class</td>
@@ -186,7 +178,15 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 <tr>
 <td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_exception/">wrenbind17::Exception</a></strong></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_bad_cast/">wrenbind17::BadCast</a></strong></td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_runtime_error/">wrenbind17::RuntimeError</a></strong></td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_compile_error/">wrenbind17::CompileError</a></strong></td>
 </tr>
 </tbody>
 </table>
@@ -242,7 +242,7 @@ https://github.com/alex-shpak/hugo-book
     };
 } <span style="color:#75715e">// namespace wrenbind17
 </span></code></pre></div><hr>
-<p>Updated on 28 December 2020 at 15:45:23 UTC</p>
+<p>Updated on 28 February 2022 at 21:40:10 UTC</p>
 </article>
  
       

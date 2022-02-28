@@ -5,10 +5,10 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="wrenbind17::VM::Data #  #include &lt;vm.hpp&gt;
-Public Functions #      Name     void setNextError(std::string str)   std::string getLastError()   detail::ForeignPtrConvertor * getClassCast(const size_t hash, const size_t other)   void addClassCast(std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other)   bool isClassRegistered(const size_t hash) const   void getClassType(std::string &amp; module, std::string &amp; name, const size_t hash)   void addClassType(const std::string &amp; module, const std::string &amp; name, const size_t hash)    Public Attributes #      Name     LoadFileFn loadFileFn   PrintFn printFn   std::string nextError   std::string lastError   std::unordered_map&lt; std::pair&lt; size_t, size_t &gt;, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; &gt; classCasting   std::unordered_map&lt; size_t, std::string &gt; classToName   std::unordered_map&lt; size_t, std::string &gt; classToModule   std::unordered_map&lt; std::string, ForeignModule &gt; modules   std::vector&lt; std::string &gt; paths   WrenConfiguration config   std::shared_ptr&lt; WrenVM &gt; vm    Public Functions Documentation #  function setNextError #  inline void setNextError( std::string str ) function getLastError #  inline std::string getLastError() function getClassCast #  inline detail::ForeignPtrConvertor * getClassCast( const size_t hash, const size_t other ) function addClassCast #  inline void addClassCast( std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other ) function isClassRegistered #  inline bool isClassRegistered( const size_t hash ) const function getClassType #  inline void getClassType( std::string &amp; module, std::string &amp; name, const size_t hash ) function addClassType #  inline void addClassType( const std::string &amp; module, const std::string &amp; name, const size_t hash ) Public Attributes Documentation #  variable loadFileFn #  LoadFileFn loadFileFn; variable printFn #  PrintFn printFn; variable nextError #  std::string nextError; variable lastError #  std::string lastError; variable classCasting #  std::unordered_map&lt; std::pair&lt; size_t, size_t &gt;, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; &gt; classCasting; variable classToName #  std::unordered_map&lt; size_t, std::string &gt; classToName; variable classToModule #  std::unordered_map&lt; size_t, std::string &gt; classToModule; variable modules #  std::unordered_map&lt; std::string, ForeignModule &gt; modules; variable paths #  std::vector&lt; std::string &gt; paths; variable config #  WrenConfiguration config; variable vm #  std::shared_ptr&lt; WrenVM &gt; vm;  Updated on 28 December 2020 at 15:45:23 UTC">
+Public Functions #      Name     void addClassType(const std::string &amp; module, const std::string &amp; name, const size_t hash)   void getClassType(std::string &amp; module, std::string &amp; name, const size_t hash)   bool isClassRegistered(const size_t hash) const   void addClassCast(std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other)   detail::ForeignPtrConvertor * getClassCast(const size_t hash, const size_t other)   std::string getLastError()   void setNextError(std::string str)    Public Attributes #      Name     std::shared_ptr&lt; WrenVM &gt; vm   WrenConfiguration config   std::vector&lt; std::string &gt; paths   std::unordered_map&lt; std::string, ForeignModule &gt; modules   std::unordered_map&lt; size_t, std::string &gt; classToModule   std::unordered_map&lt; size_t, std::string &gt; classToName   std::unordered_map&lt; std::pair&lt; size_t, size_t &gt;, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; &gt; classCasting   std::string lastError   std::string nextError   PrintFn printFn   LoadFileFn loadFileFn    Public Functions Documentation #  function addClassType #  inline void addClassType( const std::string &amp; module, const std::string &amp; name, const size_t hash ) function getClassType #  inline void getClassType( std::string &amp; module, std::string &amp; name, const size_t hash ) function isClassRegistered #  inline bool isClassRegistered( const size_t hash ) const function addClassCast #  inline void addClassCast( std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other ) function getClassCast #  inline detail::ForeignPtrConvertor * getClassCast( const size_t hash, const size_t other ) function getLastError #  inline std::string getLastError() function setNextError #  inline void setNextError( std::string str ) Public Attributes Documentation #  variable vm #  std::shared_ptr&lt; WrenVM &gt; vm; variable config #  WrenConfiguration config; variable paths #  std::vector&lt; std::string &gt; paths; variable modules #  std::unordered_map&lt; std::string, ForeignModule &gt; modules; variable classToModule #  std::unordered_map&lt; size_t, std::string &gt; classToModule; variable classToName #  std::unordered_map&lt; size_t, std::string &gt; classToName; variable classCasting #  std::unordered_map&lt; std::pair&lt; size_t, size_t &gt;, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; &gt; classCasting; variable lastError #  std::string lastError; variable nextError #  std::string nextError; variable printFn #  PrintFn printFn; variable loadFileFn #  LoadFileFn loadFileFn;  Updated on 28 February 2022 at 21:40:10 UTC">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="wrenbind17::VM::Data" />
 <meta property="og:description" content="wrenbind17::VM::Data #  #include &lt;vm.hpp&gt;
-Public Functions #      Name     void setNextError(std::string str)   std::string getLastError()   detail::ForeignPtrConvertor * getClassCast(const size_t hash, const size_t other)   void addClassCast(std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other)   bool isClassRegistered(const size_t hash) const   void getClassType(std::string &amp; module, std::string &amp; name, const size_t hash)   void addClassType(const std::string &amp; module, const std::string &amp; name, const size_t hash)    Public Attributes #      Name     LoadFileFn loadFileFn   PrintFn printFn   std::string nextError   std::string lastError   std::unordered_map&lt; std::pair&lt; size_t, size_t &gt;, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; &gt; classCasting   std::unordered_map&lt; size_t, std::string &gt; classToName   std::unordered_map&lt; size_t, std::string &gt; classToModule   std::unordered_map&lt; std::string, ForeignModule &gt; modules   std::vector&lt; std::string &gt; paths   WrenConfiguration config   std::shared_ptr&lt; WrenVM &gt; vm    Public Functions Documentation #  function setNextError #  inline void setNextError( std::string str ) function getLastError #  inline std::string getLastError() function getClassCast #  inline detail::ForeignPtrConvertor * getClassCast( const size_t hash, const size_t other ) function addClassCast #  inline void addClassCast( std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other ) function isClassRegistered #  inline bool isClassRegistered( const size_t hash ) const function getClassType #  inline void getClassType( std::string &amp; module, std::string &amp; name, const size_t hash ) function addClassType #  inline void addClassType( const std::string &amp; module, const std::string &amp; name, const size_t hash ) Public Attributes Documentation #  variable loadFileFn #  LoadFileFn loadFileFn; variable printFn #  PrintFn printFn; variable nextError #  std::string nextError; variable lastError #  std::string lastError; variable classCasting #  std::unordered_map&lt; std::pair&lt; size_t, size_t &gt;, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; &gt; classCasting; variable classToName #  std::unordered_map&lt; size_t, std::string &gt; classToName; variable classToModule #  std::unordered_map&lt; size_t, std::string &gt; classToModule; variable modules #  std::unordered_map&lt; std::string, ForeignModule &gt; modules; variable paths #  std::vector&lt; std::string &gt; paths; variable config #  WrenConfiguration config; variable vm #  std::shared_ptr&lt; WrenVM &gt; vm;  Updated on 28 December 2020 at 15:45:23 UTC" />
+Public Functions #      Name     void addClassType(const std::string &amp; module, const std::string &amp; name, const size_t hash)   void getClassType(std::string &amp; module, std::string &amp; name, const size_t hash)   bool isClassRegistered(const size_t hash) const   void addClassCast(std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other)   detail::ForeignPtrConvertor * getClassCast(const size_t hash, const size_t other)   std::string getLastError()   void setNextError(std::string str)    Public Attributes #      Name     std::shared_ptr&lt; WrenVM &gt; vm   WrenConfiguration config   std::vector&lt; std::string &gt; paths   std::unordered_map&lt; std::string, ForeignModule &gt; modules   std::unordered_map&lt; size_t, std::string &gt; classToModule   std::unordered_map&lt; size_t, std::string &gt; classToName   std::unordered_map&lt; std::pair&lt; size_t, size_t &gt;, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; &gt; classCasting   std::string lastError   std::string nextError   PrintFn printFn   LoadFileFn loadFileFn    Public Functions Documentation #  function addClassType #  inline void addClassType( const std::string &amp; module, const std::string &amp; name, const size_t hash ) function getClassType #  inline void getClassType( std::string &amp; module, std::string &amp; name, const size_t hash ) function isClassRegistered #  inline bool isClassRegistered( const size_t hash ) const function addClassCast #  inline void addClassCast( std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other ) function getClassCast #  inline detail::ForeignPtrConvertor * getClassCast( const size_t hash, const size_t other ) function getLastError #  inline std::string getLastError() function setNextError #  inline void setNextError( std::string str ) Public Attributes Documentation #  variable vm #  std::shared_ptr&lt; WrenVM &gt; vm; variable config #  WrenConfiguration config; variable paths #  std::vector&lt; std::string &gt; paths; variable modules #  std::unordered_map&lt; std::string, ForeignModule &gt; modules; variable classToModule #  std::unordered_map&lt; size_t, std::string &gt; classToModule; variable classToName #  std::unordered_map&lt; size_t, std::string &gt; classToName; variable classCasting #  std::unordered_map&lt; std::pair&lt; size_t, size_t &gt;, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; &gt; classCasting; variable lastError #  std::string lastError; variable nextError #  std::string nextError; variable printFn #  PrintFn printFn; variable loadFileFn #  LoadFileFn loadFileFn;  Updated on 28 February 2022 at 21:40:10 UTC" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/" />
 
@@ -16,7 +16,7 @@ Public Functions #      Name     void setNextError(std::string str)   std::strin
 <link rel="manifest" href="/wrenbind17/manifest.json">
 <link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
-<script defer src="/wrenbind17/en.search.min.fb6c94a8bafbbce8462efda517ac26e7e51ef11540811e551c383e49d4235e1e.js" integrity="sha256-&#43;2yUqLr7vOhGLv2lF6wm5&#43;Ue8RVAgR5VHDg&#43;SdQjXh4="></script>
+<script defer src="/wrenbind17/en.search.min.d821bc4671e09f70c11205fdbb12a428d1e7a206559339bc157cbdc6081e40ca.js" integrity="sha256-2CG8RnHgn3DBEgX9uxKkKNHnogZVkzm8FXy9xggeQMo="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -128,28 +128,28 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#public-attributes">Public Attributes</a></li>
     <li><a href="#public-functions-documentation">Public Functions Documentation</a>
       <ul>
-        <li><a href="#function-setnexterror">function setNextError</a></li>
-        <li><a href="#function-getlasterror">function getLastError</a></li>
-        <li><a href="#function-getclasscast">function getClassCast</a></li>
-        <li><a href="#function-addclasscast">function addClassCast</a></li>
-        <li><a href="#function-isclassregistered">function isClassRegistered</a></li>
-        <li><a href="#function-getclasstype">function getClassType</a></li>
         <li><a href="#function-addclasstype">function addClassType</a></li>
+        <li><a href="#function-getclasstype">function getClassType</a></li>
+        <li><a href="#function-isclassregistered">function isClassRegistered</a></li>
+        <li><a href="#function-addclasscast">function addClassCast</a></li>
+        <li><a href="#function-getclasscast">function getClassCast</a></li>
+        <li><a href="#function-getlasterror">function getLastError</a></li>
+        <li><a href="#function-setnexterror">function setNextError</a></li>
       </ul>
     </li>
     <li><a href="#public-attributes-documentation">Public Attributes Documentation</a>
       <ul>
-        <li><a href="#variable-loadfilefn">variable loadFileFn</a></li>
-        <li><a href="#variable-printfn">variable printFn</a></li>
-        <li><a href="#variable-nexterror">variable nextError</a></li>
-        <li><a href="#variable-lasterror">variable lastError</a></li>
-        <li><a href="#variable-classcasting">variable classCasting</a></li>
-        <li><a href="#variable-classtoname">variable classToName</a></li>
-        <li><a href="#variable-classtomodule">variable classToModule</a></li>
-        <li><a href="#variable-modules">variable modules</a></li>
-        <li><a href="#variable-paths">variable paths</a></li>
-        <li><a href="#variable-config">variable config</a></li>
         <li><a href="#variable-vm">variable vm</a></li>
+        <li><a href="#variable-config">variable config</a></li>
+        <li><a href="#variable-paths">variable paths</a></li>
+        <li><a href="#variable-modules">variable modules</a></li>
+        <li><a href="#variable-classtomodule">variable classToModule</a></li>
+        <li><a href="#variable-classtoname">variable classToName</a></li>
+        <li><a href="#variable-classcasting">variable classCasting</a></li>
+        <li><a href="#variable-lasterror">variable lastError</a></li>
+        <li><a href="#variable-nexterror">variable nextError</a></li>
+        <li><a href="#variable-printfn">variable printFn</a></li>
+        <li><a href="#variable-loadfilefn">variable loadFileFn</a></li>
       </ul>
     </li>
   </ul>
@@ -182,19 +182,11 @@ https://github.com/alex-shpak/hugo-book
 <tbody>
 <tr>
 <td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-setnexterror">setNextError</a></strong>(std::string str)</td>
-</tr>
-<tr>
-<td>std::string</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-getlasterror">getLastError</a></strong>()</td>
-</tr>
-<tr>
-<td>detail::ForeignPtrConvertor *</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-getclasscast">getClassCast</a></strong>(const size_t hash, const size_t other)</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-addclasstype">addClassType</a></strong>(const std::string &amp; module, const std::string &amp; name, const size_t hash)</td>
 </tr>
 <tr>
 <td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-addclasscast">addClassCast</a></strong>(std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other)</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-getclasstype">getClassType</a></strong>(std::string &amp; module, std::string &amp; name, const size_t hash)</td>
 </tr>
 <tr>
 <td>bool</td>
@@ -202,11 +194,19 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 <tr>
 <td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-getclasstype">getClassType</a></strong>(std::string &amp; module, std::string &amp; name, const size_t hash)</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-addclasscast">addClassCast</a></strong>(std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, const size_t hash, const size_t other)</td>
+</tr>
+<tr>
+<td>detail::ForeignPtrConvertor *</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-getclasscast">getClassCast</a></strong>(const size_t hash, const size_t other)</td>
+</tr>
+<tr>
+<td>std::string</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-getlasterror">getLastError</a></strong>()</td>
 </tr>
 <tr>
 <td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-addclasstype">addClassType</a></strong>(const std::string &amp; module, const std::string &amp; name, const size_t hash)</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#function-setnexterror">setNextError</a></strong>(std::string str)</td>
 </tr>
 </tbody>
 </table>
@@ -223,48 +223,48 @@ https://github.com/alex-shpak/hugo-book
 </thead>
 <tbody>
 <tr>
-<td><a href="/wrenbind17/namespaces/namespacewrenbind17/#typedef-loadfilefn">LoadFileFn</a></td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-loadfilefn">loadFileFn</a></strong></td>
-</tr>
-<tr>
-<td><a href="/wrenbind17/namespaces/namespacewrenbind17/#typedef-printfn">PrintFn</a></td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-printfn">printFn</a></strong></td>
-</tr>
-<tr>
-<td>std::string</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-nexterror">nextError</a></strong></td>
-</tr>
-<tr>
-<td>std::string</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-lasterror">lastError</a></strong></td>
-</tr>
-<tr>
-<td>std::unordered_map&lt; std::pair&lt; size_t, size_t &gt;, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; &gt;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-classcasting">classCasting</a></strong></td>
-</tr>
-<tr>
-<td>std::unordered_map&lt; size_t, std::string &gt;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-classtoname">classToName</a></strong></td>
-</tr>
-<tr>
-<td>std::unordered_map&lt; size_t, std::string &gt;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-classtomodule">classToModule</a></strong></td>
-</tr>
-<tr>
-<td>std::unordered_map&lt; std::string, <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_module/">ForeignModule</a> &gt;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-modules">modules</a></strong></td>
-</tr>
-<tr>
-<td>std::vector&lt; std::string &gt;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-paths">paths</a></strong></td>
+<td>std::shared_ptr&lt; WrenVM &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-vm">vm</a></strong></td>
 </tr>
 <tr>
 <td>WrenConfiguration</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-config">config</a></strong></td>
 </tr>
 <tr>
-<td>std::shared_ptr&lt; WrenVM &gt;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-vm">vm</a></strong></td>
+<td>std::vector&lt; std::string &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-paths">paths</a></strong></td>
+</tr>
+<tr>
+<td>std::unordered_map&lt; std::string, <a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_module/">ForeignModule</a> &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-modules">modules</a></strong></td>
+</tr>
+<tr>
+<td>std::unordered_map&lt; size_t, std::string &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-classtomodule">classToModule</a></strong></td>
+</tr>
+<tr>
+<td>std::unordered_map&lt; size_t, std::string &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-classtoname">classToName</a></strong></td>
+</tr>
+<tr>
+<td>std::unordered_map&lt; std::pair&lt; size_t, size_t &gt;, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-classcasting">classCasting</a></strong></td>
+</tr>
+<tr>
+<td>std::string</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-lasterror">lastError</a></strong></td>
+</tr>
+<tr>
+<td>std::string</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-nexterror">nextError</a></strong></td>
+</tr>
+<tr>
+<td><a href="/wrenbind17/modules/group__wrenbind17/#typedef-printfn">PrintFn</a></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-printfn">printFn</a></strong></td>
+</tr>
+<tr>
+<td><a href="/wrenbind17/modules/group__wrenbind17/#typedef-loadfilefn">LoadFileFn</a></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m_1_1_data/#variable-loadfilefn">loadFileFn</a></strong></td>
 </tr>
 </tbody>
 </table>
@@ -272,42 +272,15 @@ https://github.com/alex-shpak/hugo-book
   Public Functions Documentation
   <a class="anchor" href="#public-functions-documentation">#</a>
 </h2>
-<h3 id="function-setnexterror">
-  function setNextError
-  <a class="anchor" href="#function-setnexterror">#</a>
+<h3 id="function-addclasstype">
+  function addClassType
+  <a class="anchor" href="#function-addclasstype">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> setNextError(
-    std<span style="color:#f92672">::</span>string str
-)
-</code></pre></div><h3 id="function-getlasterror">
-  function getLastError
-  <a class="anchor" href="#function-getlasterror">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>string getLastError()
-</code></pre></div><h3 id="function-getclasscast">
-  function getClassCast
-  <a class="anchor" href="#function-getclasscast">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">*</span> getClassCast(
-    <span style="color:#66d9ef">const</span> size_t hash,
-    <span style="color:#66d9ef">const</span> size_t other
-)
-</code></pre></div><h3 id="function-addclasscast">
-  function addClassCast
-  <a class="anchor" href="#function-addclasscast">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> addClassCast(
-    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">&gt;</span> convertor,
-    <span style="color:#66d9ef">const</span> size_t hash,
-    <span style="color:#66d9ef">const</span> size_t other
-)
-</code></pre></div><h3 id="function-isclassregistered">
-  function isClassRegistered
-  <a class="anchor" href="#function-isclassregistered">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> isClassRegistered(
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> addClassType(
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> module,
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name,
     <span style="color:#66d9ef">const</span> size_t hash
-) <span style="color:#66d9ef">const</span>
+)
 </code></pre></div><h3 id="function-getclasstype">
   function getClassType
   <a class="anchor" href="#function-getclasstype">#</a>
@@ -317,76 +290,103 @@ https://github.com/alex-shpak/hugo-book
     std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name,
     <span style="color:#66d9ef">const</span> size_t hash
 )
-</code></pre></div><h3 id="function-addclasstype">
-  function addClassType
-  <a class="anchor" href="#function-addclasstype">#</a>
+</code></pre></div><h3 id="function-isclassregistered">
+  function isClassRegistered
+  <a class="anchor" href="#function-isclassregistered">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> addClassType(
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> module,
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name,
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> isClassRegistered(
     <span style="color:#66d9ef">const</span> size_t hash
+) <span style="color:#66d9ef">const</span>
+</code></pre></div><h3 id="function-addclasscast">
+  function addClassCast
+  <a class="anchor" href="#function-addclasscast">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> addClassCast(
+    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">&gt;</span> convertor,
+    <span style="color:#66d9ef">const</span> size_t hash,
+    <span style="color:#66d9ef">const</span> size_t other
+)
+</code></pre></div><h3 id="function-getclasscast">
+  function getClassCast
+  <a class="anchor" href="#function-getclasscast">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">*</span> getClassCast(
+    <span style="color:#66d9ef">const</span> size_t hash,
+    <span style="color:#66d9ef">const</span> size_t other
+)
+</code></pre></div><h3 id="function-getlasterror">
+  function getLastError
+  <a class="anchor" href="#function-getlasterror">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>string getLastError()
+</code></pre></div><h3 id="function-setnexterror">
+  function setNextError
+  <a class="anchor" href="#function-setnexterror">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> setNextError(
+    std<span style="color:#f92672">::</span>string str
 )
 </code></pre></div><h2 id="public-attributes-documentation">
   Public Attributes Documentation
   <a class="anchor" href="#public-attributes-documentation">#</a>
 </h2>
-<h3 id="variable-loadfilefn">
-  variable loadFileFn
-  <a class="anchor" href="#variable-loadfilefn">#</a>
+<h3 id="variable-vm">
+  variable vm
+  <a class="anchor" href="#variable-vm">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">LoadFileFn loadFileFn;
-</code></pre></div><h3 id="variable-printfn">
-  variable printFn
-  <a class="anchor" href="#variable-printfn">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">PrintFn printFn;
-</code></pre></div><h3 id="variable-nexterror">
-  variable nextError
-  <a class="anchor" href="#variable-nexterror">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>string nextError;
-</code></pre></div><h3 id="variable-lasterror">
-  variable lastError
-  <a class="anchor" href="#variable-lasterror">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>string lastError;
-</code></pre></div><h3 id="variable-classcasting">
-  variable classCasting
-  <a class="anchor" href="#variable-classcasting">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>pair<span style="color:#f92672">&lt;</span> size_t, size_t <span style="color:#f92672">&gt;</span>, std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> classCasting;
-</code></pre></div><h3 id="variable-classtoname">
-  variable classToName
-  <a class="anchor" href="#variable-classtoname">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span> size_t, std<span style="color:#f92672">::</span>string <span style="color:#f92672">&gt;</span> classToName;
-</code></pre></div><h3 id="variable-classtomodule">
-  variable classToModule
-  <a class="anchor" href="#variable-classtomodule">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span> size_t, std<span style="color:#f92672">::</span>string <span style="color:#f92672">&gt;</span> classToModule;
-</code></pre></div><h3 id="variable-modules">
-  variable modules
-  <a class="anchor" href="#variable-modules">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>string, ForeignModule <span style="color:#f92672">&gt;</span> modules;
-</code></pre></div><h3 id="variable-paths">
-  variable paths
-  <a class="anchor" href="#variable-paths">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&gt;</span> paths;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> WrenVM <span style="color:#f92672">&gt;</span> vm;
 </code></pre></div><h3 id="variable-config">
   variable config
   <a class="anchor" href="#variable-config">#</a>
 </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">WrenConfiguration config;
-</code></pre></div><h3 id="variable-vm">
-  variable vm
-  <a class="anchor" href="#variable-vm">#</a>
+</code></pre></div><h3 id="variable-paths">
+  variable paths
+  <a class="anchor" href="#variable-paths">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> WrenVM <span style="color:#f92672">&gt;</span> vm;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&gt;</span> paths;
+</code></pre></div><h3 id="variable-modules">
+  variable modules
+  <a class="anchor" href="#variable-modules">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>string, ForeignModule <span style="color:#f92672">&gt;</span> modules;
+</code></pre></div><h3 id="variable-classtomodule">
+  variable classToModule
+  <a class="anchor" href="#variable-classtomodule">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span> size_t, std<span style="color:#f92672">::</span>string <span style="color:#f92672">&gt;</span> classToModule;
+</code></pre></div><h3 id="variable-classtoname">
+  variable classToName
+  <a class="anchor" href="#variable-classtoname">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span> size_t, std<span style="color:#f92672">::</span>string <span style="color:#f92672">&gt;</span> classToName;
+</code></pre></div><h3 id="variable-classcasting">
+  variable classCasting
+  <a class="anchor" href="#variable-classcasting">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>pair<span style="color:#f92672">&lt;</span> size_t, size_t <span style="color:#f92672">&gt;</span>, std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> classCasting;
+</code></pre></div><h3 id="variable-lasterror">
+  variable lastError
+  <a class="anchor" href="#variable-lasterror">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>string lastError;
+</code></pre></div><h3 id="variable-nexterror">
+  variable nextError
+  <a class="anchor" href="#variable-nexterror">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>string nextError;
+</code></pre></div><h3 id="variable-printfn">
+  variable printFn
+  <a class="anchor" href="#variable-printfn">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">PrintFn printFn;
+</code></pre></div><h3 id="variable-loadfilefn">
+  variable loadFileFn
+  <a class="anchor" href="#variable-loadfilefn">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">LoadFileFn loadFileFn;
 </code></pre></div><hr>
-<p>Updated on 28 December 2020 at 15:45:23 UTC</p>
+<p>Updated on 28 February 2022 at 21:40:10 UTC</p>
 </article>
  
       
@@ -432,28 +432,28 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#public-attributes">Public Attributes</a></li>
     <li><a href="#public-functions-documentation">Public Functions Documentation</a>
       <ul>
-        <li><a href="#function-setnexterror">function setNextError</a></li>
-        <li><a href="#function-getlasterror">function getLastError</a></li>
-        <li><a href="#function-getclasscast">function getClassCast</a></li>
-        <li><a href="#function-addclasscast">function addClassCast</a></li>
-        <li><a href="#function-isclassregistered">function isClassRegistered</a></li>
-        <li><a href="#function-getclasstype">function getClassType</a></li>
         <li><a href="#function-addclasstype">function addClassType</a></li>
+        <li><a href="#function-getclasstype">function getClassType</a></li>
+        <li><a href="#function-isclassregistered">function isClassRegistered</a></li>
+        <li><a href="#function-addclasscast">function addClassCast</a></li>
+        <li><a href="#function-getclasscast">function getClassCast</a></li>
+        <li><a href="#function-getlasterror">function getLastError</a></li>
+        <li><a href="#function-setnexterror">function setNextError</a></li>
       </ul>
     </li>
     <li><a href="#public-attributes-documentation">Public Attributes Documentation</a>
       <ul>
-        <li><a href="#variable-loadfilefn">variable loadFileFn</a></li>
-        <li><a href="#variable-printfn">variable printFn</a></li>
-        <li><a href="#variable-nexterror">variable nextError</a></li>
-        <li><a href="#variable-lasterror">variable lastError</a></li>
-        <li><a href="#variable-classcasting">variable classCasting</a></li>
-        <li><a href="#variable-classtoname">variable classToName</a></li>
-        <li><a href="#variable-classtomodule">variable classToModule</a></li>
-        <li><a href="#variable-modules">variable modules</a></li>
-        <li><a href="#variable-paths">variable paths</a></li>
-        <li><a href="#variable-config">variable config</a></li>
         <li><a href="#variable-vm">variable vm</a></li>
+        <li><a href="#variable-config">variable config</a></li>
+        <li><a href="#variable-paths">variable paths</a></li>
+        <li><a href="#variable-modules">variable modules</a></li>
+        <li><a href="#variable-classtomodule">variable classToModule</a></li>
+        <li><a href="#variable-classtoname">variable classToName</a></li>
+        <li><a href="#variable-classcasting">variable classCasting</a></li>
+        <li><a href="#variable-lasterror">variable lastError</a></li>
+        <li><a href="#variable-nexterror">variable nextError</a></li>
+        <li><a href="#variable-printfn">variable printFn</a></li>
+        <li><a href="#variable-loadfilefn">variable loadFileFn</a></li>
       </ul>
     </li>
   </ul>

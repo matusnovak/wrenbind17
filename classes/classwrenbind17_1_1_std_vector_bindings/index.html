@@ -6,11 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="wrenbind17::StdVectorBindings #  More&hellip;
 #include &lt;std.hpp&gt;
-Public Types #      Name     typedef std::vector&lt; T &gt; Vector   typedef std::vector&lt; T &gt;::iterator Iterator    Public Functions #      Name     void bind(ForeignModule &amp; m, const std::string &amp; name)   bool empty(Vector &amp; self)   size_t size(Vector &amp; self)   void clear(Vector &amp; self)   T pop(Vector &amp; self)   bool contains(Vector &amp; self, const T &amp; value)   void insert(Vector &amp; self, int32_t index, T value)   T removeAt(Vector &amp; self, int32_t index)   size_t count(Vector &amp; self)   const T &amp; iteratorValue(Vector &amp; self, std::shared_ptr&lt; Iterator &gt; other)   std::variant&lt; bool, Iterator &gt; iterate(Vector &amp; self, std::variant&lt; std::nullptr_t, Iterator &gt; other)   void add(Vector &amp; self, T value)   const T &amp; getIndex(Vector &amp; self, size_t index)   void setIndex(Vector &amp; self, size_t index, T value)    Detailed Description #  template &lt;typename T &gt; class wrenbind17::StdVectorBindings; Public Types Documentation #  typedef Vector #  typedef std::vector&lt;T&gt; wrenbind17::StdVectorBindings&lt; T &gt;::Vector; typedef Iterator #  typedef std::vector&lt;T&gt;::iterator wrenbind17::StdVectorBindings&lt; T &gt;::Iterator; Public Functions Documentation #  function bind #  static inline void bind( ForeignModule &amp; m, const std::string &amp; name ) function empty #  static inline bool empty( Vector &amp; self ) function size #  static inline size_t size( Vector &amp; self ) function clear #  static inline void clear( Vector &amp; self ) function pop #  static inline T pop( Vector &amp; self ) function contains #  static inline bool contains( Vector &amp; self, const T &amp; value ) function insert #  static inline void insert( Vector &amp; self, int32_t index, T value ) function removeAt #  static inline T removeAt( Vector &amp; self, int32_t index ) function count #  static inline size_t count( Vector &amp; self ) function iteratorValue #  static inline const T &amp; iteratorValue( Vector &amp; self, std::shared_ptr&lt; Iterator &gt; other ) function iterate #  static inline std::variant&lt; bool, Iterator &gt; iterate( Vector &amp; self, std::variant&lt; std::nullptr_t, Iterator &gt; other ) function add #  static inline void add( Vector &amp; self, T value ) function getIndex #  static inline const T &amp; getIndex( Vector &amp; self, size_t index ) function setIndex #  static inline void setIndex( Vector &amp; self, size_t index, T value )  Updated on 28 December 2020 at 15:45:23 UTC">
+Public Types #      Name     typedef std::vector&lt; T &gt;::iterator Iterator   typedef std::vector&lt; T &gt; Vector    Public Functions #      Name     void setIndex(Vector &amp; self, size_t index, T value)   const T &amp; getIndex(Vector &amp; self, size_t index)   void add(Vector &amp; self, T value)   std::variant&lt; bool, Iterator &gt; iterate(Vector &amp; self, std::variant&lt; std::nullptr_t, Iterator &gt; other)   const T &amp; iteratorValue(Vector &amp; self, std::shared_ptr&lt; Iterator &gt; other)   size_t count(Vector &amp; self)   T removeAt(Vector &amp; self, int32_t index)   void insert(Vector &amp; self, int32_t index, T value)   bool contains(Vector &amp; self, const T &amp; value)   T pop(Vector &amp; self)   void clear(Vector &amp; self)   size_t size(Vector &amp; self)   bool empty(Vector &amp; self)   void bind(ForeignModule &amp; m, const std::string &amp; name)    Detailed Description #  template &lt;typename T &gt; class wrenbind17::StdVectorBindings; Public Types Documentation #  typedef Iterator #  typedef std::vector&lt;T&gt;::iterator wrenbind17::StdVectorBindings&lt; T &gt;::Iterator; typedef Vector #  typedef std::vector&lt;T&gt; wrenbind17::StdVectorBindings&lt; T &gt;::Vector; Public Functions Documentation #  function setIndex #  static inline void setIndex( Vector &amp; self, size_t index, T value ) function getIndex #  static inline const T &amp; getIndex( Vector &amp; self, size_t index ) function add #  static inline void add( Vector &amp; self, T value ) function iterate #  static inline std::variant&lt; bool, Iterator &gt; iterate( Vector &amp; self, std::variant&lt; std::nullptr_t, Iterator &gt; other ) function iteratorValue #  static inline const T &amp; iteratorValue( Vector &amp; self, std::shared_ptr&lt; Iterator &gt; other ) function count #  static inline size_t count( Vector &amp; self ) function removeAt #  static inline T removeAt( Vector &amp; self, int32_t index ) function insert #  static inline void insert( Vector &amp; self, int32_t index, T value ) function contains #  static inline bool contains( Vector &amp; self, const T &amp; value ) function pop #  static inline T pop( Vector &amp; self ) function clear #  static inline void clear( Vector &amp; self ) function size #  static inline size_t size( Vector &amp; self ) function empty #  static inline bool empty( Vector &amp; self ) function bind #  static inline void bind( ForeignModule &amp; m, const std::string &amp; name )  Updated on 28 February 2022 at 21:40:10 UTC">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="wrenbind17::StdVectorBindings" />
 <meta property="og:description" content="wrenbind17::StdVectorBindings #  More&hellip;
 #include &lt;std.hpp&gt;
-Public Types #      Name     typedef std::vector&lt; T &gt; Vector   typedef std::vector&lt; T &gt;::iterator Iterator    Public Functions #      Name     void bind(ForeignModule &amp; m, const std::string &amp; name)   bool empty(Vector &amp; self)   size_t size(Vector &amp; self)   void clear(Vector &amp; self)   T pop(Vector &amp; self)   bool contains(Vector &amp; self, const T &amp; value)   void insert(Vector &amp; self, int32_t index, T value)   T removeAt(Vector &amp; self, int32_t index)   size_t count(Vector &amp; self)   const T &amp; iteratorValue(Vector &amp; self, std::shared_ptr&lt; Iterator &gt; other)   std::variant&lt; bool, Iterator &gt; iterate(Vector &amp; self, std::variant&lt; std::nullptr_t, Iterator &gt; other)   void add(Vector &amp; self, T value)   const T &amp; getIndex(Vector &amp; self, size_t index)   void setIndex(Vector &amp; self, size_t index, T value)    Detailed Description #  template &lt;typename T &gt; class wrenbind17::StdVectorBindings; Public Types Documentation #  typedef Vector #  typedef std::vector&lt;T&gt; wrenbind17::StdVectorBindings&lt; T &gt;::Vector; typedef Iterator #  typedef std::vector&lt;T&gt;::iterator wrenbind17::StdVectorBindings&lt; T &gt;::Iterator; Public Functions Documentation #  function bind #  static inline void bind( ForeignModule &amp; m, const std::string &amp; name ) function empty #  static inline bool empty( Vector &amp; self ) function size #  static inline size_t size( Vector &amp; self ) function clear #  static inline void clear( Vector &amp; self ) function pop #  static inline T pop( Vector &amp; self ) function contains #  static inline bool contains( Vector &amp; self, const T &amp; value ) function insert #  static inline void insert( Vector &amp; self, int32_t index, T value ) function removeAt #  static inline T removeAt( Vector &amp; self, int32_t index ) function count #  static inline size_t count( Vector &amp; self ) function iteratorValue #  static inline const T &amp; iteratorValue( Vector &amp; self, std::shared_ptr&lt; Iterator &gt; other ) function iterate #  static inline std::variant&lt; bool, Iterator &gt; iterate( Vector &amp; self, std::variant&lt; std::nullptr_t, Iterator &gt; other ) function add #  static inline void add( Vector &amp; self, T value ) function getIndex #  static inline const T &amp; getIndex( Vector &amp; self, size_t index ) function setIndex #  static inline void setIndex( Vector &amp; self, size_t index, T value )  Updated on 28 December 2020 at 15:45:23 UTC" />
+Public Types #      Name     typedef std::vector&lt; T &gt;::iterator Iterator   typedef std::vector&lt; T &gt; Vector    Public Functions #      Name     void setIndex(Vector &amp; self, size_t index, T value)   const T &amp; getIndex(Vector &amp; self, size_t index)   void add(Vector &amp; self, T value)   std::variant&lt; bool, Iterator &gt; iterate(Vector &amp; self, std::variant&lt; std::nullptr_t, Iterator &gt; other)   const T &amp; iteratorValue(Vector &amp; self, std::shared_ptr&lt; Iterator &gt; other)   size_t count(Vector &amp; self)   T removeAt(Vector &amp; self, int32_t index)   void insert(Vector &amp; self, int32_t index, T value)   bool contains(Vector &amp; self, const T &amp; value)   T pop(Vector &amp; self)   void clear(Vector &amp; self)   size_t size(Vector &amp; self)   bool empty(Vector &amp; self)   void bind(ForeignModule &amp; m, const std::string &amp; name)    Detailed Description #  template &lt;typename T &gt; class wrenbind17::StdVectorBindings; Public Types Documentation #  typedef Iterator #  typedef std::vector&lt;T&gt;::iterator wrenbind17::StdVectorBindings&lt; T &gt;::Iterator; typedef Vector #  typedef std::vector&lt;T&gt; wrenbind17::StdVectorBindings&lt; T &gt;::Vector; Public Functions Documentation #  function setIndex #  static inline void setIndex( Vector &amp; self, size_t index, T value ) function getIndex #  static inline const T &amp; getIndex( Vector &amp; self, size_t index ) function add #  static inline void add( Vector &amp; self, T value ) function iterate #  static inline std::variant&lt; bool, Iterator &gt; iterate( Vector &amp; self, std::variant&lt; std::nullptr_t, Iterator &gt; other ) function iteratorValue #  static inline const T &amp; iteratorValue( Vector &amp; self, std::shared_ptr&lt; Iterator &gt; other ) function count #  static inline size_t count( Vector &amp; self ) function removeAt #  static inline T removeAt( Vector &amp; self, int32_t index ) function insert #  static inline void insert( Vector &amp; self, int32_t index, T value ) function contains #  static inline bool contains( Vector &amp; self, const T &amp; value ) function pop #  static inline T pop( Vector &amp; self ) function clear #  static inline void clear( Vector &amp; self ) function size #  static inline size_t size( Vector &amp; self ) function empty #  static inline bool empty( Vector &amp; self ) function bind #  static inline void bind( ForeignModule &amp; m, const std::string &amp; name )  Updated on 28 February 2022 at 21:40:10 UTC" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://matusnovak.github.io/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/" />
 
@@ -18,7 +18,7 @@ Public Types #      Name     typedef std::vector&lt; T &gt; Vector   typedef std
 <link rel="manifest" href="/wrenbind17/manifest.json">
 <link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
-<script defer src="/wrenbind17/en.search.min.fb6c94a8bafbbce8462efda517ac26e7e51ef11540811e551c383e49d4235e1e.js" integrity="sha256-&#43;2yUqLr7vOhGLv2lF6wm5&#43;Ue8RVAgR5VHDg&#43;SdQjXh4="></script>
+<script defer src="/wrenbind17/en.search.min.d821bc4671e09f70c11205fdbb12a428d1e7a206559339bc157cbdc6081e40ca.js" integrity="sha256-2CG8RnHgn3DBEgX9uxKkKNHnogZVkzm8FXy9xggeQMo="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -131,26 +131,26 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#detailed-description">Detailed Description</a></li>
     <li><a href="#public-types-documentation">Public Types Documentation</a>
       <ul>
-        <li><a href="#typedef-vector">typedef Vector</a></li>
         <li><a href="#typedef-iterator">typedef Iterator</a></li>
+        <li><a href="#typedef-vector">typedef Vector</a></li>
       </ul>
     </li>
     <li><a href="#public-functions-documentation">Public Functions Documentation</a>
       <ul>
-        <li><a href="#function-bind">function bind</a></li>
-        <li><a href="#function-empty">function empty</a></li>
-        <li><a href="#function-size">function size</a></li>
-        <li><a href="#function-clear">function clear</a></li>
-        <li><a href="#function-pop">function pop</a></li>
-        <li><a href="#function-contains">function contains</a></li>
-        <li><a href="#function-insert">function insert</a></li>
-        <li><a href="#function-removeat">function removeAt</a></li>
-        <li><a href="#function-count">function count</a></li>
-        <li><a href="#function-iteratorvalue">function iteratorValue</a></li>
-        <li><a href="#function-iterate">function iterate</a></li>
-        <li><a href="#function-add">function add</a></li>
-        <li><a href="#function-getindex">function getIndex</a></li>
         <li><a href="#function-setindex">function setIndex</a></li>
+        <li><a href="#function-getindex">function getIndex</a></li>
+        <li><a href="#function-add">function add</a></li>
+        <li><a href="#function-iterate">function iterate</a></li>
+        <li><a href="#function-iteratorvalue">function iteratorValue</a></li>
+        <li><a href="#function-count">function count</a></li>
+        <li><a href="#function-removeat">function removeAt</a></li>
+        <li><a href="#function-insert">function insert</a></li>
+        <li><a href="#function-contains">function contains</a></li>
+        <li><a href="#function-pop">function pop</a></li>
+        <li><a href="#function-clear">function clear</a></li>
+        <li><a href="#function-size">function size</a></li>
+        <li><a href="#function-empty">function empty</a></li>
+        <li><a href="#function-bind">function bind</a></li>
       </ul>
     </li>
   </ul>
@@ -183,12 +183,12 @@ https://github.com/alex-shpak/hugo-book
 </thead>
 <tbody>
 <tr>
-<td>typedef std::vector&lt; T &gt;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a></strong></td>
-</tr>
-<tr>
 <td>typedef std::vector&lt; T &gt;::iterator</td>
 <td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-iterator">Iterator</a></strong></td>
+</tr>
+<tr>
+<td>typedef std::vector&lt; T &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a></strong></td>
 </tr>
 </tbody>
 </table>
@@ -206,51 +206,7 @@ https://github.com/alex-shpak/hugo-book
 <tbody>
 <tr>
 <td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-bind">bind</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_module/">ForeignModule</a> &amp; m, const std::string &amp; name)</td>
-</tr>
-<tr>
-<td>bool</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-empty">empty</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self)</td>
-</tr>
-<tr>
-<td>size_t</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-size">size</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self)</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-clear">clear</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self)</td>
-</tr>
-<tr>
-<td>T</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-pop">pop</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self)</td>
-</tr>
-<tr>
-<td>bool</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-contains">contains</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self, const T &amp; value)</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-insert">insert</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self, int32_t index, T value)</td>
-</tr>
-<tr>
-<td>T</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-removeat">removeAt</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self, int32_t index)</td>
-</tr>
-<tr>
-<td>size_t</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-count">count</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self)</td>
-</tr>
-<tr>
-<td>const T &amp;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-iteratorvalue">iteratorValue</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self, std::shared_ptr&lt; <a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-iterator">Iterator</a> &gt; other)</td>
-</tr>
-<tr>
-<td>std::variant&lt; bool, <a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-iterator">Iterator</a> &gt;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-iterate">iterate</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self, std::variant&lt; std::nullptr_t, <a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-iterator">Iterator</a> &gt; other)</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-add">add</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self, T value)</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-setindex">setIndex</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self, size_t index, T value)</td>
 </tr>
 <tr>
 <td>const T &amp;</td>
@@ -258,7 +214,51 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 <tr>
 <td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-setindex">setIndex</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self, size_t index, T value)</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-add">add</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self, T value)</td>
+</tr>
+<tr>
+<td>std::variant&lt; bool, <a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-iterator">Iterator</a> &gt;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-iterate">iterate</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self, std::variant&lt; std::nullptr_t, <a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-iterator">Iterator</a> &gt; other)</td>
+</tr>
+<tr>
+<td>const T &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-iteratorvalue">iteratorValue</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self, std::shared_ptr&lt; <a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-iterator">Iterator</a> &gt; other)</td>
+</tr>
+<tr>
+<td>size_t</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-count">count</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self)</td>
+</tr>
+<tr>
+<td>T</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-removeat">removeAt</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self, int32_t index)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-insert">insert</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self, int32_t index, T value)</td>
+</tr>
+<tr>
+<td>bool</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-contains">contains</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self, const T &amp; value)</td>
+</tr>
+<tr>
+<td>T</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-pop">pop</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-clear">clear</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self)</td>
+</tr>
+<tr>
+<td>size_t</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-size">size</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self)</td>
+</tr>
+<tr>
+<td>bool</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-empty">empty</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#typedef-vector">Vector</a> &amp; self)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/#function-bind">bind</a></strong>(<a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_module/">ForeignModule</a> &amp; m, const std::string &amp; name)</td>
 </tr>
 </tbody>
 </table>
@@ -272,110 +272,27 @@ https://github.com/alex-shpak/hugo-book
   Public Types Documentation
   <a class="anchor" href="#public-types-documentation">#</a>
 </h2>
-<h3 id="typedef-vector">
-  typedef Vector
-  <a class="anchor" href="#typedef-vector">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> wrenbind17<span style="color:#f92672">::</span>StdVectorBindings<span style="color:#f92672">&lt;</span> T <span style="color:#f92672">&gt;::</span>Vector;
-</code></pre></div><h3 id="typedef-iterator">
+<h3 id="typedef-iterator">
   typedef Iterator
   <a class="anchor" href="#typedef-iterator">#</a>
 </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>iterator wrenbind17<span style="color:#f92672">::</span>StdVectorBindings<span style="color:#f92672">&lt;</span> T <span style="color:#f92672">&gt;::</span>Iterator;
+</code></pre></div><h3 id="typedef-vector">
+  typedef Vector
+  <a class="anchor" href="#typedef-vector">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> wrenbind17<span style="color:#f92672">::</span>StdVectorBindings<span style="color:#f92672">&lt;</span> T <span style="color:#f92672">&gt;::</span>Vector;
 </code></pre></div><h2 id="public-functions-documentation">
   Public Functions Documentation
   <a class="anchor" href="#public-functions-documentation">#</a>
 </h2>
-<h3 id="function-bind">
-  function bind
-  <a class="anchor" href="#function-bind">#</a>
+<h3 id="function-setindex">
+  function setIndex
+  <a class="anchor" href="#function-setindex">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> bind(
-    ForeignModule <span style="color:#f92672">&amp;</span> m,
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name
-)
-</code></pre></div><h3 id="function-empty">
-  function empty
-  <a class="anchor" href="#function-empty">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> empty(
-    Vector <span style="color:#f92672">&amp;</span> self
-)
-</code></pre></div><h3 id="function-size">
-  function size
-  <a class="anchor" href="#function-size">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> size_t size(
-    Vector <span style="color:#f92672">&amp;</span> self
-)
-</code></pre></div><h3 id="function-clear">
-  function clear
-  <a class="anchor" href="#function-clear">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> clear(
-    Vector <span style="color:#f92672">&amp;</span> self
-)
-</code></pre></div><h3 id="function-pop">
-  function pop
-  <a class="anchor" href="#function-pop">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> T pop(
-    Vector <span style="color:#f92672">&amp;</span> self
-)
-</code></pre></div><h3 id="function-contains">
-  function contains
-  <a class="anchor" href="#function-contains">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> contains(
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> setIndex(
     Vector <span style="color:#f92672">&amp;</span> self,
-    <span style="color:#66d9ef">const</span> T <span style="color:#f92672">&amp;</span> value
-)
-</code></pre></div><h3 id="function-insert">
-  function insert
-  <a class="anchor" href="#function-insert">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> insert(
-    Vector <span style="color:#f92672">&amp;</span> self,
-    <span style="color:#66d9ef">int32_t</span> index,
-    T value
-)
-</code></pre></div><h3 id="function-removeat">
-  function removeAt
-  <a class="anchor" href="#function-removeat">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> T removeAt(
-    Vector <span style="color:#f92672">&amp;</span> self,
-    <span style="color:#66d9ef">int32_t</span> index
-)
-</code></pre></div><h3 id="function-count">
-  function count
-  <a class="anchor" href="#function-count">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> size_t count(
-    Vector <span style="color:#f92672">&amp;</span> self
-)
-</code></pre></div><h3 id="function-iteratorvalue">
-  function iteratorValue
-  <a class="anchor" href="#function-iteratorvalue">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">const</span> T <span style="color:#f92672">&amp;</span> iteratorValue(
-    Vector <span style="color:#f92672">&amp;</span> self,
-    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> Iterator <span style="color:#f92672">&gt;</span> other
-)
-</code></pre></div><h3 id="function-iterate">
-  function iterate
-  <a class="anchor" href="#function-iterate">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">bool</span>, Iterator <span style="color:#f92672">&gt;</span> iterate(
-    Vector <span style="color:#f92672">&amp;</span> self,
-    std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>nullptr_t, Iterator <span style="color:#f92672">&gt;</span> other
-)
-</code></pre></div><h3 id="function-add">
-  function add
-  <a class="anchor" href="#function-add">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> add(
-    Vector <span style="color:#f92672">&amp;</span> self,
+    size_t index,
     T value
 )
 </code></pre></div><h3 id="function-getindex">
@@ -386,17 +303,100 @@ https://github.com/alex-shpak/hugo-book
     Vector <span style="color:#f92672">&amp;</span> self,
     size_t index
 )
-</code></pre></div><h3 id="function-setindex">
-  function setIndex
-  <a class="anchor" href="#function-setindex">#</a>
+</code></pre></div><h3 id="function-add">
+  function add
+  <a class="anchor" href="#function-add">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> setIndex(
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> add(
     Vector <span style="color:#f92672">&amp;</span> self,
-    size_t index,
     T value
 )
+</code></pre></div><h3 id="function-iterate">
+  function iterate
+  <a class="anchor" href="#function-iterate">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">bool</span>, Iterator <span style="color:#f92672">&gt;</span> iterate(
+    Vector <span style="color:#f92672">&amp;</span> self,
+    std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>nullptr_t, Iterator <span style="color:#f92672">&gt;</span> other
+)
+</code></pre></div><h3 id="function-iteratorvalue">
+  function iteratorValue
+  <a class="anchor" href="#function-iteratorvalue">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">const</span> T <span style="color:#f92672">&amp;</span> iteratorValue(
+    Vector <span style="color:#f92672">&amp;</span> self,
+    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> Iterator <span style="color:#f92672">&gt;</span> other
+)
+</code></pre></div><h3 id="function-count">
+  function count
+  <a class="anchor" href="#function-count">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> size_t count(
+    Vector <span style="color:#f92672">&amp;</span> self
+)
+</code></pre></div><h3 id="function-removeat">
+  function removeAt
+  <a class="anchor" href="#function-removeat">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> T removeAt(
+    Vector <span style="color:#f92672">&amp;</span> self,
+    <span style="color:#66d9ef">int32_t</span> index
+)
+</code></pre></div><h3 id="function-insert">
+  function insert
+  <a class="anchor" href="#function-insert">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> insert(
+    Vector <span style="color:#f92672">&amp;</span> self,
+    <span style="color:#66d9ef">int32_t</span> index,
+    T value
+)
+</code></pre></div><h3 id="function-contains">
+  function contains
+  <a class="anchor" href="#function-contains">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> contains(
+    Vector <span style="color:#f92672">&amp;</span> self,
+    <span style="color:#66d9ef">const</span> T <span style="color:#f92672">&amp;</span> value
+)
+</code></pre></div><h3 id="function-pop">
+  function pop
+  <a class="anchor" href="#function-pop">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> T pop(
+    Vector <span style="color:#f92672">&amp;</span> self
+)
+</code></pre></div><h3 id="function-clear">
+  function clear
+  <a class="anchor" href="#function-clear">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> clear(
+    Vector <span style="color:#f92672">&amp;</span> self
+)
+</code></pre></div><h3 id="function-size">
+  function size
+  <a class="anchor" href="#function-size">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> size_t size(
+    Vector <span style="color:#f92672">&amp;</span> self
+)
+</code></pre></div><h3 id="function-empty">
+  function empty
+  <a class="anchor" href="#function-empty">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> empty(
+    Vector <span style="color:#f92672">&amp;</span> self
+)
+</code></pre></div><h3 id="function-bind">
+  function bind
+  <a class="anchor" href="#function-bind">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> bind(
+    ForeignModule <span style="color:#f92672">&amp;</span> m,
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name
+)
 </code></pre></div><hr>
-<p>Updated on 28 December 2020 at 15:45:23 UTC</p>
+<p>Updated on 28 February 2022 at 21:40:10 UTC</p>
 </article>
  
       
@@ -443,26 +443,26 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#detailed-description">Detailed Description</a></li>
     <li><a href="#public-types-documentation">Public Types Documentation</a>
       <ul>
-        <li><a href="#typedef-vector">typedef Vector</a></li>
         <li><a href="#typedef-iterator">typedef Iterator</a></li>
+        <li><a href="#typedef-vector">typedef Vector</a></li>
       </ul>
     </li>
     <li><a href="#public-functions-documentation">Public Functions Documentation</a>
       <ul>
-        <li><a href="#function-bind">function bind</a></li>
-        <li><a href="#function-empty">function empty</a></li>
-        <li><a href="#function-size">function size</a></li>
-        <li><a href="#function-clear">function clear</a></li>
-        <li><a href="#function-pop">function pop</a></li>
-        <li><a href="#function-contains">function contains</a></li>
-        <li><a href="#function-insert">function insert</a></li>
-        <li><a href="#function-removeat">function removeAt</a></li>
-        <li><a href="#function-count">function count</a></li>
-        <li><a href="#function-iteratorvalue">function iteratorValue</a></li>
-        <li><a href="#function-iterate">function iterate</a></li>
-        <li><a href="#function-add">function add</a></li>
-        <li><a href="#function-getindex">function getIndex</a></li>
         <li><a href="#function-setindex">function setIndex</a></li>
+        <li><a href="#function-getindex">function getIndex</a></li>
+        <li><a href="#function-add">function add</a></li>
+        <li><a href="#function-iterate">function iterate</a></li>
+        <li><a href="#function-iteratorvalue">function iteratorValue</a></li>
+        <li><a href="#function-count">function count</a></li>
+        <li><a href="#function-removeat">function removeAt</a></li>
+        <li><a href="#function-insert">function insert</a></li>
+        <li><a href="#function-contains">function contains</a></li>
+        <li><a href="#function-pop">function pop</a></li>
+        <li><a href="#function-clear">function clear</a></li>
+        <li><a href="#function-size">function size</a></li>
+        <li><a href="#function-empty">function empty</a></li>
+        <li><a href="#function-bind">function bind</a></li>
       </ul>
     </li>
   </ul>

@@ -17,7 +17,7 @@
       
       <guid>https://matusnovak.github.io/wrenbind17/namespaces/namespacewrenbind17/</guid>
       <description>wrenbind17 #  Module: Wrenbind17
-Classes #      Name     class wrenbind17::VM Holds the entire Wren VM from which all of the magic happens.   class wrenbind17::Variable Holds some Wren variable which can be a class or class instance.   class wrenbind17::StdVectorBindings   class wrenbind17::StdListBindings   class wrenbind17::RuntimeError   class wrenbind17::ReturnValue A return value when calling a Wren function (alias Any)   class wrenbind17::NotFound   class wrenbind17::Method   class wrenbind17::Map Holds native Wren map.</description>
+Classes #      Name     class wrenbind17::AbstractMapBindings   class wrenbind17::BadCast   class wrenbind17::CompileError   class wrenbind17::Exception   class wrenbind17::ForeignKlass A foreign class.   class wrenbind17::ForeignKlassImpl   class wrenbind17::ForeignMethod Holds information about a foreign function of a foreign class.   class wrenbind17::ForeignMethodImpl Type specific implementation of foreign method.   class wrenbind17::ForeignModule   class wrenbind17::ForeignProp Holds information about a foreign property of a foreign class.</description>
     </item>
     
   </channel>

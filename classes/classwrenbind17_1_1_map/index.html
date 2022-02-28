@@ -14,7 +14,7 @@
 <link rel="manifest" href="/wrenbind17/manifest.json">
 <link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
-<script defer src="/wrenbind17/en.search.min.fb6c94a8bafbbce8462efda517ac26e7e51ef11540811e551c383e49d4235e1e.js" integrity="sha256-&#43;2yUqLr7vOhGLv2lF6wm5&#43;Ue8RVAgR5VHDg&#43;SdQjXh4="></script>
+<script defer src="/wrenbind17/en.search.min.d821bc4671e09f70c11205fdbb12a428d1e7a206559339bc157cbdc6081e40ca.js" integrity="sha256-2CG8RnHgn3DBEgX9uxKkKNHnogZVkzm8FXy9xggeQMo="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -125,17 +125,17 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#public-functions">Public Functions</a></li>
     <li><a href="#public-functions-documentation">Public Functions Documentation</a>
       <ul>
-        <li><a href="#function-count">function count</a></li>
-        <li><a href="#function-erase">function erase</a></li>
-        <li><a href="#function-get">function get</a></li>
-        <li><a href="#function-contains">function contains</a></li>
-        <li><a href="#function-reset">function reset</a></li>
-        <li><a href="#function-operator-bool">function operator bool</a></li>
+        <li><a href="#function-map">function Map</a></li>
+        <li><a href="#function-map-1">function Map</a></li>
+        <li><a href="#function-map-2">function ~Map</a></li>
         <li><a href="#function-gethandle">function getHandle</a></li>
         <li><a href="#function-gethandle-1">function getHandle</a></li>
-        <li><a href="#function-map">function ~Map</a></li>
-        <li><a href="#function-map-1">function Map</a></li>
-        <li><a href="#function-map-2">function Map</a></li>
+        <li><a href="#function-operator-bool">function operator bool</a></li>
+        <li><a href="#function-reset">function reset</a></li>
+        <li><a href="#function-contains">function contains</a></li>
+        <li><a href="#function-get">function get</a></li>
+        <li><a href="#function-erase">function erase</a></li>
+        <li><a href="#function-count">function count</a></li>
       </ul>
     </li>
   </ul>
@@ -154,8 +154,8 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#wrenbind17map">#</a>
 </h1>
 <p><strong>Module:</strong> <strong><a href="/wrenbind17/modules/group__wrenbind17/">Wrenbind17</a></strong></p>
-<p>Holds native Wren map.</p>
-<p><code>#include &lt;map.hpp&gt;</code></p>
+<p>Holds native Wren map.
+<code>#include &lt;map.hpp&gt;</code></p>
 <h2 id="public-functions">
   Public Functions
   <a class="anchor" href="#public-functions">#</a>
@@ -169,40 +169,8 @@ https://github.com/alex-shpak/hugo-book
 </thead>
 <tbody>
 <tr>
-<td>size_t</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-count">count</a></strong>() const <!-- raw HTML omitted -->Returns the size of the map.</td>
-</tr>
-<tr>
-<td>template &lt;typename Key &gt;<!-- raw HTML omitted -->bool</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-erase">erase</a></strong>(const Key &amp; key) const <!-- raw HTML omitted -->Erases a key from the map.</td>
-</tr>
-<tr>
-<td>template &lt;typename T ,typename Key &gt;<!-- raw HTML omitted -->T</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-get">get</a></strong>(const Key &amp; key) const <!-- raw HTML omitted -->Returns a value specified by T from the map by a key.</td>
-</tr>
-<tr>
-<td>template &lt;typename Key &gt;<!-- raw HTML omitted -->bool</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-contains">contains</a></strong>(const Key &amp; key) const <!-- raw HTML omitted -->Checks if a key exists in this map.</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-reset">reset</a></strong>()</td>
-</tr>
-<tr>
 <td></td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-operator-bool">operator bool</a></strong>() const</td>
-</tr>
-<tr>
-<td>const <a href="/wrenbind17/classes/classwrenbind17_1_1_handle/">Handle</a> &amp;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-gethandle">getHandle</a></strong>() const</td>
-</tr>
-<tr>
-<td><a href="/wrenbind17/classes/classwrenbind17_1_1_handle/">Handle</a> &amp;</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-gethandle">getHandle</a></strong>()</td>
-</tr>
-<tr>
-<td></td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-~map">~Map</a></strong>()</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-map">Map</a></strong>()</td>
 </tr>
 <tr>
 <td></td>
@@ -210,7 +178,39 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 <tr>
 <td></td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-map">Map</a></strong>()</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-~map">~Map</a></strong>()</td>
+</tr>
+<tr>
+<td><a href="/wrenbind17/classes/classwrenbind17_1_1_handle/">Handle</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-gethandle">getHandle</a></strong>()</td>
+</tr>
+<tr>
+<td>const <a href="/wrenbind17/classes/classwrenbind17_1_1_handle/">Handle</a> &amp;</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-gethandle">getHandle</a></strong>() const</td>
+</tr>
+<tr>
+<td></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-operator-bool">operator bool</a></strong>() const</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-reset">reset</a></strong>()</td>
+</tr>
+<tr>
+<td>template &lt;typename Key &gt; <!-- raw HTML omitted -->bool</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-contains">contains</a></strong>(const Key &amp; key) const<!-- raw HTML omitted -->Checks if a key exists in this map.</td>
+</tr>
+<tr>
+<td>template &lt;typename T ,typename Key &gt; <!-- raw HTML omitted -->T</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-get">get</a></strong>(const Key &amp; key) const<!-- raw HTML omitted -->Returns a value specified by T from the map by a key.</td>
+</tr>
+<tr>
+<td>template &lt;typename Key &gt; <!-- raw HTML omitted -->bool</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-erase">erase</a></strong>(const Key &amp; key) const<!-- raw HTML omitted -->Erases a key from the map.</td>
+</tr>
+<tr>
+<td>size_t</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/#function-count">count</a></strong>() const<!-- raw HTML omitted -->Returns the size of the map.</td>
 </tr>
 </tbody>
 </table>
@@ -218,31 +218,56 @@ https://github.com/alex-shpak/hugo-book
   Public Functions Documentation
   <a class="anchor" href="#public-functions-documentation">#</a>
 </h2>
-<h3 id="function-count">
-  function count
-  <a class="anchor" href="#function-count">#</a>
+<h3 id="function-map">
+  function Map
+  <a class="anchor" href="#function-map">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> size_t count() <span style="color:#66d9ef">const</span>
-</code></pre></div><p>Returns the size of the map.</p>
-<p><strong>Exceptions</strong>:</p>
-<ul>
-<li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_runtime_error/">RuntimeError</a></strong> if this is an invalid map or the Wren <a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> has terminated</li>
-</ul>
-<h3 id="function-erase">
-  function erase
-  <a class="anchor" href="#function-erase">#</a>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> Map()
+</code></pre></div><h3 id="function-map-1">
+  function Map
+  <a class="anchor" href="#function-map-1">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> Map(
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> Handle <span style="color:#f92672">&gt;</span> <span style="color:#f92672">&amp;</span> handle
+)
+</code></pre></div><h3 id="function-map-2">
+  function ~Map
+  <a class="anchor" href="#function-map-2">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#f92672">~</span>Map()
+</code></pre></div><h3 id="function-gethandle">
+  function getHandle
+  <a class="anchor" href="#function-gethandle">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> Handle <span style="color:#f92672">&amp;</span> getHandle()
+</code></pre></div><h3 id="function-gethandle-1">
+  function getHandle
+  <a class="anchor" href="#function-gethandle-1">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">const</span> Handle <span style="color:#f92672">&amp;</span> getHandle() <span style="color:#66d9ef">const</span>
+</code></pre></div><h3 id="function-operator-bool">
+  function operator bool
+  <a class="anchor" href="#function-operator-bool">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">operator</span> <span style="color:#66d9ef">bool</span>() <span style="color:#66d9ef">const</span>
+</code></pre></div><h3 id="function-reset">
+  function reset
+  <a class="anchor" href="#function-reset">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> reset()
+</code></pre></div><h3 id="function-contains">
+  function contains
+  <a class="anchor" href="#function-contains">#</a>
 </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Key <span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> erase(
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> contains(
     <span style="color:#66d9ef">const</span> Key <span style="color:#f92672">&amp;</span> key
 ) <span style="color:#66d9ef">const</span>
-</code></pre></div><p>Erases a key from the map.</p>
+</code></pre></div><p>Checks if a key exists in this map.</p>
 <p><strong>Exceptions</strong>:</p>
 <ul>
-<li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_not_found/">NotFound</a></strong> if the key does not exist in the map</li>
 <li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_runtime_error/">RuntimeError</a></strong> if this is an invalid map or the Wren <a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> has terminated</li>
 </ul>
-<p><strong>Return</strong>: true if the key has been erased, otherwise false</p>
 <p><strong>Note</strong>: This function accepts any type you want. Integers, strings, booleans, does not matter as long as Wren map supports that key type.</p>
 <p><strong>Warning</strong>: If using strings, make sure that you use std::string because raw C-strings are not allowed.</p>
 <h3 id="function-get">
@@ -262,60 +287,35 @@ https://github.com/alex-shpak/hugo-book
 </ul>
 <p><strong>Note</strong>: This function accepts any type you want. Integers, strings, booleans, does not matter as long as Wren map supports that key type.</p>
 <p><strong>Warning</strong>: If using strings, make sure that you use std::string because raw C-strings are not allowed.</p>
-<h3 id="function-contains">
-  function contains
-  <a class="anchor" href="#function-contains">#</a>
+<h3 id="function-erase">
+  function erase
+  <a class="anchor" href="#function-erase">#</a>
 </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Key <span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> contains(
+<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> erase(
     <span style="color:#66d9ef">const</span> Key <span style="color:#f92672">&amp;</span> key
 ) <span style="color:#66d9ef">const</span>
-</code></pre></div><p>Checks if a key exists in this map.</p>
+</code></pre></div><p>Erases a key from the map.</p>
+<p><strong>Exceptions</strong>:</p>
+<ul>
+<li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_not_found/">NotFound</a></strong> if the key does not exist in the map</li>
+<li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_runtime_error/">RuntimeError</a></strong> if this is an invalid map or the Wren <a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> has terminated</li>
+</ul>
+<p><strong>Return</strong>: true if the key has been erased, otherwise false</p>
+<p><strong>Note</strong>: This function accepts any type you want. Integers, strings, booleans, does not matter as long as Wren map supports that key type.</p>
+<p><strong>Warning</strong>: If using strings, make sure that you use std::string because raw C-strings are not allowed.</p>
+<h3 id="function-count">
+  function count
+  <a class="anchor" href="#function-count">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> size_t count() <span style="color:#66d9ef">const</span>
+</code></pre></div><p>Returns the size of the map.</p>
 <p><strong>Exceptions</strong>:</p>
 <ul>
 <li><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_runtime_error/">RuntimeError</a></strong> if this is an invalid map or the Wren <a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">VM</a> has terminated</li>
 </ul>
-<p><strong>Note</strong>: This function accepts any type you want. Integers, strings, booleans, does not matter as long as Wren map supports that key type.</p>
-<p><strong>Warning</strong>: If using strings, make sure that you use std::string because raw C-strings are not allowed.</p>
-<h3 id="function-reset">
-  function reset
-  <a class="anchor" href="#function-reset">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> reset()
-</code></pre></div><h3 id="function-operator-bool">
-  function operator bool
-  <a class="anchor" href="#function-operator-bool">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">operator</span> <span style="color:#66d9ef">bool</span>() <span style="color:#66d9ef">const</span>
-</code></pre></div><h3 id="function-gethandle">
-  function getHandle
-  <a class="anchor" href="#function-gethandle">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">const</span> Handle <span style="color:#f92672">&amp;</span> getHandle() <span style="color:#66d9ef">const</span>
-</code></pre></div><h3 id="function-gethandle-1">
-  function getHandle
-  <a class="anchor" href="#function-gethandle-1">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> Handle <span style="color:#f92672">&amp;</span> getHandle()
-</code></pre></div><h3 id="function-map">
-  function ~Map
-  <a class="anchor" href="#function-map">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#f92672">~</span>Map()
-</code></pre></div><h3 id="function-map-1">
-  function Map
-  <a class="anchor" href="#function-map-1">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> Map(
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> Handle <span style="color:#f92672">&gt;</span> <span style="color:#f92672">&amp;</span> handle
-)
-</code></pre></div><h3 id="function-map-2">
-  function Map
-  <a class="anchor" href="#function-map-2">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> Map()
-</code></pre></div><hr>
-<p>Updated on 28 December 2020 at 15:45:23 UTC</p>
+<hr>
+<p>Updated on 28 February 2022 at 21:40:10 UTC</p>
 </article>
  
       
@@ -360,17 +360,17 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#public-functions">Public Functions</a></li>
     <li><a href="#public-functions-documentation">Public Functions Documentation</a>
       <ul>
-        <li><a href="#function-count">function count</a></li>
-        <li><a href="#function-erase">function erase</a></li>
-        <li><a href="#function-get">function get</a></li>
-        <li><a href="#function-contains">function contains</a></li>
-        <li><a href="#function-reset">function reset</a></li>
-        <li><a href="#function-operator-bool">function operator bool</a></li>
+        <li><a href="#function-map">function Map</a></li>
+        <li><a href="#function-map-1">function Map</a></li>
+        <li><a href="#function-map-2">function ~Map</a></li>
         <li><a href="#function-gethandle">function getHandle</a></li>
         <li><a href="#function-gethandle-1">function getHandle</a></li>
-        <li><a href="#function-map">function ~Map</a></li>
-        <li><a href="#function-map-1">function Map</a></li>
-        <li><a href="#function-map-2">function Map</a></li>
+        <li><a href="#function-operator-bool">function operator bool</a></li>
+        <li><a href="#function-reset">function reset</a></li>
+        <li><a href="#function-contains">function contains</a></li>
+        <li><a href="#function-get">function get</a></li>
+        <li><a href="#function-erase">function erase</a></li>
+        <li><a href="#function-count">function count</a></li>
       </ul>
     </li>
   </ul>

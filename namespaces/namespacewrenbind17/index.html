@@ -5,10 +5,10 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="wrenbind17 #  Module: Wrenbind17
-Classes #      Name     class wrenbind17::VM Holds the entire Wren VM from which all of the magic happens.   class wrenbind17::Variable Holds some Wren variable which can be a class or class instance.   class wrenbind17::StdVectorBindings   class wrenbind17::StdListBindings   class wrenbind17::RuntimeError   class wrenbind17::ReturnValue A return value when calling a Wren function (alias Any)   class wrenbind17::NotFound   class wrenbind17::Method   class wrenbind17::Map Holds native Wren map.">
+Classes #      Name     class wrenbind17::AbstractMapBindings   class wrenbind17::BadCast   class wrenbind17::CompileError   class wrenbind17::Exception   class wrenbind17::ForeignKlass A foreign class.   class wrenbind17::ForeignKlassImpl   class wrenbind17::ForeignMethod Holds information about a foreign function of a foreign class.   class wrenbind17::ForeignMethodImpl Type specific implementation of foreign method.   class wrenbind17::ForeignModule   class wrenbind17::ForeignProp Holds information about a foreign property of a foreign class.">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="wrenbind17" />
 <meta property="og:description" content="wrenbind17 #  Module: Wrenbind17
-Classes #      Name     class wrenbind17::VM Holds the entire Wren VM from which all of the magic happens.   class wrenbind17::Variable Holds some Wren variable which can be a class or class instance.   class wrenbind17::StdVectorBindings   class wrenbind17::StdListBindings   class wrenbind17::RuntimeError   class wrenbind17::ReturnValue A return value when calling a Wren function (alias Any)   class wrenbind17::NotFound   class wrenbind17::Method   class wrenbind17::Map Holds native Wren map." />
+Classes #      Name     class wrenbind17::AbstractMapBindings   class wrenbind17::BadCast   class wrenbind17::CompileError   class wrenbind17::Exception   class wrenbind17::ForeignKlass A foreign class.   class wrenbind17::ForeignKlassImpl   class wrenbind17::ForeignMethod Holds information about a foreign function of a foreign class.   class wrenbind17::ForeignMethodImpl Type specific implementation of foreign method.   class wrenbind17::ForeignModule   class wrenbind17::ForeignProp Holds information about a foreign property of a foreign class." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://matusnovak.github.io/wrenbind17/namespaces/namespacewrenbind17/" />
 
@@ -16,7 +16,7 @@ Classes #      Name     class wrenbind17::VM Holds the entire Wren VM from which
 <link rel="manifest" href="/wrenbind17/manifest.json">
 <link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
-<script defer src="/wrenbind17/en.search.min.fb6c94a8bafbbce8462efda517ac26e7e51ef11540811e551c383e49d4235e1e.js" integrity="sha256-&#43;2yUqLr7vOhGLv2lF6wm5&#43;Ue8RVAgR5VHDg&#43;SdQjXh4="></script>
+<script defer src="/wrenbind17/en.search.min.d821bc4671e09f70c11205fdbb12a428d1e7a206559339bc157cbdc6081e40ca.js" integrity="sha256-2CG8RnHgn3DBEgX9uxKkKNHnogZVkzm8FXy9xggeQMo="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -129,22 +129,22 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#functions">Functions</a></li>
     <li><a href="#types-documentation">Types Documentation</a>
       <ul>
-        <li><a href="#typedef-loadfilefn">typedef LoadFileFn</a></li>
-        <li><a href="#typedef-printfn">typedef PrintFn</a></li>
-        <li><a href="#using-stdunorderedmapbindings">using StdUnorderedMapBindings</a></li>
-        <li><a href="#using-stdmapbindings">using StdMapBindings</a></li>
-        <li><a href="#using-any">using Any</a></li>
         <li><a href="#enum-foreignmethodoperator">enum ForeignMethodOperator</a></li>
+        <li><a href="#using-any">using Any</a></li>
+        <li><a href="#using-stdmapbindings">using StdMapBindings</a></li>
+        <li><a href="#using-stdunorderedmapbindings">using StdUnorderedMapBindings</a></li>
+        <li><a href="#typedef-printfn">typedef PrintFn</a></li>
+        <li><a href="#typedef-loadfilefn">typedef LoadFileFn</a></li>
       </ul>
     </li>
     <li><a href="#functions-documentation">Functions Documentation</a>
       <ul>
-        <li><a href="#function-getclasscast">function getClassCast</a></li>
-        <li><a href="#function-getclasstype">function getClassType</a></li>
-        <li><a href="#function-addclasscast">function addClassCast</a></li>
-        <li><a href="#function-addclasstype">function addClassType</a></li>
-        <li><a href="#function-getsharedvm">function getSharedVm</a></li>
         <li><a href="#function-setnexterror">function setNextError</a></li>
+        <li><a href="#function-getsharedvm">function getSharedVm</a></li>
+        <li><a href="#function-addclasstype">function addClassType</a></li>
+        <li><a href="#function-addclasscast">function addClassCast</a></li>
+        <li><a href="#function-getclasstype">function getClassType</a></li>
+        <li><a href="#function-getclasscast">function getClassCast</a></li>
       </ul>
     </li>
   </ul>
@@ -177,79 +177,7 @@ https://github.com/alex-shpak/hugo-book
 <tbody>
 <tr>
 <td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">wrenbind17::VM</a></strong> <!-- raw HTML omitted -->Holds the entire Wren <a href="">VM</a> from which all of the magic happens.</td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_variable/">wrenbind17::Variable</a></strong> <!-- raw HTML omitted -->Holds some Wren variable which can be a class or class instance.</td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/">wrenbind17::StdVectorBindings</a></strong></td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/">wrenbind17::StdListBindings</a></strong></td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_runtime_error/">wrenbind17::RuntimeError</a></strong></td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/">wrenbind17::ReturnValue</a></strong> <!-- raw HTML omitted -->A return value when calling a Wren function (alias Any)</td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_not_found/">wrenbind17::NotFound</a></strong></td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_method/">wrenbind17::Method</a></strong></td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/">wrenbind17::Map</a></strong> <!-- raw HTML omitted -->Holds native Wren map.</td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_handle/">wrenbind17::Handle</a></strong> <!-- raw HTML omitted -->Holds a reference to some Wren type.</td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop_impl/">wrenbind17::ForeignPropImpl</a></strong></td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop/">wrenbind17::ForeignProp</a></strong> <!-- raw HTML omitted -->Holds information about a foreign property of a foreign class.</td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_module/">wrenbind17::ForeignModule</a></strong></td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/">wrenbind17::ForeignMethodImpl</a></strong> <!-- raw HTML omitted -->Type specific implementation of foreign method.</td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">wrenbind17::ForeignMethod</a></strong> <!-- raw HTML omitted -->Holds information about a foreign function of a foreign class.</td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/">wrenbind17::ForeignKlassImpl</a></strong></td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/">wrenbind17::ForeignKlass</a></strong> <!-- raw HTML omitted -->A foreign class.</td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_exception/">wrenbind17::Exception</a></strong></td>
-</tr>
-<tr>
-<td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_compile_error/">wrenbind17::CompileError</a></strong></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/">wrenbind17::AbstractMapBindings</a></strong></td>
 </tr>
 <tr>
 <td>class</td>
@@ -257,7 +185,79 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 <tr>
 <td>class</td>
-<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/">wrenbind17::AbstractMapBindings</a></strong></td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_compile_error/">wrenbind17::CompileError</a></strong></td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_exception/">wrenbind17::Exception</a></strong></td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass/">wrenbind17::ForeignKlass</a></strong> <!-- raw HTML omitted -->A foreign class.</td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_klass_impl/">wrenbind17::ForeignKlassImpl</a></strong></td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method/">wrenbind17::ForeignMethod</a></strong> <!-- raw HTML omitted -->Holds information about a foreign function of a foreign class.</td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_method_impl/">wrenbind17::ForeignMethodImpl</a></strong> <!-- raw HTML omitted -->Type specific implementation of foreign method.</td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_module/">wrenbind17::ForeignModule</a></strong></td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop/">wrenbind17::ForeignProp</a></strong> <!-- raw HTML omitted -->Holds information about a foreign property of a foreign class.</td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_foreign_prop_impl/">wrenbind17::ForeignPropImpl</a></strong></td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_handle/">wrenbind17::Handle</a></strong> <!-- raw HTML omitted -->Holds a reference to some Wren type.</td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_map/">wrenbind17::Map</a></strong> <!-- raw HTML omitted -->Holds native Wren map.</td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_method/">wrenbind17::Method</a></strong></td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_not_found/">wrenbind17::NotFound</a></strong></td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/">wrenbind17::ReturnValue</a></strong> <!-- raw HTML omitted -->A return value when calling a Wren function (alias Any)</td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_runtime_error/">wrenbind17::RuntimeError</a></strong></td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_list_bindings/">wrenbind17::StdListBindings</a></strong></td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_std_vector_bindings/">wrenbind17::StdVectorBindings</a></strong></td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_variable/">wrenbind17::Variable</a></strong> <!-- raw HTML omitted -->Holds some Wren variable which can be a class or class instance.</td>
+</tr>
+<tr>
+<td>class</td>
+<td><strong><a href="/wrenbind17/classes/classwrenbind17_1_1_v_m/">wrenbind17::VM</a></strong> <!-- raw HTML omitted -->Holds the entire Wren <a href="">VM</a> from which all of the magic happens.</td>
 </tr>
 </tbody>
 </table>
@@ -274,28 +274,28 @@ https://github.com/alex-shpak/hugo-book
 </thead>
 <tbody>
 <tr>
-<td>typedef std::function&lt; std::string(const std::vector&lt; std::string &gt; &amp;paths, const std::string &amp;name)&gt;</td>
-<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#typedef-loadfilefn">LoadFileFn</a></strong></td>
-</tr>
-<tr>
-<td>typedef std::function&lt; void(const char *)&gt;</td>
-<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#typedef-printfn">PrintFn</a></strong></td>
-</tr>
-<tr>
-<td>using <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/">AbstractMapBindings</a>&lt; std::unordered_map&lt; K, V &gt; &gt;</td>
-<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#using-stdunorderedmapbindings">StdUnorderedMapBindings</a></strong></td>
-</tr>
-<tr>
-<td>using <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/">AbstractMapBindings</a>&lt; std::map&lt; K, V &gt; &gt;</td>
-<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#using-stdmapbindings">StdMapBindings</a></strong></td>
+<td>enum</td>
+<td><strong><a href="/wrenbind17/modules/group__wrenbind17/#enum-foreignmethodoperator">ForeignMethodOperator</a></strong> { OPERATOR_GET_INDEX, OPERATOR_SET_INDEX, OPERATOR_SUB, OPERATOR_ADD, OPERATOR_MUL, OPERATOR_DIV, OPERATOR_NEG, OPERATOR_MOD, OPERATOR_EQUAL, OPERATOR_NOT_EQUAL, OPERATOR_GT, OPERATOR_LT, OPERATOR_GT_EQUAL, OPERATOR_LT_EQUAL, OPERATOR_SHIFT_LEFT, OPERATOR_SHIFT_RIGHT, OPERATOR_AND, OPERATOR_XOR, OPERATOR_OR}</td>
 </tr>
 <tr>
 <td>using <a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/">ReturnValue</a></td>
-<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#using-any">Any</a></strong> <!-- raw HTML omitted -->An alias of <a href="">ReturnValue</a> class.</td>
+<td><strong><a href="/wrenbind17/modules/group__wrenbind17/#using-any">Any</a></strong> <!-- raw HTML omitted -->An alias of <a href="">ReturnValue</a> class.</td>
 </tr>
 <tr>
-<td>enum</td>
-<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#enum-foreignmethodoperator">ForeignMethodOperator</a></strong> { OPERATOR_GET_INDEX, OPERATOR_SET_INDEX, OPERATOR_SUB, OPERATOR_ADD, OPERATOR_MUL, OPERATOR_DIV, OPERATOR_NEG, OPERATOR_MOD, OPERATOR_EQUAL, OPERATOR_NOT_EQUAL, OPERATOR_GT, OPERATOR_LT, OPERATOR_GT_EQUAL, OPERATOR_LT_EQUAL, OPERATOR_SHIFT_LEFT, OPERATOR_SHIFT_RIGHT, OPERATOR_AND, OPERATOR_XOR, OPERATOR_OR }</td>
+<td>template &lt;typename K ,typename V &gt; <!-- raw HTML omitted -->using <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/">AbstractMapBindings</a>&lt; std::map&lt; K, V &gt; &gt;</td>
+<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#using-stdmapbindings">StdMapBindings</a></strong></td>
+</tr>
+<tr>
+<td>template &lt;typename K ,typename V &gt; <!-- raw HTML omitted -->using <a href="/wrenbind17/classes/classwrenbind17_1_1_abstract_map_bindings/">AbstractMapBindings</a>&lt; std::unordered_map&lt; K, V &gt; &gt;</td>
+<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#using-stdunorderedmapbindings">StdUnorderedMapBindings</a></strong></td>
+</tr>
+<tr>
+<td>typedef std::function&lt; void(const char *)&gt;</td>
+<td><strong><a href="/wrenbind17/modules/group__wrenbind17/#typedef-printfn">PrintFn</a></strong></td>
+</tr>
+<tr>
+<td>typedef std::function&lt; std::string(const std::vector&lt; std::string &gt; &amp;paths, const std::string &amp;name)&gt;</td>
+<td><strong><a href="/wrenbind17/modules/group__wrenbind17/#typedef-loadfilefn">LoadFileFn</a></strong></td>
 </tr>
 </tbody>
 </table>
@@ -312,20 +312,8 @@ https://github.com/alex-shpak/hugo-book
 </thead>
 <tbody>
 <tr>
-<td>detail::ForeignPtrConvertor *</td>
-<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#function-getclasscast">getClassCast</a></strong>(WrenVM * vm, size_t hash, size_t other)</td>
-</tr>
-<tr>
 <td>void</td>
-<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#function-getclasstype">getClassType</a></strong>(WrenVM * vm, std::string &amp; module, std::string &amp; name, size_t hash)</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#function-addclasscast">addClassCast</a></strong>(WrenVM * vm, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, size_t hash, size_t other)</td>
-</tr>
-<tr>
-<td>void</td>
-<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#function-addclasstype">addClassType</a></strong>(WrenVM * vm, const std::string &amp; module, const std::string &amp; name, size_t hash)</td>
+<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#function-setnexterror">setNextError</a></strong>(WrenVM * vm, std::string str)</td>
 </tr>
 <tr>
 <td>std::shared_ptr&lt; WrenVM &gt;</td>
@@ -333,7 +321,19 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 <tr>
 <td>void</td>
-<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#function-setnexterror">setNextError</a></strong>(WrenVM * vm, std::string str)</td>
+<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#function-addclasstype">addClassType</a></strong>(WrenVM * vm, const std::string &amp; module, const std::string &amp; name, size_t hash)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#function-addclasscast">addClassCast</a></strong>(WrenVM * vm, std::shared_ptr&lt; detail::ForeignPtrConvertor &gt; convertor, size_t hash, size_t other)</td>
+</tr>
+<tr>
+<td>void</td>
+<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#function-getclasstype">getClassType</a></strong>(WrenVM * vm, std::string &amp; module, std::string &amp; name, size_t hash)</td>
+</tr>
+<tr>
+<td>detail::ForeignPtrConvertor *</td>
+<td><strong><a href="/wrenbind17/namespaces/namespacewrenbind17/#function-getclasscast">getClassCast</a></strong>(WrenVM * vm, size_t hash, size_t other)</td>
 </tr>
 </tbody>
 </table>
@@ -341,33 +341,6 @@ https://github.com/alex-shpak/hugo-book
   Types Documentation
   <a class="anchor" href="#types-documentation">#</a>
 </h2>
-<h3 id="typedef-loadfilefn">
-  typedef LoadFileFn
-  <a class="anchor" href="#typedef-loadfilefn">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>function<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;&amp;</span> paths, <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> name)<span style="color:#f92672">&gt;</span> wrenbind17<span style="color:#f92672">::</span>LoadFileFn;
-</code></pre></div><h3 id="typedef-printfn">
-  typedef PrintFn
-  <a class="anchor" href="#typedef-printfn">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span>)<span style="color:#f92672">&gt;</span> wrenbind17<span style="color:#f92672">::</span>PrintFn;
-</code></pre></div><h3 id="using-stdunorderedmapbindings">
-  using StdUnorderedMapBindings
-  <a class="anchor" href="#using-stdunorderedmapbindings">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">using</span> wrenbind17<span style="color:#f92672">::</span>StdUnorderedMapBindings <span style="color:#f92672">=</span> <span style="color:#66d9ef">typedef</span> AbstractMapBindings<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span>K, V<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span>;
-</code></pre></div><h3 id="using-stdmapbindings">
-  using StdMapBindings
-  <a class="anchor" href="#using-stdmapbindings">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">using</span> wrenbind17<span style="color:#f92672">::</span>StdMapBindings <span style="color:#f92672">=</span> <span style="color:#66d9ef">typedef</span> AbstractMapBindings<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>map<span style="color:#f92672">&lt;</span>K, V<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span>;
-</code></pre></div><h3 id="using-any">
-  using Any
-  <a class="anchor" href="#using-any">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">using</span> wrenbind17<span style="color:#f92672">::</span>Any <span style="color:#f92672">=</span> <span style="color:#66d9ef">typedef</span> ReturnValue;
-</code></pre></div><p>An alias of <a href="">ReturnValue</a> class.</p>
-<p><strong>See</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/">ReturnValue</a></p>
 <h3 id="enum-foreignmethodoperator">
   enum ForeignMethodOperator
   <a class="anchor" href="#enum-foreignmethodoperator">#</a>
@@ -478,16 +451,73 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 </tbody>
 </table>
-<h2 id="functions-documentation">
+<h3 id="using-any">
+  using Any
+  <a class="anchor" href="#using-any">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">using</span> wrenbind17<span style="color:#f92672">::</span>Any <span style="color:#f92672">=</span> <span style="color:#66d9ef">typedef</span> ReturnValue;
+</code></pre></div><p>An alias of <a href="">ReturnValue</a> class.</p>
+<p><strong>See</strong>: <a href="/wrenbind17/classes/classwrenbind17_1_1_return_value/">ReturnValue</a></p>
+<h3 id="using-stdmapbindings">
+  using StdMapBindings
+  <a class="anchor" href="#using-stdmapbindings">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> K ,
+<span style="color:#66d9ef">typename</span> V <span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">using</span> wrenbind17<span style="color:#f92672">::</span>StdMapBindings <span style="color:#f92672">=</span> <span style="color:#66d9ef">typedef</span> AbstractMapBindings<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>map<span style="color:#f92672">&lt;</span>K, V<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span>;
+</code></pre></div><h3 id="using-stdunorderedmapbindings">
+  using StdUnorderedMapBindings
+  <a class="anchor" href="#using-stdunorderedmapbindings">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> K ,
+<span style="color:#66d9ef">typename</span> V <span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">using</span> wrenbind17<span style="color:#f92672">::</span>StdUnorderedMapBindings <span style="color:#f92672">=</span> <span style="color:#66d9ef">typedef</span> AbstractMapBindings<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>unordered_map<span style="color:#f92672">&lt;</span>K, V<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span>;
+</code></pre></div><h3 id="typedef-printfn">
+  typedef PrintFn
+  <a class="anchor" href="#typedef-printfn">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span>)<span style="color:#f92672">&gt;</span> wrenbind17<span style="color:#f92672">::</span>PrintFn;
+</code></pre></div><h3 id="typedef-loadfilefn">
+  typedef LoadFileFn
+  <a class="anchor" href="#typedef-loadfilefn">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>function<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;&amp;</span> paths, <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> name)<span style="color:#f92672">&gt;</span> wrenbind17<span style="color:#f92672">::</span>LoadFileFn;
+</code></pre></div><h2 id="functions-documentation">
   Functions Documentation
   <a class="anchor" href="#functions-documentation">#</a>
 </h2>
-<h3 id="function-getclasscast">
-  function getClassCast
-  <a class="anchor" href="#function-getclasscast">#</a>
+<h3 id="function-setnexterror">
+  function setNextError
+  <a class="anchor" href="#function-setnexterror">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">*</span> getClassCast(
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> setNextError(
     WrenVM <span style="color:#f92672">*</span> vm,
+    std<span style="color:#f92672">::</span>string str
+)
+</code></pre></div><h3 id="function-getsharedvm">
+  function getSharedVm
+  <a class="anchor" href="#function-getsharedvm">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> WrenVM <span style="color:#f92672">&gt;</span> getSharedVm(
+    WrenVM <span style="color:#f92672">*</span> vm
+)
+</code></pre></div><h3 id="function-addclasstype">
+  function addClassType
+  <a class="anchor" href="#function-addclasstype">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> addClassType(
+    WrenVM <span style="color:#f92672">*</span> vm,
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> module,
+    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name,
+    size_t hash
+)
+</code></pre></div><h3 id="function-addclasscast">
+  function addClassCast
+  <a class="anchor" href="#function-addclasscast">#</a>
+</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> addClassCast(
+    WrenVM <span style="color:#f92672">*</span> vm,
+    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">&gt;</span> convertor,
     size_t hash,
     size_t other
 )
@@ -501,43 +531,17 @@ https://github.com/alex-shpak/hugo-book
     std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name,
     size_t hash
 )
-</code></pre></div><h3 id="function-addclasscast">
-  function addClassCast
-  <a class="anchor" href="#function-addclasscast">#</a>
+</code></pre></div><h3 id="function-getclasscast">
+  function getClassCast
+  <a class="anchor" href="#function-getclasscast">#</a>
 </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> addClassCast(
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">*</span> getClassCast(
     WrenVM <span style="color:#f92672">*</span> vm,
-    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> detail<span style="color:#f92672">::</span>ForeignPtrConvertor <span style="color:#f92672">&gt;</span> convertor,
     size_t hash,
     size_t other
 )
-</code></pre></div><h3 id="function-addclasstype">
-  function addClassType
-  <a class="anchor" href="#function-addclasstype">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> addClassType(
-    WrenVM <span style="color:#f92672">*</span> vm,
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> module,
-    <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string <span style="color:#f92672">&amp;</span> name,
-    size_t hash
-)
-</code></pre></div><h3 id="function-getsharedvm">
-  function getSharedVm
-  <a class="anchor" href="#function-getsharedvm">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span> WrenVM <span style="color:#f92672">&gt;</span> getSharedVm(
-    WrenVM <span style="color:#f92672">*</span> vm
-)
-</code></pre></div><h3 id="function-setnexterror">
-  function setNextError
-  <a class="anchor" href="#function-setnexterror">#</a>
-</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> setNextError(
-    WrenVM <span style="color:#f92672">*</span> vm,
-    std<span style="color:#f92672">::</span>string str
-)
 </code></pre></div><hr>
-<p>Updated on 28 December 2020 at 15:45:23 UTC</p>
+<p>Updated on 28 February 2022 at 21:40:10 UTC</p>
 </article>
  
       
@@ -584,22 +588,22 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#functions">Functions</a></li>
     <li><a href="#types-documentation">Types Documentation</a>
       <ul>
-        <li><a href="#typedef-loadfilefn">typedef LoadFileFn</a></li>
-        <li><a href="#typedef-printfn">typedef PrintFn</a></li>
-        <li><a href="#using-stdunorderedmapbindings">using StdUnorderedMapBindings</a></li>
-        <li><a href="#using-stdmapbindings">using StdMapBindings</a></li>
-        <li><a href="#using-any">using Any</a></li>
         <li><a href="#enum-foreignmethodoperator">enum ForeignMethodOperator</a></li>
+        <li><a href="#using-any">using Any</a></li>
+        <li><a href="#using-stdmapbindings">using StdMapBindings</a></li>
+        <li><a href="#using-stdunorderedmapbindings">using StdUnorderedMapBindings</a></li>
+        <li><a href="#typedef-printfn">typedef PrintFn</a></li>
+        <li><a href="#typedef-loadfilefn">typedef LoadFileFn</a></li>
       </ul>
     </li>
     <li><a href="#functions-documentation">Functions Documentation</a>
       <ul>
-        <li><a href="#function-getclasscast">function getClassCast</a></li>
-        <li><a href="#function-getclasstype">function getClassType</a></li>
-        <li><a href="#function-addclasscast">function addClassCast</a></li>
-        <li><a href="#function-addclasstype">function addClassType</a></li>
-        <li><a href="#function-getsharedvm">function getSharedVm</a></li>
         <li><a href="#function-setnexterror">function setNextError</a></li>
+        <li><a href="#function-getsharedvm">function getSharedVm</a></li>
+        <li><a href="#function-addclasstype">function addClassType</a></li>
+        <li><a href="#function-addclasscast">function addClassCast</a></li>
+        <li><a href="#function-getclasstype">function getClassType</a></li>
+        <li><a href="#function-getclasscast">function getClassCast</a></li>
       </ul>
     </li>
   </ul>
