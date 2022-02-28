@@ -19,11 +19,11 @@ jobs:
         include:
           - name: 'Windows x64'
             os: windows-latest
-            generator: 'Visual Studio 16 2019'
+            generator: 'Visual Studio 17 2022'
             arch: '-A x64'
           - name: 'Windows x86'
             os: windows-latest
-            generator: 'Visual Studio 16 2019'
+            generator: 'Visual Studio 17 2022'
             arch: '-A Win32'
           - name: 'Linux x64'
             os: ubuntu-latest
