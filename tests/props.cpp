@@ -158,3 +158,129 @@ TEST_CASE("Properties as classes") {
     auto v = r.as<Vec3>();
     REQUIRE(v.z == Approx(3.3));
 }
+
+class BaseAsset {
+public:
+    explicit BaseAsset(std::string name) : name(std::move(name)) {
+
+    }
+
+    void setName(std::string value) {
+        name = std::move(value);
+    }
+
+    const std::string& getName() const {
+        return name;
+    }
+
+    std::string getSomeString() {
+        return "hello from base class";
+    }
+
+    std::string name;
+};
+
+class ModelAsset : public BaseAsset {
+public:
+    explicit ModelAsset(std::string name, std::string path) : BaseAsset(std::move(name)), path(std::move(path)) {
+
+    }
+
+    void setPath(std::string value) {
+        path = std::move(value);
+    }
+
+    const std::string& getPath() const {
+        return path;
+    }
+
+    std::string path;
+};
+
+TEST_CASE("Properties from base class") {
+    const auto bind = [](wren::VM& vm) {
+        auto& m = vm.module("test");
+        {
+            auto& cls = m.klass<BaseAsset>("BaseAsset");
+            cls.prop<&BaseAsset::getName, &BaseAsset::setName>("name");
+            cls.var<&BaseAsset::name>("rawName");
+        }
+        {
+            auto& cls = m.klass<ModelAsset, BaseAsset>("ModelAsset");
+            cls.ctor<std::string, std::string>();
+            cls.prop<&BaseAsset::getName, &BaseAsset::setName>("name");
+            cls.func<&BaseAsset::getSomeString>("getSomeString");
+            cls.prop<&ModelAsset::getPath, &ModelAsset::setPath>("path");
+            cls.var<&BaseAsset::name>("rawName");
+        }
+
+        ModelAsset asset("some_asset_name", "path_to_file.png");
+    };
+
+    SECTION("Call function from base class") {
+        const std::string code = R"(
+            import "test" for ModelAsset
+
+            class Main {
+                static main() {
+                    var asset = ModelAsset.new("some_asset_name", "path_to_file.png")
+                    return asset.getSomeString()
+                }
+            }
+        )";
+
+        wren::VM vm;
+        bind(vm);
+
+        vm.runFromSource("main", code);
+        auto main = vm.find("main", "Main").func("main()");
+        auto r = main();
+        REQUIRE(r.is<std::string>());
+        REQUIRE(r.as<std::string>() == "hello from base class");
+    }
+
+    SECTION("Return base prop") {
+        const std::string code = R"(
+            import "test" for ModelAsset
+
+            class Main {
+                static main() {
+                    var asset = ModelAsset.new("some_asset_name", "path_to_file.png")
+                    return asset.name
+                }
+            }
+        )";
+
+        wren::VM vm;
+        bind(vm);
+
+        vm.runFromSource("main", code);
+        auto main = vm.find("main", "Main").func("main()");
+        auto r = main();
+        REQUIRE(r.is<std::string>());
+        REQUIRE(r.as<std::string>() == "some_asset_name");
+    }
+
+    SECTION("Return base var") {
+        const std::string code = R"(
+            import "test" for ModelAsset
+
+            class Main {
+                static main() {
+                    var asset = ModelAsset.new("some_asset_name", "path_to_file.png")
+                    return asset.rawName
+                }
+            }
+        )";
+
+        wren::VM vm;
+        bind(vm);
+
+        vm.runFromSource("main", code);
+        auto main = vm.find("main", "Main").func("main()");
+        auto r = main();
+        REQUIRE(r.is<std::string>());
+        REQUIRE(r.as<std::string>() == "some_asset_name");
+    }
+}
+

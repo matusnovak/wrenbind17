@@ -406,6 +406,13 @@ namespace wrenbind17 {
 
             typedef decltype(getType(static_cast<M>(nullptr))) type;
         };
+
+        template <typename Var, Var var>
+        struct GetVarTraits;
+
+        template <typename C, typename T, T C::*Var> struct GetVarTraits<T C::*, Var> {
+            using klass = C;
+        };
     } // namespace detail
 #endif
 
@@ -468,13 +475,15 @@ namespace wrenbind17 {
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
         template <typename Signature, Signature signature> struct ForeignMethodDetails;
 
-        template <typename R, typename... Args, R (T::*Fn)(Args...)>
-        struct ForeignMethodDetails<R (T::*)(Args...), Fn> {
+        template <typename R, typename C, typename... Args, R (C::*Fn)(Args...)>
+        struct ForeignMethodDetails<R (C::*)(Args...), Fn> {
+            static_assert(std::is_base_of<C, T>::value, "The method belong to its own class or a base class");
+
             typedef ForeignMethodImpl<Args...> ForeignMethodImplType;
 
             static std::unique_ptr<ForeignMethodImplType> make(std::string name) {
                 auto signature = ForeignMethodImplType::generateSignature(name);
-                auto p = detail::ForeignMethodCaller<R, T, Args...>::template call<Fn>;
+                auto p = detail::ForeignMethodCaller<R, C, Args...>::template call<Fn>;
                 name = name + detail::generateNameArgs<Args...>();
                 return std::make_unique<ForeignMethodImplType>(std::move(name), std::move(signature), p, false);
             }
@@ -482,18 +491,20 @@ namespace wrenbind17 {
             static std::unique_ptr<ForeignMethodImplType> make(const ForeignMethodOperator op) {
                 auto signature = ForeignMethodImplType::generateSignature(op);
                 auto name = ForeignMethodImplType::generateName(op);
-                auto p = detail::ForeignMethodCaller<R, T, Args...>::template call<Fn>;
+                auto p = detail::ForeignMethodCaller<R, C, Args...>::template call<Fn>;
                 return std::make_unique<ForeignMethodImplType>(std::move(name), std::move(signature), p, false);
             }
         };
 
-        template <typename R, typename... Args, R (T::*Fn)(Args...) const>
-        struct ForeignMethodDetails<R (T::*)(Args...) const, Fn> {
+        template <typename R, typename C, typename... Args, R (C::*Fn)(Args...) const>
+        struct ForeignMethodDetails<R (C::*)(Args...) const, Fn> {
+            static_assert(std::is_base_of<C, T>::value, "The method belong to its own class or a base class");
+
             typedef ForeignMethodImpl<Args...> ForeignMethodImplType;
 
             static std::unique_ptr<ForeignMethodImplType> make(std::string name) {
                 auto signature = ForeignMethodImplType::generateSignature(name);
-                auto p = detail::ForeignMethodCaller<R, T, Args...>::template call<Fn>;
+                auto p = detail::ForeignMethodCaller<R, C, Args...>::template call<Fn>;
                 name = name + detail::generateNameArgs<Args...>();
                 return std::make_unique<ForeignMethodImplType>(std::move(name), std::move(signature), p, false);
             }
@@ -501,7 +512,7 @@ namespace wrenbind17 {
             static std::unique_ptr<ForeignMethodImplType> make(const ForeignMethodOperator op) {
                 auto signature = ForeignMethodImplType::generateSignature(op);
                 auto name = ForeignMethodImplType::generateName(op);
-                auto p = detail::ForeignMethodCaller<R, T, Args...>::template call<Fn>;
+                auto p = detail::ForeignMethodCaller<R, C, Args...>::template call<Fn>;
                 return std::make_unique<ForeignMethodImplType>(std::move(name), std::move(signature), p, false);
             }
         };
@@ -527,26 +538,32 @@ namespace wrenbind17 {
             }
         };
 
-        template <typename V, V T::*Ptr> struct ForeignVarDetails {
+        template <typename V, typename C, V C::*Ptr> struct ForeignVarDetails {
+            static_assert(std::is_base_of<C, T>::value, "The variable belong to its own class or a base class");
+
             static std::unique_ptr<ForeignProp> make(std::string name, const bool readonly) {
-                auto s = readonly ? nullptr : detail::ForeignPropCaller<T, V, Ptr>::setter;
-                auto g = detail::ForeignPropCaller<T, V, Ptr>::getter;
+                auto s = readonly ? nullptr : detail::ForeignPropCaller<C, V, Ptr>::setter;
+                auto g = detail::ForeignPropCaller<C, V, Ptr>::getter;
                 return std::make_unique<ForeignProp>(std::move(name), g, s, false);
             }
         };
 
-        template <typename V, V T::*Ptr> struct ForeignVarReadonlyDetails {
+        template <typename V, typename C, V C::*Ptr> struct ForeignVarReadonlyDetails {
+            static_assert(std::is_base_of<C, T>::value, "The variable belong to its own class or a base class");
+
             static std::unique_ptr<ForeignProp> make(std::string name, const bool readonly) {
-                auto g = detail::ForeignPropCaller<T, V, Ptr>::getter;
+                auto g = detail::ForeignPropCaller<C, V, Ptr>::getter;
                 return std::make_unique<ForeignProp>(std::move(name), g, nullptr, false);
             }
         };
 
         template <typename Signature, Signature signature> struct ForeignSetterDetails;
 
-        template <typename V, void (T::*Fn)(V)> struct ForeignSetterDetails<void (T::*)(V), Fn> {
+        template <typename V, typename C, void (C::*Fn)(V)> struct ForeignSetterDetails<void (C::*)(V), Fn> {
+            static_assert(std::is_base_of<C, T>::value, "The setter must belong to its own class or a base class");
+
             static WrenForeignMethodFn method() {
-                return detail::ForeignMethodCaller<void, T, V>::template call<Fn>;
+                return detail::ForeignMethodCaller<void, C, V>::template call<Fn>;
             }
         };
 
@@ -560,15 +577,19 @@ namespace wrenbind17 {
 
         template <typename Signature, Signature signature> struct ForeignGetterDetails;
 
-        template <typename R, R (T::*Fn)()> struct ForeignGetterDetails<R (T::*)(), Fn> {
+        template <typename R, typename C, R (C::*Fn)()> struct ForeignGetterDetails<R (C::*)(), Fn> {
+            static_assert(std::is_base_of<C, T>::value, "The getter must belong to its own class or a base class");
+
             static WrenForeignMethodFn method() {
-                return detail::ForeignMethodCaller<R, T>::template call<Fn>;
+                return detail::ForeignMethodCaller<R, C>::template call<Fn>;
             }
         };
 
-        template <typename R, R (T::*Fn)() const> struct ForeignGetterDetails<R (T::*)() const, Fn> {
+        template <typename R, typename C, R (C::*Fn)() const> struct ForeignGetterDetails<R (C::*)() const, Fn> {
+            static_assert(std::is_base_of<C, T>::value, "The getter must belong to its own class or a base class");
+
             static WrenForeignMethodFn method() {
-                return detail::ForeignMethodCaller<R, T>::template call<Fn>;
+                return detail::ForeignMethodCaller<R, C>::template call<Fn>;
             }
         };
 
@@ -836,7 +857,8 @@ namespace wrenbind17 {
          */
         template <auto Var> void var(std::string name) {
             using R = typename detail::GetPointerType<decltype(Var)>::type;
-            auto ptr = ForeignVarDetails<R, Var>::make(std::move(name), false);
+            using C = typename detail::GetVarTraits<decltype(Var), Var>::klass;
+            auto ptr = ForeignVarDetails<R, C, Var>::make(std::move(name), false);
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
@@ -847,7 +869,8 @@ namespace wrenbind17 {
          */
         template <auto Var> void varReadonly(std::string name) {
             using R = typename detail::GetPointerType<decltype(Var)>::type;
-            auto ptr = ForeignVarReadonlyDetails<R, Var>::make(std::move(name), true);
+            using C = typename detail::GetVarTraits<decltype(Var), Var>::klass;
+            auto ptr = ForeignVarReadonlyDetails<R, C, Var>::make(std::move(name), true);
             props.insert(std::make_pair(ptr->getName(), std::move(ptr)));
         }
 
