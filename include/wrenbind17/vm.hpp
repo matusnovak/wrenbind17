@@ -76,7 +76,9 @@ namespace wrenbind17 {
             data->config.heapGrowthPercent = heapGrowth;
             data->config.userData = data.get();
 #if WREN_VERSION_NUMBER >= 4000 // >= 0.4.0
-            data->config.reallocateFn = [](void* memory, size_t newSize, void* userData) -> void* { return std::realloc(memory, newSize); };
+            data->config.reallocateFn = [](void* memory, size_t newSize, void* userData) -> void* {
+                return std::realloc(memory, newSize);
+            };
             data->config.loadModuleFn = [](WrenVM* vm, const char* name) -> WrenLoadModuleResult {
                 auto res = WrenLoadModuleResult();
                 auto& self = *reinterpret_cast<VM::Data*>(wrenGetUserData(vm));
@@ -87,6 +89,9 @@ namespace wrenbind17 {
                     auto buffer = new char[source.size() + 1];
                     std::memcpy(buffer, &source[0], source.size() + 1);
                     res.source = buffer;
+                    res.onComplete = [](WrenVM* vm, const char* name, struct WrenLoadModuleResult result) {
+                        delete[] result.source;
+                    };
                     return res;
                 }
 
@@ -95,12 +100,15 @@ namespace wrenbind17 {
                     auto buffer = new char[source.size() + 1];
                     std::memcpy(buffer, &source[0], source.size() + 1);
                     res.source = buffer;
+                    res.onComplete = [](WrenVM* vm, const char* name, struct WrenLoadModuleResult result) {
+                        delete[] result.source;
+                    };
                 } catch (std::exception& e) {
                     (void)e;
                 }
                 return res;
             };
-#else // < 0.4.0
+#else  // < 0.4.0
             data->config.reallocateFn = std::realloc;
             data->config.loadModuleFn = [](WrenVM* vm, const char* name) -> char* {
                 auto& self = *reinterpret_cast<VM::Data*>(wrenGetUserData(vm));
