@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
     wren::VM vm;
 
     // Runs the code from the std::string as a "main" module
-    vm.runFromSource("main", "System.print("Hello World!")");
+    vm.runFromSource("main", code);
 
     return 0;
 }
