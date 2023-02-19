@@ -1,9 +1,12 @@
 #pragma once
 
-#include "pop.hpp"
-#include "push.hpp"
+#include <wren.hpp>
+
 #include <map>
 #include <unordered_map>
+
+#include "pop.hpp"
+#include "push.hpp"
 
 namespace wrenbind17 {
 #ifndef DOXYGEN_SHOULD_SKIP_THIS

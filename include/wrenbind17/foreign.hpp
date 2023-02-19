@@ -1,10 +1,14 @@
 #pragma once
 
-#include "allocator.hpp"
-#include "caller.hpp"
+#include <wren.hpp>
+
 #include <iostream>
+#include <sstream>
 #include <ostream>
 #include <unordered_map>
+
+#include "allocator.hpp"
+#include "caller.hpp"
 
 /**
  * @ingroup wrenbind17

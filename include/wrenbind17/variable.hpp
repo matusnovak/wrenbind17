@@ -1,5 +1,8 @@
 #pragma once
 
+#include <memory>
+
+#include "exception.hpp"
 #include "method.hpp"
 #include "pop.hpp"
 #include "push.hpp"

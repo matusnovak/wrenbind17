@@ -1,5 +1,10 @@
 #pragma once
 
+#include <wren.hpp>
+
+#include <string>
+#include <memory>
+
 #include "object.hpp"
 
 namespace wrenbind17 {

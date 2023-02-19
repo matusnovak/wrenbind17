@@ -1,8 +1,11 @@
 #pragma once
 
+#include <wren.hpp>
+
+#include <vector>
+
 #include "pop.hpp"
 #include "push.hpp"
-#include <vector>
 
 namespace wrenbind17 {
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
