@@ -1,5 +1,9 @@
 #pragma once
 
+#include <wren.hpp>
+
+#include <memory>
+
 #include "index.hpp"
 #include "pop.hpp"
 #include "push.hpp"

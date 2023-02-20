@@ -1,9 +1,11 @@
 #pragma once
 
+#include <typeinfo>
+#include <memory>
+
 #include "handle.hpp"
 #include "pop.hpp"
 #include "push.hpp"
-#include <typeinfo>
 
 /**
  * @ingroup wrenbind17

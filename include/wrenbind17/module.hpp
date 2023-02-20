@@ -1,6 +1,12 @@
 #pragma once
 
+#include <wren.hpp>
+
+#include <vector>
+#include <string>
 #include <sstream>
+#include <unordered_map>
+
 #include "foreign.hpp"
 
 /**

@@ -1,7 +1,10 @@
 #pragma once
 
-#include <memory>
 #include <wren.hpp>
+
+#include <memory>
+
+#include "exception.hpp"
 
 /**
  * @ingroup wrenbind17

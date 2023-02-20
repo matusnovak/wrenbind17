@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 /**
  * @ingroup wrenbind17
  */

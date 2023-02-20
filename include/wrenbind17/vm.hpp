@@ -1,8 +1,9 @@
 #pragma once
 
-#include "map.hpp"
-#include "module.hpp"
-#include "variable.hpp"
+#include <wren.hpp>
+
+#include <iostream>
+#include <sstream>
 #include <cassert>
 #include <cstdlib>
 #include <cstring>
@@ -10,6 +11,12 @@
 #include <functional>
 #include <unordered_map>
 #include <vector>
+#include <memory>
+
+#include "exception.hpp"
+#include "map.hpp"
+#include "module.hpp"
+#include "variable.hpp"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 namespace std {

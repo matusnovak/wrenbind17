@@ -1,10 +1,12 @@
 #pragma once
 
-#include "module.hpp"
+#include <algorithm>
 #include <list>
 #include <map>
 #include <unordered_map>
 #include <vector>
+
+#include "module.hpp"
 
 namespace wrenbind17 {
 #ifndef DOXYGEN_SHOULD_SKIP_THIS

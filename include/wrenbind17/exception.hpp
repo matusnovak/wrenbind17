@@ -1,6 +1,8 @@
 #pragma once
 
 #include <stdexcept>
+#include <memory>
+#include <string>
 
 /**
  * @ingroup wrenbind17

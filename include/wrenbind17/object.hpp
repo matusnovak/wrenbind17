@@ -1,13 +1,15 @@
 #pragma once
 
-#include "exception.hpp"
-#include "handle.hpp"
+#include <wren.hpp>
+
 #include <cstdlib>
 #include <memory>
 #include <string>
 #include <typeinfo>
 #include <variant>
-#include <wren.hpp>
+
+#include "exception.hpp"
+#include "handle.hpp"
 
 /**
  * @ingroup wrenbind17
