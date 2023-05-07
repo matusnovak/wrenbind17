@@ -428,7 +428,7 @@ namespace wrenbind17 {
     public:
         ForeignKlassImpl(std::string name) : ForeignKlass(std::move(name)) {
             allocators.allocate = nullptr;
-            allocators.finalize = nullptr;
+            allocators.finalize = &detail::ForeignKlassAllocator<T>::finalize;
         }
 
         ~ForeignKlassImpl() = default;
@@ -462,7 +462,6 @@ namespace wrenbind17 {
          */
         template <typename... Args> void ctor(const std::string& name = "new") {
             allocators.allocate = &detail::ForeignKlassAllocator<T, Args...>::allocate;
-            allocators.finalize = &detail::ForeignKlassAllocator<T, Args...>::finalize;
             std::stringstream ss;
             ss << "construct " << name << " (";
             constexpr auto n = sizeof...(Args);
