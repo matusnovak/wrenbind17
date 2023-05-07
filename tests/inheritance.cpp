@@ -152,3 +152,69 @@ TEST_CASE("Derived method with shared_ptr") {
     auto main = vm.find("main", "Main").func("main()");
     REQUIRE_NOTHROW(main());
 }
+
+class FooBase {
+public:
+    FooBase() {
+        std::cout << "Called FooBase()" << std::endl;
+        counter++;
+    }
+    virtual ~FooBase() {
+        std::cout << "Called ~FooBase()" << std::endl;
+        counter--;
+    };
+
+    static inline size_t counter{0};
+};
+
+class FooDerived : public FooBase {
+public:
+    FooDerived() {
+        std::cout << "Called FooDerived()" << std::endl;
+        counter++;
+    }
+    virtual ~FooDerived() {
+        std::cout << "Called ~FooDerived()" << std::endl;
+        counter--;
+    }
+
+    static inline size_t counter{0};
+};
+
+class FooFactory {
+public:
+    static std::shared_ptr<FooBase> factory() {
+        return std::make_shared<FooDerived>();
+    }
+};
+
+TEST_CASE("Destructors tests") {
+    auto vm = std::make_unique<wren::VM>();
+
+    auto& m = vm->module("test");
+    m.klass<FooBase>("FooBase");
+
+    {
+        auto& klass = m.klass<FooFactory>("FooFactory");
+        klass.funcStatic<&FooFactory::factory>("factory");
+    }
+
+    const std::string code = R"(
+        import "test" for FooFactory
+
+        var foo = FooFactory.factory()
+    )";
+
+    REQUIRE(FooBase::counter == 0);
+    REQUIRE(FooDerived::counter == 0);
+
+    vm->runFromSource("main", code);
+
+    REQUIRE(FooBase::counter == 1);
+    REQUIRE(FooDerived::counter == 1);
+
+    vm.reset();
+
+    REQUIRE(FooBase::counter == 0);
+    REQUIRE(FooDerived::counter == 0);
+}
