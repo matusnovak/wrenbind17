@@ -14,7 +14,7 @@
 <link rel="manifest" href="/wrenbind17/manifest.json">
 <link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
-<script defer src="/wrenbind17/en.search.min.d821bc4671e09f70c11205fdbb12a428d1e7a206559339bc157cbdc6081e40ca.js" integrity="sha256-2CG8RnHgn3DBEgX9uxKkKNHnogZVkzm8FXy9xggeQMo="></script>
+<script defer src="/wrenbind17/en.search.min.0a7a3a9aa866ceb5f9d0342ad615d395091f74e3be96bc1555db73b7876d3085.js" integrity="sha256-Cno6mqhmzrX50DQq1hXTlQkfdOO&#43;lrwVVdtzt4dtMIU="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -200,11 +200,15 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#pragma once
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;allocator.hpp&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;caller.hpp&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;wren.hpp&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sstream&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ostream&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unordered_map&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;allocator.hpp&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;caller.hpp&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">namespace</span> wrenbind17 {
     <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">ForeignMethodOperator</span> {
@@ -559,7 +563,7 @@ https://github.com/alex-shpak/hugo-book
     <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
         ForeignKlassImpl(std<span style="color:#f92672">::</span>string name) <span style="color:#f92672">:</span> ForeignKlass(std<span style="color:#f92672">::</span>move(name)) {
             allocators.allocate <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
-            allocators.finalize <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+            allocators.finalize <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>detail<span style="color:#f92672">::</span>ForeignKlassAllocator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>finalize;
         }
 
         <span style="color:#f92672">~</span>ForeignKlassImpl() <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;
@@ -587,7 +591,6 @@ https://github.com/alex-shpak/hugo-book
 
         <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span>... Args<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> ctor(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;new&#34;</span>) {
             allocators.allocate <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>detail<span style="color:#f92672">::</span>ForeignKlassAllocator<span style="color:#f92672">&lt;</span>T, Args...<span style="color:#f92672">&gt;::</span>allocate;
-            allocators.finalize <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>detail<span style="color:#f92672">::</span>ForeignKlassAllocator<span style="color:#f92672">&lt;</span>T, Args...<span style="color:#f92672">&gt;::</span>finalize;
             std<span style="color:#f92672">::</span>stringstream ss;
             ss <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;construct &#34;</span> <span style="color:#f92672">&lt;&lt;</span> name <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; (&#34;</span>;
             <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">auto</span> n <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>...(Args);
@@ -805,7 +808,7 @@ https://github.com/alex-shpak/hugo-book
     };
 } <span style="color:#75715e">// namespace wrenbind17
 </span></code></pre></div><hr>
-<p>Updated on 28 February 2022 at 21:40:10 UTC</p>
+<p>Updated on  7 May 2023 at 16:44:23 UTC</p>
 </article>
  
       

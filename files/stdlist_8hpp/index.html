@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="include/wrenbind17/stdlist.hpp #  Namespaces #     Name     wrenbind17    Source code #  #pragma once  #include &#34;pop.hpp&#34;#include &#34;push.hpp&#34;#include &lt;list&gt; namespace wrenbind17 { #ifndef DOXYGEN_SHOULD_SKIP_THIS  namespace detail { template &lt;typename T&gt; struct PushHelper&lt;std::list&lt;T&gt;&gt; { static inline void f(WrenVM* vm, int idx, std::list&lt;T&gt; value) { if (isClassRegistered(vm, typeid(std::list&lt;T&gt;).hash_code())) { pushAsMove&lt;std::list&lt;T&gt;&gt;(vm, idx, std::move(value)); } else { loopAndPushIterable(vm, idx, value.begin(), value.end()); } } }; template &lt;typename T&gt; struct PushHelper&lt;std::list&lt;T&gt;*&gt; { static inline void f(WrenVM* vm, int idx, std::list&lt;T&gt;* value) { if (isClassRegistered(vm, typeid(std::list&lt;T&gt;).">
+<meta name="description" content="include/wrenbind17/stdlist.hpp #  Namespaces #     Name     wrenbind17    Source code #  #pragma once  #include &lt;wren.hpp&gt; #include &lt;list&gt; #include &#34;pop.hpp&#34;#include &#34;push.hpp&#34; namespace wrenbind17 { #ifndef DOXYGEN_SHOULD_SKIP_THIS  namespace detail { template &lt;typename T&gt; struct PushHelper&lt;std::list&lt;T&gt;&gt; { static inline void f(WrenVM* vm, int idx, std::list&lt;T&gt; value) { if (isClassRegistered(vm, typeid(std::list&lt;T&gt;).hash_code())) { pushAsMove&lt;std::list&lt;T&gt;&gt;(vm, idx, std::move(value)); } else { loopAndPushIterable(vm, idx, value.begin(), value.">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="include/wrenbind17/stdlist.hpp" />
-<meta property="og:description" content="include/wrenbind17/stdlist.hpp #  Namespaces #     Name     wrenbind17    Source code #  #pragma once  #include &#34;pop.hpp&#34;#include &#34;push.hpp&#34;#include &lt;list&gt; namespace wrenbind17 { #ifndef DOXYGEN_SHOULD_SKIP_THIS  namespace detail { template &lt;typename T&gt; struct PushHelper&lt;std::list&lt;T&gt;&gt; { static inline void f(WrenVM* vm, int idx, std::list&lt;T&gt; value) { if (isClassRegistered(vm, typeid(std::list&lt;T&gt;).hash_code())) { pushAsMove&lt;std::list&lt;T&gt;&gt;(vm, idx, std::move(value)); } else { loopAndPushIterable(vm, idx, value.begin(), value.end()); } } }; template &lt;typename T&gt; struct PushHelper&lt;std::list&lt;T&gt;*&gt; { static inline void f(WrenVM* vm, int idx, std::list&lt;T&gt;* value) { if (isClassRegistered(vm, typeid(std::list&lt;T&gt;)." />
+<meta property="og:description" content="include/wrenbind17/stdlist.hpp #  Namespaces #     Name     wrenbind17    Source code #  #pragma once  #include &lt;wren.hpp&gt; #include &lt;list&gt; #include &#34;pop.hpp&#34;#include &#34;push.hpp&#34; namespace wrenbind17 { #ifndef DOXYGEN_SHOULD_SKIP_THIS  namespace detail { template &lt;typename T&gt; struct PushHelper&lt;std::list&lt;T&gt;&gt; { static inline void f(WrenVM* vm, int idx, std::list&lt;T&gt; value) { if (isClassRegistered(vm, typeid(std::list&lt;T&gt;).hash_code())) { pushAsMove&lt;std::list&lt;T&gt;&gt;(vm, idx, std::move(value)); } else { loopAndPushIterable(vm, idx, value.begin(), value." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://matusnovak.github.io/wrenbind17/files/stdlist_8hpp/" />
 
@@ -14,7 +14,7 @@
 <link rel="manifest" href="/wrenbind17/manifest.json">
 <link rel="icon" href="/wrenbind17/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/wrenbind17/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css" integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY=">
-<script defer src="/wrenbind17/en.search.min.d821bc4671e09f70c11205fdbb12a428d1e7a206559339bc157cbdc6081e40ca.js" integrity="sha256-2CG8RnHgn3DBEgX9uxKkKNHnogZVkzm8FXy9xggeQMo="></script>
+<script defer src="/wrenbind17/en.search.min.0a7a3a9aa866ceb5f9d0342ad615d395091f74e3be96bc1555db73b7876d3085.js" integrity="sha256-Cno6mqhmzrX50DQq1hXTlQkfdOO&#43;lrwVVdtzt4dtMIU="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -161,9 +161,12 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#pragma once
 </span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;wren.hpp&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
 <span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;pop.hpp&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;push.hpp&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">namespace</span> wrenbind17 {
 <span style="color:#75715e">#ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -227,7 +230,7 @@ https://github.com/alex-shpak/hugo-book
 </span><span style="color:#75715e"></span><span style="color:#75715e">#endif
 </span><span style="color:#75715e"></span>} <span style="color:#75715e">// namespace wrenbind17
 </span></code></pre></div><hr>
-<p>Updated on 28 February 2022 at 21:40:10 UTC</p>
+<p>Updated on  7 May 2023 at 16:44:23 UTC</p>
 </article>
  
       
