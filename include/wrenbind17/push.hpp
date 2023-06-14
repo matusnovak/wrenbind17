@@ -3,6 +3,7 @@
 #include <wren.hpp>
 
 #include <string>
+#include <string_view>
 
 #include "exception.hpp"
 #include "object.hpp"
@@ -196,6 +197,12 @@ namespace wrenbind17 {
         template <> struct PushHelper<char*&> {
             static inline void f(WrenVM* vm, int idx, char*& value) {
                 wrenSetSlotString(vm, idx, value);
+            }
+        };
+
+        template <> struct PushHelper<std::string_view> {
+            static inline void f(WrenVM* vm, int idx, std::string_view value) {
+                wrenSetSlotString(vm, idx, value.data());
             }
         };
 
