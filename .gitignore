@@ -3,6 +3,8 @@ temp/
 install/
 .vscode/
 .vs/
+.idea/
+cmake-build-*/
 *.kdev4
 *~
 CMakeSettings.json

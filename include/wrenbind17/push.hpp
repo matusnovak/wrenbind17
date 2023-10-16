@@ -175,6 +175,12 @@ namespace wrenbind17 {
             }
         };
 
+        template <> struct PushHelper<std::string*> {
+            static inline void f(WrenVM* vm, int idx, const std::string* value) {
+                wrenSetSlotString(vm, idx, value->c_str());
+            }
+        };
+
         template <size_t N> struct PushHelper<const char (&)[N]> {
             static inline void f(WrenVM* vm, int idx, const char (&value)[N]) {
                 wrenSetSlotString(vm, idx, value);

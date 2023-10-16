@@ -284,3 +284,88 @@ TEST_CASE("Properties from base class") {
     }
 }
 
+typedef struct Vector2 {
+    float x;
+    float y;
+} Vector2;
+
+typedef struct Camera2D {
+    Vector2 offset;
+    float rotation;
+
+    void debug() const {
+        std::cout << "Camera2D" << std::endl;
+        std::cout << "offset: " << offset.x << ", " << offset.y << std::endl;
+        std::cout << "rotation: " << rotation << std::endl;
+    }
+} Camera2D;
+
+TEST_CASE("Properties of properties") {
+    wren::VM vm;
+    auto& m = vm.module("test");
+
+    {
+        auto& cls = m.klass<Vector2>("Vector2");
+        cls.ctor<>();
+        cls.var<&Vector2::x>("x");
+        cls.var<&Vector2::y>("y");
+    }
+
+    {
+        auto& cls = m.klass<Camera2D>("Camera2D");
+        cls.ctor<>();
+        cls.var<&Camera2D::offset>("offset");
+        cls.var<&Camera2D::rotation>("rotation");
+        cls.func<&Camera2D::debug>("debug");
+    }
+
+    const std::string code = R"(
+        import "test" for Camera2D, Vector2
+
+        class Main {
+            static main1() {
+                var cam = Camera2D.new()
+
+                cam.rotation = 180
+                cam.offset.x = 1280
+                cam.offset.y = 768
+
+                System.print("Cam Offset: %(cam.offset.x), %(cam.offset.y) ")
+                cam.debug()
+
+                return cam.offset.x
+            }
+
+            static main2() {
+                var cam = Camera2D.new()
+
+                cam.rotation = 180
+                cam.offset.x = 1280
+                cam.offset.y = 768
+
+                System.print("Cam Offset: %(cam.offset.x), %(cam.offset.y) ")
+                cam.debug()
+
+                return cam.offset
+            }
+        }
+    )";
+
+    vm.runFromSource("main", code);
+
+    { // Main 1, return a component of a property
+        auto main = vm.find("main", "Main").func("main1()");
+        auto r = main();
+        REQUIRE(r.is<float>());
+        REQUIRE(r.as<float>() == Approx(1280.0f));
+    }
+
+    { // Main 2, return a property itself
+        auto main = vm.find("main", "Main").func("main2()");
+        auto r = main();
+        REQUIRE(r.is<Vector2>());
+        auto vec = r.as<Vector2>();
+        REQUIRE(vec.x == Approx(1280.0f));
+        REQUIRE(vec.y == Approx(768.0f));
+    }
+}
