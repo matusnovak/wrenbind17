@@ -75,6 +75,11 @@ namespace wrenbind17 {
         };
 
         template <>
+        inline void ForeginMethodReturnHelper<std::string_view>::push(WrenVM* vm, int index, std::string_view ret) {
+            PushHelper<std::string_view>::f(vm, index, ret);
+        }
+
+        template <>
         inline void ForeginMethodReturnHelper<const std::string&>::push(WrenVM* vm, int index, const std::string& ret) {
             PushHelper<const std::string&>::f(vm, index, ret);
         }
