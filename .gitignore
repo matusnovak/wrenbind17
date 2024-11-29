@@ -8,6 +8,7 @@ cmake-build-*/
 *.kdev4
 *~
 CMakeSettings.json
+CMakeUserPresets.json
 
 # doxygen
 docs/doxygen/*.md

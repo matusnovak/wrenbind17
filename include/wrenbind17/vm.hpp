@@ -33,6 +33,38 @@ namespace std {
  * @ingroup wrenbind17
  */
 namespace wrenbind17 {
+
+    namespace detail {
+        inline std::string defaultLoadFileFn(const std::string& name) {
+
+            if (auto t = std::ifstream(name)) {
+                std::string source((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
+                return source;
+            }
+
+            throw NotFound();
+        }
+
+        inline void defaultPrintFn(const char* text) {
+            std::cout << text;
+        }
+
+        inline std::string defaultPathResolveFn(const std::vector<std::string>& paths, const std::string& importer,
+                                                const std::string& name) {
+            for (const auto& path : paths) {
+                const auto test = path + "/" + std::string(name) + ".wren";
+
+                std::ifstream t(test);
+                if (!t)
+                    continue;
+
+                return test;
+            }
+
+            return name;
+        }
+    } // namespace detail
+
     /**
      * @ingroup wrenbind17
      */
@@ -41,7 +73,14 @@ namespace wrenbind17 {
     /**
      * @ingroup wrenbind17
      */
-    typedef std::function<std::string(const std::vector<std::string>& paths, const std::string& name)> LoadFileFn;
+    typedef std::function<std::string(const std::string& name)> LoadFileFn;
+
+    /**
+     * @ingroup wrenbind17
+     */
+    typedef std::function<std::string(const std::vector<std::string>& paths, const std::string& importer,
+                                      const std::string& name)>
+        PathResolveFn;
 
     /**
      * @ingroup wrenbind17
@@ -61,27 +100,18 @@ namespace wrenbind17 {
             : data(std::make_unique<Data>()) {
 
             data->paths = std::move(paths);
-            data->printFn = [](const char* text) -> void { std::cout << text; };
-            data->loadFileFn = [](const std::vector<std::string>& paths, const std::string& name) -> std::string {
-                for (const auto& path : paths) {
-                    const auto test = path + "/" + std::string(name) + ".wren";
 
-                    std::ifstream t(test);
-                    if (!t)
-                        continue;
-
-                    std::string source((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
-                    return source;
-                }
-
-                throw NotFound();
-            };
+            data->printFn = detail::defaultPrintFn;
+            data->loadFileFn = detail::defaultLoadFileFn;
+            data->pathResolveFn = detail::defaultPathResolveFn;
 
             wrenInitConfiguration(&data->config);
+
             data->config.initialHeapSize = initHeap;
             data->config.minHeapSize = minHeap;
             data->config.heapGrowthPercent = heapGrowth;
             data->config.userData = data.get();
+
 #if WREN_VERSION_NUMBER >= 4000 // >= 0.4.0
             data->config.reallocateFn = [](void* memory, size_t newSize, void* userData) -> void* {
                 return std::realloc(memory, newSize);
@@ -103,7 +133,7 @@ namespace wrenbind17 {
                 }
 
                 try {
-                    auto source = self.loadFileFn(self.paths, std::string(name));
+                    auto source = self.loadFileFn(std::string(name));
                     auto buffer = new char[source.size() + 1];
                     std::memcpy(buffer, &source[0], source.size() + 1);
                     res.source = buffer;
@@ -114,6 +144,14 @@ namespace wrenbind17 {
                     (void)e;
                 }
                 return res;
+            };
+            data->config.resolveModuleFn = [](WrenVM* vm, const char* importer, const char* name) -> const char* {
+                auto& self = *reinterpret_cast<VM::Data*>(wrenGetUserData(vm));
+                const auto resolved = self.pathResolveFn(self.paths, std::string(importer), std::string(name));
+                auto buffer = new char[resolved.size() + 1];
+                std::memcpy(buffer, &resolved[0], resolved.size() + 1);
+
+                return buffer;
             };
 #else  // < 0.4.0
             data->config.reallocateFn = std::realloc;
@@ -256,8 +294,9 @@ namespace wrenbind17 {
          * @throws CompileError if the compilation has failed
          */
         inline void runFromModule(const std::string& name) {
-            const auto source = data->loadFileFn(data->paths, name);
-            runFromSource(name, source);
+            const auto resolved = data->pathResolveFn(data->paths, "", name);
+            const auto source = data->loadFileFn(resolved);
+            runFromSource(resolved, source);
         }
 
         /*!
@@ -339,6 +378,20 @@ namespace wrenbind17 {
         }
 
         /*!
+         * @brief Set a custom path resolver for imports
+         * @see PathResolveFn
+         * @details This must be a function that accepts a std::vector of strings
+         * (which are the lookup paths from the constructor), the name of the importer as
+         * the second parameter and the name of the import as the third.
+         * Used for implementing relative paths. If the module is loaded through runFromModule
+         * the importer parameter will be empty.
+         * If you want to cancel the import, simply throw an exception.
+         */
+        inline void setPathResolveFunc(const PathResolveFn& fn) {
+            data->pathResolveFn = fn;
+        }
+
+        /*!
          * @brief Runs the garbage collector
          */
         inline void gc() {
@@ -358,6 +411,7 @@ namespace wrenbind17 {
             std::string nextError;
             PrintFn printFn;
             LoadFileFn loadFileFn;
+            PathResolveFn pathResolveFn;
 
             inline void addClassType(const std::string& module, const std::string& name, const size_t hash) {
                 classToModule.insert(std::make_pair(hash, module));
