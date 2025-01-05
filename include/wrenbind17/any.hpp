@@ -199,6 +199,10 @@ namespace wrenbind17 {
         return type == WREN_TYPE_STRING;
     }
 
+    template <> inline bool ReturnValue::is<std::string_view>() const {
+        return type == WREN_TYPE_STRING;
+    }
+
     template <> inline std::nullptr_t ReturnValue::as<std::nullptr_t>() {
         if (!is<std::nullptr_t>()) {
             throw BadCast("Return value is not a null");

@@ -3,6 +3,7 @@
 #include <wren.hpp>
 
 #include <string>
+#include <string_view>
 #include <memory>
 
 #include "object.hpp"
@@ -51,6 +52,10 @@ namespace wrenbind17 {
         }
 
         template <> inline bool is<std::string>(WrenVM* vm, const int idx) {
+            return wrenGetSlotType(vm, idx) == WrenType::WREN_TYPE_STRING;
+        }
+
+        template <> inline bool is<std::string_view>(WrenVM* vm, const int idx) {
             return wrenGetSlotType(vm, idx) == WrenType::WREN_TYPE_STRING;
         }
 
@@ -253,6 +258,11 @@ namespace wrenbind17 {
         template <> inline std::string getSlot(WrenVM* vm, int idx) {
             validate<WrenType::WREN_TYPE_STRING>(vm, idx);
             return std::string(wrenGetSlotString(vm, idx));
+        }
+
+        template <> inline std::string_view getSlot(WrenVM* vm, int idx) {
+            validate<WrenType::WREN_TYPE_STRING>(vm, idx);
+            return std::string_view(wrenGetSlotString(vm, idx));
         }
 
         template <> inline std::nullptr_t getSlot(WrenVM* vm, int idx) {
