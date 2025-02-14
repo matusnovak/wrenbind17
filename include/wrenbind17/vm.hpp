@@ -114,6 +114,10 @@ namespace wrenbind17 {
 
 #if WREN_VERSION_NUMBER >= 4000 // >= 0.4.0
             data->config.reallocateFn = [](void* memory, size_t newSize, void* userData) -> void* {
+                if (newSize == 0) {
+                    std::free(memory);
+                    return nullptr;
+                }
                 return std::realloc(memory, newSize);
             };
             data->config.loadModuleFn = [](WrenVM* vm, const char* name) -> WrenLoadModuleResult {
