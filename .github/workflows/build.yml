@@ -53,8 +53,8 @@ jobs:
               -DWRENBIND17_BUILD_TESTS=ON \
               .
           elif [ "$RUNNER_OS" == "Linux" ]; then
-            export CC=/usr/bin/gcc-9
-            export CXX=/usr/bin/g++-9
+            export CC=/usr/bin/gcc
+            export CXX=/usr/bin/g++
             cmake \
               -B ./build \
               -G "${{ matrix.generator }}" \
