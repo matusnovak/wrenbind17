@@ -390,9 +390,9 @@ static float getVec3Z(Vec3& self) { ... }
 // Add class "Vec3"
 auto& cls = m.klass<Vec3>("Vec3");
 cls.ctor<>();
-cls.propExtReadonly<&getVec3X>("x");
-cls.propExtReadonly<&getVec3Y>("y");
-cls.propExtReadonly<&getVec3Z>("z");
+cls.propReadonlyExt<&getVec3X>("x");
+cls.propReadonlyExt<&getVec3Y>("y");
+cls.propReadonlyExt<&getVec3Z>("z");
 ```
 
 ### 6.5.5 Class variables from base class
